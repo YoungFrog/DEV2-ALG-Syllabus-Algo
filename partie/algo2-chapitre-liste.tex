@@ -1,0 +1,772 @@
+%=================
+\chapter{La liste}
+%=================
+
+\marginicon{objectif}
+
+Imaginons qu’on désire manipuler par programme une liste de contacts ou
+encore une liste de rendez-vous. Cette liste va varier ; sa taille
+n’est donc pas fixée. Utiliser un tableau à cet effet n’est pas
+l’idéal. En effet, la taille d’un tableau, qu’il soit statique ou
+dynamique, ne peut plus changer une fois le tableau créé. Il faudrait
+le sur-dimensionner, ce qui n’est pas économe.
+
+Il serait intéressant de disposer d’une structure qui offre toutes les
+facilités d’un tableau tout en pouvant «~grandir~» si nécessaire.
+Construisons une telle structure de données et appelons-la «~Liste~»
+pour rester en phase avec son appellation commune en Java.
+
+%========================
+\section{La classe Liste}
+%=========================
+
+Nous verrons plus loin comment la réaliser en pratique mais nous pouvons
+déjà définir le comportement qu’on en attend (les méthodes qu’elle doit
+fournir)
+
+\begin{Pseudocode}
+	\Class{Liste <T>}
+		\RComment T est un type quelconque
+		\Private
+			\LComment sera complété plus tard	
+		\Public
+			\ConstrSign{Liste <T>}{}			
+				\RComment construit une liste vide
+			\MethodSign{get}{pos : entier}{T}
+				\RComment donne un élément en position pos
+			\MethodSign{set}{pos : entier, valeur : T}{}
+				\RComment modifie un élément en position pos
+			\MethodSign{taille}{}{entier}
+				\RComment donne le nombre d’éléments
+			\MethodSign{ajouter}{valeur : T}{}
+				\RComment ajoute un élément en fin de liste
+			\MethodSign{insérer}{pos : entier, valeur : T}{}
+				\RComment insère un élément en position pos
+			\MethodSign{supprimer}{}{}
+				\RComment supprime le dernier élément
+			\MethodSign{supprimerPos}{pos : entier}{}
+				\RComment supprime l'élément en position pos
+			\MethodSign{supprimer}{valeur : T}{booléen}
+				\RComment supprime l'élément de valeur donnée
+			\MethodSign{vider}{}{}
+				\RComment vide la liste
+			\MethodSign{estVide}{}{booléen}
+				\RComment la liste est-elle vide ?
+			\MethodSign{existe}{valeur \In : T, pos \Out : entier}{booléen}
+				\RComment recherche un élément
+		\EndClass
+\end{Pseudocode}
+
+\bigskip
+
+Quelques précisions s’imposent :
+
+\begin{liste}
+	\item 
+		Comme les tableaux, les listes peuvent contenir des éléments de
+		n’importe quel type tout en restant uniforme au sein d’une même liste
+		(on pourra manipuler une liste d’entiers, une liste de contacts, ...
+		mais pas mélanger). Il serait rédhibitoire de devoir définir une Liste
+		pour chaque type d’éléments. On utilise dès lors la possibilité en OO
+		d’écrire un code \textbf{générique}\footnote{\ on parle aussi de
+		«~template~».}. Le «~T~» dans la définition de la classe indique le
+		type des éléments qui sera spécifié lors de l’utilisation de la classe.
+		On écrira par exemple «~\pseudocode{Liste d’entiers}~» pour
+		utiliser une liste d’entiers.
+	\item 
+		Les méthodes «\pseudocode{~get~}» et «\pseudocode{~set~}»
+		permettent de connaitre ou modifier un élément de la liste. On
+		considère, au cours de logique, que le premier élément de 
+		la liste est en position 1.
+	\item 
+		«\pseudocode{~ajouter~}» ajoute un élément en fin de liste (elle
+		grandit donc d’une unité)
+	\item 
+		«\pseudocode{~insérer~}» insère un élément à une position donnée
+		(entre 1 et taille+1). L’élément qui s’y trouvait est décalé
+		d'une position ainsi que tous les éléments suivants.
+	\item 
+		La version de «\pseudocode{~supprimer~}» avec une position en
+		paramètre supprime un élément d'une position donnée en
+		décalant les éléments suivants. On pourrait imaginer une technique plus
+		rapide consistant à placer le dernier élément à la place de l’élément
+		supprimé mais ce faisant on changerait l’ordre relatif des éléments ce
+		qui va à l’encontre de l’idée intuitive qu’on se fait d’une liste.
+		Cette amélioration pourrait plutôt s’envisager dans une structure de
+		type \textbf{ensemble} pour lequel il n’y a pas d’ordre relatif entre
+		les éléments.
+	\item 
+		La version de «\pseudocode{~supprimer~}» avec une valeur en
+		paramètre enlève un élément de valeur donnée. Elle retourne un booléen
+		indiquant si la suppression a pu se faire ou pas (ce qui sera le cas si
+		la valeur n’est pas présente dans la liste). Si la valeur existe en
+		plusieurs exemplaires, on prendra la convention arbitraire que
+		la méthode n’en supprime que la première	occurrence.
+	\item 
+		La méthode «\pseudocode{~existe~}» permet de savoir si un élément
+		donné existe dans la liste. 
+		\begin{liste}
+			\item 
+				si c’est le cas, elle précise aussi sa position dans le paramètre sortant 
+				\pseudocode{pos}
+			\item 
+				si l’élément n’existe pas, ce paramètre est	indéterminé 
+			\item 
+				si l’élément est présent en plusieurs exemplaires, la méthode donne la
+				position de la première occurrence.
+		\end{liste}
+	\item 
+		En pratique, il serait intéressant de chercher un élément à partir d’une
+		partie de l’information qu’elle contient mais c’est difficile à
+		exprimer de façon générique c'est-à-dire lorsque le
+		type n'est pas connu à priori.
+\end{liste}
+
+\bigskip
+
+{\sffamily\bfseries\scshape
+Exemple : recherche du minimum}
+
+Dans le chapitre sur les tableaux, vous avez fait un exercice consistant
+à afficher tous les indices où se trouve le minimum d’un tableau.
+Reprenons-le et modifions-le afin qu’il retourne la liste des indices
+où se trouvent les différentes occurrences du minimum. On pourrait
+l’écrire ainsi :
+
+\begin{Pseudocode}
+\footnotesize
+	\Module{indicesMinimum}{tab : tableau [1 à n] d'entiers}{Liste <entier>}
+		\Decl i, min : entier
+		\Decl indicesMin : Liste <entier>
+		\Let min \Gets tab[1]
+		\Let indicesMin \Gets \K{nouvelle} Liste <entier>()
+		\Stmt indicesMin.ajouter( 1 )
+		\For{i \K{de} 2 \K{à} n}
+			\Switch{} 
+				\Case{tab[i] = min}
+					\Stmt indicesMin.ajouter( i )
+				\Case{tab[i] < min}
+					\Stmt indicesMin.vider() 
+					\Stmt indicesMin.ajouter( i )
+					\Let min \Gets tab[i]
+				\Case{tab[i] > min}
+					\LComment rien à faire dans ce cas	
+			\EndSwitch
+		\EndFor
+		\Return indicesMin
+	\EndModule
+\end{Pseudocode}
+
+\bigskip
+
+%===================================
+\section{Comment implémenter l’état}
+%===================================
+
+Cette liste est bien utile mais comment la réaliser en pratique ?
+Comment représenter une liste variable d’éléments ? Pour
+l'instant, la seule structure qui peut accueillir
+plusieurs éléments de même type est le tableau. Nous allons donc
+prendre comme attribut principal de la liste, un tableau que nous
+appellerons \pseudocode{éléments}. Comment, dès lors, contourner
+le problème de la limitation de la taille de ce tableau ?
+
+Repartons donc de la notion de tableau et tentons de comprendre sa
+limitation. Lors de sa création, un tableau se voit attribuer un espace
+bien précis et contigu en mémoire. Il se peut très bien que
+l'espace «~juste après~» soit occupé par une autre
+variable ce qui l'empêche de grandir. La parade est
+claire : si un \ tableau s’avère trop petit lors de son utilisation, il
+suffit d’en créer un autre plus grand ailleurs en mémoire et d’y
+recopier tous les éléments du premier. Évidemment, cette opération est
+coûteuse en temps et on cherchera à l’effectuer le moins souvent
+possible.
+
+\textbf{Quelle taille donner au nouveau tableau} ? L’idée qui vient
+immédiatement est d’augmenter la taille d’une unité afin d’accueillir
+le nouvel élément mais cette approche implique de fréquents
+agrandissements. Il est plus efficace d’augmenter la taille
+proportionnellement, par exemple en la multipliant par un facteur 2.
+
+\begin{center}
+\begin{tabular}{|m{0.259cm}|m{0.259cm}|m{0.259cm}|m{0.087999985cm}m{0.46000004cm}m{0.087999985cm}|m{0.25300002cm}|m{0.259cm}|m{0.259cm}|m{0.15299998cm}|m{0.15299998cm}|m{0.17cm}|}
+\hhline{---~~~------}
+ 1 &
+ 5 &
+ 7 &
+~
+ &
+ ${\Rightarrow}$ &
+~
+ &
+ 1 &
+ 5 &
+ 7 &
+ . &
+ . &
+ .\\\hhline{---~~~------}
+\end{tabular}
+\end{center}
+
+
+\textbf{Taille logique et taille physique}. À tout moment, le tableau
+aura une et une seule taille même si celle-ci pourra changer au cours
+du temps. Puisqu’on multipliera la taille du tableau par 2 pour des
+raisons d’efficacité, il y aura toutefois une différence entre la
+\textbf{taille physique} d’un tableau et sa \textbf{taille logique}. La
+taille physique est le nombre de cases réservées pour le tableau alors
+que la taille logique est le nombre de cases effectivement occupées.
+Dans ce qui suit, on s'arrangera pour que les cases
+occupées soient groupées à gauche du tableau (il n'y a
+pas de trou). Pour l’utilisateur, seule la taille logique a un sens (on
+lui cache les détails d’implémentation).
+
+
+\textbf{Exemple} : pour le tableau suivant, la taille logique est de 6
+(c’est cette taille qui a du sens pour l’utilisateur de la liste) et la
+taille physique est de 8.
+
+\begin{center}
+\begin{tabular}{|m{0.506cm}|m{0.506cm}|m{0.506cm}|m{0.506cm}|m{0.506cm}|m{0.506cm}|m{0.506cm}|m{0.523cm}|}
+\hline
+ 2 &
+ 5 &
+ 4 &
+ 8 &
+ 3 &
+ 12 &
+\centering  . &
+\centering\arraybslash  .\\\hline
+\end{tabular}
+\end{center}
+
+Quand il faut insérer un élément (en position valide) ou en ajouter un
+en fin de liste, deux cas se présentent :
+
+\begin{liste}
+	\item 
+		si la taille logique est plus petite que la taille physique, il suffit
+		d’ajouter l’élément dans le tableau et d’adapter la taille logique.
+	\item 
+		si la taille logique est égale à la taille physique, il faut
+		procéder à un agrandissement du tableau.
+\end{liste}
+
+Présentons les attributs nécessaires et l'algorithme
+d’agrandissement du tableau.
+
+\begin{Pseudocode}
+\footnotesize
+	\Class{Liste <T>}
+		\Private
+			\Decl éléments : \K{tableau} de T
+			\Decl tailleLogique : entier
+			\Decl taillePhysique : entier
+		\Private
+			\Method {agrandir}{}{}
+				\Decl i : entier
+				\Decl nouveauTab : \K{tableau} de T
+				\Let taillePhysique \Gets taillePhysique * 2
+				\Let nouveauTab \Gets \K{nouveau} \K{tableau} [ 1 à taillePhysique ] de T
+				\For{i \K{de} 1 \K{à} tailleLogique}
+					\Let nouveauTab[ i ] \Gets éléments[ i ]
+				\EndFor
+				\Let éléments \Gets nouveauTab
+			\EndMethod
+		\EndClass
+	\end{Pseudocode}
+
+\bigskip
+
+\textbf{Réduction du tableau}. Tout comme on agrandit le tableau si
+nécessaire, on pourrait le réduire lorsque des suppressions d’éléments
+le rendent sous-utilisé (par exemple lorsque la taille logique devient
+inférieure au tiers de la taille physique). 
+Nous aborderons cette problématique dans un des exercices qui suivent.
+
+
+%=======================================
+\section{Implémentation du comportement}
+%=======================================
+
+Nous avons à présent toutes les cartes en main pour écrire les méthodes
+publiques de la classe.
+
+\begin{Pseudocode}
+	\Constr{Liste <T>}{}
+		\Let tailleLogique \Gets 0
+		\RComment la liste est vide au départ
+		\Let taillePhysique \Gets 32
+		\RComment une bonne valeur pour commencer
+		\Let éléments \Gets \K{nouveau} \K{tableau} [ 1 à taillePhysique ] de T
+	\EndConstr
+\end{Pseudocode}
+
+\begin{Pseudocode}
+	\Method{get}{pos : entier}{T}
+		\If{ pos < 1 OU pos > tailleLogique}
+			\Error "position invalide"
+		\EndIf
+		\Return éléments[ pos ]
+	\EndMethod
+\end{Pseudocode}
+
+\begin{Pseudocode}
+	\Method{set}{pos : entier, valeur : T}{}
+		\If{ pos < 1 OU pos > tailleLogique}
+			\Error "position invalide"
+		\EndIf
+		\Let éléments[ pos ] \Gets valeur
+	\EndMethod
+\end{Pseudocode}
+
+\begin{Pseudocode}
+	\Method{taille}{}{entier}
+		\Return tailleLogique
+		\RComment et pas la taille physique !
+	\EndMethod
+\end{Pseudocode}
+
+\begin{Pseudocode}
+	\Method{ajouter}{valeur : T}{}
+		\If{tailleLogique = taillePhysique}
+			\Stmt agrandir()
+			\RComment méthode privée détaillée supra
+		\EndIf
+		\Let tailleLogique \Gets tailleLogique + 1
+		\Let éléments[ tailleLogique ] \Gets valeur
+	\EndMethod
+\end{Pseudocode}
+
+\begin{Pseudocode}
+	\Method{insérer}{pos : entier, valeur : T}{}
+		\If{ pos < 1 OU pos > tailleLogique+1}
+			\Error "position invalide"
+		\EndIf
+		\If{tailleLogique = taillePhysique}
+			\Stmt agrandir()
+		\EndIf
+		\Stmt décalerDroite( pos )
+		\RComment voir ci-dessous
+		\Let tailleLogique \Gets tailleLogique + 1
+		\Let éléments[ pos ] \Gets valeur
+	\EndMethod
+\end{Pseudocode}
+
+\begin{Pseudocode}
+	\Method{supprimer}{}{}
+		\LComment supprime le dernier élément
+		\If{tailleLogique = 0}
+			\Error "liste vide"
+		\EndIf
+		\Let tailleLogique \Gets tailleLogique - 1
+	\EndMethod
+\end{Pseudocode}
+
+\begin{Pseudocode}
+	\Method{supprimerPos}{pos : entier}{}
+		\If{ pos < 1 OU pos > tailleLogique}
+			\Error "position invalide"
+		\EndIf
+		\Stmt décalerGauche( pos + 1 )
+		\RComment voir méthode ci-dessous
+		\Let tailleLogique\Gets tailleLogique - 1
+	\EndMethod
+\end{Pseudocode}
+
+\begin{Pseudocode}
+	\Method{supprimer}{valeur: T}{}
+		\Decl estPrésent : booléen
+		\Decl pos : entier
+		\Let estPrésent \Gets existe(valeur, pos)
+		\If{estPrésent}
+			\Stmt supprimer( pos )
+		\EndIf
+		\Return estPrésent
+	\EndMethod
+\end{Pseudocode}
+
+\begin{Pseudocode}
+	\Method{vider}{}{}
+		\Let tailleLogique \Gets 0 
+		\RComment Les éléments ne sont pas effacés mais sont ignorés
+	\EndMethod
+\end{Pseudocode}
+
+\begin{Pseudocode}
+	\Method{estVide}{}{booléen}
+		\Return tailleLogique = 0
+	\EndMethod
+\end{Pseudocode}
+
+\begin{Pseudocode}
+	\Method{existe}{valeur\In : T, pos\Out : entier}{booléen}
+		\Let pos \Gets 1
+		\LComment Rq : le ET ci-dessous est une évaluation 
+		court-circuitée (cf. chapitre 3)
+		\While{ pos {${\leq}$} tailleLogique ET éléments[ pos ] {${\neq}$} valeur}
+			\Let pos \Gets pos + 1
+		\EndWhile
+		\Return pos {${\leq}$} tailleLogique
+	\EndMethod
+\end{Pseudocode}
+
+\begin{Pseudocode}
+	\LComment Ces méthodes-ci sont privées
+	\bigskip
+
+	\Method{décalerDroite}{début : entier}{}
+		\LComment Décale tous les éléments d'une position vers
+		la droite à partir de début
+		\Decl i : entier
+		\For{i \K{de} tailleLogique \K{à} début \K{par} –1}
+			\Let éléments[ i + 1 ] \Gets éléments[ i ]
+		\EndFor
+	\EndMethod
+
+	\bigskip
+	
+	\Method {décalerGauche}{début : entier}{}
+		\LComment Décale toutes les éléments d'une position vers
+		la gauche à partir de début ; 
+		\LComment ce paramètre vaut toujours au moins 2.
+		\Decl i : entier
+		\For{i \K{de} début \K{à} tailleLogique}
+			\Let éléments[ i - 1 ] \Gets éléments[ i ]
+		\EndFor
+	\EndMethod
+\end{Pseudocode}
+
+\bigskip
+
+\marginicon{attention}
+\textbf{La recherche se fait sur un élément complet.}
+
+Prenons comme exemple une liste de contacts.
+Lors d'une recherche, on doit fournir
+\textbf{tout} le contact à
+rechercher. Il s'agit juste de savoir
+s'il est présent et où. Une autre méthode intéressante
+serait de retrouver un contact à partir d'une partie
+de l'information, par exemple son nom. Cette méthode
+est fort proche de notre méthode de recherche mais il serait très
+difficile de l'écrire génériquement. On vous demandera
+d'écrire explicitement une telle méthode de recherche
+en cas de besoin.
+
+
+%====================================
+\section{Et sans tableau dynamique ?}
+%=====================================
+
+Certains langages (c’est le cas de Cobol) ne permettent pas de créer
+dynamiquement un nouveau tableau. Il vous faudra travailler avec un
+tableau classique en le créant suffisamment grand.
+
+
+Les algorithmes d’ajout/suppression/recherche vus pour la liste peuvent
+être appliqués tels quels à un tableau statique à une modification près
+: lors d’un ajout dans un tableau plein, on ne peut pas l’agrandir; il
+faut générer une erreur.
+
+
+%==================
+\section{Exercices}
+%===================
+
+\begin{Exercice}{Liste des premiers entiers}
+	Écrire un module qui reçoit un entier $n$ en paramètre et retourne la
+	liste contenant les entiers de 1 à $n$ dans l'ordre
+	décroissant. On peut supposer que $n$ est positif.
+\end{Exercice}
+	
+\begin{Exercice}{Le nettoyage}
+	Écrire un module qui reçoit une liste de chaines en paramètre et
+	supprime de cette liste tous les éléments de valeur donnée en
+	paramètre. L'algorithme retournera le nombre de
+	suppressions effectuées.
+\end{Exercice}
+	
+\begin{Exercice}{Somme d'une liste}
+	Écrire un module qui calcule la somme des éléments d’une liste
+	d’entiers.
+\end{Exercice}
+
+\begin{Exercice}{Les extrêmes}
+		Écrire un module qui supprime le minimum et le maximum des éléments
+		d’une liste d’entiers. On peut supposer que le maximum et le minimum
+		sont uniques.
+\end{Exercice}
+
+\begin{Exercice}{Anniversaires}
+		Écrire un module qui reçoit une liste de Personne (nom + prénom + date
+		de naissance ; cf. exercice dans le chapitre OO) et retourne la liste
+		de ceux qui sont nés durant un mois passé en paramètre (donné sous la 
+		forme d'un entier entre 1	et 12).
+\end{Exercice}
+	
+\begin{Exercice}{Concaténation de deux listes}
+		Écrire un module qui reçoit 2 listes et ajoute
+		à la suite de la première les éléments de la seconde; la seconde liste
+		n'est pas modifiée par cette opération.
+\end{Exercice}
+
+\begin{Exercice}{Fusion de deux listes}
+	
+		Soit deux listes \textbf{ordonnées}
+		d'entiers (redondances possibles). Écrire un module
+		qui les fusionne. Le résultat est une liste encore ordonnée contenant
+		tous les entiers des deux listes de départ (qu'on
+		laisse inchangées).
+
+		Exemple : Si les 2 listes sont (1, 3, 7, 7) et (3, 9), 
+		le résultat est (1, 3, 3, 7, 7, 9).
+\end{Exercice}
+
+\begin{Exercice}{Éliminer les doublons d'une liste}
+		Soit une liste \textbf{ordonnée} 
+		d'entiers avec de possibles redondances. Écrire un
+		module qui enlève les redondances de la liste.
+				
+		Exemple : Si la liste est (1, 3, 3, 7, 8, 8, 8),
+		le résultat est (1, 3, 7, 8).
+
+		\begin{enumerate}[label=\alph*)]
+			\item 
+				Faites l'exercice en créant une \textbf{nouvelle
+				liste} (la liste de départ reste inchangée)
+			\item 
+				Refaites l'exercice en \textbf{modifiant}
+				la liste de départ (pas de nouvelle liste)
+		\end{enumerate}
+\end{Exercice}
+
+\begin{Exercice}{Perfectionnement de la classe Liste}
+	Dans l’implémentation de la liste, nous avons écrit 
+	une méthode privée \pseudocode{agrandir} qui remplace le tableau 
+	\pseudocode{éléments} par un autre tableau deux fois plus grand. 
+	On demande à présent d’implémenter dans la classe 
+	une méthode \pseudocode{rétrécir}, qui consistera à diviser la 
+	taille physique du tableau par 2 lorsque la taille 
+	logique devient inférieure au tiers de la taille physique.
+	Adapter également le code des méthodes qui sont concernées 
+	par ce rétrécissement du tableau éléments.
+
+\end{Exercice}
+
+\begin{Exercice}{Une classe texte}
+	Un texte est composé de mots et de caractères de ponctuation. 
+	Ils sont séparés par des espaces (caractères «~blanc~») dont 
+	nous ne tenons pas compte ici. Dans notre implémentation, nous 
+	représenterons les mots par des chaines et les caractères de ponctuation 
+	(‘.’, ‘?’, ‘!’, ‘~:’, ‘;’,~etc.) par des chaines d’un seul caractère. 
+	Un texte peut alors être vu comme une Liste <chaines>. 
+	Exemple~: le texte <<Qu’il est bon d’être à l’ESI~!>>
+	sera représenté par une liste contenant les 13 éléments suivants~:
+	\begin{center}
+	\begin{tabular}{|m{8cm}|}
+		\hline
+		Qu \\
+		’	\\
+		il \\
+		est \\
+		bon \\
+		d \\
+		’ \\
+		être \\
+		à \\
+		l \\
+		’ \\
+		ESI \\
+		! \\\hline
+	\end{tabular}
+	\end{center}
+	
+	Nous allons définir une classe Texte dont le seul attribut privé sera~: 
+	\pseudocode{listeTxt~: Liste <chaines>}
+	On demande d’écrire~:
+	\begin{enumerate}
+	\item
+		un constructeur sans paramètre créant un texte vide
+	\item
+		un constructeur recevant en paramètre un tableau de chaines 
+		(possédant $n$ éléments) et qui initialise le texte avec 
+		le contenu du tableau
+	\item
+		une méthode 
+		\pseudocode{taille()} qui retourne le nombre de mots du texte 
+		(les caractères de ponctuation ne sont pas comptés par cette méthode~; 
+		ainsi, la taille du texte de l’exemple ci-dessus est 9)
+	\item
+		une méthode 
+		\pseudocode{extrait(départ, nombre~: entier) $\rightarrow$ Texte} 
+		qui retourne la portion de texte débutant à l’indice départ 
+		de la liste et possédant le nombre d’éléments spécifié par 
+		le paramètre nombre (mots et caractères de ponctuation confondus). 
+		Par exemple, extrait(5, 4) appliqué au texte ci-dessus renverrait 
+		le texte <<bon d’être>>
+	\item
+		une méthode 
+		\pseudocode{identique(autreTexte~: Texte) $\rightarrow$ booléen} 
+		qui indique si 2 textes sont identiques au caractère de ponctuation près
+	\item
+		une méthode 
+		\pseudocode{quasiIdentique(autreTexte~: Texte) $\rightarrow$ booléen} 
+		qui indique si les mots des 2 textes sont les mêmes, des différences 
+		pouvant être admises au niveau de la ponctuation. Par exemple, les textes~:
+		
+		<<Il m’a dit, en me regardant dans les yeux, que j’étais stupide.>>
+		
+		et
+		
+		<<Il m’a dit en me regardant dans les yeux que j’étais… «~stupide~»~!>>
+		
+		sont quasi identiques, mais pas identiques.
+	\end{enumerate}
+		Détaillez le code de cette classe. Vous pouvez utiliser (sans le détailler) le module
+		\pseudocode{estPonctuation(ch~: chaine) $\rightarrow$ booléen}
+		qui indique si une chaine est un caractère de ponctuation.
+			
+\end{Exercice}
+
+	
+\begin{Exercice}{La liste ordonnée}
+		Une recherche dans une liste implique un parcours complet de la liste en
+		cas de recherche infructueuse. La recherche pourrait être plus rapide
+		si la liste était ordonnée (en utilisant la recherche dichotomique). La
+		contrainte principale est qu'il faudra maintenir le
+		caractère ordonné de la liste (notamment en cas
+		d'ajout). Écrivez les modules suivants, de façon à ce
+		que la liste reste ordonnée.
+
+		\begin{Pseudocode}
+			\ModuleSign{ajouterOrdonné}{liste : Liste de T, valeur : T}{}
+			\ModuleSign{enleverOrdonné}{liste : Liste de T, valeur : T}{booléen}
+			\LComment retourne faux si valeur pas présente. 
+			\LComment Si la valeur est présente en plusieurs exemplaire, en enlève une.
+			\ModuleSign{existeOrdonné}{liste\In : Liste de T, valeur\In : T, pos\Out: entier}{booléen}
+			\LComment si la valeur n'est pas trouvée, pos donne la position où elle aurait dû être.
+		\end{Pseudocode}
+
+\end{Exercice}
+
+\begin{Exercice}{Trier des mots}
+		Écrivez un algorithme qui lit une série de mots (se terminant par une
+		chaine vide) sans aucun ordre et les affiche dans l’ordre alphabétique.
+		Vous pouvez utiliser les modules écrits lors de
+		l'exercice précédent.
+		
+\end{Exercice}
+
+\begin{Exercice}{Éviter les doublons}
+		Modifiez l’exemple ci-dessus pour que deux mots identiques ne soient
+		introduits qu’une seule fois dans la liste.
+\end{Exercice}
+
+\begin{Exercice}{L'ensemble}
+		La notion d’ensemble fini est une notion qui vous est déjà 
+		familière pour l’avoir rencontrée dans plusieurs cours. Nous rappelons
+		certaines de ses propriétés et opérations. 
+				
+		Étant donnés deux ensembles
+		finis \textbf{S} et \textbf{T} ainsi qu’un élément \textbf{x} :
+
+		\begin{liste}
+		\item 
+			\textbf{x} {${\in}$} \textbf{S} signifie que l’élément \textbf{x}
+			est un élément de l’ensemble \textbf{S}.
+		\item 
+			L’ensemble vide, noté \textbf{${\emptyset}$} 
+			est l’ensemble qui n’a pas d’élément 
+			(\textbf{x} {${\in}$} \textbf{${\emptyset}$} 
+			est faux quel que soit \textbf{x} ).
+		\item 
+			L’ordre des éléments dans un ensemble n’a
+			aucune signification, l’ensemble \{1,2\} est
+			identique à \{2,1\}.
+		\item 
+			Un élément \textbf{x} ne peut
+			pas être plus d’une fois élément d’un même ensemble 
+			(pas de répétition).
+		\item 
+			L’union \textbf{S ${\cup}$ T} 
+			est l’ensemble contenant les éléments qui sont dans 
+			\textbf{S} ou (non exclusif) dans \textbf{T}.
+		\item 
+			L’intersection \textbf{S ${\cap}$ T} 
+			est l’ensemble des éléments qui sont à la fois 
+			dans \textbf{S} et dans \textbf{T}.
+		\item 
+			La différence \textbf{S {\textbackslash} T} 
+			est l’ensemble des éléments qui sont 
+			dans \textbf{S} mais pas dans \textbf{T}.
+		\end{liste}
+		
+		Créez la classe \pseudocode{Ensemble}
+		décrite ci-dessous.
+		
+		\begin{Pseudocode}
+			\Class{Ensemble <T>}{} 
+			\RComment T est le type des éléments de l'ensemble
+			
+				\Public
+				\ConstrSign{Ensemble <T>}{} 
+				\RComment construit un ensemble vide
+				\MethodSign{ajouter}{élt : T}{}
+				\RComment ajoute l'élément à l'ensemble
+				\MethodSign{enlever}{élt : T}{})
+				\RComment enlève un élément de l'ensemble
+				\MethodSign{contient}{élt : T}{booléen}
+				\RComment dit si l'élément est présent
+				\MethodSign{estVide}{}{booléen}
+				\RComment dit si l'ensemble est vide
+				\MethodSign{taille}{}{entier}
+				\RComment donne la taille de l'ensemble
+				\MethodSign{union}{autreEnsemble : Ensemble <T>}{Ensemble <T>}
+				\MethodSign{intersection}{autreEnsemble : Ensemble <T>}{Ensemble <T>}
+				\MethodSign{moins}{autreEnsemble : Ensemble <T>}{Ensemble <T>}
+				\MethodSign{listeÉléments}{}{Liste <T>}
+				\RComment conversion en liste
+			\EndClass
+		\end{Pseudocode}
+		
+	\bigskip
+
+	Quelques remarques :
+
+	\begin{liste}
+		\item 
+			La méthode d'ajout (resp. de suppression) n'a
+			pas d'effet si l'élément est déjà
+			(resp. n'est pas) dans l'ensemble.
+		\item 
+			Les méthodes \pseudocode{union()}, 
+			\pseudocode{intersection()} et 
+			\pseudocode{moins()} retournent un troisième ensemble, 
+			résultat des 2 premiers sans toucher
+			à ces 2 ensembles. On aurait pu envisager des méthodes modifiant
+			l'ensemble sur lequel on les appelle.
+		\item 
+			La méthode \pseudocode{listeÉlément()}
+			est nécessaire si on veut parcourir les éléments de
+			l'ensemble (par exemple pour les afficher).
+	\end{liste}
+\end{Exercice}
+
+\begin{Exercice}{Autres opérations ensemblistes}
+	Nous avons défini des opérations ensemblistes ne touchant pas aux
+	ensembles de départ. Que deviennent-elles si on considère
+	qu'elles \textbf{modifient}
+	l'ensemble sur lequel elles sont appliquées ?
+\end{Exercice}
+
+
+\begin{Exercice}{Rendez-vous}
+	Soit la structure «\pseudocode{~RendezVous~}» composée d’une date
+	et d’un motif de rencontre. Écrire un module qui reçoit une liste de
+	rendez-vous et la met à jour en supprimant tous ceux qui sont désormais
+	passés. 
+
+	Rappel : la date du jour s'obtient par le constructeur de
+	\pseudocode{Date} sans paramètre.
+\end{Exercice}
