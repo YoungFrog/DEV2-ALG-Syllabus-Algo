@@ -7,54 +7,63 @@ Si vous sentez le besoin d’utiliser un objet ou une méthode qui
 n'apparait pas ici, il faudra en écrire explicitement
 le contenu et le code.
 
-%Pour manipuler les chaines et les caractères
+\section{Les caractères et les chaines}
 
-%\cadre{
-	%\begin{liste}
-	%\item
-		%\pseudocode{long(maChaine)}
-				%donne la taille (le nombre de caractères) de la chaine \pseudocode{maChaine}
-	%\item
-	%\pseudocode{car(maChaine,pos)}
-				%donne le caractère en position \pseudocode{pos} 
-				%(à partir de 1) 
-				%\\dans la chaine \pseudocode{maChaine}
-	%\item
-	%\pseudocode{concat(maChaine1,maChaine2)}
-				%concatène les chaines \pseudocode{maChaine1} 
-				%et \pseudocode{maChaine2}
-	%\item
-	%\pseudocode{chaine(car)} 
-				%transforme le caractère \pseudocode{car} 
-				%en une chaine de taille 1
-	%\item
-	%\pseudocode{estLettre(car)} 
-				%est vrai si le caractère \pseudocode{car} est une lettre
-				%\\(idem pour \pseudocode{estChiffre}, 
-				%\pseudocode{estMajuscule}, 
-				%\pseudocode{estMinuscule})
-	%\item
-	%\pseudocode{majuscule(car)} 
-				%donne la majuscule de la lettre \pseudocode{car}
-				%(idem pour \pseudocode{minuscule})
-	%\item
-	%\pseudocode{position(car)} 
-				%donne la position de \pseudocode{car} dans l'alphabet 
-	%\item
-	%\pseudocode{lettre(num)} 
-				%l'inverse de la précédente
-	%\item
-	%\pseudocode{estEspace(car~: caractère)}
-			%retourne vrai si car est un caractère d’espacement et faux sinon.
-	%\item
-	%\pseudocode{estPonctuation(car~: caractère)}
-			%retourne vrai si car est un caractère de ponctuation et faux sinon.
-	%\end{liste}
-	%}
+\begin{Pseudocode}
+	\Stmt {\large // Est-ce ?}
+	\Empty
+	\Stmt estLettre(car: caractère) \Gives~booléen		\RComment{est-ce une lettre ?}
+	\Stmt estChiffre(car: caractère) \Gives~booléen		\RComment{est-ce un chiffre ?}
+	\Stmt estMajuscule(car: caractère) \Gives~booléen	\RComment{est-ce une majuscule ?}
+	\Stmt estMinuscule(car: caractère) \Gives~booléen	\RComment{est-ce une minuscule ?}
+	\Empty
+	\Stmt {\large // Conversions}
+	\Empty
+	\Stmt majuscule(car: caractère) \Gives~caractère	\RComment{convertit une minuscule en une majuscule.}
+	\Stmt minuscule(car: caractère) \Gives~caractère	\RComment{convertit une majuscule en une minuscule.}
+	\Stmt numLettre(car: caractère) \Gives~entier		\RComment{donne la position de la lettre dans l'alphabet.}
+	\Stmt lettreMaj(n: entier) \Gives~caractère			\RComment{donne la lettre majuscule de position donnée.}
+	\Stmt lettreMin(n: entier) \Gives~caractère			\RComment{donne la lettre minuscule de position donnée.}
+	\Stmt chaine(car: caractère) \Gives~chaine			\RComment{convertit le caractère en une chaine.}
+	\Let varChaine \Gets~varCaractère					\RComment{idem}
+	\Stmt chaine(n : entier) \Gives~chaine				\RComment{convertit un entier en une chaine.}
+	\Stmt chaine(x : réelr) \Gives~chaine				\RComment{convertit un réel en une chaine.}
+	\Stmt nombre(ch : chaine) \Gives~réel				\RComment{convertit une chaine en un nombre.}
+	\Empty
+	\Stmt {\large // Manipulations}
+	\Empty
+	\Stmt longueur(ch : chaine) \Gives~entier			\RComment{donne la taille de la chaine.}
+	\Stmt car(ch: chaine, n: entier) \Gives~caractère	\RComment{donne le caractère à une position donnée.}
+	\Stmt sousChaine(ch: chaine, pos: entier, long: entier) \Gives~chaine \RComment{extrait une sous-chaine}
+	\Stmt estDansChaine(ch: chaine, sous-chaine: chaine [ou caractère]) \Gives~entier 
+	\Stmt 	\RComment{dit où commence une sous-chaine dans une chaine donnée (0 si pas trouvé)}
+	\Stmt concat(ch1, ch2, \dots, chN: chaine) \Gives~chaine 	\RComment{concatène des chaines}
+	\Let  ch \Gets~ch1 + ch2 + \dots + chN						\RComment{idem}
+\end{Pseudocode}
 
+\section{La liste}
 
-\cadre{
-\begin{pseudo}
+\begin{Pseudocode}
+\Class{Liste <T>}
+\Public
+	\ConstrSign{Liste <T>}{} 
+	\MethodSign{get}{pos : entier}{T} \RComment retourne l’élément en position pos
+	\MethodSign{set}{pos : entier, valeur : T}{} \RComment modifie l’élément en position pos
+	\MethodSign{taille}{}{entier} \RComment retourne la taille de la liste
+	\MethodSign{ajouter}{valeur : T}{} \RComment ajoute une valeur en fin de liste
+	\MethodSign{insérer}{pos : entier, valeur : T}{} \RComment insère un élément en position pos
+	\MethodSign{supprimer}{}{} \RComment supprime le dernier élément
+	\MethodSign{supprimerPos}{pos : entier}{} \RComment supprime l’élément en position pos
+	\MethodSign{supprimer}{valeur : T}{} \RComment supprime l’élément de valeur donnée
+	\MethodSign{vider}{}{} \RComment vide la liste
+	\MethodSign{estVide}{}{booléen} \RComment indique si la liste est vide
+	\MethodSign{existe}{valeur\In : T, pos\Out : entier}{booléen} \RComment recherche un élément
+\EndClass
+\end{Pseudocode}
+
+\section{Date, Moment, Durée}
+
+\begin{Pseudocode}
 \Class{Date}
 \Public
 	\ConstrSign{Date}{} \RComment Crée la date du jour
@@ -65,11 +74,9 @@ le contenu et le code.
 	\MethodSign{égale}{autreDate : Date}{booléen}
 	\MethodSign{estAntérieure}{autreDate : Date}{booléen}
 \EndClass
-\end{pseudo}
-}
+\end{Pseudocode}
 
-\cadre{
-\begin{pseudo}
+\begin{Pseudocode}
 \Class{Moment}
 \Public
 	\ConstrSign{Moment}{} \RComment Crée le moment courant
@@ -83,11 +90,9 @@ le contenu et le code.
 	\MethodSign{égal}{autreMoment : Moment}{booléen}
 	\MethodSign{estAntérieur}{autreMoment : Moment}{booléen}
 \EndClass
-\end{pseudo}
-}
+\end{Pseudocode}
 
-\cadre{
-\begin{pseudo}
+\begin{Pseudocode}
 \Class{Durée}
 \Public
 	\ConstrSign{Durée}{secondes : entier} 
@@ -104,28 +109,8 @@ le contenu et le code.
 	\MethodSign{égale}{autreDurée : Durée}{booléen}
 	\MethodSign{plusPetit}{autreDurée : Durée}{booléen}
 \EndClass
-\end{pseudo}
-}
+\end{Pseudocode}
 
-\cadre{
-\begin{pseudo}
-\Class{Liste <T>}
-\Public
-	\ConstrSign{Liste <T>}{} 
-	\MethodSign{get}{pos : entier}{T} \RComment retourne l’élément en position pos
-	\MethodSign{set}{pos : entier, valeur : T}{} \RComment modifie l’élément en position pos
-	\MethodSign{taille}{}{entier} \RComment retourne la taille de la liste
-	\MethodSign{ajouter}{valeur : T}{} \RComment ajoute une valeur en fin de liste
-	\MethodSign{insérer}{pos : entier, valeur : T}{} \RComment insère un élément en position pos
-	\MethodSign{supprimer}{}{} \RComment supprime le dernier élément
-	\MethodSign{supprimerPos}{pos : entier}{} \RComment supprime l’élément en position pos
-	\MethodSign{supprimer}{valeur : T}{} \RComment supprime l’élément de valeur donnée
-	\MethodSign{vider}{}{} \RComment vide la liste
-	\MethodSign{estVide}{}{booléen} \RComment indique si la liste est vide
-	\MethodSign{existe}{valeur\In : T, pos\Out : entier}{booléen} \RComment recherche un élément
-\EndClass
-\end{pseudo}
-}
 
 % Une méthode égale pour tous.
 % ajouter valeurAbsolue(entier)
