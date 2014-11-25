@@ -221,7 +221,6 @@ occupées soient groupées à gauche du tableau (il n'y a
 pas de trou). Pour l’utilisateur, seule la taille logique a un sens (on
 lui cache les détails d’implémentation).
 
-
 \textbf{Exemple} : pour le tableau suivant, la taille logique est de 6
 (c’est cette taille qui a du sens pour l’utilisateur de la liste) et la
 taille physique est de 8.
@@ -252,6 +251,24 @@ en fin de liste, deux cas se présentent :
 		procéder à un agrandissement du tableau.
 \end{liste}
 
+\textbf{Les tableaux dynamiques}. 
+En \emph{DEV1},
+nous n'avons vu que des tableaux statiques,
+qui sont créés lors de leur déclaration.
+Ici, nous avons besoin de tableaux dynamiques,
+créé dans le code
+(comme le sont les tableaux en Java).
+Introduisons une notation.
+
+Un tableau dynamique sera déclaré puis créé ainsi
+
+	\begin{Pseudocode}
+		\Decl tab~: \K{tableau} de T \RComment où T est un type quelconque
+		\LComment{Autres déclarations et instructions}
+		\Let tab \Gets \K{nouveau} \K{tableau} [1 à n] de T \RComment n doit avoir une valeur
+	\end{Pseudocode}
+
+\textbf{Implémentation}.
 Présentons les attributs nécessaires et l'algorithme
 d’agrandissement du tableau.
 
