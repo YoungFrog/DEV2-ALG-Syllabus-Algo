@@ -1,0 +1,131 @@
+\chapter{Aide-mémoire}
+
+Cet aide-mémoire peut vous accompagner lors d'une
+interrogation ou d'un examen. Il vous est permis
+d’utiliser ces classes et méthodes sans les développer.
+Si vous sentez le besoin d’utiliser un objet ou une méthode qui
+n'apparait pas ici, il faudra en écrire explicitement
+le contenu et le code.
+
+%Pour manipuler les chaines et les caractères
+
+%\cadre{
+	%\begin{liste}
+	%\item
+		%\pseudocode{long(maChaine)}
+				%donne la taille (le nombre de caractères) de la chaine \pseudocode{maChaine}
+	%\item
+	%\pseudocode{car(maChaine,pos)}
+				%donne le caractère en position \pseudocode{pos} 
+				%(à partir de 1) 
+				%\\dans la chaine \pseudocode{maChaine}
+	%\item
+	%\pseudocode{concat(maChaine1,maChaine2)}
+				%concatène les chaines \pseudocode{maChaine1} 
+				%et \pseudocode{maChaine2}
+	%\item
+	%\pseudocode{chaine(car)} 
+				%transforme le caractère \pseudocode{car} 
+				%en une chaine de taille 1
+	%\item
+	%\pseudocode{estLettre(car)} 
+				%est vrai si le caractère \pseudocode{car} est une lettre
+				%\\(idem pour \pseudocode{estChiffre}, 
+				%\pseudocode{estMajuscule}, 
+				%\pseudocode{estMinuscule})
+	%\item
+	%\pseudocode{majuscule(car)} 
+				%donne la majuscule de la lettre \pseudocode{car}
+				%(idem pour \pseudocode{minuscule})
+	%\item
+	%\pseudocode{position(car)} 
+				%donne la position de \pseudocode{car} dans l'alphabet 
+	%\item
+	%\pseudocode{lettre(num)} 
+				%l'inverse de la précédente
+	%\item
+	%\pseudocode{estEspace(car~: caractère)}
+			%retourne vrai si car est un caractère d’espacement et faux sinon.
+	%\item
+	%\pseudocode{estPonctuation(car~: caractère)}
+			%retourne vrai si car est un caractère de ponctuation et faux sinon.
+	%\end{liste}
+	%}
+
+
+\cadre{
+\begin{pseudo}
+\Class{Date}
+\Public
+	\ConstrSign{Date}{} \RComment Crée la date du jour
+	\ConstrSign{Date}{j, m, a : entiers} 
+	\MethodSign{getJour}{}{entier}
+	\MethodSign{getMois}{}{entier}
+	\MethodSign{getAnnée}{}{entier}
+	\MethodSign{égale}{autreDate : Date}{booléen}
+	\MethodSign{estAntérieure}{autreDate : Date}{booléen}
+\EndClass
+\end{pseudo}
+}
+
+\cadre{
+\begin{pseudo}
+\Class{Moment}
+\Public
+	\ConstrSign{Moment}{} \RComment Crée le moment courant
+	\ConstrSign{Moment}{h, m, s : entiers} 
+	\MethodSign{getHeure}{}{entier}
+	\MethodSign{getMinute}{}{entier}
+	\MethodSign{getSeconde}{}{entier}
+	\MethodSign{setHeure}{h : entier}{}
+	\MethodSign{setMinute}{m : entier}{}
+	\MethodSign{setSeconde}{s : entier}{}
+	\MethodSign{égal}{autreMoment : Moment}{booléen}
+	\MethodSign{estAntérieur}{autreMoment : Moment}{booléen}
+\EndClass
+\end{pseudo}
+}
+
+\cadre{
+\begin{pseudo}
+\Class{Durée}
+\Public
+	\ConstrSign{Durée}{secondes : entier} 
+	\ConstrSign{Durée}{h, m, s : entiers} 
+	\MethodSign{getJour}{}{entier}
+	\MethodSign{getHeure}{}{entier}
+	\MethodSign{getMinute}{}{entier}
+	\MethodSign{getSeconde}{}{entier}
+	\MethodSign{getTotalHeure}{}{entier}
+	\MethodSign{getTotalMinute}{}{entier}
+	\MethodSign{getTotalSeconde}{}{entier}
+	\MethodSign{ajouter}{autreDurée : Durée}{}
+	\MethodSign{soustraire}{autreDurée : Durée}{}
+	\MethodSign{égale}{autreDurée : Durée}{booléen}
+	\MethodSign{plusPetit}{autreDurée : Durée}{booléen}
+\EndClass
+\end{pseudo}
+}
+
+\cadre{
+\begin{pseudo}
+\Class{Liste <T>}
+\Public
+	\ConstrSign{Liste <T>}{} 
+	\MethodSign{get}{pos : entier}{T} \RComment retourne l’élément en position pos
+	\MethodSign{set}{pos : entier, valeur : T}{} \RComment modifie l’élément en position pos
+	\MethodSign{taille}{}{entier} \RComment retourne la taille de la liste
+	\MethodSign{ajouter}{valeur : T}{} \RComment ajoute une valeur en fin de liste
+	\MethodSign{insérer}{pos : entier, valeur : T}{} \RComment insère un élément en position pos
+	\MethodSign{supprimer}{}{} \RComment supprime le dernier élément
+	\MethodSign{supprimerPos}{pos : entier}{} \RComment supprime l’élément en position pos
+	\MethodSign{supprimer}{valeur : T}{} \RComment supprime l’élément de valeur donnée
+	\MethodSign{vider}{}{} \RComment vide la liste
+	\MethodSign{estVide}{}{booléen} \RComment indique si la liste est vide
+	\MethodSign{existe}{valeur\In : T, pos\Out : entier}{booléen} \RComment recherche un élément
+\EndClass
+\end{pseudo}
+}
+
+% Une méthode égale pour tous.
+% ajouter valeurAbsolue(entier)
