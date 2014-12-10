@@ -392,7 +392,7 @@ publiques de la classe.
 \end{Pseudocode}
 
 \begin{Pseudocode}
-	\Method{supprimer}{valeur: T}{}
+	\Method{supprimer}{valeur: T}{booléen}
 		\Decl estPrésent : booléen
 		\Decl pos : entier
 		\Let estPrésent \Gets existe(valeur, pos)
@@ -420,7 +420,7 @@ publiques de la classe.
 	\Method{existe}{valeur\In : T, pos\Out : entier}{booléen}
 		\Let pos \Gets 1
 		\LComment Rq : le ET ci-dessous est une évaluation 
-		court-circuitée (cf. chapitre 3)
+		court-circuitée (cf. le cours d'Algo en DEV1)
 		\While{ pos {${\leq}$} tailleLogique ET éléments[ pos ] {${\neq}$} valeur}
 			\Let pos \Gets pos + 1
 		\EndWhile
