@@ -40,7 +40,7 @@
 	\end{Pseudocode}
 
 	où \pseudocode{ligneMin}, \pseudocode{ligneMax}, 
-	\pseudocode{colMin} et \pseudocode{colMax}sont des
+	\pseudocode{colMin} et \pseudocode{colMax} sont des
 	expressions entières quelconques.
 
 	On ne se permettra pas en logique de
@@ -312,7 +312,7 @@ comme avec l'algorithme suivant.
 Si le tableau est carré ($n=m$) on peut aussi envisager le parcours
 des deux diagonales.
 
-Pour la colonne descendante, 
+Pour la diagonale descendante, 
 les éléments à visiter sont $(1,1)$, $(2,2)$, \dots, $(n,n)$.
 
 \begin{center}
@@ -337,7 +337,7 @@ comme le montre l'algorithme suivant.
 	\EndFor
 \end{Pseudocode}
 
-Pour la colonne montante, 
+Pour la diagonale montante, 
 on peut envisager deux solutions, 
 avec deux indices ou un seul
 en se basant sur le fait que $i+j=n+1 \Rightarrow j=n+1-i$.
@@ -652,7 +652,7 @@ ce qui donne l'algorithme :
 	ses deux diagonales, on obtient à chaque fois le même résultat.
 
 	Écrire un module recevant en paramètres le tableau [1 à $n$, 1 à $n$]
-	d'entiers Carré et renvoyant une valeur booléenne
+	d'entiers carré et renvoyant une valeur booléenne
 	indiquant si Carré est un carré magique ou non.
 \end{Exercice}
 
