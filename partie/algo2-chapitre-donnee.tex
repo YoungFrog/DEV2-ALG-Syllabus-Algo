@@ -3,7 +3,7 @@
 \index{Representation des données@Représentation des données}}
 %====================================
 
-Nous voici arrivés au terme du cours de logique de
+Nous voici arrivés au terme du cours d'algorithmique de
 1\textsuperscript{ère} année. Ce chapitre apporte une synthèse des
 différentes notions vues tout au long du cours, et propose quelques
 pistes de réflexion quant au choix d’une bonne représentation des
@@ -123,46 +123,46 @@ Chacune de ces structures possède ses spécificités propres quant à la
 façon d’accéder aux valeurs, de les parcourir, de les modifier,
 d’ajouter ou de supprimer des éléments à la collection. 
 
+%%========================================
+%\section{Quelques conseils pour terminer}
+%%========================================
 
-%========================================
-\section{Quelques conseils pour terminer}
-%========================================
+%Nous vous conseillons de relire le paragraphe 4.7 du
+%cours d'algorithmique de DEV1 intitulé
+%:~«~\textit{qu’est-ce qu’un algorithme de qualité ?}~». 
+%Après une année d’apprentissage, 
+%vous comprendrez certainement sous un nouvel éclairage
+%les termes de validité, d’extensibilité, de réutilisabilité, de
+%lisibilité et d’efficience.
 
-Nous vous conseillons de relire le paragraphe 5.7 de ce cours
-:~«~\textit{qu’est-ce qu’un algorithme de qualité ?}~». Après une année
-d’apprentissage, vous comprendrez certainement sous un nouvel éclairage
-les termes de validité, d’extensibilité, de réutilisabilité, de
-lisibilité et d’efficience.
+%Outre ces grands principes de base, ajoutons ici quelques conseils en
+%vrac qui pourraient vous être utiles :
 
-Outre ces grands principes de base, ajoutons ici quelques conseils en
-vrac qui pourraient vous être utiles :
-
-\begin{liste}
-	\item 
-		\textbf{parcours des données} : en général on évite de parcourir
-		plusieurs fois le contenu d’un ensemble de données (surtout s’il s’agit
-		d’un fichier) sauf s’il n’y a pas d’autre solution.
-	\item 
-		\textbf{duplication des données} : on évite également de créer un
-		duplicata sous quelque forme que ce soit d’une grande structure de
-		données. Par exemple, s’il faut trier les données d’un fichier, il est
-		évident qu’il faut stocker l’entièreté des données en mémoire~pour
-		pouvoir effectuer les comparaisons ; par contre, c’est inutile si le
-		problème est d’extraire le maximum de ces données ou de les compter
-	\item 
-		\textbf{les booléens} : rappelons l’utilité des variables booléennes !
-		L’expérience montre que les étudiants négligent souvent leur
-		utilisation. Elles permettent de décrire de façon élégante l’état de
-		différentes situations, d’exprimer de façon concise des conditions…
-	\item 
-		\textbf{choix des boucles} : relisez attentivement le paragraphe 7.2 sur
-		le choix des boucles. Dans un processus itératif, il est impératif de
-		le quitter dès qu’une réponse est connue, plutôt que de parcourir
-		inutilement jusqu’au bout un ensemble de données. Le bon suivi de ce
-		principe intervient de façon primordiale dans l’efficacité d’un
-		algorithme ! 
-\end{liste}
-
+%\begin{liste}
+	%\item 
+		%\textbf{parcours des données} : en général on évite de parcourir
+		%plusieurs fois le contenu d’un ensemble de données (surtout s’il s’agit
+		%d’un fichier) sauf s’il n’y a pas d’autre solution.
+	%\item 
+		%\textbf{duplication des données} : on évite également de créer un
+		%duplicata sous quelque forme que ce soit d’une grande structure de
+		%données. Par exemple, s’il faut trier les données d’un fichier, il est
+		%évident qu’il faut stocker l’entièreté des données en mémoire~pour
+		%pouvoir effectuer les comparaisons ; par contre, c’est inutile si le
+		%problème est d’extraire le maximum de ces données ou de les compter
+	%\item 
+		%\textbf{les booléens} : rappelons l’utilité des variables booléennes !
+		%L’expérience montre que les étudiants négligent souvent leur
+		%utilisation. Elles permettent de décrire de façon élégante l’état de
+		%différentes situations, d’exprimer de façon concise des conditions…
+	%\item 
+		%\textbf{choix des boucles} : relisez attentivement le paragraphe 7.2 sur
+		%le choix des boucles. Dans un processus itératif, il est impératif de
+		%le quitter dès qu’une réponse est connue, plutôt que de parcourir
+		%inutilement jusqu’au bout un ensemble de données. Le bon suivi de ce
+		%principe intervient de façon primordiale dans l’efficacité d’un
+		%algorithme ! 
+%\end{liste}
 
 %==================
 \section{Exercices}
