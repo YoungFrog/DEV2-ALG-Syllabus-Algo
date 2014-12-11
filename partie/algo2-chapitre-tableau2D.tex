@@ -20,39 +20,75 @@
 	échiquier, scrabble \dots).
 
 % ====================
-\section{Déclaration}
+\section{Notations}
 % ====================
 
+\subsection{Déclarer}
+	
 	\marginicon{definition}
-	Pour déclarer un tableau statique à 2 dimensions, on écrira :
+	Pour \textbf{déclarer} un tableau statique à 2 dimensions, on écrira :
 
 	\begin{Pseudocode}
 	\Decl nomTableau : \K{tableau} [ligMin à ligMax, colMin à colMax] de TypeElément
 	\end{Pseudocode}
+
+	%Pour un tableau dynamique, on procédera en deux étapes comme expliqué
+	%pour les tableaux à une dimension. 
 	
-	Pour un tableau dynamique, on procédera en deux étapes comme expliqué
-	pour les tableaux à une dimension. 
-	
-	\begin{Pseudocode}
-	\Decl nomTableau~: \K{tableau} de TypeElément
-	\LComment Le code peut déterminer ici les bornes
-	\Let nomTableau \Gets \K{nouveau} \K{tableau} [ligneMin à ligneMax, colMin à colMax] de TypeElément
-	\end{Pseudocode}
+	%\begin{Pseudocode}
+	%\Decl nomTableau~: \K{tableau} de TypeElément
+	%\LComment Le code peut déterminer ici les bornes
+	%\Let nomTableau \Gets \K{nouveau} \K{tableau} [ligneMin à ligneMax, colMin à colMax] de TypeElément
+	%\end{Pseudocode}
 
 	où \pseudocode{ligneMin}, \pseudocode{ligneMax}, 
 	\pseudocode{colMin} et \pseudocode{colMax} sont des
 	expressions entières quelconques.
 
-	On ne se permettra pas en logique de
-	combiner les deux types de tableaux, à savoir utiliser la notation
-	«~statique~» pour certaines dimensions et «~dynamique~» pour les
-	autres.
+	\textbf{Exemple} :
+	
+	\begin{Pseudocode}
+		\Stmt tab : tableau [1 à 5, 1 à 10] d'entiers
+	\end{Pseudocode}
+	
+	déclare un tableau de 5 lignes par 10 colonnes dont chaque case
+	contient un entier.
+	
+\subsection{Utiliser}
+	\marginicon{definition}
+	Pour \textbf{accéder} à une case du tableau on donnera les deux indices
+	entre crochets.
+	
+	\textbf{Exemple} :
+	
+	\begin{Pseudocode}
+		\Stmt \Write tab[2,4]
+	\end{Pseudocode}
+	
+	affiche le 4\ieme{} élément de la 2\ieme{} colonne
+	du tableau nommé \pseudocode{tab}.
 
-	Notez qu'un tableau à deux dimensions peut aussi être
-	vu comme un tableau à une dimension dont chacun des éléments est
+	%On ne se permettra pas en logique de
+	%combiner les deux types de tableaux, à savoir utiliser la notation
+	%«~statique~» pour certaines dimensions et «~dynamique~» pour les
+	%autres.
+
+\subsection{Visualiser}
+
+	Notez que la vue sous forme de tableau avec des lignes
+	et des colonnes est une vision humaine.
+	Il n'y a pas de lignes ni de colonnes en mémoire.
+	Pour être précis,
+	on devrait juste parler de première dimension et
+	de deuxième dimension
+	mais la notion de ligne et de colonne
+	est un abus de langage qui simplifie le discours.
+	
+	On pourrait aussi visualiser un tableau à deux dimensions
+	comme un tableau à une dimension dont chacun des éléments est
 	lui-même un tableau à une dimension.
 
-	\textbf{Exemple} : Soit le tableau déclaré ainsi:
+	\textbf{Exemple} : Soit le tableau déclaré ainsi :
 
 	\begin{Pseudocode}
 	\Decl ntabLettres : \K{tableau}[1 à 4, 1 à 5] de caractères
@@ -81,7 +117,8 @@
 	est décomposé en cinq éléments de deuxième niveau accessibles par le
 	deuxième indice.
 	
-	\textbf{Exemple~:} reprenons l'exemple du stock de 10 produits
+	\textbf{Exemple~} : 
+	reprenons l'exemple du stock de 10 produits
 	qui a servi d'introduction au chapitre sur les tableaux
 	mais, cette fois, pour chaque jour de la semaine.
 	
