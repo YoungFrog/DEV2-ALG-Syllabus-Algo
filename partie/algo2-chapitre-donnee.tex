@@ -37,9 +37,9 @@ ce qui concerne les problèmes à résoudre par les moyens informatiques.
 Tout au long de l’année, nous avons vu divers modèles et techniques
 algorithmiques adaptées à des structures particulières (les nombres,
 les chaines, les tableaux, les variables structurées, les objets, les
-listes, les fichiers…). La plupart des exercices portaient directement
+listes\dots). La plupart des exercices portaient directement
 sur ces structures (par ex. calculer la somme des nombres d’un tableau,
-fusionner deux fichiers en un seul, extraire une sous-liste à partir
+extraire une sous-liste à partir
 d’une liste donnée). Ces exercices d’entrainement et de formation
 quelque peu théoriques constituent en fait des démarches algorithmiques
 de base qui trouvent toutes une place dans des problèmes plus
@@ -110,9 +110,9 @@ Rappelons brièvement les différentes structures étudiées dans ce cours
 	\item 
 		la \textbf{liste}, qui peut contenir un nombre indéfini d’éléments de
 		même type
-	\item 
-		le \textbf{fichier séquentiel}, qui est un support physique permettant
-		le stockage «~à long terme~» de données
+	%\item 
+		%le \textbf{fichier séquentiel}, qui est un support physique permettant
+		%le stockage «~à long terme~» de données
 \end{liste}
 
 D’autres structures particulières s’ajouteront dans le cours de
@@ -580,54 +580,54 @@ d’ajouter ou de supprimer des éléments à la collection.
 	\end{enumerate}
 \end{Exercice}
 
-\begin{Exercice}{Joyeux anniversaire}
-	Un fichier \pseudocode{birthday} contient les données d’une série de personnes dans
-	un ordre non déterminé. Chaque enregistrement du fichier (de type
-	structuré \pseudocode{Personne}) contient les champs :
+%\begin{Exercice}{Joyeux anniversaire}
+	%Un fichier \pseudocode{birthday} contient les données d’une série de personnes dans
+	%un ordre non déterminé. Chaque enregistrement du fichier (de type
+	%structuré \pseudocode{Personne}) contient les champs :
 
-	\begin{Pseudocode}
-		\Struct{Personne}
-		\Decl nom : chaine 
-		\Decl prénom : chaine 
-		\Decl dateNais : Date 
-		\EndStruct
-	\end{Pseudocode}
+	%\begin{Pseudocode}
+		%\Struct{Personne}
+		%\Decl nom : chaine 
+		%\Decl prénom : chaine 
+		%\Decl dateNais : Date 
+		%\EndStruct
+	%\end{Pseudocode}
 	
-	Écrire \textbf{un} algorithme qui, \textbf{après un seul parcours du
-	fichier}, affichera les résultats suivants :
+	%Écrire \textbf{un} algorithme qui, \textbf{après un seul parcours du
+	%fichier}, affichera les résultats suivants :
 
-	\begin{enumerate}[label=\alph*)]
-		\item 
-			le prénom le plus fréquent parmi ce groupe de personnes (on suppose
-			qu’il est unique, pas de cas d’\textit{ex-æquo}).
-		\item 
-			le nombre de personnes fêtant leur anniversaire pour chaque date de
-			l’année. Le résultat sera affiché sous la forme «~x personnes fêtent
-			leur anniversaire le 1\textsuperscript{er} janvier~» et ainsi de suite
-			pour chaque date de l’année, en omettant de mentionner les dates ne
-			correspondant à aucune date de naissance du fichier.
-	\end{enumerate}
+	%\begin{enumerate}[label=\alph*)]
+		%\item 
+			%le prénom le plus fréquent parmi ce groupe de personnes (on suppose
+			%qu’il est unique, pas de cas d’\textit{ex-æquo}).
+		%\item 
+			%le nombre de personnes fêtant leur anniversaire pour chaque date de
+			%l’année. Le résultat sera affiché sous la forme «~x personnes fêtent
+			%leur anniversaire le 1\textsuperscript{er} janvier~» et ainsi de suite
+			%pour chaque date de l’année, en omettant de mentionner les dates ne
+			%correspondant à aucune date de naissance du fichier.
+	%\end{enumerate}
 	
-	Il est permis d’utiliser pour résoudre cet exercice la méthode suivante
-	de la classe \pseudocode{Date}, sans devoir détailler son code :
+	%Il est permis d’utiliser pour résoudre cet exercice la méthode suivante
+	%de la classe \pseudocode{Date}, sans devoir détailler son code :
 
-	\begin{Pseudocode}
-		\MethodSign{numéroJour}{}{entier}
-		\RComment la position du jour dans l’année (entre 1 et 366)
-	\end{Pseudocode}
+	%\begin{Pseudocode}
+		%\MethodSign{numéroJour}{}{entier}
+		%\RComment la position du jour dans l’année (entre 1 et 366)
+	%\end{Pseudocode}
 
-	On utilisera aussi – si le besoin s’en fait sentir – le module réalisant
-	l’opération inverse : il associe à un entier \textit{n} entre 1 et 366
-	la date correspondante :
+	%On utilisera aussi – si le besoin s’en fait sentir – le module réalisant
+	%l’opération inverse : il associe à un entier \textit{n} entre 1 et 366
+	%la date correspondante :
 	
-	\begin{Pseudocode}
-		\ModuleSign{dateDuJour}{n : entier}{Date}
-	\end{Pseudocode}
+	%\begin{Pseudocode}
+		%\ModuleSign{dateDuJour}{n : entier}{Date}
+	%\end{Pseudocode}
 
-	N.B. : l’algorithme ne concerne pas une année déterminée, et manipule
-	donc toutes les dates possibles du calendrier, y compris le 29 février.
-	On considère donc ici une année complète de 366 jours.
-\end{Exercice}
+	%N.B. : l’algorithme ne concerne pas une année déterminée, et manipule
+	%donc toutes les dates possibles du calendrier, y compris le 29 février.
+	%On considère donc ici une année complète de 366 jours.
+%\end{Exercice}
 
 \begin{Exercice}{Puissance 4}
 	Le jeu de puissance 4 se déroule dans un tableau vertical comportant 6
@@ -690,45 +690,45 @@ d’ajouter ou de supprimer des éléments à la collection.
 	couleur du jeton dans ce problème).
 \end{Exercice}
 
-\begin{Exercice}{Cartographie}
+%\begin{Exercice}{Cartographie}
 
-	Un fichier \pseudocode{géo} contient les villes d’un pays avec
-	leurs coordonnées dans un plan
-	\textit{xy}. Chaque
-	enregistrement du fichier contient le nom d’une ville, la position
-	\textit{x} (abscisse) et
-	\textit{y} (ordonnée). Ces
-	positions sont exprimées en kilomètres à partir du coin inférieur
-	gauche de la carte.
+	%Un fichier \pseudocode{géo} contient les villes d’un pays avec
+	%leurs coordonnées dans un plan
+	%\textit{xy}. Chaque
+	%enregistrement du fichier contient le nom d’une ville, la position
+	%\textit{x} (abscisse) et
+	%\textit{y} (ordonnée). Ces
+	%positions sont exprimées en kilomètres à partir du coin inférieur
+	%gauche de la carte.
 
-	Écrire un algorithme qui,
-	\textbf{après une seule lecture du
-	fichier}, 
+	%Écrire un algorithme qui,
+	%\textbf{après une seule lecture du
+	%fichier}, 
 
-	\begin{liste}
-		\item
-			affiche les noms des deux villes les plus éloignées de ce pays. (On
-			suppose qu’il n’y a pas de cas d’ex-aequo)
-		\item 
-			affiche la liste des villes situées dans un rayon d’au
-			plus \textit{r} kilomètres autour
-			de la ville maVille
-			(\textit{r} et maVille sont des
-			paramètres de l’algorithme)
-	\end{liste}
+	%\begin{liste}
+		%\item
+			%affiche les noms des deux villes les plus éloignées de ce pays. (On
+			%suppose qu’il n’y a pas de cas d’ex-aequo)
+		%\item 
+			%affiche la liste des villes situées dans un rayon d’au
+			%plus \textit{r} kilomètres autour
+			%de la ville maVille
+			%(\textit{r} et maVille sont des
+			%paramètres de l’algorithme)
+	%\end{liste}
 	
-	Rappel : la distance entre deux
-	points
-	(\textit{x}\textsubscript{1},
-	\textit{y}\textsubscript{1}),
-	(\textit{x}\textsubscript{2},
-	\textit{y}\textsubscript{2})~d’un
-	plan réel est égale à
-	\\
-	\begin{math}
-		\sqrt{{(x_1 - x_2)}^2 + {(y_1 - y_2)}^2}
-	\end{math}
-\end{Exercice}
+	%Rappel : la distance entre deux
+	%points
+	%(\textit{x}\textsubscript{1},
+	%\textit{y}\textsubscript{1}),
+	%(\textit{x}\textsubscript{2},
+	%\textit{y}\textsubscript{2})~d’un
+	%plan réel est égale à
+	%\\
+	%\begin{math}
+		%\sqrt{{(x_1 - x_2)}^2 + {(y_1 - y_2)}^2}
+	%\end{math}
+%\end{Exercice}
 
 \begin{Exercice}{Les congés}
 	Les périodes de congés des différents employés d’une firme sont reprises
@@ -823,336 +823,336 @@ d’ajouter ou de supprimer des éléments à la collection.
 
 %\end{Exercice}
 
-\begin{Exercice}{Le jeu de la vie}
+%\begin{Exercice}{Le jeu de la vie}
 
-	Le \textbf{jeu de la vie} a été inventé en 1970 
-	par le mathématicien anglais John Horton Conway. 
-	Ce «~jeu~» ne demandant aucune interaction du «~joueur~» 
-	autre que le choix d’une configuration initiale 
-	est l’exemple le plus connu d’\textit{automate cellulaire}.
+	%Le \textbf{jeu de la vie} a été inventé en 1970 
+	%par le mathématicien anglais John Horton Conway. 
+	%Ce «~jeu~» ne demandant aucune interaction du «~joueur~» 
+	%autre que le choix d’une configuration initiale 
+	%est l’exemple le plus connu d’\textit{automate cellulaire}.
 
-	Il se déroule sur un quadrillage 
-	(en théorie infini) dont les carrés, 
-	appelés ici \textit{cellules}
-	peuvent posséder deux états : 
-	ils sont soit \textit{vivants} soit \textit{morts}, 
-	ce qui sera respectivement représenté par un carré noir ou blanc. 
-	Chaque cellule interagit avec ses 8 cellules voisines 
-	(les 8 cellules adjacentes par un coté ou un sommet) 
-	et c’est le nombre de cellules avoisinantes qui détermine la naissance, 
-	la survie ou la mort d’une cellule d’un stade à l’autre du jeu, 
-	appelé \textit{génération}.
+	%Il se déroule sur un quadrillage 
+	%(en théorie infini) dont les carrés, 
+	%appelés ici \textit{cellules}
+	%peuvent posséder deux états : 
+	%ils sont soit \textit{vivants} soit \textit{morts}, 
+	%ce qui sera respectivement représenté par un carré noir ou blanc. 
+	%Chaque cellule interagit avec ses 8 cellules voisines 
+	%(les 8 cellules adjacentes par un coté ou un sommet) 
+	%et c’est le nombre de cellules avoisinantes qui détermine la naissance, 
+	%la survie ou la mort d’une cellule d’un stade à l’autre du jeu, 
+	%appelé \textit{génération}.
 
-	Les règles de vie et de mort des cellules lors du passage d’une
-	génération à une autre sont les suivantes :
+	%Les règles de vie et de mort des cellules lors du passage d’une
+	%génération à une autre sont les suivantes :
 
-	\begin{enumerate}
-	\item 
-		une cellule vivante ayant moins de 2 voisines disparait à la
-		génération suivante (mort par isolation)
-	\item 
-		une cellule vivante ayant plus de 3 voisines disparait à la génération
-		suivante (mort par surpopulation)
-	\item
-		une cellule vivante ayant 2 ou 3 voisines survit à la génération
-		suivante
-	\item
-		une cellule morte entourée de 3 voisines vivantes (re)nait à la
-		génération suivante.
-	\end{enumerate}
+	%\begin{enumerate}
+	%\item 
+		%une cellule vivante ayant moins de 2 voisines disparait à la
+		%génération suivante (mort par isolation)
+	%\item 
+		%une cellule vivante ayant plus de 3 voisines disparait à la génération
+		%suivante (mort par surpopulation)
+	%\item
+		%une cellule vivante ayant 2 ou 3 voisines survit à la génération
+		%suivante
+	%\item
+		%une cellule morte entourée de 3 voisines vivantes (re)nait à la
+		%génération suivante.
+	%\end{enumerate}
 
-	Le jeu consiste donc simplement à observer l’évolution d’une
-	configuration de départ lors des passages successifs d’une génération à
-	la suivante. Certaines configurations sont statiques, d’autres
-	cycliques, d’autres encore évoluent de manière imprévisible.
+	%Le jeu consiste donc simplement à observer l’évolution d’une
+	%configuration de départ lors des passages successifs d’une génération à
+	%la suivante. Certaines configurations sont statiques, d’autres
+	%cycliques, d’autres encore évoluent de manière imprévisible.
 
-	\subsection*{Exemples}
+	%\subsection*{Exemples}
 
-	\subsubsection*{(1) Un oscillateur}
+	%\subsubsection*{(1) Un oscillateur}
 
-	La configuration de départ est constituée de 3 cellules voisines alignées horizontalement. 
-	Les deux cellules extrêmes vont disparaitre, car elles n’ont qu’une seule voisine. 
-	La cellule centrale va survivre car elle est entourée de 2 voisines. 
-	Les deux cellules mortes marquées d’une croix vont devenir vivantes, 
-	de sorte que la configuration à la 2\up{ème} génération 
-	sera constituée de 3 cellules alignées verticalement. 
-	Par symétrie, la 3\up{ème} génération sera identique à la première, 
-	et les générations suivantes formeront donc une situation
-	oscillante entre la position horizontale et verticale.
+	%La configuration de départ est constituée de 3 cellules voisines alignées horizontalement. 
+	%Les deux cellules extrêmes vont disparaitre, car elles n’ont qu’une seule voisine. 
+	%La cellule centrale va survivre car elle est entourée de 2 voisines. 
+	%Les deux cellules mortes marquées d’une croix vont devenir vivantes, 
+	%de sorte que la configuration à la 2\up{ème} génération 
+	%sera constituée de 3 cellules alignées verticalement. 
+	%Par symétrie, la 3\up{ème} génération sera identique à la première, 
+	%et les générations suivantes formeront donc une situation
+	%oscillante entre la position horizontale et verticale.
 
-	\begin{footnotesize}
-	\sffamily
-	\begin{minipage}{0.3\textwidth}
-	\begin{center}
-	Configuration de départ\\
-	\begin{tabular}{|*{6}{>{\centering\arraybackslash}m{0.2cm}|}}
-	\hline
-	~ & ~ & ~ & ~ & ~ & ~ \\\hline
-	~ & ~ & X & ~ & ~ & ~ \\\hline
-	~ & \cellcolor{gray!50} & \cellcolor{gray!50} & \cellcolor{gray!50} & ~ & ~ \\\hline
-	~ & ~ & X & ~ & ~ & ~ \\\hline
-	~ & ~ & ~ & ~ & ~ & ~ \\\hline
-	~ & ~ & ~ & ~ & ~ & ~ \\\hline
-	\end{tabular}
-	\end{center}
-	\end{minipage}
-	\begin{minipage}{0.3\textwidth}
-	\begin{center}
-	2\up{ème} génération\\
-	\begin{tabular}{|*{6}{>{\centering\arraybackslash}m{0.2cm}|}}
-	\hline
-	~ & ~ & ~ & ~ & ~ & ~ \\\hline
-	~ & ~ & \cellcolor{gray!50} & ~ & ~ & ~ \\\hline
-	~ & ~ & \cellcolor{gray!50} & ~ & ~ & ~ \\\hline
-	~ & ~ & \cellcolor{gray!50} & ~ & ~ & ~ \\\hline
-	~ & ~ & ~ & ~ & ~ & ~ \\\hline
-	~ & ~ & ~ & ~ & ~ & ~ \\\hline
-	\end{tabular}
-	\end{center}
-	\end{minipage}
-	\begin{minipage}{0.3\textwidth}
-	\begin{center}
-	3\up{ème} génération\\
-	\begin{tabular}{|*{6}{>{\centering\arraybackslash}m{0.2cm}|}}
-	\hline
-	~ & ~ & ~ & ~ & ~ & ~ \\\hline
-	~ & ~ & ~ & ~ & ~ & ~ \\\hline
-	~ & \cellcolor{gray!50} & \cellcolor{gray!50} & \cellcolor{gray!50} & ~ & ~ \\\hline
-	~ & ~ & ~ & ~ & ~ & ~ \\\hline
-	~ & ~ & ~ & ~ & ~ & ~ \\\hline
-	~ & ~ & ~ & ~ & ~ & ~ \\\hline
-	\end{tabular}
-	\end{center}
-	\end{minipage}
-	\end{footnotesize}
+	%\begin{footnotesize}
+	%\sffamily
+	%\begin{minipage}{0.3\textwidth}
+	%\begin{center}
+	%Configuration de départ\\
+	%\begin{tabular}{|*{6}{>{\centering\arraybackslash}m{0.2cm}|}}
+	%\hline
+	%~ & ~ & ~ & ~ & ~ & ~ \\\hline
+	%~ & ~ & X & ~ & ~ & ~ \\\hline
+	%~ & \cellcolor{gray!50} & \cellcolor{gray!50} & \cellcolor{gray!50} & ~ & ~ \\\hline
+	%~ & ~ & X & ~ & ~ & ~ \\\hline
+	%~ & ~ & ~ & ~ & ~ & ~ \\\hline
+	%~ & ~ & ~ & ~ & ~ & ~ \\\hline
+	%\end{tabular}
+	%\end{center}
+	%\end{minipage}
+	%\begin{minipage}{0.3\textwidth}
+	%\begin{center}
+	%2\up{ème} génération\\
+	%\begin{tabular}{|*{6}{>{\centering\arraybackslash}m{0.2cm}|}}
+	%\hline
+	%~ & ~ & ~ & ~ & ~ & ~ \\\hline
+	%~ & ~ & \cellcolor{gray!50} & ~ & ~ & ~ \\\hline
+	%~ & ~ & \cellcolor{gray!50} & ~ & ~ & ~ \\\hline
+	%~ & ~ & \cellcolor{gray!50} & ~ & ~ & ~ \\\hline
+	%~ & ~ & ~ & ~ & ~ & ~ \\\hline
+	%~ & ~ & ~ & ~ & ~ & ~ \\\hline
+	%\end{tabular}
+	%\end{center}
+	%\end{minipage}
+	%\begin{minipage}{0.3\textwidth}
+	%\begin{center}
+	%3\up{ème} génération\\
+	%\begin{tabular}{|*{6}{>{\centering\arraybackslash}m{0.2cm}|}}
+	%\hline
+	%~ & ~ & ~ & ~ & ~ & ~ \\\hline
+	%~ & ~ & ~ & ~ & ~ & ~ \\\hline
+	%~ & \cellcolor{gray!50} & \cellcolor{gray!50} & \cellcolor{gray!50} & ~ & ~ \\\hline
+	%~ & ~ & ~ & ~ & ~ & ~ \\\hline
+	%~ & ~ & ~ & ~ & ~ & ~ \\\hline
+	%~ & ~ & ~ & ~ & ~ & ~ \\\hline
+	%\end{tabular}
+	%\end{center}
+	%\end{minipage}
+	%\end{footnotesize}
 
-	\subsubsection*{(2) Le vaisseau spatial}
+	%\subsubsection*{(2) Le vaisseau spatial}
 
-	Dans cet exemple, le motif de 5 cellules retrouve sa forme initiale
-	toutes les 4 générations, mais s’est déplacé d’une position en
-	direction diagonale.
+	%Dans cet exemple, le motif de 5 cellules retrouve sa forme initiale
+	%toutes les 4 générations, mais s’est déplacé d’une position en
+	%direction diagonale.
 
-	\begin{center}
-	\begin{footnotesize}
-	\sffamily
-	\begin{minipage}{0.3\textwidth}
-	\begin{center}
-	départ\\
-	\begin{tabular}{|*{6}{>{\centering\arraybackslash}m{0.2cm}|}}
-	\hline
-	~ & ~ & ~ & ~ & ~ & ~ \\\hline
-	~ & ~ & \cellcolor{gray!50} & ~ & ~ & ~ \\\hline
-	~ & ~ & ~ & \cellcolor{gray!50} & ~ & ~ \\\hline
-	~ & \cellcolor{gray!50} & \cellcolor{gray!50} & \cellcolor{gray!50} & ~ & ~ \\\hline
-	~ & ~ & ~ & ~ & ~ & ~ \\\hline
-	~ & ~ & ~ & ~ & ~ & ~ \\\hline
-	\end{tabular}
-	\end{center}
-	\end{minipage}
-	\begin{minipage}{0.3\textwidth}
-	\begin{center}
-	2\up{ème} génération\\
-	\begin{tabular}{|*{6}{>{\centering\arraybackslash}m{0.2cm}|}}
-	\hline
-	~ & ~ & ~ & ~ & ~ & ~ \\\hline
-	~ & ~ & ~ & ~ & ~ & ~ \\\hline
-	~ & \cellcolor{gray!50} & ~ & \cellcolor{gray!50} & ~ & ~ \\\hline
-	~ & ~ & \cellcolor{gray!50} & \cellcolor{gray!50} & ~ & ~ \\\hline
-	~ & ~ & \cellcolor{gray!50} & ~ & ~ & ~ \\\hline
-	~ & ~ & ~ & ~ & ~ & ~ \\\hline
-	\end{tabular}
-	\end{center}
-	\end{minipage}
-	\begin{minipage}{0.3\textwidth}
-	\begin{center}
-	3\up{ème} génération\\
-	\begin{tabular}{|*{6}{>{\centering\arraybackslash}m{0.2cm}|}}
-	\hline
-	~ & ~ & ~ & ~ & ~ & ~ \\\hline
-	~ & ~ & ~ & ~ & ~ & ~ \\\hline
-	~ & ~ & ~ & \cellcolor{gray!50} & ~ & ~ \\\hline
-	~ & \cellcolor{gray!50} & ~ & \cellcolor{gray!50} & ~ & ~ \\\hline
-	~ & ~ & \cellcolor{gray!50} & \cellcolor{gray!50} & ~ & ~ \\\hline
-	~ & ~ & ~ & ~ & ~ & ~ \\\hline
-	\end{tabular}
-	\end{center}
-	\end{minipage}
-	\end{footnotesize}
-	\end{center}
+	%\begin{center}
+	%\begin{footnotesize}
+	%\sffamily
+	%\begin{minipage}{0.3\textwidth}
+	%\begin{center}
+	%départ\\
+	%\begin{tabular}{|*{6}{>{\centering\arraybackslash}m{0.2cm}|}}
+	%\hline
+	%~ & ~ & ~ & ~ & ~ & ~ \\\hline
+	%~ & ~ & \cellcolor{gray!50} & ~ & ~ & ~ \\\hline
+	%~ & ~ & ~ & \cellcolor{gray!50} & ~ & ~ \\\hline
+	%~ & \cellcolor{gray!50} & \cellcolor{gray!50} & \cellcolor{gray!50} & ~ & ~ \\\hline
+	%~ & ~ & ~ & ~ & ~ & ~ \\\hline
+	%~ & ~ & ~ & ~ & ~ & ~ \\\hline
+	%\end{tabular}
+	%\end{center}
+	%\end{minipage}
+	%\begin{minipage}{0.3\textwidth}
+	%\begin{center}
+	%2\up{ème} génération\\
+	%\begin{tabular}{|*{6}{>{\centering\arraybackslash}m{0.2cm}|}}
+	%\hline
+	%~ & ~ & ~ & ~ & ~ & ~ \\\hline
+	%~ & ~ & ~ & ~ & ~ & ~ \\\hline
+	%~ & \cellcolor{gray!50} & ~ & \cellcolor{gray!50} & ~ & ~ \\\hline
+	%~ & ~ & \cellcolor{gray!50} & \cellcolor{gray!50} & ~ & ~ \\\hline
+	%~ & ~ & \cellcolor{gray!50} & ~ & ~ & ~ \\\hline
+	%~ & ~ & ~ & ~ & ~ & ~ \\\hline
+	%\end{tabular}
+	%\end{center}
+	%\end{minipage}
+	%\begin{minipage}{0.3\textwidth}
+	%\begin{center}
+	%3\up{ème} génération\\
+	%\begin{tabular}{|*{6}{>{\centering\arraybackslash}m{0.2cm}|}}
+	%\hline
+	%~ & ~ & ~ & ~ & ~ & ~ \\\hline
+	%~ & ~ & ~ & ~ & ~ & ~ \\\hline
+	%~ & ~ & ~ & \cellcolor{gray!50} & ~ & ~ \\\hline
+	%~ & \cellcolor{gray!50} & ~ & \cellcolor{gray!50} & ~ & ~ \\\hline
+	%~ & ~ & \cellcolor{gray!50} & \cellcolor{gray!50} & ~ & ~ \\\hline
+	%~ & ~ & ~ & ~ & ~ & ~ \\\hline
+	%\end{tabular}
+	%\end{center}
+	%\end{minipage}
+	%\end{footnotesize}
+	%\end{center}
 	
-	\begin{center}
-	\begin{footnotesize}
-	\sffamily
-	\begin{minipage}{0.3\textwidth}
-	\begin{center}
-	4\up{ème} génération\\
-	\begin{tabular}{|*{6}{>{\centering\arraybackslash}m{0.2cm}|}}
-	\hline
-	~ & ~ & ~ & ~ & ~ & ~ \\\hline
-	~ & ~ & ~ & ~ & ~ & ~ \\\hline
-	~ & ~ & \cellcolor{gray!50} & ~ & ~ & ~ \\\hline
-	~ & ~ & ~ & \cellcolor{gray!50} & \cellcolor{gray!50} & ~ \\\hline
-	~ & ~ & \cellcolor{gray!50} & \cellcolor{gray!50} & ~ & ~ \\\hline
-	~ & ~ & ~ & ~ & ~ & ~ \\\hline
-	\end{tabular}
-	\end{center}
-	\end{minipage}
-	\begin{minipage}{0.3\textwidth}
-	\begin{center}
-	5\up{ème} génération\\
-	\begin{tabular}{|*{6}{>{\centering\arraybackslash}m{0.2cm}|}}
-	\hline
-	~ & ~ & ~ & ~ & ~ & ~ \\\hline
-	~ & ~ & ~ & ~ & ~ & ~ \\\hline
-	~ & ~ & ~ & \cellcolor{gray!50} & ~ & ~ \\\hline
-	~ & ~ & ~ & ~ & \cellcolor{gray!50} & ~ \\\hline
-	~ & ~ & \cellcolor{gray!50} & \cellcolor{gray!50} & \cellcolor{gray!50} & ~ \\\hline
-	~ & ~ & ~ & ~ & ~ & ~ \\\hline
-	\end{tabular}
-	\end{center}
-	\end{minipage}
-	\end{footnotesize}
-	\end{center}
+	%\begin{center}
+	%\begin{footnotesize}
+	%\sffamily
+	%\begin{minipage}{0.3\textwidth}
+	%\begin{center}
+	%4\up{ème} génération\\
+	%\begin{tabular}{|*{6}{>{\centering\arraybackslash}m{0.2cm}|}}
+	%\hline
+	%~ & ~ & ~ & ~ & ~ & ~ \\\hline
+	%~ & ~ & ~ & ~ & ~ & ~ \\\hline
+	%~ & ~ & \cellcolor{gray!50} & ~ & ~ & ~ \\\hline
+	%~ & ~ & ~ & \cellcolor{gray!50} & \cellcolor{gray!50} & ~ \\\hline
+	%~ & ~ & \cellcolor{gray!50} & \cellcolor{gray!50} & ~ & ~ \\\hline
+	%~ & ~ & ~ & ~ & ~ & ~ \\\hline
+	%\end{tabular}
+	%\end{center}
+	%\end{minipage}
+	%\begin{minipage}{0.3\textwidth}
+	%\begin{center}
+	%5\up{ème} génération\\
+	%\begin{tabular}{|*{6}{>{\centering\arraybackslash}m{0.2cm}|}}
+	%\hline
+	%~ & ~ & ~ & ~ & ~ & ~ \\\hline
+	%~ & ~ & ~ & ~ & ~ & ~ \\\hline
+	%~ & ~ & ~ & \cellcolor{gray!50} & ~ & ~ \\\hline
+	%~ & ~ & ~ & ~ & \cellcolor{gray!50} & ~ \\\hline
+	%~ & ~ & \cellcolor{gray!50} & \cellcolor{gray!50} & \cellcolor{gray!50} & ~ \\\hline
+	%~ & ~ & ~ & ~ & ~ & ~ \\\hline
+	%\end{tabular}
+	%\end{center}
+	%\end{minipage}
+	%\end{footnotesize}
+	%\end{center}
 	
-	\bigskip
+	%\bigskip
 
-	On veut créer une classe permettant d’implémenter 
-	la représentation du jeu de la vie sur un tableau à deux
-	dimensions possédant un nombre $n$ de lignes et $m$ de colonnes, 
-	les éléments de ce tableau étant des booléens 
-	(vrai pour une cellule vivante et faux pour une cellule morte).
+	%On veut créer une classe permettant d’implémenter 
+	%la représentation du jeu de la vie sur un tableau à deux
+	%dimensions possédant un nombre $n$ de lignes et $m$ de colonnes, 
+	%les éléments de ce tableau étant des booléens 
+	%(vrai pour une cellule vivante et faux pour une cellule morte).
 	
-	On voudrait doter cette classe de méthodes permettant :
+	%On voudrait doter cette classe de méthodes permettant :
 
-	\begin{enumerate}
-	\item 
-		de créer une configuration initiale à partir
-		d’un fichier \pseudocode{init} de \pseudocode{Couples}
-		(structure constituée de deux entiers). 
-		Le premier enregistrement du fichier donnerait les dimensions du tableau,
-		et les suivants donneraient les coordonnées des cases vivantes de la
-		configuration initiale.
+	%\begin{enumerate}
+	%\item 
+		%de créer une configuration initiale à partir
+		%d’un fichier \pseudocode{init} de \pseudocode{Couples}
+		%(structure constituée de deux entiers). 
+		%Le premier enregistrement du fichier donnerait les dimensions du tableau,
+		%et les suivants donneraient les coordonnées des cases vivantes de la
+		%configuration initiale.
 		
-		Par exemple, les couples du fichier \pseudocode{init} pour le vaisseau spatial
-		seraient : (6,6), (2,3), (3,4), (4,2), (4,3), (4,4). Le premier couple
-		donne donc les dimensions du tableau (6~x~6) et les 5 suivants les
-		coordonnées des 5 cellules vivantes.
-	\item 
-		de connaitre le nombre de cellules vivantes de la génération en cours
-	\item
-		de passer à la génération suivante ; cette méthode remplace donc le
-		tableau représentant une génération par le tableau représentant la
-		génération suivante
-	\item
-		de connaitre le nombre de cellules qui seront
-		vivantes $k$ générations plus tard
-		($k$ étant un paramètre entier). 
-		Attention, cette méthode ne doit pas perdre la configuration de la génération courante.
-	\end{enumerate}
+		%Par exemple, les couples du fichier \pseudocode{init} pour le vaisseau spatial
+		%seraient : (6,6), (2,3), (3,4), (4,2), (4,3), (4,4). Le premier couple
+		%donne donc les dimensions du tableau (6~x~6) et les 5 suivants les
+		%coordonnées des 5 cellules vivantes.
+	%\item 
+		%de connaitre le nombre de cellules vivantes de la génération en cours
+	%\item
+		%de passer à la génération suivante ; cette méthode remplace donc le
+		%tableau représentant une génération par le tableau représentant la
+		%génération suivante
+	%\item
+		%de connaitre le nombre de cellules qui seront
+		%vivantes $k$ générations plus tard
+		%($k$ étant un paramètre entier). 
+		%Attention, cette méthode ne doit pas perdre la configuration de la génération courante.
+	%\end{enumerate}
 
-	\subsubsection*{N.B. :}
+	%\subsubsection*{N.B. :}
 
-	\begin{liste}
-	\item
-		Veillez à prendre vos dispositions pour ne pas recopier deux fois le
-		code apparaissant dans les méthodes 3 et 4 !
-	\item
-		Astuce pour simplifier votre algorithme : 
-		on peut considérer que le bord du tableau est encore entouré 
-		d’une couche de cellules mortes 
-		– aucune d’elles ne prend donc naissance, même si un alignement de 3 cellules
-		vivantes se trouve sur le bord du tableau visible. 
-		Il suffit pour cela d’utiliser un tableau indicé de $0$ à $n+1$ pour les lignes 
-		et de $0$ à $m+1$ pour les colonnes, 
-		avec comme conséquence que le traitement des $m$ x $n$ cases centrales 
-		sera identique pour chaque case.
-	\end{liste}
+	%\begin{liste}
+	%\item
+		%Veillez à prendre vos dispositions pour ne pas recopier deux fois le
+		%code apparaissant dans les méthodes 3 et 4 !
+	%\item
+		%Astuce pour simplifier votre algorithme : 
+		%on peut considérer que le bord du tableau est encore entouré 
+		%d’une couche de cellules mortes 
+		%– aucune d’elles ne prend donc naissance, même si un alignement de 3 cellules
+		%vivantes se trouve sur le bord du tableau visible. 
+		%Il suffit pour cela d’utiliser un tableau indicé de $0$ à $n+1$ pour les lignes 
+		%et de $0$ à $m+1$ pour les colonnes, 
+		%avec comme conséquence que le traitement des $m$ x $n$ cases centrales 
+		%sera identique pour chaque case.
+	%\end{liste}
 
-\end{Exercice}
+%\end{Exercice}
 
-\begin{Exercice}{Messages codés}
+%\begin{Exercice}{Messages codés}
 
-{
-L'agent ESI 007 a imaginé un nouveau procédé de codage
-de ses messages secrets. Celui-ci fonctionne en trois étapes. La
-première consiste à remplacer chaque lettre du message par la lettre se
-trouvant un certain nombre de positions plus loin dans l’alphabet, ce
-nombre de positions étant égal à la longueur du mot ! Ainsi,}
+%{
+%L'agent ESI 007 a imaginé un nouveau procédé de codage
+%de ses messages secrets. Celui-ci fonctionne en trois étapes. La
+%première consiste à remplacer chaque lettre du message par la lettre se
+%trouvant un certain nombre de positions plus loin dans l’alphabet, ce
+%nombre de positions étant égal à la longueur du mot ! Ainsi,}
 
-{\centering
-RENDEZ VOUS A 10 HEURES A L’ ESI
-\par}
+%{\centering
+%RENDEZ VOUS A 10 HEURES A L’ ESI
+%\par}
 
-{
-deviendra}
+%{
+%deviendra}
 
-{\centering
-XKTJKF ZSYW B 10 NKAXKY \ B M’ HVL
-\par}
+%{\centering
+%XKTJKF ZSYW B 10 NKAXKY \ B M’ HVL
+%\par}
 
-{
-En effet, toutes les lettres de RENDEZ et de HEURES (mots de longueur 6)
-ont été décalées de 6 positions dans l’alphabet ; noter que le décalage
-est cyclique, la lettre Z ayant été remplacée par F et U par A. De
-même, toutes les lettres de VOUS (de longueur 4) ont été décalées de 4
-positions, A est devenu B et L est devenu M (puisque ces mots sont de
-longueur 1) et enfin, les lettres d’ESI (de longueur 3) ont été
-décalées de 3 positions. Notez que seules les lettres sont modifiées,
-les autres caractères sont inchangés (chiffres, ponctuation,
-guillemets, etc.)}
+%{
+%En effet, toutes les lettres de RENDEZ et de HEURES (mots de longueur 6)
+%ont été décalées de 6 positions dans l’alphabet ; noter que le décalage
+%est cyclique, la lettre Z ayant été remplacée par F et U par A. De
+%même, toutes les lettres de VOUS (de longueur 4) ont été décalées de 4
+%positions, A est devenu B et L est devenu M (puisque ces mots sont de
+%longueur 1) et enfin, les lettres d’ESI (de longueur 3) ont été
+%décalées de 3 positions. Notez que seules les lettres sont modifiées,
+%les autres caractères sont inchangés (chiffres, ponctuation,
+%guillemets, etc.)}
 
-{
-Pour la seconde étape, ESI 007 brouille les pistes en intercalant en
-troisième position une lettre choisie aléatoirement, mais seulement
-dans les mots \textbf{d’au moins 4 lettres}. Cela donne par exemple
-pour le message précédent :}
+%{
+%Pour la seconde étape, ESI 007 brouille les pistes en intercalant en
+%troisième position une lettre choisie aléatoirement, mais seulement
+%dans les mots \textbf{d’au moins 4 lettres}. Cela donne par exemple
+%pour le message précédent :}
 
-{\centering
-XKETJKF ZSQYW B 10 NKDAXKY B M’ HVL
-\par}
+%{\centering
+%XKETJKF ZSQYW B 10 NKDAXKY B M’ HVL
+%\par}
 
-{
-(Avouez que le message de départ est déjà bien méconnaissable…). Enfin,
-le message obtenu après cette seconde étape est caché dans un fichier
-\textbf{SECRET} dont chaque enregistrement correspond à un mot du
-message codé, et contient les champs suivant :}
+%{
+%(Avouez que le message de départ est déjà bien méconnaissable…). Enfin,
+%le message obtenu après cette seconde étape est caché dans un fichier
+%\textbf{SECRET} dont chaque enregistrement correspond à un mot du
+%message codé, et contient les champs suivant :}
 
-\begin{liste}
-\item {
-id : «~indice début~» : entier}
-\item {
-if : «~indice fin~» : entier}
-\item {
-tabCar : tableau[1 à 20] de caractère qui représente un des mots du
-message codé. Ce mot se trouve entre les éléments d’indices ID et IF
-inclus, les autres éléments du tableau sont choisis aléatoirement.}
-\end{liste}
-{
-Pour fixer les idées, le premier enregistrement de SECRET pourrait être
-:}
+%\begin{liste}
+%\item {
+%id : «~indice début~» : entier}
+%\item {
+%if : «~indice fin~» : entier}
+%\item {
+%tabCar : tableau[1 à 20] de caractère qui représente un des mots du
+%message codé. Ce mot se trouve entre les éléments d’indices ID et IF
+%inclus, les autres éléments du tableau sont choisis aléatoirement.}
+%\end{liste}
+%{
+%Pour fixer les idées, le premier enregistrement de SECRET pourrait être
+%:}
 
-\begin{center}
-\begin{tabular}{*{1}{>{\small\centering\arraybackslash}m{0.35cm}}}
-id \\
-8\\
-\end{tabular}
-\begin{tabular}{*{1}{>{\small\centering\arraybackslash}m{0.35cm}}}
-if\\
-14\\
-\end{tabular}
-\begin{tabular}{*{20}{>{\small\centering\arraybackslash}m{0.32cm}}}
-\multicolumn{4}{l}{tabCar} \\
-F & A & 3 & P & Y & ! & R & K & K & E & T & J & K & F & R & Z & ; & C & W & J \\
-\end{tabular}
-\end{center}
+%\begin{center}
+%\begin{tabular}{*{1}{>{\small\centering\arraybackslash}m{0.35cm}}}
+%id \\
+%8\\
+%\end{tabular}
+%\begin{tabular}{*{1}{>{\small\centering\arraybackslash}m{0.35cm}}}
+%if\\
+%14\\
+%\end{tabular}
+%\begin{tabular}{*{20}{>{\small\centering\arraybackslash}m{0.32cm}}}
+%\multicolumn{4}{l}{tabCar} \\
+%F & A & 3 & P & Y & ! & R & K & K & E & T & J & K & F & R & Z & ; & C & W & J \\
+%\end{tabular}
+%\end{center}
 
-On retrouve en effet entre les éléments d’indice 8 et 14 le premier mot
-codé du message «~\textit{XKETJKF~}». On peut supposer que dans tous
-les cas, 1 ${\leq}$ id ${\leq}$ if ${\leq}$ 20.
+%On retrouve en effet entre les éléments d’indice 8 et 14 le premier mot
+%codé du message «~\textit{XKETJKF~}». On peut supposer que dans tous
+%les cas, 1 ${\leq}$ id ${\leq}$ if ${\leq}$ 20.
 
-Connaissant le procédé de cryptage d’ESI 007, on vous demande d’écrire
-un algorithme qui \textbf{décrypte} un message crypté par cette
-méthode. Les lettres du message \textbf{décrypté} seront écrites une
-par une dans le fichier \pseudocode{lisezMoi} (en n’oubliant pas de séparer les
-mots par un caractère blanc !). 
-\end{Exercice}
+%Connaissant le procédé de cryptage d’ESI 007, on vous demande d’écrire
+%un algorithme qui \textbf{décrypte} un message crypté par cette
+%méthode. Les lettres du message \textbf{décrypté} seront écrites une
+%par une dans le fichier \pseudocode{lisezMoi} (en n’oubliant pas de séparer les
+%mots par un caractère blanc !). 
+%\end{Exercice}
