@@ -116,9 +116,53 @@
 	accède par le premier indice. Ensuite, chaque élément de premier niveau
 	est décomposé en cinq éléments de deuxième niveau accessibles par le
 	deuxième indice.
+
+\subsection{Exemples}
+
+	\paragraph{Exemple 1 -- Remplir les coin.}
+	Dans ce petit exemple,
+	on a un tableau de chaines et on donne des valeux aux coins.
 	
-	\textbf{Exemple~} : 
-	reprenons l'exemple du stock de 10 produits
+	\begin{small}
+	\begin{center}
+		\begin{tabular}{|*{5}{>{\centering\arraybackslash}m{1.5cm}|}}
+			\hline
+			"NO" &
+			 &
+			 &
+			 &
+			"NE"
+			\\\hline
+			 &
+			 &
+			 &
+			 &
+			\\\hline
+			"SO" &
+			 &
+			 &
+			 &
+			"SE"
+			\\\hline
+		\end{tabular}	
+	\end{center}
+	\end{small}
+	
+	\bigskip
+
+	\begin{Pseudocode}
+	\LComment Déclare un tableau et donne des valeurs aux coins.
+	\Module{remplirCoins}{}{}
+		\Decl grille~: \K{tableau} [1 à 3, 1 à 5] d’entiers
+		\Let grille[1,1] \Gets "NO"
+		\Let grille[1,5] \Gets "NE"
+		\Let grille[3,1] \Gets "SO"
+		\Let grille[3,5] \Gets "SE"
+	\EndModule
+	\end{Pseudocode}
+
+	\paragraph{Exemple 2 -- Gestion des stocks.}
+	Reprenons l'exemple du stock de 10 produits
 	qui a servi d'introduction au chapitre sur les tableaux
 	mais, cette fois, pour chaque jour de la semaine.
 	
@@ -294,12 +338,12 @@ Déclaration d'un tableau statique~:
 	\Decl tab~: tableau [1 à n, 1 à m] de T
 \end{Pseudocode}
 
-Déclaration d'un tableau dynamique~:
+%Déclaration d'un tableau dynamique~:
 
-	\begin{Pseudocode}
-	\Decl tab~: \K{tableau} de T
-	\Let tab \Gets \K{nouveau} \K{tableau} [1 à n, 1 à m] de T
-	\end{Pseudocode}
+	%\begin{Pseudocode}
+	%\Decl tab~: \K{tableau} de T
+	%\Let tab \Gets \K{nouveau} \K{tableau} [1 à n, 1 à m] de T
+	%\end{Pseudocode}
 
 Commençons par des cas plus simples 
 où on ne parcourt qu'une seule des dimensions 
