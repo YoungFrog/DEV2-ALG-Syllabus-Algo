@@ -11,13 +11,17 @@
 	pour faire référence à un de ses éléments. Attention de ne pas confondre 
 	avec la	taille !
 	
-	Dans ce qui précède, nous avons introduit les tableaux à une dimension.
-	Un seul indice suffisait à localiser un de ses éléments. De nombreuses
-	situations nécessitent cependant l’usage de tableaux à deux dimensions.
+	En DEV$_1$, nous avons introduit les tableaux à une dimension.
+	Un seul indice suffisait à localiser un de ses éléments. 
+	Pour le dire autrement,
+	chaque case possédait \textbf{un} numéro.
+	De nombreuses situations nécessitent cependant l’usage de tableaux à deux dimensions.
 	Ils vous sont déjà familiers par leur présence dans beaucoup de
 	situations courantes : calendrier, grille horaire, grille de mots
 	croisés, sudoku, jeux se déroulant sur un quadrillage (damier,
 	échiquier, scrabble \dots).
+	Dans ces situations, 
+	chaque case est désignée par \textbf{deux} numéros.
 
 % ====================
 \section{Notations}
@@ -26,7 +30,7 @@
 \subsection{Déclarer}
 	
 	\marginicon{definition}
-	Pour \textbf{déclarer} un tableau statique à 2 dimensions, on écrira :
+	Pour \textbf{déclarer} un tableau à 2 dimensions, on écrira :
 
 	\begin{Pseudocode}
 	\Decl nomTableau : \K{tableau} [ligMin à ligMax, colMin à colMax] de TypeElément
@@ -119,7 +123,7 @@
 
 \subsection{Exemples}
 
-	\paragraph{Exemple 1 -- Remplir les coin.}
+	\paragraph{Exemple 1 -- Remplir les coins.}
 	Dans ce petit exemple,
 	on a un tableau de chaines et on donne des valeux aux coins.
 	
@@ -331,8 +335,8 @@
 Comme nous l'avons fait pour les tableaux à  une dimension,
 envisageons le parcours des tableaux à deux dimensions 
 (n lignes et m colonnes).
-
-Déclaration d'un tableau statique~:
+Nos algorithmes sont valables quel que soit le type des éléments.
+Utilisons \pseudocode{T} pour désigner un type quelconque.
 
 \begin{Pseudocode}
 	\Decl tab~: tableau [1 à n, 1 à m] de T
@@ -381,7 +385,7 @@ Ce qui donne l'algorithme :
 Retenons~: pour parcourir une ligne, on utilise une boucle sur les colonnes. 
 
 Symétriquement, on pourrait considérer le parcours de la colonne $c$
-comme avec l'algorithme suivant.
+avec l'algorithme suivant.
 
 \begin{Pseudocode}
 	\LComment{Parcours de la colonne $c$ d'un tableau à deux dimensions}
@@ -422,6 +426,18 @@ Pour la diagonale montante,
 on peut envisager deux solutions, 
 avec deux indices ou un seul
 en se basant sur le fait que $i+j=n+1 \Rightarrow j=n+1-i$.
+
+\begin{center}
+\begin{tabular}{|*{3}{>{\centering\arraybackslash}m{0.3cm}|}}
+\hline
+\ & \ & \cellcolor{gray!25}\ \\
+\hline
+\ & \cellcolor{gray!25}\ & \ \\
+\hline
+\cellcolor{gray!25}\ & \ & \ \\
+\hline
+\end{tabular}
+\end{center}
 
 \begin{Pseudocode}
 	\LComment{Parcours de la diagonale montante d'un tableau carré - 2 indices}
@@ -651,10 +667,7 @@ ce qui donne l'algorithme :
 \begin{Exercice}{Affichage}
 	Écrire un module qui affiche tous les éléments d'un
 	tableau à $n$ lignes et $m$ colonnes
-	\begin{enumerate}[label=\alph*)]
-	\item ligne par ligne ;
-	\item colonne par colonne.
-	\end{enumerate}
+	\\\quad a) ligne par ligne \qquad b) colonne par colonne
 \end{Exercice}
 
 \begin{Exercice}{Les nuls}
@@ -662,6 +675,105 @@ ce qui donne l'algorithme :
 	Écrire un module qui reçoit un tableau ($n$ x $m$)
 	d'entiers et qui affiche la proportion
 	d'éléments nuls dans ce tableau.
+\end{Exercice}
+
+\begin{Exercice}{Tous positifs}
+	\marginicon{java}
+	Écrire un module qui reçoit un tableau ($n$ x $m$) d’entiers et qui vérifie
+	si tous les nombres qu’il contient sont strictement positifs. Bien sûr,
+	on veillera à éviter tout travail inutile; la rencontre d’un nombre
+	négatif doit arrêter le module.
+\end{Exercice}
+
+\begin{Exercice}{Le tableau de cotes}
+	Soit un tableau à $n$ lignes et $m$ colonnes d'entiers où
+	une ligne représente les notes sur 20 d'un étudiant et
+	les colonnes toutes les notes d'un cours.
+	
+	Écrire un algorithme recevant ce tableau en paramètre et affichant le
+	pourcentage d'étudiants ayant obtenu une moyenne
+	supérieure à 50\%.
+\end{Exercice}
+
+\begin{Exercice}{Le carré magique}
+	\marginicon{java}
+	Un carré magique est un tableau d’entiers carré
+	(c'est-à-dire possédant autant de lignes que de
+	colonnes) ayant la propriété suivante: si on additionne les éléments
+	d'une quelconque de ses lignes, de ses colonnes ou de
+	ses deux diagonales, on obtient à chaque fois le même résultat.
+
+	Écrire un module recevant en paramètres le tableau [1 à $n$, 1 à $n$]
+	d'entiers carré et renvoyant une valeur booléenne
+	indiquant si Carré est un carré magique ou non.
+\end{Exercice}
+
+\begin{Exercice}{Le triangle de Pascal}
+	Le triangle de Pascal est construit de la façon suivante :
+	\begin{liste}
+	\item la ligne initiale contient un seul élément de valeur 1 ;
+	\item chaque ligne possède un élément de plus que la précédente ;
+	\item chaque ligne commence et se termine par 1 ;
+	\item 
+		pour calculer un nombre d’une autre case du tableau, on additionne le
+		nombre situé dans la case située juste au-dessus avec celui dans la
+		case à la gauche de la précédente.
+	\end{liste}
+
+	Écrire un module qui reçoit en paramètre un entier
+	$n$, et qui renvoie un tableau contenant les
+	$n+1$ premières lignes du triangle de Pascal
+	(indicées de $0$ à $n$).
+	
+	N.B.: le «~triangle~» sera bien entendu renvoyé dans un tableau carré.
+	Quid des cases non occupées ?
+
+	Par exemple, pour $n$ qui vaut 5, on aura le tableau suivant :
+
+	\begin{center}
+	\begin{tabular}{|*{6}{>{\centering\arraybackslash}m{0.35cm}|}}
+	\hline
+	 1 & ~ & ~ & ~ & ~ & ~ \\\hline
+	 1 & 1 & ~ & ~ & ~ & ~ \\\hline
+	 1 & 2 & 1 & ~ & ~ & ~ \\\hline
+	 1 & 3 & 3 & 1 & ~ & ~ \\\hline
+	 1 & 4 & 6 & 4 & 1 & ~ \\\hline
+	 1 & 5 & 10 & 10 & 5 & 1 \\\hline
+	\end{tabular}
+	\end{center}
+\end{Exercice}
+
+\begin{Exercice}{Lignes et colonnes}
+	Écrire un module qui reçoit un tableau d’entiers à 2 dimensions en paramètre 
+	et qui retourne un booléen indiquant si ce tableau 
+	possède 2 lignes ou 2 colonnes identiques.
+	
+	Dans l’affirmative, 
+	ce module renverra également en paramètres les informations suivantes :
+	\begin{liste}
+	\item les indices des lignes ou colonnes identiques
+	\item un caractère valant ‘L’ ou ‘C’ selon qu’il s’agit de lignes ou de
+	colonnes
+	\end{liste}
+	
+	Dans la négative, les valeurs de ces paramètres seront indéterminées ou
+	quelconques, elles ne seront de toute façon pas utilisées par le module
+	appelant.
+\end{Exercice}
+
+\begin{Exercice}{Exercices sur la complexité}
+
+	Quelle est la complexité 
+	\begin{enumerate}[label=\alph*)]
+	\item 
+		d’un algorithme de parcours	d'un tableau $n$ x $n$ ?
+	\item
+		d'un algorithme qui remet à 0 toutes les
+		occurrences du maximum d'un tableau $n$ x $n$ ?
+	\item 
+		de l'algorithme que vous avez écrit pour résoudre les
+		exercices du pinceau ?
+	\end{enumerate}
 \end{Exercice}
 
 \begin{Exercice}{Le contour du tableau}
@@ -696,207 +808,100 @@ ce qui donne l'algorithme :
 \begin{Exercice}{À vos pinceaux !}
 	On possède un tableau à $n$ lignes et $n$ colonnes dont les éléments de type
 	Couleur valent NOIR ou BLANC. On suppose que le tableau est initialisé
-	à ‘BLANC’ au départ. Écrire un module qui ‘noircit’ les cases de ce
+	à BLANC au départ. Écrire un module qui \emph{noircit} les cases de ce
 	tableau comme le suggèrent les dessins suivants~(les exemples sont
 	donnés pour un tableau 10 x 10 mais les algorithmes doivent fonctionner
 	quelle que soit la taille du tableau).
 	
 	\begin{center}
-	\includegraphics[width=0.9\textwidth]{image/tab2d-ex-oxz}
+	\includegraphics[width=0.7\textwidth]{image/tab2d-ex-oxz}
+	\includegraphics[width=0.7\textwidth]{image/tab2d-ex-zts}
 	\end{center}
 \end{Exercice}
 
-\begin{Exercice}{Le tableau de cotes}
-	Soit un tableau à $n$ lignes et $m$ colonnes d'entiers où
-	une ligne représente les notes sur 20 d'un étudiant et
-	les colonnes toutes les notes d'un cours.
-	
-	Écrire un algorithme recevant ce tableau en paramètre et affichant le
-	pourcentage d'étudiants ayant obtenu une moyenne
-	supérieure à 50\%.
-\end{Exercice}
+% Supprimé : manque de temps
+%\begin{Exercice}{Le calendrier du mois}
+	%Écrire un module qui reçoit en paramètres 
+	%le numéro du premier jour du mois 
+	%(c-à-d 1 si le mois commence un lundi, 2 si le mois commence un mardi,
+	%etc.) ainsi que le nombre de jours dans le mois.
+	%Au départ de ces données, 
+	%le module remplira avec les dates des jours du mois un tableau
+	%«~calendrier~» à deux dimensions, 
+	%dont les colonnes représentent les jours 
+	%(la première colonne correspondant au lundi) et les lignes les
+	%semaines. 
+	%Par exemple, si le mois contient 30 jours et le premier jour
+	%est un mercredi, le contenu du tableau sera :
 
-\begin{Exercice}{Tous positifs}
-	\marginicon{java}
-	Écrire un module qui reçoit un tableau ($n$ x $m$) d’entiers et qui vérifie
-	si tous les nombres qu’il contient sont strictement positifs. Bien sûr,
-	on veillera à éviter tout travail inutile; la rencontre d’un nombre
-	négatif doit arrêter le module.
-\end{Exercice}
+	%\begin{center}
+	%\begin{tabular}{|m{0.807cm}|m{0.807cm}|m{0.807cm}|m{0.807cm}|m{0.807cm}|m{0.807cm}|m{0.81100005cm}|}
+	%\multicolumn{1}{m{0.807cm}}{\centering 
+	%{L}} &
+	%\multicolumn{1}{m{0.807cm}}{\centering 
+	%{M}} &
+	%\multicolumn{1}{m{0.807cm}}{\centering 
+	%{M}} &
+	%\multicolumn{1}{m{0.807cm}}{\centering 
+	%{{J}}} &
+	%\multicolumn{1}{m{0.807cm}}{\centering 
+	%{{V}}} &
+	%\multicolumn{1}{m{0.807cm}}{\centering 
+	%{{S}}} &
+	%\multicolumn{1}{m{0.81100005cm}}{\centering\arraybslash
+	 %{D}}\\\hline
+	%~
+	 %&
+	%~
+	 %&
+	%\raggedleft  {1} &
+	%\raggedleft  {2} &
+	%\raggedleft  {3} &
+	%\raggedleft  {4} &
+	%\raggedleft\arraybslash 
+	%{5}\\\hline
+	%\raggedleft  {6} &
+	%\raggedleft  {7} &
+	%\raggedleft  {8} &
+	%\raggedleft  {9} &
+	%\raggedleft  {10} &
+	%\raggedleft  {11} &
+	%\raggedleft\arraybslash 
+	%{12}\\\hline
+	%\raggedleft  {13} &
+	%\raggedleft  {14} &
+	%\raggedleft  {15} &
+	%\raggedleft  {16} &
+	%\raggedleft  {17} &
+	%\raggedleft  {18} &
+	%\raggedleft\arraybslash 
+	%{19}\\\hline
+	%\raggedleft  {20} &
+	%\raggedleft  {21} &
+	%\raggedleft  {22} &
+	%\raggedleft  {23} &
+	%\raggedleft  {24} &
+	%\raggedleft  {25} &
+	%\raggedleft\arraybslash 
+	%{26}\\\hline
+	%\raggedleft  {27} &
+	%\raggedleft  {28} &
+	%\raggedleft  {29} &
+	%\raggedleft  {30} &
+	%~
+	 %&
+	%~
+	 %&
+	%~
+	%\\\hline
+	%\end{tabular}
+	%\end{center}
 
-\begin{Exercice}{Le carré magique}
-	\marginicon{java}
-	Un carré magique est un tableau d’entiers carré
-	(c'est-à-dire possédant autant de lignes que de
-	colonnes) ayant la propriété suivante: si on additionne les éléments
-	d'une quelconque de ses lignes, de ses colonnes ou de
-	ses deux diagonales, on obtient à chaque fois le même résultat.
+	%\textbf{Réflexions} :
 
-	Écrire un module recevant en paramètres le tableau [1 à $n$, 1 à $n$]
-	d'entiers carré et renvoyant une valeur booléenne
-	indiquant si Carré est un carré magique ou non.
-\end{Exercice}
+	%\begin{liste}
+	%\item Combien de lignes au maximum doit avoir ce tableau ?
+	%\item Quid des cases non occupées ?
+	%\end{liste}
+%\end{Exercice}
 
-\begin{Exercice}{Le triangle de Pascal}
-	Le triangle de Pascal est construit de la façon suivante :
-
-	\begin{liste}
-	\item la ligne initiale contient un seul élément de valeur 1 ;
-	\item chaque ligne possède un élément de plus que la précédente ;
-	\item chaque ligne commence et se termine par 1 ;
-	\item 
-		pour calculer un nombre d’une autre case du tableau, on additionne le
-		nombre situé dans la case située juste au-dessus avec celui dans la
-		case à la gauche de la précédente.
-	\end{liste}
-
-	Écrire un module qui reçoit en paramètre un entier
-	$n$, et qui renvoie un tableau contenant les
-	$n+1$ premières lignes du triangle de Pascal
-	(indicées de $0$ à $n$).
-	
-	N.B.: le «~triangle~» sera bien entendu renvoyé dans un tableau carré.
-	Quid des cases non occupées ?
-
-	Par exemple, pour $n$ qui vaut 5, on aura le tableau suivant :
-
-	\begin{center}
-	\begin{tabular}{|*{6}{>{\centering\arraybackslash}m{0.35cm}|}}
-	\hline
-	 1 & ~ & ~ & ~ & ~ & ~ \\\hline
-	 1 & 1 & ~ & ~ & ~ & ~ \\\hline
-	 1 & 2 & 1 & ~ & ~ & ~ \\\hline
-	 1 & 3 & 3 & 1 & ~ & ~ \\\hline
-	 1 & 4 & 6 & 4 & 1 & ~ \\\hline
-	 1 & 5 & 10 & 10 & 5 & 1 \\\hline
-	\end{tabular}
-	\end{center}
-\end{Exercice}
-
-\begin{Exercice}{Le calendrier du mois}
-	Écrire un module qui reçoit en paramètres 
-	le numéro du premier jour du mois 
-	(c-à-d 1 si le mois commence un lundi, 2 si le mois commence un mardi,
-	etc.) ainsi que le nombre de jours dans le mois.
-	Au départ de ces données, 
-	le module remplira avec les dates des jours du mois un tableau
-	«~calendrier~» à deux dimensions, 
-	dont les colonnes représentent les jours 
-	(la première colonne correspondant au lundi) et les lignes les
-	semaines. 
-	Par exemple, si le mois contient 30 jours et le premier jour
-	est un mercredi, le contenu du tableau sera :
-
-	\begin{center}
-	\begin{tabular}{|m{0.807cm}|m{0.807cm}|m{0.807cm}|m{0.807cm}|m{0.807cm}|m{0.807cm}|m{0.81100005cm}|}
-	\multicolumn{1}{m{0.807cm}}{\centering 
-	{L}} &
-	\multicolumn{1}{m{0.807cm}}{\centering 
-	{M}} &
-	\multicolumn{1}{m{0.807cm}}{\centering 
-	{M}} &
-	\multicolumn{1}{m{0.807cm}}{\centering 
-	{{J}}} &
-	\multicolumn{1}{m{0.807cm}}{\centering 
-	{{V}}} &
-	\multicolumn{1}{m{0.807cm}}{\centering 
-	{{S}}} &
-	\multicolumn{1}{m{0.81100005cm}}{\centering\arraybslash
-	 {D}}\\\hline
-	~
-	 &
-	~
-	 &
-	\raggedleft  {1} &
-	\raggedleft  {2} &
-	\raggedleft  {3} &
-	\raggedleft  {4} &
-	\raggedleft\arraybslash 
-	{5}\\\hline
-	\raggedleft  {6} &
-	\raggedleft  {7} &
-	\raggedleft  {8} &
-	\raggedleft  {9} &
-	\raggedleft  {10} &
-	\raggedleft  {11} &
-	\raggedleft\arraybslash 
-	{12}\\\hline
-	\raggedleft  {13} &
-	\raggedleft  {14} &
-	\raggedleft  {15} &
-	\raggedleft  {16} &
-	\raggedleft  {17} &
-	\raggedleft  {18} &
-	\raggedleft\arraybslash 
-	{19}\\\hline
-	\raggedleft  {20} &
-	\raggedleft  {21} &
-	\raggedleft  {22} &
-	\raggedleft  {23} &
-	\raggedleft  {24} &
-	\raggedleft  {25} &
-	\raggedleft\arraybslash 
-	{26}\\\hline
-	\raggedleft  {27} &
-	\raggedleft  {28} &
-	\raggedleft  {29} &
-	\raggedleft  {30} &
-	~
-	 &
-	~
-	 &
-	~
-	\\\hline
-	\end{tabular}
-	\end{center}
-
-	\textbf{Réflexions} :
-
-	\begin{liste}
-	\item Combien de lignes au maximum doit avoir ce tableau ?
-	\item Quid des cases non occupées ?
-	\end{liste}
-\end{Exercice}
-
-\begin{Exercice}{À vos pinceaux (la suite) !}
-	Pour poursuivre l'exercice du pinceau, 
-	voici quelques cas plus coriaces.
-	
-	\begin{center}
-	\includegraphics[width=0.9\textwidth]{image/tab2d-ex-zts}
-	\end{center}
-\end{Exercice}
-
-\begin{Exercice}{Exercices sur la complexité}
-
-	Quelle est la complexité 
-	\begin{enumerate}[label=\alph*)]
-	\item 
-		d’un algorithme de parcours	d'un tableau $n$ x $n$ ?
-	\item
-		d'un algorithme qui remet à 0 toutes les
-		occurrences du maximum d'un tableau $n$ x $n$ ?
-	\item 
-		de l'algorithme que vous avez écrit pour résoudre les
-		exercices du pinceau ?
-	\end{enumerate}
-\end{Exercice}
-
-\begin{Exercice}{Lignes et colonnes}
-	Écrire un module qui reçoit un tableau d’entiers à 2 dimensions en paramètre 
-	et qui retourne un booléen indiquant si ce tableau 
-	possède 2 lignes ou 2 colonnes identiques.
-	
-	Dans l’affirmative, 
-	ce module renverra également en paramètres les informations suivantes :
-	
-	\begin{liste}
-	\item les indices des lignes ou colonnes identiques
-	\item un caractère valant ‘L’ ou ‘C’ selon qu’il s’agit de lignes ou de
-	colonnes
-	\end{liste}
-	
-	Dans la négative, les valeurs de ces paramètres seront indéterminées ou
-	quelconques, elles ne seront de toute façon pas utilisées par le module
-	appelant.
-\end{Exercice}
