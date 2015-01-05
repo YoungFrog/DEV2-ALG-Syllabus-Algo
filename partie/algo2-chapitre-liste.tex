@@ -6,10 +6,9 @@
 
 Imaginons qu’on désire manipuler par programme une liste de contacts ou
 encore une liste de rendez-vous. Cette liste va varier ; sa taille
-n’est donc pas fixée. Utiliser un tableau à cet effet n’est pas
-l’idéal. En effet, la taille d’un tableau, qu’il soit statique ou
-dynamique, ne peut plus changer une fois le tableau créé. Il faudrait
-le sur-dimensionner, ce qui n’est pas économe.
+n’est donc pas fixée. Utiliser un tableau à cet effet n’est pas l’idéal. 
+En effet, la taille d’un tableaune peut plus changer une fois le tableau créé. 
+Il faudrait le sur-dimensionner, ce qui n’est pas économe.
 
 Il serait intéressant de disposer d’une structure qui offre toutes les
 facilités d’un tableau tout en pouvant «~grandir~» si nécessaire.
@@ -60,12 +59,11 @@ fournir)
 \bigskip
 
 Quelques précisions s’imposent :
-
 \begin{liste}
 	\item 
 		Comme les tableaux, les listes peuvent contenir des éléments de
 		n’importe quel type tout en restant uniforme au sein d’une même liste
-		(on pourra manipuler une liste d’entiers, une liste de contacts, ...
+		(on pourra manipuler une liste d’entiers, une liste de contacts\dots\ 
 		mais pas mélanger). Il serait rédhibitoire de devoir définir une Liste
 		pour chaque type d’éléments. On utilise dès lors la possibilité en OO
 		d’écrire un code \textbf{générique}\footnote{\ on parle aussi de
@@ -252,15 +250,17 @@ en fin de liste, deux cas se présentent :
 \end{liste}
 
 \textbf{Les tableaux dynamiques}. 
-En \emph{DEV1},
-nous n'avons vu que des tableaux statiques,
+En \emph{DEV$_1$},
+nous n'avons vu que des tableaux
+qu'on appellera \emph{statiques},
 qui sont créés lors de leur déclaration.
-Ici, nous avons besoin de tableaux dynamiques,
-créé dans le code
+Ici, nous avons besoin de tableaux 
+qu'on appellera \emph{dynamiques},
+créés dans le code
 (comme le sont les tableaux en Java).
-Introduisons une notation.
 
-Un tableau dynamique sera déclaré puis créé ainsi
+Introduisons une notation.
+Un tableau dynamique sera déclaré puis créé ainsi :
 
 	\begin{Pseudocode}
 		\Decl tab~: \K{tableau} de T \RComment où T est un type quelconque
@@ -299,7 +299,7 @@ d’agrandissement du tableau.
 nécessaire, on pourrait le réduire lorsque des suppressions d’éléments
 le rendent sous-utilisé (par exemple lorsque la taille logique devient
 inférieure au tiers de la taille physique). 
-Nous aborderons cette problématique dans un des exercices qui suivent.
+Nous n'aborderons pas cette problématique cette année.
 
 
 %=======================================
@@ -497,13 +497,6 @@ faut générer une erreur.
 	décroissant. On peut supposer que $n$ est positif.
 \end{Exercice}
 	
-\begin{Exercice}{Le nettoyage}
-	Écrire un module qui reçoit une liste de chaines en paramètre et
-	supprime de cette liste tous les éléments de valeur donnée en
-	paramètre. L'algorithme retournera le nombre de
-	suppressions effectuées.
-\end{Exercice}
-	
 \begin{Exercice}{Somme d'une liste}
 	Écrire un module qui calcule la somme des éléments d’une liste
 	d’entiers.
@@ -529,7 +522,6 @@ faut générer une erreur.
 \end{Exercice}
 
 \begin{Exercice}{Fusion de deux listes}
-	
 		Soit deux listes \textbf{ordonnées}
 		d'entiers (redondances possibles). Écrire un module
 		qui les fusionne. Le résultat est une liste encore ordonnée contenant
@@ -540,6 +532,13 @@ faut générer une erreur.
 		le résultat est (1, 3, 3, 7, 7, 9).
 \end{Exercice}
 
+\begin{Exercice}{Le nettoyage}
+	Écrire un module qui reçoit une liste de chaines en paramètre et
+	supprime de cette liste tous les éléments de valeur donnée en
+	paramètre. L'algorithme retournera le nombre de
+	suppressions effectuées.
+\end{Exercice}
+	
 \begin{Exercice}{Éliminer les doublons d'une liste}
 		Soit une liste \textbf{ordonnée} 
 		d'entiers avec de possibles redondances. Écrire un
@@ -558,232 +557,228 @@ faut générer une erreur.
 		\end{enumerate}
 \end{Exercice}
 
-\begin{Exercice}{Perfectionnement de la classe Liste}
-	Dans l’implémentation de la liste, nous avons écrit 
-	une méthode privée \pseudocode{agrandir} qui remplace le tableau 
-	\pseudocode{éléments} par un autre tableau deux fois plus grand. 
-	On demande à présent d’implémenter dans la classe 
-	une méthode \pseudocode{rétrécir}, qui consistera à diviser la 
-	taille physique du tableau par 2 lorsque la taille 
-	logique devient inférieure au tiers de la taille physique.
-	Adapter également le code des méthodes qui sont concernées 
-	par ce rétrécissement du tableau éléments.
+%\begin{Exercice}{Perfectionnement de la classe Liste}
+	%Dans l’implémentation de la liste, nous avons écrit 
+	%une méthode privée \pseudocode{agrandir} qui remplace le tableau 
+	%\pseudocode{éléments} par un autre tableau deux fois plus grand. 
+	%On demande à présent d’implémenter dans la classe 
+	%une méthode \pseudocode{rétrécir}, qui consistera à diviser la 
+	%taille physique du tableau par 2 lorsque la taille 
+	%logique devient inférieure au tiers de la taille physique.
+	%Adapter également le code des méthodes qui sont concernées 
+	%par ce rétrécissement du tableau éléments.
 
-\end{Exercice}
+%\end{Exercice}
 
-\begin{Exercice}{Une classe texte}
-	Un texte est composé de mots et de caractères de ponctuation. 
-	Ils sont séparés par des espaces (caractères «~blanc~») dont 
-	nous ne tenons pas compte ici. Dans notre implémentation, nous 
-	représenterons les mots par des chaines et les caractères de ponctuation 
-	(‘.’, ‘?’, ‘!’, ‘~:’, ‘;’,~etc.) par des chaines d’un seul caractère. 
-	Un texte peut alors être vu comme une Liste <chaines>. 
-	Exemple~: le texte <<Qu’il est bon d’être à l’ESI~!>>
-	sera représenté par une liste contenant les 13 éléments suivants~:
-	\begin{center}
-	\begin{tabular}{|m{8cm}|}
-		\hline
-		Qu \\
-		’	\\
-		il \\
-		est \\
-		bon \\
-		d \\
-		’ \\
-		être \\
-		à \\
-		l \\
-		’ \\
-		ESI \\
-		! \\\hline
-	\end{tabular}
-	\end{center}
+%\begin{Exercice}{Une classe texte}
+	%Un texte est composé de mots et de caractères de ponctuation. 
+	%Ils sont séparés par des espaces (caractères «~blanc~») dont 
+	%nous ne tenons pas compte ici. Dans notre implémentation, nous 
+	%représenterons les mots par des chaines et les caractères de ponctuation 
+	%(‘.’, ‘?’, ‘!’, ‘~:’, ‘;’,~etc.) par des chaines d’un seul caractère. 
+	%Un texte peut alors être vu comme une Liste <chaines>. 
+	%Exemple~: le texte <<Qu’il est bon d’être à l’ESI~!>>
+	%sera représenté par une liste contenant les 13 éléments suivants~:
+	%\begin{center}
+	%\begin{tabular}{|m{8cm}|}
+		%\hline
+		%Qu \\
+		%’	\\
+		%il \\
+		%est \\
+		%bon \\
+		%d \\
+		%’ \\
+		%être \\
+		%à \\
+		%l \\
+		%’ \\
+		%ESI \\
+		%! \\\hline
+	%\end{tabular}
+	%\end{center}
 	
-	Nous allons définir une classe Texte dont le seul attribut privé sera~: 
-	\pseudocode{listeTxt~: Liste <chaines>}
-	On demande d’écrire~:
-	\begin{enumerate}
-	\item
-		un constructeur sans paramètre créant un texte vide
-	\item
-		un constructeur recevant en paramètre un tableau de chaines 
-		(possédant $n$ éléments) et qui initialise le texte avec 
-		le contenu du tableau
-	\item
-		une méthode 
-		\pseudocode{taille()} qui retourne le nombre de mots du texte 
-		(les caractères de ponctuation ne sont pas comptés par cette méthode~; 
-		ainsi, la taille du texte de l’exemple ci-dessus est 9)
-	\item
-		une méthode 
-		\pseudocode{extrait(départ, nombre~: entier) $\rightarrow$ Texte} 
-		qui retourne la portion de texte débutant à l’indice départ 
-		de la liste et possédant le nombre d’éléments spécifié par 
-		le paramètre nombre (mots et caractères de ponctuation confondus). 
-		Par exemple, extrait(5, 4) appliqué au texte ci-dessus renverrait 
-		le texte <<bon d’être>>
-	\item
-		une méthode 
-		\pseudocode{identique(autreTexte~: Texte) $\rightarrow$ booléen} 
-		qui indique si 2 textes sont identiques au caractère de ponctuation près
-	\item
-		une méthode 
-		\pseudocode{quasiIdentique(autreTexte~: Texte) $\rightarrow$ booléen} 
-		qui indique si les mots des 2 textes sont les mêmes, des différences 
-		pouvant être admises au niveau de la ponctuation. Par exemple, les textes~:
+	%Nous allons définir une classe Texte dont le seul attribut privé sera~: 
+	%\pseudocode{listeTxt~: Liste <chaines>}
+	%On demande d’écrire~:
+	%\begin{enumerate}
+	%\item
+		%un constructeur sans paramètre créant un texte vide
+	%\item
+		%un constructeur recevant en paramètre un tableau de chaines 
+		%(possédant $n$ éléments) et qui initialise le texte avec 
+		%le contenu du tableau
+	%\item
+		%une méthode 
+		%\pseudocode{taille()} qui retourne le nombre de mots du texte 
+		%(les caractères de ponctuation ne sont pas comptés par cette méthode~; 
+		%ainsi, la taille du texte de l’exemple ci-dessus est 9)
+	%\item
+		%une méthode 
+		%\pseudocode{extrait(départ, nombre~: entier) $\rightarrow$ Texte} 
+		%qui retourne la portion de texte débutant à l’indice départ 
+		%de la liste et possédant le nombre d’éléments spécifié par 
+		%le paramètre nombre (mots et caractères de ponctuation confondus). 
+		%Par exemple, extrait(5, 4) appliqué au texte ci-dessus renverrait 
+		%le texte <<bon d’être>>
+	%\item
+		%une méthode 
+		%\pseudocode{identique(autreTexte~: Texte) $\rightarrow$ booléen} 
+		%qui indique si 2 textes sont identiques au caractère de ponctuation près
+	%\item
+		%une méthode 
+		%\pseudocode{quasiIdentique(autreTexte~: Texte) $\rightarrow$ booléen} 
+		%qui indique si les mots des 2 textes sont les mêmes, des différences 
+		%pouvant être admises au niveau de la ponctuation. Par exemple, les textes~:
 		
-		<<Il m’a dit, en me regardant dans les yeux, que j’étais stupide.>>
+		%<<Il m’a dit, en me regardant dans les yeux, que j’étais stupide.>>
 		
-		et
+		%et
 		
-		<<Il m’a dit en me regardant dans les yeux que j’étais… «~stupide~»~!>>
+		%<<Il m’a dit en me regardant dans les yeux que j’étais… «~stupide~»~!>>
 		
-		sont quasi identiques, mais pas identiques.
-	\end{enumerate}
-		Détaillez le code de cette classe. Vous pouvez utiliser (sans le détailler) le module
-		\pseudocode{estPonctuation(ch~: chaine) $\rightarrow$ booléen}
-		qui indique si une chaine est un caractère de ponctuation.
+		%sont quasi identiques, mais pas identiques.
+	%\end{enumerate}
+		%Détaillez le code de cette classe. Vous pouvez utiliser (sans le détailler) le module
+		%\pseudocode{estPonctuation(ch~: chaine) $\rightarrow$ booléen}
+		%qui indique si une chaine est un caractère de ponctuation.
 			
-\end{Exercice}
+%\end{Exercice}
 
 	
-\begin{Exercice}{La liste ordonnée}
-		Une recherche dans une liste implique un parcours complet de la liste en
-		cas de recherche infructueuse. La recherche pourrait être plus rapide
-		si la liste était ordonnée (en utilisant la recherche dichotomique). La
-		contrainte principale est qu'il faudra maintenir le
-		caractère ordonné de la liste (notamment en cas
-		d'ajout). Écrivez les modules suivants, de façon à ce
-		que la liste reste ordonnée.
+%\begin{Exercice}{La liste ordonnée}
+		%Une recherche dans une liste implique un parcours complet de la liste en
+		%cas de recherche infructueuse. La recherche pourrait être plus rapide
+		%si la liste était ordonnée (en utilisant la recherche dichotomique). La
+		%contrainte principale est qu'il faudra maintenir le
+		%caractère ordonné de la liste (notamment en cas
+		%d'ajout). Écrivez les modules suivants, de façon à ce
+		%que la liste reste ordonnée.
 
-		\begin{Pseudocode}
-			\ModuleSign{ajouterOrdonné}{liste : Liste de T, valeur : T}{}
-			\ModuleSign{enleverOrdonné}{liste : Liste de T, valeur : T}{booléen}
-			\LComment retourne faux si valeur pas présente. 
-			\LComment Si la valeur est présente en plusieurs exemplaire, en enlève une.
-			\ModuleSign{existeOrdonné}{liste\In : Liste de T, valeur\In : T, pos\Out: entier}{booléen}
-			\LComment si la valeur n'est pas trouvée, pos donne la position où elle aurait dû être.
-		\end{Pseudocode}
+		%\begin{Pseudocode}
+			%\ModuleSign{ajouterOrdonné}{liste : Liste de T, valeur : T}{}
+			%\ModuleSign{enleverOrdonné}{liste : Liste de T, valeur : T}{booléen}
+			%\LComment retourne faux si valeur pas présente. 
+			%\LComment Si la valeur est présente en plusieurs exemplaire, en enlève une.
+			%\ModuleSign{existeOrdonné}{liste\In : Liste de T, valeur\In : T, pos\Out: entier}{booléen}
+			%\LComment si la valeur n'est pas trouvée, pos donne la position où elle aurait dû être.
+		%\end{Pseudocode}
 
-\end{Exercice}
+%\end{Exercice}
 
-\begin{Exercice}{Trier des mots}
-		Écrivez un algorithme qui lit une série de mots (se terminant par une
-		chaine vide) sans aucun ordre et les affiche dans l’ordre alphabétique.
-		Vous pouvez utiliser les modules écrits lors de
-		l'exercice précédent.
+%\begin{Exercice}{Trier des mots}
+		%Écrivez un algorithme qui lit une série de mots (se terminant par une
+		%chaine vide) sans aucun ordre et les affiche dans l’ordre alphabétique.
+		%Vous pouvez utiliser les modules écrits lors de
+		%l'exercice précédent.
 		
-\end{Exercice}
+%\end{Exercice}
 
-\begin{Exercice}{Éviter les doublons}
-		Modifiez l’exemple ci-dessus pour que deux mots identiques ne soient
-		introduits qu’une seule fois dans la liste.
-\end{Exercice}
+%\begin{Exercice}{Éviter les doublons}
+		%Modifiez l’exemple ci-dessus pour que deux mots identiques ne soient
+		%introduits qu’une seule fois dans la liste.
+%\end{Exercice}
 
-\begin{Exercice}{L'ensemble}
-		La notion d’ensemble fini est une notion qui vous est déjà 
-		familière pour l’avoir rencontrée dans plusieurs cours. Nous rappelons
-		certaines de ses propriétés et opérations. 
+%\begin{Exercice}{L'ensemble}
+		%La notion d’ensemble fini est une notion qui vous est déjà 
+		%familière pour l’avoir rencontrée dans plusieurs cours. Nous rappelons
+		%certaines de ses propriétés et opérations. 
 				
-		Étant donnés deux ensembles
-		finis \textbf{S} et \textbf{T} ainsi qu’un élément \textbf{x} :
+		%Étant donnés deux ensembles
+		%finis \textbf{S} et \textbf{T} ainsi qu’un élément \textbf{x} :
 
-		\begin{liste}
-		\item 
-			\textbf{x} {${\in}$} \textbf{S} signifie que l’élément \textbf{x}
-			est un élément de l’ensemble \textbf{S}.
-		\item 
-			L’ensemble vide, noté \textbf{${\emptyset}$} 
-			est l’ensemble qui n’a pas d’élément 
-			(\textbf{x} {${\in}$} \textbf{${\emptyset}$} 
-			est faux quel que soit \textbf{x} ).
-		\item 
-			L’ordre des éléments dans un ensemble n’a
-			aucune signification, l’ensemble \{1,2\} est
-			identique à \{2,1\}.
-		\item 
-			Un élément \textbf{x} ne peut
-			pas être plus d’une fois élément d’un même ensemble 
-			(pas de répétition).
-		\item 
-			L’union \textbf{S ${\cup}$ T} 
-			est l’ensemble contenant les éléments qui sont dans 
-			\textbf{S} ou (non exclusif) dans \textbf{T}.
-		\item 
-			L’intersection \textbf{S ${\cap}$ T} 
-			est l’ensemble des éléments qui sont à la fois 
-			dans \textbf{S} et dans \textbf{T}.
-		\item 
-			La différence \textbf{S {\textbackslash} T} 
-			est l’ensemble des éléments qui sont 
-			dans \textbf{S} mais pas dans \textbf{T}.
-		\end{liste}
+		%\begin{liste}
+		%\item 
+			%\textbf{x} {${\in}$} \textbf{S} signifie que l’élément \textbf{x}
+			%est un élément de l’ensemble \textbf{S}.
+		%\item 
+			%L’ensemble vide, noté \textbf{${\emptyset}$} 
+			%est l’ensemble qui n’a pas d’élément 
+			%(\textbf{x} {${\in}$} \textbf{${\emptyset}$} 
+			%est faux quel que soit \textbf{x} ).
+		%\item 
+			%L’ordre des éléments dans un ensemble n’a
+			%aucune signification, l’ensemble \{1,2\} est
+			%identique à \{2,1\}.
+		%\item 
+			%Un élément \textbf{x} ne peut
+			%pas être plus d’une fois élément d’un même ensemble 
+			%(pas de répétition).
+		%\item 
+			%L’union \textbf{S ${\cup}$ T} 
+			%est l’ensemble contenant les éléments qui sont dans 
+			%\textbf{S} ou (non exclusif) dans \textbf{T}.
+		%\item 
+			%L’intersection \textbf{S ${\cap}$ T} 
+			%est l’ensemble des éléments qui sont à la fois 
+			%dans \textbf{S} et dans \textbf{T}.
+		%\item 
+			%La différence \textbf{S {\textbackslash} T} 
+			%est l’ensemble des éléments qui sont 
+			%dans \textbf{S} mais pas dans \textbf{T}.
+		%\end{liste}
 		
-		Créez la classe \pseudocode{Ensemble}
-		décrite ci-dessous.
+		%Créez la classe \pseudocode{Ensemble}
+		%décrite ci-dessous.
 		
-		\begin{Pseudocode}
-			\Class{Ensemble <T>}{} 
-			\RComment T est le type des éléments de l'ensemble
+		%\begin{Pseudocode}
+			%\Class{Ensemble <T>}{} 
+			%\RComment T est le type des éléments de l'ensemble
 			
-				\Public
-				\ConstrSign{Ensemble <T>}{} 
-				\RComment construit un ensemble vide
-				\MethodSign{ajouter}{élt : T}{}
-				\RComment ajoute l'élément à l'ensemble
-				\MethodSign{enlever}{élt : T}{})
-				\RComment enlève un élément de l'ensemble
-				\MethodSign{contient}{élt : T}{booléen}
-				\RComment dit si l'élément est présent
-				\MethodSign{estVide}{}{booléen}
-				\RComment dit si l'ensemble est vide
-				\MethodSign{taille}{}{entier}
-				\RComment donne la taille de l'ensemble
-				\MethodSign{union}{autreEnsemble : Ensemble <T>}{Ensemble <T>}
-				\MethodSign{intersection}{autreEnsemble : Ensemble <T>}{Ensemble <T>}
-				\MethodSign{moins}{autreEnsemble : Ensemble <T>}{Ensemble <T>}
-				\MethodSign{listeÉléments}{}{Liste <T>}
-				\RComment conversion en liste
-			\EndClass
-		\end{Pseudocode}
+				%\Public
+				%\ConstrSign{Ensemble <T>}{} 
+				%\RComment construit un ensemble vide
+				%\MethodSign{ajouter}{élt : T}{}
+				%\RComment ajoute l'élément à l'ensemble
+				%\MethodSign{enlever}{élt : T}{})
+				%\RComment enlève un élément de l'ensemble
+				%\MethodSign{contient}{élt : T}{booléen}
+				%\RComment dit si l'élément est présent
+				%\MethodSign{estVide}{}{booléen}
+				%\RComment dit si l'ensemble est vide
+				%\MethodSign{taille}{}{entier}
+				%\RComment donne la taille de l'ensemble
+				%\MethodSign{union}{autreEnsemble : Ensemble <T>}{Ensemble <T>}
+				%\MethodSign{intersection}{autreEnsemble : Ensemble <T>}{Ensemble <T>}
+				%\MethodSign{moins}{autreEnsemble : Ensemble <T>}{Ensemble <T>}
+				%\MethodSign{listeÉléments}{}{Liste <T>}
+				%\RComment conversion en liste
+			%\EndClass
+		%\end{Pseudocode}
 		
-	\bigskip
+	%\bigskip
 
-	Quelques remarques :
+	%Quelques remarques :
 
-	\begin{liste}
-		\item 
-			La méthode d'ajout (resp. de suppression) n'a
-			pas d'effet si l'élément est déjà
-			(resp. n'est pas) dans l'ensemble.
-		\item 
-			Les méthodes \pseudocode{union()}, 
-			\pseudocode{intersection()} et 
-			\pseudocode{moins()} retournent un troisième ensemble, 
-			résultat des 2 premiers sans toucher
-			à ces 2 ensembles. On aurait pu envisager des méthodes modifiant
-			l'ensemble sur lequel on les appelle.
-		\item 
-			La méthode \pseudocode{listeÉlément()}
-			est nécessaire si on veut parcourir les éléments de
-			l'ensemble (par exemple pour les afficher).
-	\end{liste}
-\end{Exercice}
+	%\begin{liste}
+		%\item 
+			%La méthode d'ajout (resp. de suppression) n'a
+			%pas d'effet si l'élément est déjà
+			%(resp. n'est pas) dans l'ensemble.
+		%\item 
+			%Les méthodes \pseudocode{union()}, 
+			%\pseudocode{intersection()} et 
+			%\pseudocode{moins()} retournent un troisième ensemble, 
+			%résultat des 2 premiers sans toucher
+			%à ces 2 ensembles. On aurait pu envisager des méthodes modifiant
+			%l'ensemble sur lequel on les appelle.
+		%\item 
+			%La méthode \pseudocode{listeÉlément()}
+			%est nécessaire si on veut parcourir les éléments de
+			%l'ensemble (par exemple pour les afficher).
+	%\end{liste}
+%\end{Exercice}
 
-\begin{Exercice}{Autres opérations ensemblistes}
-	Nous avons défini des opérations ensemblistes ne touchant pas aux
-	ensembles de départ. Que deviennent-elles si on considère
-	qu'elles \textbf{modifient}
-	l'ensemble sur lequel elles sont appliquées ?
-\end{Exercice}
-
+%\begin{Exercice}{Autres opérations ensemblistes}
+	%Nous avons défini des opérations ensemblistes ne touchant pas aux
+	%ensembles de départ. Que deviennent-elles si on considère
+	%qu'elles \textbf{modifient}
+	%l'ensemble sur lequel elles sont appliquées ?
+%\end{Exercice}
 
 \begin{Exercice}{Rendez-vous}
 	Soit la structure «\pseudocode{~RendezVous~}» composée d’une date
 	et d’un motif de rencontre. Écrire un module qui reçoit une liste de
 	rendez-vous et la met à jour en supprimant tous ceux qui sont désormais
 	passés. 
-
-	Rappel : la date du jour s'obtient par le constructeur de
-	\pseudocode{Date} sans paramètre.
 \end{Exercice}
