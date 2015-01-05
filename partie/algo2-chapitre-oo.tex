@@ -62,7 +62,7 @@
 	de livre, d'emprunteur, de carte à jouer, de chambre,
 	de réservation, de vol, de produit, de stock, de ristourne, de facture,
 	de panier d'achats, de compte en banque, de banque, de
-	client, de portefeuille d'actions, ...
+	client, de portefeuille d'actions\dots
 
 %==========================
 \section{La notion d'objet}
@@ -107,11 +107,11 @@
 		\begin{liste}
 		\item 
 			Pour un produit, l'état peut être~:
-			l'intitulé du produit, son code barre, son prix, ... 
+			l'intitulé du produit, son code barre, son prix\dots 
 		\item 
 			Pour un employé, on peut avoir~: son nom, son prénom, son adresse, sa
 			date d'embauche, son salaire mensuel, sa fonction, son
-			téléphone, ... 
+			téléphone\dots
 		\item 
 			Une carte à jouer a une couleur et une valeur.
 		\item 
@@ -302,9 +302,10 @@
 					on utilise le mot «~\pseudocode{méthode}~» en lieu et place de
 					«~\pseudocode{module}~» ;
 				\item
-					les attributs (l'heure ici) ne sont pas passés en
-					paramètre. Un objet connait déjà son état et donc la valeur de ses
-					attributs. Nous verrons plus loin la syntaxe précise.
+					les attributs (l'heure ici) ne sont pas passés en paramètre.
+					Une méthode appartient à un objet et connait
+					les attributs de cet objet. 
+					Nous verrons plus loin la syntaxe précise.
 			\end{liste}
 		\end{liste}
 
@@ -404,7 +405,7 @@
 				Donnez les entêtes des méthodes suivantes qui permettent de~:
 				\begin{liste}
 				\item
-					demander le nom du jour correspondant à une date (par exemple lundi, mardi, ...)
+					demander le nom du jour correspondant (par exemple "lundi", "mardi"\dots)
 				\item 
 					savoir si une date est antérieure à une autre
 				\item 
@@ -421,12 +422,6 @@
 						calculer le nombre de jours d'écart entre ces deux
 						dates.
 				\end{liste}
-				
-			\item 
-				Précédemment, vous avez défini l'ensemble du
-				comportement d'un téléviseur. Écrivez les entêtes des
-				méthodes correspondant à ce comportement ainsi qu'une
-				portion de code qui les utilise.
 			\end{enumerate}
 		\end{Emphase}
 	
@@ -442,6 +437,7 @@
 	du comportement de l'objet, 
 	c'est-à-dire via ses méthodes.
 	
+	\clearpage
 	\marginicon{definition}
 	\textbf{%
 		Lorsque les détails de l'implémentation
@@ -540,7 +536,7 @@
 	mais qui oblige à fournir un code de traitement de l’erreur. 
 	Il ne sera pas étudié en première année%
 	\footnote{%
-		En tout cas pas au cours de Logique 
+		En tout cas pas au cours d'algorithmique 
 		mais vous étudierez cette notion au cours de Java.%
 	}.
 
@@ -566,24 +562,24 @@
 		\EndMethod
 	\end{Pseudocode}
 
-	\medskip
-	\textbf{Remarque}~: 
-	Accéder à la valeur d’un attribut ne pose pas 
-	de problème de validité. 
-	Alors pourquoi rendre l’attribut complètement privé 
-	plutôt que de n’empêcher que des modifications directes 
-	(une sorte d’attribut en \textit{lecture seule}) ? 
-	Cela permet de changer de façon transparente la représentation des données. 
-	Nous y reviendrons plus loin.
+	%\medskip
+	%\textbf{Remarque}~: 
+	%Accéder à la valeur d’un attribut ne pose pas 
+	%de problème de validité. 
+	%Alors pourquoi rendre l’attribut complètement privé 
+	%plutôt que de n’empêcher que des modifications directes 
+	%(une sorte d’attribut en \textit{lecture seule}) ? 
+	%Cela permet de changer de façon transparente la représentation des données. 
+	%Nous y reviendrons plus loin.
 
-	\begin{Emphase}{Exercice - encapsulation}
-		\marginicon{exercice}
-		Sans le savoir, vous avez déjà défini des accesseurs et des 
-		mutateurs pour le téléviseur. 
-		Lesquels ? 
-		En suivant la convention de nom pour les accesseurs et les mutateurs, 
-		quels noms auraient-ils dû porter ?
-	\end{Emphase}
+	%\begin{Emphase}{Exercice - encapsulation}
+		%\marginicon{exercice}
+		%Sans le savoir, vous avez déjà défini des accesseurs et des 
+		%mutateurs pour le téléviseur. 
+		%Lesquels ? 
+		%En suivant la convention de nom pour les accesseurs et les mutateurs, 
+		%quels noms auraient-ils dû porter ?
+	%\end{Emphase}
 
 %====================================================
 \section{La notion de classe et d'instance}
@@ -662,7 +658,7 @@
 					\MethodSign{setSeconde}{uneSeconde~: entier}{}
 					\MethodSign{estMatin}{}{booléen}
 			\EndClass
-			
+			\Empty
 			\Method{estMatin}{}{booléen}
 				\Return heure < 12
 			\EndMethod
@@ -716,79 +712,79 @@
 			\EndModule
 		\end{Pseudocode}
 
-		Remarquez qu'il y a une différence importante entre les
-		objets et les types de bases. Lorsqu'on déclare une
-		variable d'un type de base, cela alloue
-		automatiquement un espace mémoire pour cette variable.
-		C'est différent avec les objets. La déclaration
-		n'entraine qu'une réservation mémoire
-		pour une «~référence~» vers un objet. Celui-ci
-		n'existe pas encore. Il sera créé (et sa mémoire
-		allouée) via une instruction spécifique (\pseudocode{nouveau}). On
-		parle de variable «\textit{~dynamique~}». Le nom est alors~une
-		«~référence~» vers l’objet. Les avantages de cette dissociation seront
-		évidents lorsque nous parlerons de la notion de \textit{constructeur}.
+		%Remarquez qu'il y a une différence importante entre les
+		%objets et les types de bases. Lorsqu'on déclare une
+		%variable d'un type de base, cela alloue
+		%automatiquement un espace mémoire pour cette variable.
+		%C'est différent avec les objets. La déclaration
+		%n'entraine qu'une réservation mémoire
+		%pour une «~référence~» vers un objet. Celui-ci
+		%n'existe pas encore. Il sera créé (et sa mémoire
+		%allouée) via une instruction spécifique (\pseudocode{nouveau}). On
+		%parle de variable «\textit{~dynamique~}». Le nom est alors~une
+		%«~référence~» vers l’objet. Les avantages de cette dissociation seront
+		%évidents lorsque nous parlerons de la notion de \textit{constructeur}.
 
-		Après la déclaration, on a~:
-		\begin{center}
-		\begin{tabular}{m{2.2089999cm}}
-		\centering\arraybslash  midi\\\hline
-		\multicolumn{1}{|m{2.2089999cm}|}{\centering\arraybslash
-		\itshape rien}\\\hline
-		\end{tabular}
-		\end{center}
+		%Après la déclaration, on a~:
+		%\begin{center}
+		%\begin{tabular}{m{2.2089999cm}}
+		%\centering\arraybslash  midi\\\hline
+		%\multicolumn{1}{|m{2.2089999cm}|}{\centering\arraybslash
+		%\itshape rien}\\\hline
+		%\end{tabular}
+		%\end{center}
 
-		Après l'instanciation (ou création), on a~:
-		\begin{center}
-		\begin{tabular}{m{2.578cm}m{2.261cm}|m{3.162cm}|}
-		\centering  midi &
-		\multicolumn{1}{m{2.261cm}}{~
-		} &
-		\multicolumn{1}{m{3.162cm}}{\centering\arraybslash
-		 Moment}\\\hhline{-~-}
-		\multicolumn{1}{|m{2.578cm}|}{~
-		} &
-		\centering \sffamily $\rightarrow$ &
-		\centering\arraybslash  heure = ?\\\hhline{-~~}
-		~
-		 &
-		~
-		 &
-		\centering\arraybslash  minute = ?\\
-		~
-		 &
-		~
-		 &
-		\centering\arraybslash  seconde = ?\\\hhline{~~-}
-		\end{tabular}
-		\end{center}
+		%Après l'instanciation (ou création), on a~:
+		%\begin{center}
+		%\begin{tabular}{m{2.578cm}m{2.261cm}|m{3.162cm}|}
+		%\centering  midi &
+		%\multicolumn{1}{m{2.261cm}}{~
+		%} &
+		%\multicolumn{1}{m{3.162cm}}{\centering\arraybslash
+		 %Moment}\\\hhline{-~-}
+		%\multicolumn{1}{|m{2.578cm}|}{~
+		%} &
+		%\centering \sffamily $\rightarrow$ &
+		%\centering\arraybslash  heure = ?\\\hhline{-~~}
+		%~
+		 %&
+		%~
+		 %&
+		%\centering\arraybslash  minute = ?\\
+		%~
+		 %&
+		%~
+		 %&
+		%\centering\arraybslash  seconde = ?\\\hhline{~~-}
+		%\end{tabular}
+		%\end{center}
 		
-		Remarquez qu'il n'y a pas d'initialisation par défaut, pour le moment.
+		%Remarquez qu'il n'y a pas d'initialisation par défaut, pour le moment.
 
-		Après l'action des mutateurs, on a~:
-		\begin{center}
-		\begin{tabular}{m{2.578cm}m{2.261cm}|m{3.162cm}|}
-		\centering  midi &
-		\multicolumn{1}{m{2.261cm}}{~
-		} &
-		\multicolumn{1}{m{3.162cm}}{\centering\arraybslash
-		 Moment}\\\hhline{-~-}
-		\multicolumn{1}{|m{2.578cm}|}{~
-		} &
-		\centering \sffamily $\rightarrow$ &
-		\centering\arraybslash  heure = 12\\\hhline{-~~}
-		~
-		 &
-		~
-		 &
-		\centering\arraybslash  minute = 0\\
-		~
-		 &
-		~
-		 &
-		\centering\arraybslash  seconde = 0\\\hhline{~~-}
-		\end{tabular}
-		\end{center}
+		%Après l'action des mutateurs, on a~:
+		%\begin{center}
+		%\begin{tabular}{m{2.578cm}m{2.261cm}|m{3.162cm}|}
+		%\centering  midi &
+		%\multicolumn{1}{m{2.261cm}}{~
+		%} &
+		%\multicolumn{1}{m{3.162cm}}{\centering\arraybslash
+		 %Moment}\\\hhline{-~-}
+		%\multicolumn{1}{|m{2.578cm}|}{~
+		%} &
+		%\centering \sffamily $\rightarrow$ &
+		%\centering\arraybslash  heure = 12\\\hhline{-~~}
+		%~
+		 %&
+		%~
+		 %&
+		%\centering\arraybslash  minute = 0\\
+		%~
+		 %&
+		%~
+		 %&
+		%\centering\arraybslash  seconde = 0\\\hhline{~~-}
+		%\end{tabular}
+		%\end{center}
 
 		\begin{Emphase}{Exercices – classe et instance}
 			\vskip-\baselineskip
@@ -1004,80 +1000,6 @@
 	de la classe. Pour l’utilisateur il s’agit d’une méthode comme les
 	autres.
 
-
-%============================
-\section{La mort d'un objet}
-%============================
-
-	On sait que déclarer une variable ou créer un objet réserve de l’espace
-	en mémoire. On ne s’est jamais demandé quand cet espace mémoire est
-	libéré.
-	
-	Pour les variables locales d’un module ou d'une
-	méthode, la réponse est simple~: l’espace mémoire est récupéré
-	lorsqu’on arrive à la fin du module ou de la méthode.
-	
-	Pour les objets, c’est un peu plus compliqué. L’espace réservé pour
-	contenir la référence (voir paragraphe suivant) est bien libéré à la
-	fin du module puisque la variable cesse d’exister. Par contre l’espace
-	réservé dynamiquement pour contenir l’objet lui-même (par la primitive
-	\pseudocode{nouveau}) est toujours là et bien là !
-	
-	Mais alors, il n’est plus référencé et donc plus utilisable ? Pas
-	forcément. En effet, il est possible qu’il soit référencé par plusieurs
-	références. Si certaines sont détruites, il se peut que d’autres
-	continuent à exister. Ce sera le cas, par exemple, si l’objet constitue
-	la valeur de retour de la méthode ; sa référence à l’intérieur du
-	module est détruite mais il sera toujours accessible par une référence
-	du module appelant.
-	
-	Mais que faire quand on n’a plus besoin d’un objet ? On trouve
-	typiquement deux approches dans les langages OO.
-
-	\subsection{Destruction explicite de l’objet}
-	%---------------------------------------------
-	
-		Dans cette approche (qui est celle de C++ notamment), c’est au
-		programmeur lui-même qu’il incombe de détruire explicitement un objet
-		et ainsi de permettre au système de récupérer l’espace mémoire. 
-		
-		Cette technique offre au programmeur un grand contrôle sur l’utilisation
-		de la mémoire mais offre malheureusement quelques inconvénients.
-	
-		\begin{liste}
-			\item 
-				Cela demande une grande attention lors de la programmation afin de
-				récupérer tout l’espace qui peut l’être. Dans le cas contraire, on
-				gaspille de la mémoire.
-			\item 
-				Dans l’autre sens, il ne faut pas trop détruire. Si, par mégarde, on
-				détruit un objet qui est encore référencé et qu'on
-				utilise cette référence, le comportement du programme est imprévisible
-				(la mémoire peut avoir été utilisée pour autre chose).
-			\item 
-				Un objet peut contenir des références à d’autres objets. La destruction
-				est alors un processus non trivial qui peut sensiblement alourdir et
-				obscurcir le code.
-		\end{liste}
-	
-	\subsection{Utilisation d’un \textit{garbage collector} (ramasse-miettes)}
-	%---------------------------------------------------------------------------
-	
-		Cette autre approche (choisie notamment par Java) enlève au programmeur
-		toute (ou presque) responsabilité quant à la gestion de la mémoire. De
-		temps en temps, ou lorsque le besoin s’en fait sentir, un composant du
-		système appelé \textit{garbage collector} se met au travail. Son rôle
-		est justement de récupérer l’espace qui n’est plus utilisé. Pour cela,
-		il considère que tout objet qui n'est plus accessible
-		(parce que plus aucune référence ne permet d’y accéder) peut être
-		détruit.
-		
-		Par facilité et parce que cela correspond au cours de Java que vous
-		suivez cette année, nous adopterons dans ce cours cette seconde
-		approche, c'est à dire qu'il ne faut
-		pas se préoccuper de ce problème ;-)
-
-
 %=====================================
 \section{Quelques éléments de syntaxe}
 %=====================================
@@ -1098,89 +1020,63 @@
 				\Write rendezVous 
 				\RComment affichera 14, 23 et 56 dans un format lisible quelconque
 			\end{Pseudocode}
-			\bigskip
-		\item
-			Un nom d'objet est en fait une \textbf{référence} à
-			l'objet. Ainsi l'affectation ne copie
-			pas l'objet mais sa référence. Au final, nous avons
-			deux noms identifiant le même objet
-			\\
-			\bigskip
-			\begin{Pseudocode}
-				\Decl moment1, moment2~: Moment
-				\Let moment1 \Gets \K{nouveau} Moment(14, 23, 56)
-				\Let moment2 \Gets moment1
-				\RComment moment1 et moment2 désignent le même objet
-				\Stmt moment2.setHeure( 12 )
-				\Write moment1.getHeure() 
-				\RComment affiche 12 !!!
-			\end{Pseudocode}
+		%\item
+			%Un nom d'objet est en fait une \textbf{référence} à
+			%l'objet. Ainsi l'affectation ne copie
+			%pas l'objet mais sa référence. Au final, nous avons
+			%deux noms identifiant le même objet
+			%\\
+			%\bigskip
+			%\begin{Pseudocode}
+				%\Decl moment1, moment2~: Moment
+				%\Let moment1 \Gets \K{nouveau} Moment(14, 23, 56)
+				%\Let moment2 \Gets moment1
+				%\RComment moment1 et moment2 désignent le même objet
+				%\Stmt moment2.setHeure( 12 )
+				%\Write moment1.getHeure() 
+				%\RComment affiche 12 !!!
+			%\end{Pseudocode}
 	
-			\bigskip
+			%\bigskip
 	
-			\begin{center}
-			\begin{tabular}{m{2.19cm}m{2.2779999cm}|m{2.975cm}|m{2.34cm}m{2.146cm}}
-			\hhline{-~-~-}
-			\multicolumn{1}{|m{2.19cm}|}{\centering  moment1}
-			&
-			\centering \sffamily $\rightarrow$ &
-			\centering  Heure = \sout{14} 12 &
-			\multicolumn{1}{m{2.34cm}|}{\centering \sffamily
-			$\leftarrow$} &
-			\multicolumn{1}{m{2.146cm}|}{\centering\arraybslash
-			 moment2}\\\hhline{-~~~-}
-			~
-			 &
-			~
-			 &
-			\centering  minute = 23 &
-			~
-			 &
-			~
-			\\
-			~
-			 &
-			~
-			 &
-			\centering  seconde = 56 &
-			~
-			 &
-			~
-			\\\hhline{~~-~~}
-			\end{tabular}
-			\end{center}
+			%\begin{center}
+			%\begin{tabular}{m{2.19cm}m{2.2779999cm}|m{2.975cm}|m{2.34cm}m{2.146cm}}
+			%\hhline{-~-~-}
+			%\multicolumn{1}{|m{2.19cm}|}{\centering  moment1}
+			%&
+			%\centering \sffamily $\rightarrow$ &
+			%\centering  Heure = \sout{14} 12 &
+			%\multicolumn{1}{m{2.34cm}|}{\centering \sffamily
+			%$\leftarrow$} &
+			%\multicolumn{1}{m{2.146cm}|}{\centering\arraybslash
+			 %moment2}\\\hhline{-~~~-}
+			%~
+			 %&
+			%~
+			 %&
+			%\centering  minute = 23 &
+			%~
+			 %&
+			%~
+			%\\
+			%~
+			 %&
+			%~
+			 %&
+			%\centering  seconde = 56 &
+			%~
+			 %&
+			%~
+			%\\\hhline{~~-~~}
+			%\end{tabular}
+			%\end{center}
 	
-			\bigskip
+			%\bigskip
 	
 		\item 
-			Le signe «~=~» permet de tester que deux noms référencent le même objet.
-			Pour tester que deux objets différents sont dans le même état, on
-			utilise la méthode «~égal~».
-			\\
-			\bigskip
-			\begin{Pseudocode}
-				\Decl moment1, moment2, moment3~: Moment
-				\Empty
-				\Let moment1 \Gets {nouveau} Moment( 14, 23, 56 )
-				\Let moment2 \Gets moment1 
-				\RComment moment1 et moment2 désignent le même objet
-				\Empty
-				\Let moment3 \Gets {nouveau} Moment( 14, 23, 56 )
-				\Write moment1 = moment2
-				\RComment vrai
-				\Write moment1 = moment3 
-				\RComment faux
-				\Write moment1.égal(moment2) 
-				\RComment vrai
-				\Write moment1.égal(moment3) 
-				\RComment vrai
-				\Empty 
-				\Stmt moment2.setHeure( 12 )
-				\Write moment1.égal(moment2) 
-				\RComment vrai
-				\Write moment1.égal(moment3) 
-				\RComment faux
-			\end{Pseudocode}
+			Le signe «~=~» peut être utilisé pour comparer deux objets.
+			Ils seront considérés comme égaux s'ils sont dans le même état, 
+			c'est-à-dire que leurs attributs ont la même valeur.
 	\end{liste}
 	
 	\bigskip
@@ -1211,30 +1107,20 @@
 			}
 			\bigskip
 		\item
-			Lorsqu'il est déclaré, un nom d'objet
-			ne référence encore aucun objet. Cela s'indique par la
-			valeur «~rien~». On peut aussi utiliser cette valeur pour enlever toute
-			référence vers un objet.
+			Lorsqu'on déclare un objet, il n'est pas encore créé.
+			On peut utiliser la valeur spéciale «~rien~»
+			pour indiquer ou tester qu'un objet n'est pas encore créé.
 			\\
 			\bigskip
 			\begin{Pseudocode}
-				\Decl moment~: Moment
-				\RComment moment = rien
-				\Let moment \Gets \K{nouveau} Moment( 14, 23, 56 )
-				\RComment moment ${\neq}$ rien
-				\Let moment \Gets rien
-				\RComment moment = rien
+				\Decl moment~: Moment								\RComment moment = rien
+				\Let moment \Gets \K{nouveau} Moment( 14, 23, 56 )	\RComment moment ${\neq}$ rien
+				\If{moment $\neq$ rien}
+					\Let moment \Gets rien							\RComment moment = rien
+				\EndIf
 			\end{Pseudocode}
 	\end{liste}
 	
-	\begin{Emphase}{Exercice – méthode égal()}
-		\marginicon{exercice}
-		Écrire la méthode \pseudocode{égal()} pour la classe \pseudocode{Moment}.
-		
-		N.B.~: On supposera par la suite qu'une telle méthode
-		existe par défaut pour toutes les nouvelles classes.
-	\end{Emphase}
-
 %===============================================	
 \section{Représentation modélisée d'une classe}
 %===============================================
@@ -1537,68 +1423,72 @@
 		orienté objet~: écrire de petites méthodes qui font chacune une et une
 		seule chose bien précise.
 	
-%===============================
-\section{Ce qu'on n'a pas vu...}
-%================================
+%%===============================
+%\section{Ce qu'on n'a pas vu...}
+%%================================
 
-	Nous n'avons évidemment pas épuisé le sujet de
-	l'orienté objet. 
-	Celui-ci est composé de trois piliers~: l'\textbf{encapsulation},
-	l'\textbf{héritage} et le \textbf{polymorphisme}.
+	%Nous n'avons évidemment pas épuisé le sujet de
+	%l'orienté objet. 
+	%Celui-ci est composé de trois piliers~: l'\textbf{encapsulation},
+	%l'\textbf{héritage} et le \textbf{polymorphisme}.
 	
-	Nous venons de voir l'essentiel de la partie «~encapsulation~». 
-	Les deux autres notions, plus complexes, 
-	seront abordées au cours de Java 
-	mais également au cours de Logique de deuxième année. 
-	En voici un aperçu~:
+	%Nous venons de voir l'essentiel de la partie «~encapsulation~». 
+	%Les deux autres notions, plus complexes, 
+	%seront abordées au cours de Java 
+	%mais également au cours de Logique de deuxième année. 
+	%En voici un aperçu~:
 	
-	\subsection{L'héritage}
-	%-----------------------
+	%\subsection{L'héritage}
+	%%-----------------------
 	
-		\marginicon{definition}
-		L’\textbf{héritage} permet de définir une classe 
-		à partir d’une autre qui lui sert de base. 
-		On peut alors
-		\begin{liste}
-			\item étendre son état ;
-			\item augmenter ou modifier son comportement.
-		\end{liste}
+		%\marginicon{definition}
+		%L’\textbf{héritage} permet de définir une classe 
+		%à partir d’une autre qui lui sert de base. 
+		%On peut alors
+		%\begin{liste}
+			%\item étendre son état ;
+			%\item augmenter ou modifier son comportement.
+		%\end{liste}
 		
-		Par exemple, on pourra définir un \pseudocode{Etudiant} à partir
-		de la notion de \pseudocode{Personne}.
+		%Par exemple, on pourra définir un \pseudocode{Etudiant} à partir
+		%de la notion de \pseudocode{Personne}.
 		
-		La classe qui sert de point de départ est appelée \textbf{classe de
-		base}, \textbf{classe mère} ou encore \textbf{super-classe}. La classe
-		qu’on définit à partir d’une classe mère est appelée \textbf{classe
-		dérivée}, \textbf{classe fille} ou encore \textbf{sous-classe}.
+		%La classe qui sert de point de départ est appelée \textbf{classe de
+		%base}, \textbf{classe mère} ou encore \textbf{super-classe}. La classe
+		%qu’on définit à partir d’une classe mère est appelée \textbf{classe
+		%dérivée}, \textbf{classe fille} ou encore \textbf{sous-classe}.
 		
-		Cette notion est un préalable pour le pilier suivant, le
-		\textbf{polymorphisme}.
+		%Cette notion est un préalable pour le pilier suivant, le
+		%\textbf{polymorphisme}.
 	
-	\subsection{Le polymorphisme}
-	%-----------------------------
+	%\subsection{Le polymorphisme}
+	%%-----------------------------
 	
-		\marginicon{definition}
-		Le \textbf{polymorphisme} permet d’utiliser un objet fille 
-		en lieu et place d’un objet mère. 
+		%\marginicon{definition}
+		%Le \textbf{polymorphisme} permet d’utiliser un objet fille 
+		%en lieu et place d’un objet mère. 
 		
-		Exposé aussi brièvement cela peut paraitre futile mais cela
-		permet de construire du code ayant une architecture élégante, robuste
-		et facilement adaptable.
+		%Exposé aussi brièvement cela peut paraitre futile mais cela
+		%permet de construire du code ayant une architecture élégante, robuste
+		%et facilement adaptable.
 
 %==================
 \section{Exercices}
 %==================
 
-\begin{Exercice}{Un produit}
-	Reprendre la classe \pseudocode{Produit} qui a servi
-	d'exemple. Identifier et écrire les méthodes qui vous
-	paraissent utiles pour une telle classe.
+	Vous trouverez en annexe, 
+	quelques classes que vous pouvez utiliser sans les définir : 
+	\pseudocode{Date}, \pseudocode{Moment} et \pseudocode{Durée}
 	
-	À partir de là, écrire la classe Stock. Qu'utiliseriez-vous 
-	comme attributs et quelles méthodes vous paraissent utiles pour
-	cette classe ?
-\end{Exercice}
+%\begin{Exercice}{Un produit}
+	%Reprendre la classe \pseudocode{Produit} qui a servi
+	%d'exemple. Identifier et écrire les méthodes qui vous
+	%paraissent utiles pour une telle classe.
+	
+	%À partir de là, écrire la classe Stock. Qu'utiliseriez-vous 
+	%comme attributs et quelles méthodes vous paraissent utiles pour
+	%cette classe ?
+%\end{Exercice}
 
 \begin{Exercice}{Une personne}
 	Créer une classe \pseudocode{Personne}, une personne étant
@@ -1633,9 +1523,7 @@
 
 	Pour réaliser les constructeurs recevant la date de naissance en
 	paramètre, il faudra tester si cette date n’est pas antérieure à la
-	date du jour. On considérera que la date 
-	du jour est fournie par le constructeur de
-	\pseudocode{Date} sans paramètre.
+	date du jour. 
 \end{Exercice}
 
 \begin{Exercice}{Anniversaire des personnes}
@@ -1645,99 +1533,99 @@
 	que la lecture de «~rien~» indique la fin des données.
 \end{Exercice}
 
-\begin{Exercice}{La classe rectangle (version orientée objet)}
-	Nous avons déjà abordé les rectangles dans le chapitre des variables
-	structurées. Nous reprenons cet exercice sous l’angle de l’orienté
-	objet.
+%\begin{Exercice}{La classe rectangle (version orientée objet)}
+	%Nous avons déjà abordé les rectangles dans le chapitre des variables
+	%structurées. Nous reprenons cet exercice sous l’angle de l’orienté
+	%objet.
 
-	Créer une classe \textbf{Rectangle}
-	permettant de définir des rectangles dont les cotés sont parallèles aux
-	axes des coordonnées dans un plan cartésien. Plusieurs représentations
-	sont possibles~:
+	%Créer une classe \textbf{Rectangle}
+	%permettant de définir des rectangles dont les cotés sont parallèles aux
+	%axes des coordonnées dans un plan cartésien. Plusieurs représentations
+	%sont possibles~:
 
-	\begin{liste}
-		\item 
-			la position d’un des sommets et les mesures des cotés;
-		\item 
-			les positions de deux sommets opposés;
-		\item 
-			la position du centre et les demi-mesures des cotés, etc.
-	\end{liste}
+	%\begin{liste}
+		%\item 
+			%la position d’un des sommets et les mesures des cotés;
+		%\item 
+			%les positions de deux sommets opposés;
+		%\item 
+			%la position du centre et les demi-mesures des cotés, etc.
+	%\end{liste}
 
-	N’hésitez pas à utiliser la structure Point définissant un point dans un
-	plan cartésien.
+	%N’hésitez pas à utiliser la structure Point définissant un point dans un
+	%plan cartésien.
 
-	Une fois les attributs choisis, écrire divers constructeurs~:
+	%Une fois les attributs choisis, écrire divers constructeurs~:
 
-	\begin{enumerate}[label=\alph*)]
-		\item 
-			sans arguments~: le rectangle est un carré de coté 1 centré en (0,0)
-		\item
-			avec deux paramètres~: les mesures des cotés horizontaux et verticaux,
-			le rectangle étant centré en (0,0)
-		\item 
-			avec trois paramètres~: la position du coin en haut à gauche (structure
-			Point) et les mesures des cotés horizontaux et verticaux 
-		\item 
-			avec deux paramètres de type Point~: les positions de deux sommets
-			opposés
-	\end{enumerate}
+	%\begin{enumerate}[label=\alph*)]
+		%\item 
+			%sans arguments~: le rectangle est un carré de coté 1 centré en (0,0)
+		%\item
+			%avec deux paramètres~: les mesures des cotés horizontaux et verticaux,
+			%le rectangle étant centré en (0,0)
+		%\item 
+			%avec trois paramètres~: la position du coin en haut à gauche (structure
+			%Point) et les mesures des cotés horizontaux et verticaux 
+		%\item 
+			%avec deux paramètres de type Point~: les positions de deux sommets
+			%opposés
+	%\end{enumerate}
 
-	Veillez à vérifier la validité des paramètres !
+	%Veillez à vérifier la validité des paramètres !
 
-	Doter ensuite la classe de méthodes permettant~:
+	%Doter ensuite la classe de méthodes permettant~:
 
-	\begin{enumerate}[label=\alph*)]
-		\item 
-			d’obtenir la position du centre
-		\item 
-			d’obtenir la position du coin inférieur droit
-		\item 
-			de calculer le périmètre du rectangle
-		\item 
-			de calculer la surface du rectangle
-		\item 
-			de déplacer le rectangle en donnant l’amplitude du déplacement au niveau
-			des abscisses et des ordonnées
-		\item 
-			de multiplier les dimensions du rectangle par un facteur $k$, le centre
-			restant au même endroit
-		\item 
-			de faire pivoter le rectangle de 90 degrés autour de son centre
-		\item 
-			de vérifier si un rectangle à une intersection avec un autre rectangle
-	\end{enumerate}
+	%\begin{enumerate}[label=\alph*)]
+		%\item 
+			%d’obtenir la position du centre
+		%\item 
+			%d’obtenir la position du coin inférieur droit
+		%\item 
+			%de calculer le périmètre du rectangle
+		%\item 
+			%de calculer la surface du rectangle
+		%\item 
+			%de déplacer le rectangle en donnant l’amplitude du déplacement au niveau
+			%des abscisses et des ordonnées
+		%\item 
+			%de multiplier les dimensions du rectangle par un facteur $k$, le centre
+			%restant au même endroit
+		%\item 
+			%de faire pivoter le rectangle de 90 degrés autour de son centre
+		%\item 
+			%de vérifier si un rectangle à une intersection avec un autre rectangle
+	%\end{enumerate}
 	
-\end{Exercice}
+%\end{Exercice}
 
-\begin{Exercice}{Test}
+%\begin{Exercice}{Test}
 
-	Test~: écrire un module TestRectangle en vue de tester le bon
-	fonctionnement de la classe \pseudocode{Rectangle} de l'exercice précédent. Ce module~: 
+	%Test~: écrire un module TestRectangle en vue de tester le bon
+	%fonctionnement de la classe \pseudocode{Rectangle} de l'exercice précédent. Ce module~: 
 
-	\begin{enumerate}[label=\alph*)]
-		\item 
-			crée un rectangle R1 par défaut
-		\item 
-			crée un rectangle R2 de cotés 5 et 7, et centré en (0,0)
-		\item 
-			crée un rectangle R3 possédant les sommets (-2,3) et (4, -5)
-		\item 
-			affiche la surface de R1 et le périmètre de R2
-		\item 
-			déplace R1 d’une unité vers le bas
-		\item 
-			déplace R2 de 2 unités vers la droite
-		\item 
-			grossit R3 d’un facteur 3
-		\item 
-			effectue une rotation de 90 degrés à R2
-		\item 
-			indique si R2 et R3 possèdent une intersection
-	\end{enumerate}
+	%\begin{enumerate}[label=\alph*)]
+		%\item 
+			%crée un rectangle R1 par défaut
+		%\item 
+			%crée un rectangle R2 de cotés 5 et 7, et centré en (0,0)
+		%\item 
+			%crée un rectangle R3 possédant les sommets (-2,3) et (4, -5)
+		%\item 
+			%affiche la surface de R1 et le périmètre de R2
+		%\item 
+			%déplace R1 d’une unité vers le bas
+		%\item 
+			%déplace R2 de 2 unités vers la droite
+		%\item 
+			%grossit R3 d’un facteur 3
+		%\item 
+			%effectue une rotation de 90 degrés à R2
+		%\item 
+			%indique si R2 et R3 possèdent une intersection
+	%\end{enumerate}
 
-	À présent, choisir une autre représentation des attributs et récrire
-	tout le contenu de la classe (très long, courage !).
-	Récrire ensuite le
-	module TestRectangle (très rapide !)
-\end{Exercice}
+	%À présent, choisir une autre représentation des attributs et récrire
+	%tout le contenu de la classe (très long, courage !).
+	%Récrire ensuite le
+	%module TestRectangle (très rapide !)
+%\end{Exercice}
