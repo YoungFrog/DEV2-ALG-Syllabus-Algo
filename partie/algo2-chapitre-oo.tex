@@ -1008,17 +1008,23 @@
 
 	\begin{liste}
 		\item
-			On peut directement afficher un objet. Cela affiche son état,
-			c'est-à-dire les valeurs de ses attributs dans
-			l'ordre où ils apparaissent dans la définition de la
-			classe.
-			\\
-			\bigskip
+			On peut directement afficher un objet. 
+			Cela affiche son état, c'est-à-dire les valeurs de ses attributs.
+
 			\begin{Pseudocode}
 				\Decl rendezVous~: Moment
 				\Let rendezVous \Gets \K{nouveau} Moment(14, 23, 56)
 				\Write rendezVous 
 				\RComment affichera 14, 23 et 56 dans un format lisible quelconque
+			\end{Pseudocode}
+		\item
+			De même, on peut directement lire un objet,
+			ce qui a pour effet de créer un objet avec un état
+			correspondant aux valeurs lues pour ses attributs.
+
+			\begin{Pseudocode}
+				\Decl rendezVous~: Moment
+				\Read rendezVous
 			\end{Pseudocode}
 		%\item
 			%Un nom d'objet est en fait une \textbf{référence} à
