@@ -319,10 +319,7 @@ d’ajouter ou de supprimer des éléments à la collection.
 			donner le nombre de mots déjà complétés par le joueur
 	\end{liste}
 
-	Exemple : dans la grille ci-dessous, le nombre de cases noires est 14, le
-	nombre total de mots de la grille est 37 (19 horizontaux et 18
-	verticaux) et le nombre de mots déjà complété par le joueur est 6.
-	
+	\begin{minipage}[t][][b]{8cm}	
 	\begin{footnotesize}
 	\begin{center}
 	\begin{tabular}{|*{10}{>{\centering\arraybackslash}m{0.30cm}|}}
@@ -340,12 +337,20 @@ d’ajouter ou de supprimer des éléments à la collection.
 	\end{tabular}
 	\end{center}
 	\end{footnotesize}
-
+	%
+	\end{minipage}
+	\begin{minipage}[t][][t]{6cm}
+	Exemple : dans la grille ci-contre, le nombre de cases noires est 14, le
+	nombre total de mots de la grille est 37 (19 horizontaux et 18
+	verticaux) et le nombre de mots déjà complété par le joueur est 6.
+	\end{minipage}
+	
 \end{Exercice}
 
+%\clearpage
 \begin{Exercice}{Mastermind}
-	Dans le jeu du Mastermind, un joueur A doit
-	trouver une combinaison de
+	Revenons sur le jeu Mastermind déjà vu en DEV$_1$.
+	Dans ce jeu, un joueur A doit trouver une combinaison de
 	\pseudocode{k} pions de couleurs, choisie et tenue secrète
 	par un autre joueur B. Cette combinaison peut contenir éventuellement
 	des pions de même couleur. À chaque proposition du joueur A, le joueur
@@ -402,21 +407,7 @@ d’ajouter ou de supprimer des éléments à la collection.
 			palier, il ne gagne pas un seul euro !
 	\end{liste}
 	
-	\begin{minipage}[t][][t]{10cm}
-	\vskip\baselineskip{}
-	Exemple : Le tableau ci-contre contient les gains associés à chaque 
-	question et une indication booléenne mise à
-	\pseudocode{vrai} lorsque la question
-	constitue un palier. Un concurrent qui se
-	trompe à la question 3 ne gagnera rien ; un concurrent qui se trompe à
-	la question 6 gagnera 500~\euro{} (palier de la question 5) et de même s’il
-	se trompe à la question 10 ; un concurrent qui se trompe à la question
-	13 gagnera 12500~\euro{} (palier de la question 10) ; 
-	s'il décide de ne pas répondre à la question 13,
-	il garde le montant acquis à la question 12, soit 50000~\euro.
-	\end{minipage}
-%
-	\begin{minipage}[t][][b]{4cm}
+	\begin{minipage}[t][][b]{2.5cm}
 	\begin{center}
 	\begin{footnotesize}
 	\begin{tabular}{|l|l|l|}\hline
@@ -430,6 +421,15 @@ d’ajouter ou de supprimer des éléments à la collection.
 	  8 &    3750~\euro & faux \\\hline
 	  9 &    7500~\euro & faux \\\hline
 	 10 &   12500~\euro & vrai \\\hline
+	\end{tabular}
+	\end{footnotesize}
+	\end{center}
+	\end{minipage}
+%
+	\begin{minipage}[t][][b]{3.5cm}
+	\begin{center}
+	\begin{footnotesize}
+	\begin{tabular}{|l|l|l|}\hline
 	 11 &   25000~\euro & faux \\\hline
 	 12 &   50000~\euro & faux \\\hline
 	 13 &  100000~\euro & vrai \\\hline
@@ -438,6 +438,20 @@ d’ajouter ou de supprimer des éléments à la collection.
 	\end{tabular}
 	\end{footnotesize}
 	\end{center}
+	\end{minipage}
+%
+	\begin{minipage}[t][][b]{8cm}
+	%\vskip\baselineskip{}
+	Exemple : Le tableau ci-contre contient les gains associés à chaque 
+	question et une indication booléenne mise à
+	\pseudocode{vrai} lorsque la question
+	constitue un palier. Un concurrent qui se
+	trompe à la question 3 ne gagnera rien ; un concurrent qui se trompe à
+	la question 6 gagnera 500~\euro{} (palier de la question 5) et de même s’il
+	se trompe à la question 10 ; un concurrent qui se trompe à la question
+	13 gagnera 12500~\euro{} (palier de la question 10) ; 
+	s'il décide de ne pas répondre à la question 13,
+	il garde le montant acquis à la question 12, soit 50000~\euro.
 	\end{minipage}
 	
 	Il y aurait de nombreuses façons de coder ce problème; en voici une :
