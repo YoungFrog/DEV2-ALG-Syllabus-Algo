@@ -358,6 +358,42 @@ d’ajouter ou de supprimer des éléments à la collection.
 	B indique le nombre de pions de la proposition qui sont corrects et
 	bien placés et le nombre de pions corrects mais mal placés. 
 
+	\textbf{Exemple}
+
+	Utilisons des lettres pour représenter les couleurs.
+	
+	\begin{minipage}{5cm}
+		\begin{center}
+		Combinaison secrète
+		
+		\begin{tabular}{|*{5}{>{\centering\arraybackslash}m{0.35cm}|}}
+			\hline
+			R & R & V & B & J \\
+			\hline
+		\end{tabular}
+		\end{center}	
+	\end{minipage}
+	\
+	\begin{minipage}{5cm}
+		\begin{center}
+		Proposition du joueur
+	
+		\begin{tabular}{|*{5}{>{\centering\arraybackslash}m{0.35cm}|}}
+			\hline
+			R & V & B & B & V \\
+			\hline
+		\end{tabular}
+		\end{center}
+	\end{minipage}
+	
+	Il sera indiqué au joueur qu'il a :
+	\begin{liste}
+	\item 2 pions bien placés : le R en 1\iere{} position et le
+	second B en 4\ieme{} position ;
+	\item 1 pion mal placé : un des deux V (ils ne peuvent compter tous les deux).
+	\end{liste}
+	
+	\medskip
 	Supposons une énumération \pseudocode{Couleur} avec toutes les couleurs possibles de
 	pion.
 
@@ -743,11 +779,11 @@ d’ajouter ou de supprimer des éléments à la collection.
 		décrite ci-dessous.
 		
 		\begin{Pseudocode}
-			\Class{Ensemble <T>}{} 
+			\Class{Ensemble de T}{} 
 			\RComment T est le type des éléments de l'ensemble
 			
 				\Public
-				\ConstrSign{Ensemble <T>}{} 
+				\ConstrSign{Ensemble de T}{} 
 				\RComment construit un ensemble vide
 				\MethodSign{ajouter}{élt : T}{}
 				\RComment ajoute l'élément à l'ensemble
