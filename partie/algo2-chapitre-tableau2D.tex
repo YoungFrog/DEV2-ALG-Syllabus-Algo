@@ -378,7 +378,7 @@ Ce qui donne l'algorithme :
 \begin{Pseudocode}
 	\LComment{Parcours de la ligne $l$ d'un tableau à deux dimensions}
 	\For{c de 1 à m}
-		\Stmt traiter tab[l,c]
+		\Write tab[l,c] \RComment On peut faire autre chose qu'afficher
 	\EndFor
 \end{Pseudocode}
 
@@ -390,7 +390,7 @@ avec l'algorithme suivant.
 \begin{Pseudocode}
 	\LComment{Parcours de la colonne $c$ d'un tableau à deux dimensions}
 	\For{l de 1 à n}
-		\Stmt traiter tab[l,c]
+		\Write tab[l,c] \RComment On peut faire autre chose qu'afficher
 	\EndFor
 \end{Pseudocode}
 
@@ -418,7 +418,7 @@ comme le montre l'algorithme suivant.
 \begin{Pseudocode}
 	\LComment{Parcours de la diagonale descendante d'un tableau carré}
 	\For{i de 1 à n}
-		\Stmt traiter tab[i,i]
+		\Write tab[i,i] \RComment On peut faire autre chose qu'afficher
 	\EndFor
 \end{Pseudocode}
 
@@ -443,7 +443,7 @@ en se basant sur le fait que $i+j=n+1 \Rightarrow j=n+1-i$.
 	\LComment{Parcours de la diagonale montante d'un tableau carré - 2 indices}
 	\Let j \Gets n
 	\For{i de 1 à n}
-		\Stmt traiter tab[i,j]
+		\Write tab[i,j] \RComment On peut faire autre chose qu'afficher
 		\Let j \Gets j - 1
 	\EndFor
 \end{Pseudocode}
@@ -451,7 +451,7 @@ en se basant sur le fait que $i+j=n+1 \Rightarrow j=n+1-i$.
 \begin{Pseudocode}
 	\LComment{Parcours de la diagonale montante d'un tableau carré - 1 indice}
 	\For{i de 1 à n}
-		\Stmt traiter tab[i, n + 1 - i]
+		\Write tab[i, n + 1 - i]  \RComment On peut faire autre chose qu'afficher
 	\EndFor
 \end{Pseudocode}
 
@@ -502,7 +502,7 @@ Le plus simple est d'utiliser deux boucles imbriquées
 	\LComment{Parcours d'un tableau à 2 dimensions, ligne par ligne}
 	\For{lg de 1 à n}
 		\For{col de 1 à m}
-			\Stmt traiter tab[lg,col]
+			\Write tab[lg,col] \RComment On peut faire autre chose qu'afficher
 		\EndFor
 	\EndFor
 \end{Pseudocode}
@@ -511,7 +511,7 @@ Le plus simple est d'utiliser deux boucles imbriquées
 	\LComment{Parcours d'un tableau à 2 dimensions, colonne par colonne}
 	\For{col de 1 à m}
 		\For{lg de 1 à n}
-			\Stmt traiter tab[lg,col]
+			\Write tab[lg,col] \RComment On peut faire autre chose qu'afficher
 		\EndFor
 	\EndFor
 \end{Pseudocode}
@@ -530,7 +530,7 @@ et laissée en exercice.
 	\Let lg \Gets 1
 	\Let col \Gets 1
 	\For{i de 1 à n*m}
-		\Stmt traiter tab[lg,col]
+		\Write tab[lg,col] \RComment On peut faire autre chose qu'afficher
 		\Let col \Gets col + 1	\RComment Passer à la case suivante
 		\If{col > m} \RComment On déborde sur la droite, passer à la ligne suivante
 			\Let col \Gets 1
@@ -557,7 +557,7 @@ Par exemple, montrons les deux parcours ligne par ligne, avec une et deux boucle
 	\While{lg $\le$ n}
 		\Let col \Gets 1
 		\While{col $\le$ m}
-			\Stmt traiter tab[lg, col]
+			\Write tab[lg, col] \RComment On peut faire autre chose qu'afficher
 			\Let col \Gets col + 1
 		\EndWhile
 		\Let lg \Gets lg + 1
@@ -570,7 +570,7 @@ Par exemple, montrons les deux parcours ligne par ligne, avec une et deux boucle
 	\Let col \Gets 1
 	\Let i \Gets 1
 	\While{i $\le$ n*m} \RComment ou "lg $\le$ n" 
-		\Stmt traiter tab[lg,col]
+		\Write tab[lg,col] \RComment On peut faire autre chose qu'afficher
 		\Let col \Gets col + 1	\RComment Passer à la case suivante
 		\If{col > m} \RComment On déborde sur la droite, passer à la ligne suivante
 			\Let col \Gets 1
@@ -650,7 +650,7 @@ ce qui donne l'algorithme :
 	\Let col \Gets 1
 	\Let depl \Gets 1	\RComment 1 pour avancer, -1 pour reculer
 	\For{i de 1 à n*m}
-		\Stmt traiter tab[lg, col]
+		\Write tab[lg, col] \RComment On peut faire autre chose qu'afficher
 		\If{1 $\le$ col + depl ET col + depl $\le$ m}
 			\Let col \Gets col + depl \RComment On se déplace dans la ligne
 		\Else
