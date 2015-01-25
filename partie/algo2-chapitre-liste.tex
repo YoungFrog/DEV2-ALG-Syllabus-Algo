@@ -15,28 +15,75 @@ facilités d’un tableau tout en pouvant «~grandir~» si nécessaire.
 Construisons une telle structure de données et appelons-la «~Liste~»
 pour rester en phase avec son appellation commune en Java.
 
+Par exemple, considérons une liste de courses.
+On pourrait la représenter ainsi :
+\begin{enumerate}
+\item "fromage"
+\item "pain"
+\item "salami"
+\end{enumerate}
+
+On pourrait ajouter un élément en fin de liste, par exemple de l'eau,
+pour obtenir la liste :
+
+\begin{enumerate}
+\item "fromage"
+\item "pain"
+\item "salami"
+\item "eau"
+\end{enumerate}
+
+On pourrait aussi supprimer un élément de la liste, par exemple le pain,
+et obtenir :
+
+\begin{enumerate}
+\item "fromage"
+\item "salami"
+\item "eau"
+\end{enumerate}
+
+On pourrait aussi insérer un élément dans la liste, 
+par exemple une baguette, 
+ce qui décale, de facto, la position des suivants.
+
+\begin{enumerate}
+\item "fromage"
+\item "salami"
+\item "baguette"
+\item "eau"
+\end{enumerate}
+
+Et encore plein de choses que nous allons détailler.
+
 %========================
 \section{La classe Liste}
 %=========================
 
-Nous verrons plus loin comment la réaliser en pratique mais nous pouvons
-déjà définir le comportement qu’on en attend (les méthodes qu’elle doit
-fournir)
+Nous verrons plus loin comment réaliser une classe Liste en pratique 
+mais nous pouvons déjà définir le comportement qu’on en attend 
+(les méthodes qu’elle doit fournir)
+
+Ce comportement sera indentique quel que soit le type des éléments
+de la liste; une liste de chaine et une liste d'entiers
+ne se distinguent que par le type de certains paramètres
+et valeurs de retour.
+Ici, nous indiquons \pseudocode{T} pour indiquer un type quelconque;
+vous pouvez le remplacer par ce qui vous convient : entier, chaine, Date\dots.
 
 \begin{Pseudocode}
-	\Class{Liste <T>}
+	\Class{Liste de T}
 		\RComment T est un type quelconque
 		\Private
 			\LComment sera complété plus tard	
 		\Public
-			\ConstrSign{Liste <T>}{}			
+			\ConstrSign{Liste de T}{}			
 				\RComment construit une liste vide
 			\MethodSign{get}{pos : entier}{T}
 				\RComment donne un élément en position pos
 			\MethodSign{set}{pos : entier, valeur : T}{}
 				\RComment modifie un élément en position pos
 			\MethodSign{taille}{}{entier}
-				\RComment donne le nombre d’éléments
+				\RComment donne le nombre actuels d’éléments
 			\MethodSign{ajouter}{valeur : T}{}
 				\RComment ajoute un élément en fin de liste
 			\MethodSign{insérer}{pos : entier, valeur : T}{}
@@ -60,21 +107,21 @@ fournir)
 
 Quelques précisions s’imposent :
 \begin{liste}
-	\item 
-		Comme les tableaux, les listes peuvent contenir des éléments de
-		n’importe quel type tout en restant uniforme au sein d’une même liste
-		(on pourra manipuler une liste d’entiers, une liste de contacts\dots\ 
-		mais pas mélanger). Il serait rédhibitoire de devoir définir une Liste
-		pour chaque type d’éléments. On utilise dès lors la possibilité en OO
-		d’écrire un code \textbf{générique}\footnote{\ on parle aussi de
-		«~template~».}. Le «~T~» dans la définition de la classe indique le
-		type des éléments qui sera spécifié lors de l’utilisation de la classe.
-		On écrira par exemple «~\pseudocode{Liste d’entiers}~» pour
-		utiliser une liste d’entiers.
+	%\item 
+		%Comme les tableaux, les listes peuvent contenir des éléments de
+		%n’importe quel type tout en restant uniforme au sein d’une même liste
+		%(on pourra manipuler une liste d’entiers, une liste de contacts\dots\ 
+		%mais pas mélanger). Il serait rédhibitoire de devoir définir une Liste
+		%pour chaque type d’éléments. On utilise dès lors la possibilité en OO
+		%d’écrire un code \textbf{générique}\footnote{\ on parle aussi de
+		%«~template~».}. Le «~T~» dans la définition de la classe indique le
+		%type des éléments qui sera spécifié lors de l’utilisation de la classe.
+		%On écrira par exemple «~\pseudocode{Liste d’entiers}~» pour
+		%utiliser une liste d’entiers.
 	\item 
 		Les méthodes «\pseudocode{~get~}» et «\pseudocode{~set~}»
 		permettent de connaitre ou modifier un élément de la liste. On
-		considère, au cours de logique, que le premier élément de 
+		considère, au cours d'algorithmique, que le premier élément de 
 		la liste est en position 1.
 	\item 
 		«\pseudocode{~ajouter~}» ajoute un élément en fin de liste (elle
@@ -120,8 +167,67 @@ Quelques précisions s’imposent :
 		type n'est pas connu à priori.
 \end{liste}
 
-\bigskip
+{\sffamily\bfseries\scshape
+Exemple : manipulations de base}
 
+Soit l'algorithme suivant :
+
+\begin{Pseudocode}
+	\Module{ex1}{}{}
+		\Decl l : Liste d'entiers
+		\Let l \Gets \K{nouvelle} Liste d'entiers()
+		\Stmt l.ajouter(42)
+		\Stmt l.ajouter(54)
+		\Stmt l.set(2,44)
+		\Stmt l.insérer(2,43)
+		\Stmt l.supprimerPos(3)
+		\Stmt l.supprimer(42)
+		\Stmt l.vider
+	\EndModule
+\end{Pseudocode}
+
+Après sa création, la liste est vide.
+Ensuite, elle passe par les états suivants :
+
+\begin{minipage}[t]{2cm}
+\begin{enumerate}
+\item 42
+\end{enumerate}
+\end{minipage}
+\begin{minipage}[t]{2cm}
+\begin{enumerate}
+\item 42
+\item 54
+\end{enumerate}
+\end{minipage}
+\begin{minipage}[t]{2cm}
+\begin{enumerate}
+\item 42
+\item 44
+\end{enumerate}
+\end{minipage}
+\begin{minipage}[t]{2cm}
+\begin{enumerate}
+\item 42
+\item 43
+\item 44
+\end{enumerate}
+\end{minipage}
+\begin{minipage}[t]{2cm}
+\begin{enumerate}
+\item 42
+\item 43
+\end{enumerate}
+\end{minipage}
+\begin{minipage}[t]{2cm}
+\begin{enumerate}
+\item 43
+\end{enumerate}
+\end{minipage}
+
+Enfin, le dernier appel la vide complètement
+
+\bigskip
 {\sffamily\bfseries\scshape
 Exemple : recherche du minimum}
 
@@ -132,12 +238,11 @@ où se trouvent les différentes occurrences du minimum. On pourrait
 l’écrire ainsi :
 
 \begin{Pseudocode}
-\footnotesize
-	\Module{indicesMinimum}{tab : tableau [1 à n] d'entiers}{Liste <entier>}
+	\Module{indicesMinimum}{tab : tableau [1 à n] d'entiers}{Liste d'entiers}
 		\Decl i, min : entier
-		\Decl indicesMin : Liste <entier>
+		\Decl indicesMin : Liste d'entiers
 		\Let min \Gets tab[1]
-		\Let indicesMin \Gets \K{nouvelle} Liste <entier>()
+		\Let indicesMin \Gets \K{nouvelle} Liste d'entiers()
 		\Stmt indicesMin.ajouter( 1 )
 		\For{i \K{de} 2 \K{à} n}
 			\Switch{} 
@@ -155,8 +260,7 @@ l’écrire ainsi :
 	\EndModule
 \end{Pseudocode}
 
-\bigskip
-
+\clearpage
 %===================================
 \section{Comment implémenter l’état}
 %===================================
@@ -263,9 +367,8 @@ Introduisons une notation.
 Un tableau dynamique sera déclaré puis créé ainsi :
 
 	\begin{Pseudocode}
-		\Decl tab~: \K{tableau} de T \RComment où T est un type quelconque
-		\LComment{Autres déclarations et instructions}
-		\Let tab \Gets \K{nouveau} \K{tableau} [1 à n] de T \RComment n doit avoir une valeur
+		\Decl tab~: \K{tableau} de chaines
+		\Let tab \Gets \K{nouveau} \K{tableau} [1 à n] de chaines \RComment n doit avoir une valeur
 	\end{Pseudocode}
 
 \textbf{Implémentation}.
@@ -273,8 +376,7 @@ Présentons les attributs nécessaires et l'algorithme
 d’agrandissement du tableau.
 
 \begin{Pseudocode}
-\footnotesize
-	\Class{Liste <T>}
+	\Class{Liste de T}
 		\Private
 			\Decl éléments : \K{tableau} de T
 			\Decl tailleLogique : entier
@@ -310,7 +412,7 @@ Nous avons à présent toutes les cartes en main pour écrire les méthodes
 publiques de la classe.
 
 \begin{Pseudocode}
-	\Constr{Liste <T>}{}
+	\Constr{Liste de T}{}
 		\Let tailleLogique \Gets 0
 		\RComment la liste est vide au départ
 		\Let taillePhysique \Gets 32
