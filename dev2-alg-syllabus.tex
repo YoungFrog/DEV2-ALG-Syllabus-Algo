@@ -1,54 +1,46 @@
-% Algorithmique I à la HEB-ESI
-% ----------------------------------
-\documentclass[a4paper,oneside]{book}
+%==================================================
+%               DEV1 - Algorithmique
+%                HEB - ESI
+%
+%                 Syllabus
+%--------------------------------------------------
+% À compiler avec pdflatex
+%                                     Marco Codutti
+%==================================================
 
+\documentclass[a4paper,doubleside]{book}
+
+%=========================
 % Les styles
-% ----------------------------------
-\input{style/log1.sty}      % Style principal pour le bouquin
-\input{style/algoesi.sty}   % Définition pour les algorithmes
+%=========================
+\input{style/syllabus.sty}
+\input{style/exercice.sty}
+\input{style/flow.sty}
+\input{style/lda.sty}
+\input{style/fiche.sty}
+\input{style/links.sty}
+\input{style/dev1-alg.sty}
 
-% Identité de l'école
-% ----------------------------------
-\newcommand{\ecole}{Haute École de Bruxelles}
-\newcommand{\entite}{École Supérieure d'Informatique}
-\newcommand{\entiteadresse}{Rue Royale, 67 – 1000 Bruxelles}
-\newcommand{\entitesite}{www.heb.be/esi}
-\newcommand{\entitetel}{02/219.15.46}
-\newcommand{\entitemail}{esi@heb.be}
-\newcommand{\etude}{Bachelor en Informatique}
+%==============================
+% La configuration du document
+% (école, UE, AA, profs, année)
+%==============================
+\input{syllabus/config}
 
-% Identité de l'AA
-% ----------------------------------
-\newcommand{\ue}{DEV$_2$}
-\newcommand{\cours}{Algorithmique II}
-
-% Éléments temporels : année - prof
-% ----------------------------------
-\newcommand{\annee}{2015}
-
-\newcommand{\auteura}{L. Beeckmans}
-\newcommand{\auteurb}{M. Codutti}
-\newcommand{\auteurc}{G. Cuvelier}
-\newcommand{\auteurd}{E. Levy}
-\newcommand{\auteure}{F. Servais}
-\newcommand{\contact}{mcodutti@heb.be}
-\newcommand{\ladate}{\today}
-
-% Index (attendre qu'il soit suffisament rempli)
-% ----------------------------------
-%\usepackage{makeidx} % pour générer un index
-%\makeindex
-
-% Les différentes parties du document
-% -----------------------------------
+%=========================
 \begin{document}
-\include{partie/algo2-debut}
-\include{partie/algo2-chapitre-oo}
-\include{partie/algo2-chapitre-tableau2D}
-\include{partie/algo2-chapitre-liste}
-\include{partie/algo2-chapitre-donnee}
-\appendix
-\include{partie/algo2-annexe-aide-memoire}
+%=========================
+
+	\include{syllabus/cover}
+	\include{syllabus/colophon}
+	\include{syllabus/toc}
+
+%\include{syllabus/algo2-chapitre-tableau2D}
+%\include{syllabus/algo2-chapitre-oo}
+%\include{syllabus/algo2-chapitre-liste}
+%\include{syllabus/algo2-chapitre-donnee}
+%\appendix
+%\include{syllabus/algo2-annexe-aide-memoire}
 
 %\printindex
 %\addcontentsline{toc}{chapter}{Index}
