@@ -24,9 +24,12 @@ Revenons à la case départ : nous avons commencé ce cours en situant les
 notions de \textbf{problème} et de \textbf{résolution}. Nous avons vu
 qu’un problème bien spécifié s’inscrit dans le schéma :
 
-\cadre{
-étant donné [les données] on demande [l’objectif]
-}
+	\begin{center}
+	\begin{Ovalbox}
+		{\textbf{étant donné} [la situation de départ] 
+		\textbf{on demande} [l’objectif]}
+	\end{Ovalbox}
+	\end{center}
 
 Une fois le problème correctement posé, on peut partir à la recherche
 d’une \textbf{méthode de résolution}, c’est-à-dire d’un algorithme en
@@ -93,7 +96,7 @@ modélisation vues au cours d’analyse.
 Rappelons brièvement les différentes structures étudiées dans ce cours
 \index{Structures a connaitre@Structures à connaitre} :
 
-\begin{liste}
+\begin{itemize}
 	\item 
 		les \textbf{données «~simples~»} (variables isolées : entiers, réels,
 		chaines, caractères, booléens)
@@ -108,12 +111,12 @@ Rappelons brièvement les différentes structures étudiées dans ce cours
 		les \textbf{objets}, qui combinent en un tout une série d’attributs et
 		des méthodes agissant sur ces attributs
 	\item 
-		la \textbf{liste}, qui peut contenir un nombre indéfini d’éléments de
+		la \textbf{itemize}, qui peut contenir un nombre indéfini d’éléments de
 		même type
 	%\item 
 		%le \textbf{fichier séquentiel}, qui est un support physique permettant
 		%le stockage «~à long terme~» de données
-\end{liste}
+\end{itemize}
 
 D’autres structures particulières s’ajouteront dans le cours de
 2\textsuperscript{e} année : les listes chainées, les piles, les
@@ -138,7 +141,7 @@ d’ajouter ou de supprimer des éléments à la collection.
 %Outre ces grands principes de base, ajoutons ici quelques conseils en
 %vrac qui pourraient vous être utiles :
 
-%\begin{liste}
+%\begin{itemize}
 	%\item 
 		%\textbf{parcours des données} : en général on évite de parcourir
 		%plusieurs fois le contenu d’un ensemble de données (surtout s’il s’agit
@@ -162,7 +165,7 @@ d’ajouter ou de supprimer des éléments à la collection.
 		%inutilement jusqu’au bout un ensemble de données. Le bon suivi de ce
 		%principe intervient de façon primordiale dans l’efficacité d’un
 		%algorithme ! 
-%\end{liste}
+%\end{itemize}
 
 \clearpage
 %==================
@@ -196,9 +199,9 @@ d’ajouter ou de supprimer des éléments à la collection.
 	C’est A qui commence. Chaque joueur joue à son tour en lançant un dé
 	dont la valeur donne le nombre de cases duquel il doit avancer sur le
 	jeu. Si la case sur laquelle tombe le joueur contient la valeur
-	\pseudocode{vrai} il avance encore
+	\lda{vrai} il avance encore
 	une fois du même nombre de cases (et de même s’il tombe encore sur
-	\pseudocode{vrai}). Lorsqu’un joueur
+	\lda{vrai}). Lorsqu’un joueur
 	arrive sur la case 50 et qu’il doit encore avancer, il continue son
 	parcours à partir de la case 1. Le jeu se termine lorsqu’un joueur
 	rattrape ou dépasse l’autre.
@@ -207,14 +210,14 @@ d’ajouter ou de supprimer des éléments à la collection.
 	qui se terminera par l’affichage du vainqueur ainsi que le nombre de
 	tours complets parcourus par ce vainqueur. 
 	Le lancement du dé sera simulé par l’appel du module sans argument
-	\pseudocode{lancerDé( )} qui retourne
+	\lda{lancerDé( )} qui retourne
 	une valeur aléatoire entre 1 et 6.
 
 	\textbf{Aide} :	Définir la classe
-	\pseudocode{JeuPoursuite}
+	\lda{JeuPoursuite}
 	
 	Elle permet de représenter
-	\begin{liste}
+	\begin{itemize}
 		\item 
 			le circuit des 50 cases
 		\item 
@@ -223,45 +226,45 @@ d’ajouter ou de supprimer des éléments à la collection.
 			le nombre de tours effectués par chacun des joueurs
 		\item 
 			qui est le joueur courant
-	\end{liste}
+	\end{itemize}
 	Plusieurs possibilités existent ; faites votre choix !
-	\begin{liste}
+	\begin{itemize}
 		\item 
 			Le constructeur reçoit la configuration du circuit (pour savoir si les
-			cases contiennent \pseudocode{vrai} ou
-			\pseudocode{faux})
+			cases contiennent \lda{vrai} ou
+			\lda{faux})
 		\item 
-			La méthode \pseudocode{initialiser()} initialise le jeu
+			La méthode \lda{initialiser()} initialise le jeu
 			(placement des joueurs, ...).
 		\item 
-			La méthode \pseudocode{jouer()} lance le jeu jusqu’à son terme et
+			La méthode \lda{jouer()} lance le jeu jusqu’à son terme et
 			donne le vainqueur et le nombre de tours effectués.
 		\item 
 			Vous êtes également fortement invités à définir d’autres méthodes en
 			privé pour modulariser au mieux votre code. Par exemple, on pourrait
 			définir
 		\item 
-			la méthode «\pseudocode{~jouerCoup~}» qui joue pour un joueur et
+			la méthode «\lda{~jouerCoup~}» qui joue pour un joueur et
 			indique s'il a rattrapé l’autre joueur (sans
-			répétition si on arrive sur une case \pseudocode{vrai})
+			répétition si on arrive sur une case \lda{vrai})
 		\item 
-			la même méthode «\pseudocode{~jouerTour~}» effectue la même tâche
+			la même méthode «\lda{~jouerTour~}» effectue la même tâche
 			mais avec répétition si on arrive sur une case
-			\pseudocode{vrai}. On fera évidemment appel à la méthode
+			\lda{vrai}. On fera évidemment appel à la méthode
 			ci-dessus.
 		\item 
-			la méthode «\pseudocode{~joueurSuivant~}» qui permet de passer au
+			la méthode «\lda{~joueurSuivant~}» qui permet de passer au
 			joueur suivant.
-	\end{liste}
+	\end{itemize}
 	
 	Avec ces 3 méthodes, la méthode publique
-	«\pseudocode{~jouer~}» devient triviale.
+	«\lda{~jouer~}» devient triviale.
 \end{Exercice}
 
 \begin{Exercice}{La course à la case 64}
 	Une piste de 65 cases (numérotées de 0 à 64)
 	doit être parcourue le plus rapidement possible par quatre joueurs. Un
-	tableau \pseudocode{joueurs} de quatre chaines contient les noms et prénoms des
+	tableau \lda{joueurs} de quatre chaines contient les noms et prénoms des
 	joueurs. Au départ, tous les joueurs se trouvent sur la case de départ
 	(la case numéro 0). Les joueurs jouent à tour de rôle, dans l’ordre où
 	ils apparaissent dans le tableau Joueur. Le joueur qui gagne est celui
@@ -276,37 +279,37 @@ d’ajouter ou de supprimer des éléments à la collection.
 
 	Écrire un algorithme de simulation de ce jeu
 	qui fournit le nom du vainqueur. Comme dans l’exercice précédent, le
-	lancement du dé est simulé par le module \pseudocode{lancerDé(
+	lancement du dé est simulé par le module \lda{lancerDé(
 	)} qui retourne une valeur aléatoire entre 1 et 6.
 
-	Imaginer la classe \pseudocode{Course64} qui va permettre
+	Imaginer la classe \lda{Course64} qui va permettre
 	de résoudre ce problème. Comment faire pour pouvoir accepter un nombre
 	quelconque de joueurs ?
 \end{Exercice}
 
 \begin{Exercice}{Mots croisés}
-	Un tableau \pseudocode{grille} à 10 lignes et 10 colonnes contient les données
+	Un tableau \lda{grille} à 10 lignes et 10 colonnes contient les données
 	relatives à un jeu de mots croisés simulé sur ordinateur. Chaque
-	élément de ce tableau est une structure \pseudocode{Case},
+	élément de ce tableau est une structure \lda{Case},
 	contenant les deux champs :
 
-	\begin{liste}
+	\begin{itemize}
 		\item 
-			\pseudocode{noir} : variable booléenne affectée à
-			\pseudocode{vrai} si la case correspondante de la grille est une
+			\lda{noir} : variable booléenne affectée à
+			\lda{vrai} si la case correspondante de la grille est une
 			case noire;
 		\item 
-			\pseudocode{lettre} : contient soit le caractère inscrit par le
+			\lda{lettre} : contient soit le caractère inscrit par le
 			joueur dans une case, soit le caractère «~espace~» (‘ ‘) si la case est
-			encore blanche; lorsque \pseudocode{noir} est vrai, le contenu
-			de \pseudocode{lettre} est indéterminé et ne peut donc être
+			encore blanche; lorsque \lda{noir} est vrai, le contenu
+			de \lda{lettre} est indéterminé et ne peut donc être
 			utilisé. 
-	\end{liste}
+	\end{itemize}
 	
-	Écrire une classe \pseudocode{Grille} offrant les méthodes
+	Écrire une classe \lda{Grille} offrant les méthodes
 	suivantes :
 
-	\begin{liste}
+	\begin{itemize}
 		\item 
 			placer une lettre à un endroit de la grille (une case non noire bien
 			sûr)
@@ -318,7 +321,7 @@ d’ajouter ou de supprimer des éléments à la collection.
 			d'une seule lettre ne sont pas pris en compte.
 		\item 
 			donner le nombre de mots déjà complétés par le joueur
-	\end{liste}
+	\end{itemize}
 
 	\begin{minipage}[t][][b]{8cm}	
 	\begin{footnotesize}
@@ -352,7 +355,7 @@ d’ajouter ou de supprimer des éléments à la collection.
 \begin{Exercice}{Mastermind}
 	Revenons sur le jeu Mastermind déjà vu en DEV$_1$.
 	Dans ce jeu, un joueur A doit trouver une combinaison de
-	\pseudocode{k} pions de couleurs, choisie et tenue secrète
+	\lda{k} pions de couleurs, choisie et tenue secrète
 	par un autre joueur B. Cette combinaison peut contenir éventuellement
 	des pions de même couleur. À chaque proposition du joueur A, le joueur
 	B indique le nombre de pions de la proposition qui sont corrects et
@@ -387,25 +390,25 @@ d’ajouter ou de supprimer des éléments à la collection.
 	\end{minipage}
 	
 	Il sera indiqué au joueur qu'il a :
-	\begin{liste}
+	\begin{itemize}
 	\item 2 pions bien placés : le R en 1\iere{} position et le
 	second B en 4\ieme{} position ;
 	\item 1 pion mal placé : un des deux V (ils ne peuvent compter tous les deux).
-	\end{liste}
+	\end{itemize}
 	
 	\medskip
-	Supposons une énumération \pseudocode{Couleur} avec toutes les couleurs possibles de
+	Supposons une énumération \lda{Couleur} avec toutes les couleurs possibles de
 	pion.
 
 	\begin{enumerate}[label=\alph*)]
 		\item
-			Écrire une classe «\pseudocode{~Combinaison~}» pour
-			représenter une combinaison de \pseudocode{k} pions. Elle
+			Écrire une classe «\lda{~Combinaison~}» pour
+			représenter une combinaison de \lda{k} pions. Elle
 			possède une méthode pour générer une combinaison aléatoire (que vous ne
 			devez pas écrire) et une méthode pour comparer une combinaison à la
 			combinaison secrète (que vous devez écrire)
 		\item
-			Écrire ensuite une classe «\pseudocode{~MasterMind~}» qui
+			Écrire ensuite une classe «\lda{~MasterMind~}» qui
 			représente le jeu et permet d’y jouer. La taille de la combinaison et
 			le nombre d’essais permis seront des paramètres du constructeur.
 	\end{enumerate}
@@ -417,7 +420,7 @@ d’ajouter ou de supprimer des éléments à la collection.
 	possibilités de réponses (dont une seule est correcte) sont proposées à
 	chaque fois. Au plus le candidat avance dans les bonnes réponses, au
 	plus son gain est grand. S’il répond correctement aux quinze questions,
-	il empoche la somme rondelette de 500.000~\euro.
+	il empoche la somme rondelette de 500.000~\texteuro.
 	
 	Par contre, si le candidat donne une mauvaise
 	réponse, il risque de perdre une partie du gain déjà acquis. Cependant,
@@ -428,7 +431,7 @@ d’ajouter ou de supprimer des éléments à la collection.
 À chaque question, le candidat a donc trois
 	possibilités :
 
-	\begin{liste}
+	\begin{itemize}
 		\item 
 			il donne la réponse correcte : dans ce cas il
 			augmente son gain, et peut passer à la question suivante
@@ -442,22 +445,22 @@ d’ajouter ou de supprimer des éléments à la collection.
 			dernier palier qu’il a atteint et réussi lors de son parcours. En
 			particulier, si le candidat se trompe avant d’avoir atteint le premier
 			palier, il ne gagne pas un seul euro !
-	\end{liste}
+	\end{itemize}
 	
 	\begin{minipage}[t][][b]{2.5cm}
 	\begin{center}
 	\begin{footnotesize}
 	\begin{tabular}{|l|l|l|}\hline
-	  1 &      25~\euro & faux \\\hline
-	  2 &      50~\euro & faux \\\hline
-	  3 &     125~\euro & faux \\\hline
-	  4 &     250~\euro & faux \\\hline
-	  5 &     500~\euro & vrai \\\hline
-	  6 &    1000~\euro & faux \\\hline
-	  7 &    2000~\euro & faux \\\hline
-	  8 &    3750~\euro & faux \\\hline
-	  9 &    7500~\euro & faux \\\hline
-	 10 &   12500~\euro & vrai \\\hline
+	  1 &      25~\texteuro & faux \\\hline
+	  2 &      50~\texteuro & faux \\\hline
+	  3 &     125~\texteuro & faux \\\hline
+	  4 &     250~\texteuro & faux \\\hline
+	  5 &     500~\texteuro & vrai \\\hline
+	  6 &    1000~\texteuro & faux \\\hline
+	  7 &    2000~\texteuro & faux \\\hline
+	  8 &    3750~\texteuro & faux \\\hline
+	  9 &    7500~\texteuro & faux \\\hline
+	 10 &   12500~\texteuro & vrai \\\hline
 	\end{tabular}
 	\end{footnotesize}
 	\end{center}
@@ -467,11 +470,11 @@ d’ajouter ou de supprimer des éléments à la collection.
 	\begin{center}
 	\begin{footnotesize}
 	\begin{tabular}{|l|l|l|}\hline
-	 11 &   25000~\euro & faux \\\hline
-	 12 &   50000~\euro & faux \\\hline
-	 13 &  100000~\euro & vrai \\\hline
-	 14 &  250000~\euro & faux \\\hline
-	 15 &  500000~\euro & vrai \\\hline
+	 11 &   25000~\texteuro & faux \\\hline
+	 12 &   50000~\texteuro & faux \\\hline
+	 13 &  100000~\texteuro & vrai \\\hline
+	 14 &  250000~\texteuro & faux \\\hline
+	 15 &  500000~\texteuro & vrai \\\hline
 	\end{tabular}
 	\end{footnotesize}
 	\end{center}
@@ -481,14 +484,14 @@ d’ajouter ou de supprimer des éléments à la collection.
 	%\vskip\baselineskip{}
 	Exemple : Le tableau ci-contre contient les gains associés à chaque 
 	question et une indication booléenne mise à
-	\pseudocode{vrai} lorsque la question
+	\lda{vrai} lorsque la question
 	constitue un palier. Un concurrent qui se
 	trompe à la question 3 ne gagnera rien ; un concurrent qui se trompe à
-	la question 6 gagnera 500~\euro{} (palier de la question 5) et de même s’il
+	la question 6 gagnera 500~\texteuro{} (palier de la question 5) et de même s’il
 	se trompe à la question 10 ; un concurrent qui se trompe à la question
-	13 gagnera 12500~\euro{} (palier de la question 10) ; 
+	13 gagnera 12500~\texteuro{} (palier de la question 10) ; 
 	s'il décide de ne pas répondre à la question 13,
-	il garde le montant acquis à la question 12, soit 50000~\euro.
+	il garde le montant acquis à la question 12, soit 50000~\texteuro.
 	\end{minipage}
 	
 	Il y aurait de nombreuses façons de coder ce problème; en voici une :
@@ -507,26 +510,26 @@ d’ajouter ou de supprimer des éléments à la collection.
 
 	Représente un niveau de gain. Elle contient les champs :
 	montant (entier) et palier (un booléen à
-	\pseudocode{vrai} si cette somme est
-	assurée, \pseudocode{faux} sinon)
+	\lda{vrai} si cette somme est
+	assurée, \lda{faux} sinon)
 
 	{\bfseries
 	La classe Millionnaire}
 
 	Cette classe code le moteur du jeu. On y retrouve
 
-	\begin{liste}
+	\begin{itemize}
 		\item 
 			questionnaire : un tableau de Question
 		\item 
 			gains : un tableau de Gain
 		\item 
 			autres attributs à déterminer (cf. méthodes)
-	\end{liste}
+	\end{itemize}
 	
 	ainsi que les méthodes pour
 
-	\begin{liste}
+	\begin{itemize}
 		\item 
 			initialiser le jeu à partir d’un questionnaire
 			et du tableau de gains
@@ -542,15 +545,15 @@ d’ajouter ou de supprimer des éléments à la collection.
 		\item 
 			les accesseurs nécessaires pour connaitre
 			l’état du jeu.
-	\end{liste}
+	\end{itemize}
 	
 	{\bfseries
 	Le jeu proprement dit}
 
-	Le module \pseudocode{jeuMillionaireConsole()} reçoit le
+	Le module \lda{jeuMillionaireConsole()} reçoit le
 	questionnaire et les gains et simule le jeu :
 
-	\begin{liste}
+	\begin{itemize}
 	\item 
 		Il propose les questions au candidat
 	\item 
@@ -563,8 +566,8 @@ d’ajouter ou de supprimer des éléments à la collection.
 		Attention ! Ce module devrait être le plus
 		petit possible. Imaginez que vous devez également coder une version
 		graphique. Tout code commun doit se trouver dans la classe
-	\pseudocode{Millionnaire~}!
-	\end{liste}
+	\lda{Millionnaire~}!
+	\end{itemize}
 \end{Exercice}
 
 \begin{Exercice}{Chambre avec vue}
@@ -574,7 +577,7 @@ d’ajouter ou de supprimer des éléments à la collection.
 	tâche particulière de la gestion des réservations pour ses 100
 	chambres.
 	Pour ce faire, on vous demande d’écrire une
-	classe \pseudocode{Hôtel} qui offre
+	classe \lda{Hôtel} qui offre
 	notamment une méthode qui permet d’enregistrer une réservation.
 
 	Pour représenter l’occupation des chambres un
@@ -589,50 +592,50 @@ d’ajouter ou de supprimer des éléments à la collection.
 	Nous vous imposons les attributs de la classe,
 	à savoir :
 
-	\begin{liste}
+	\begin{itemize}
 		\item 
-			\pseudocode{occupations~}: une Liste de
+			\lda{occupations~}: une Liste de
 			tableaux de 100 entiers comme expliqué ci-dessus.
 		\item 
-			\pseudocode{premierJour~}: donne le
+			\lda{premierJour~}: donne le
 			jour concerné par le premier élément de la liste. Ainsi
 			s'il vaut 10/9/2014 cela signifie que le premier
 			élément de la liste «~occupations~» renseigne sur l’occupation des
 			chambres ce 10/9/2014 ; que le deuxième élément de la liste concerne le
 			11/9/2007 et ainsi de suite...
-	\end{liste}
+	\end{itemize}
 	
 	Écrire la méthode suivante
 
-	\begin{Pseudocode}
-		\MethodSign{effectuerRéservation}{demande\In : DemandeRéservation,
+	\begin{LDA}
+		\Entete{effectuerRéservation}{demande\In : DemandeRéservation,
 		chambre\Out : entier}{booléen}
-	\end{Pseudocode}
+	\end{LDA}
 	
 	où la structure de demande de réservation est
 	définie ainsi
 	
-	\begin{Pseudocode}
+	\begin{LDA}
 		\Struct{DemandeRéservation}
-			\Decl numéroClient : entier
-			\Decl débutRéservation : Date
-			\Decl nbNuitées : entier
+			\Decl{numéroClient}{entier}
+			\Decl{débutRéservation}{Date}
+			\Decl{nbNuitées}{entier}
 		\EndStruct
-	\end{Pseudocode}
+	\end{LDA}
 
-	\begin{liste}
+	\begin{itemize}
 		\item 
 			Le booléen retourné indique si la réservation a pu se faire ou pas
 		\item 
 			Si elle a pu se faire, le paramètre de sortie
-			\pseudocode{chambre} indique la chambre qui a été choisie
+			\lda{chambre} indique la chambre qui a été choisie
 		\item 
 			Si plusieurs chambres sont libres, on choisit celle avec le plus petit
 			numéro
 		\item 
 			La demande de réservation peut couvrir une période qui n’est pas encore
 			reprise dans la liste ; il faudra alors l’agrandir
-	\end{liste}
+	\end{itemize}
 \end{Exercice}
 
 \begin{Exercice}{Puissance 4}
@@ -677,7 +680,7 @@ d’ajouter ou de supprimer des éléments à la collection.
 	classe et décrivez-les brièvement de manière à justifier votre choix.
 	Dotez ensuite la classe des méthodes permettant de :
 
-	\begin{liste}
+	\begin{itemize}
 		\item 
 			savoir si la grille est pleine
 		\item 
@@ -687,7 +690,7 @@ d’ajouter ou de supprimer des éléments à la collection.
 		\item 
 			vérifier si le joueur qui vient de jouer dans la colonne j a gagné la
 			partie
-	\end{liste}
+	\end{itemize}
 	
 	N.B. : pour la structure qui contiendra le contenu du tableau de jetons,
 	on adoptera la convention suivante : 0 pour l’absence de jeton, 1
@@ -730,10 +733,10 @@ d’ajouter ou de supprimer des éléments à la collection.
 	Il est permis d’utiliser pour résoudre cet exercice la méthode suivante
 	de la classe Date, sans devoir détailler son code :
 	
-	\begin{Pseudocode}
-		\MethodSign{numéroJour}{}{entier}
+	\begin{LDA}
+		\Entete{numéroJour}{}{entier}
 		\RComment la position du jour dans l’année (entre 1 et 366)
-	\end{Pseudocode}
+	\end{LDA}
 \end{Exercice}
 
 \begin{Exercice}{L'ensemble}
@@ -744,7 +747,7 @@ d’ajouter ou de supprimer des éléments à la collection.
 		Étant donnés deux ensembles
 		finis \textbf{S} et \textbf{T} ainsi qu’un élément \textbf{x} :
 
-		\begin{liste}
+		\begin{itemize}
 		\item 
 			\textbf{x} {${\in}$} \textbf{S} signifie que l’élément \textbf{x}
 			est un élément de l’ensemble \textbf{S}.
@@ -773,12 +776,12 @@ d’ajouter ou de supprimer des éléments à la collection.
 			La différence \textbf{S {\textbackslash} T} 
 			est l’ensemble des éléments qui sont 
 			dans \textbf{S} mais pas dans \textbf{T}.
-		\end{liste}
+		\end{itemize}
 		
-		Créer la classe \pseudocode{Ensemble}
+		Créer la classe \lda{Ensemble}
 		décrite ci-dessous.
 		
-		\begin{Pseudocode}
+		\begin{LDA}
 			\Class{Ensemble de T}{} 
 			\RComment T est le type des éléments de l'ensemble
 			
@@ -801,28 +804,28 @@ d’ajouter ou de supprimer des éléments à la collection.
 				\MethodSign{listeÉléments}{}{Liste <T>}
 				\RComment conversion en liste
 			\EndClass
-		\end{Pseudocode}
+		\end{LDA}
 		
 	\bigskip
 
 	Quelques remarques :
-	\begin{liste}
+	\begin{itemize}
 		\item 
 			La méthode d'ajout (resp. de suppression) n'a
 			pas d'effet si l'élément est déjà
 			(resp. n'est pas) dans l'ensemble.
 		\item 
-			Les méthodes \pseudocode{union()}, 
-			\pseudocode{intersection()} et 
-			\pseudocode{moins()} retournent un troisième ensemble, 
+			Les méthodes \lda{union()}, 
+			\lda{intersection()} et 
+			\lda{moins()} retournent un troisième ensemble, 
 			résultat des 2 premiers sans toucher
 			à ces 2 ensembles. On aurait pu envisager des méthodes modifiant
 			l'ensemble sur lequel on les appelle.
 		\item 
-			La méthode \pseudocode{listeÉlément()}
+			La méthode \lda{listeÉlément()}
 			est nécessaire si on veut parcourir les éléments de
 			l'ensemble (par exemple pour les afficher).
-	\end{liste}
+	\end{itemize}
 	
 	Autres opérations ensemblistes :
 	Nous avons défini des opérations ensemblistes ne touchant pas aux
@@ -846,7 +849,7 @@ d’ajouter ou de supprimer des éléments à la collection.
 	mais un peu trop compliqué pour un exercice de première année.
 	Alors, on va simplifier les règles et je vous présente tout de suite 
 	ce que l'on obtient :
-	\begin{liste}
+	\begin{itemize}
 	\item
 		Le joueur mise sur un numéro compris entre 0 et 49 (50 numéros en tout). 
 		En choisissant son numéro, il y dépose la somme qu'il souhaite miser.
@@ -872,7 +875,7 @@ d’ajouter ou de supprimer des éléments à la collection.
 		(s'ils sont tous les deux pairs ou tous les deux impairs). 
 		Si c'est le cas, le croupier lui remet 50\% de la somme misée. 
 		Si ce n'est pas le cas, le joueur perd sa mise.
-	\end{liste}
+	\end{itemize}
 	
 	Dans les deux scénarios gagnants vus ci-dessus 
 	(le numéro misé et le numéro gagnant sont identiques ou ont la même couleur), 
