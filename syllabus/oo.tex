@@ -24,7 +24,7 @@
 	est de constater qu'une classe permet de définir 
 	un nouveau \emph{type de données}.
 	La notion de \emph{structure} permet déjà cela mais de façon limitée
-	car elles ne reprend que des données et pas du code.
+	car elle ne reprend que des données et pas du code.
 	Avec l'orienté objet, 
 	on dispose de méthodes définissant ce qu'on peut faire avec des données
 	(les objets) de ce type.
@@ -318,7 +318,7 @@
 	qui calcule la différence entre deux durées.
 	
 	\begin{LDA}
-		\Algo{DiffDurée}{}{}
+		\Algo{diffDurée}{}{}
 			\Decl{durée1, durée2}{Durée}	\RComment Les variables sont déclarées/créées
 			\Let durée1 \Gets \K{nouveau} Durée(3, 4, 49)	\RComment Les objets sont créés
 			\Let durée2 \Gets \K{nouveau} Durée(3, 24, 37)	\RComment Les objets sont créés
@@ -349,7 +349,7 @@
 			correspondant aux valeurs lues pour ses attributs.
 
 			\begin{LDA}
-				\Decl rendezVous~: Durée
+				\Decl {rendezVous}{Durée}
 				\Read rendezVous
 			\end{LDA}
 		\item 
