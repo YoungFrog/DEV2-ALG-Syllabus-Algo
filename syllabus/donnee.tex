@@ -36,7 +36,7 @@ d’une \textbf{méthode de résolution}, c’est-à-dire d’un algorithme en
 ce qui concerne les problèmes à résoudre par les moyens informatiques.
 
 Tout au long de l’année, nous avons vu divers modèles et techniques
-algorithmiques adaptées à des structures particulières (les nombres,
+algorithmiques adaptés à des structures particulières (les nombres,
 les chaines, les tableaux, les variables structurées, les objets, les
 listes\dots). La plupart des exercices portaient directement
 sur ces structures (par ex. calculer la somme des nombres d’un tableau,
@@ -49,7 +49,7 @@ complexes.
 Mais la plupart des problèmes issus des situations de la vie courante
 auxquels se confronte le programmeur s’expriment généralement de
 manière plus floue : par ex. dresser la comptabilité des dépenses
-mensuelle d’une firme, faire un tableau récapitulatif du résultat des
+mensuelles d’une firme, faire un tableau récapitulatif du résultat des
 élections par cantons électoraux, faire une version informatique d’un
 jeu télévisé… Les exemples sont infinis !
 
@@ -61,7 +61,7 @@ naturellement les questions suivantes : quelles données du problème
 sont réellement utiles à sa résolution ?~(Il est fréquent que l’énoncé
 d’un problème contienne des données superflues ou inutiles). Y a-t-il
 des données plus importantes que d’autres ? (données principales ou
-secondaire). Les données doivent-elles être consultées plusieurs fois ?
+secondaires). Les données doivent-elles être consultées plusieurs fois ?
 Quelles données faut-il conserver en mémoire ? Sous quelle forme ?
 Faut-il utiliser un tableau ? Une liste ? Faut-il créer une nouvelle
 classe ? Les données doivent-elles être classées suivant un critère
@@ -74,7 +74,7 @@ règles précises pour répondre à ces questions, c’est le flair et le
 savoir-faire développés patiemment par le programmeur au fil de ses
 expériences et de son apprentissage qui le guideront vers la solution
 la plus efficace. Parfois plusieurs solutions peuvent fonctionner sans
-pouvoir départager la meilleure d’entre-elles.
+pouvoir départager la meilleure d’entre elles.
 
 Ce type de questionnement est peut-être l’aspect le plus délicat et le
 plus difficile de l’activité de programmation, car d’une réponse
@@ -105,13 +105,13 @@ Rappelons brièvement les différentes structures étudiées dans ce cours
 		une collection de variables simples
 	\item 
 		le \textbf{tableau}, qui contient un nombre déterminé de variables de
-		même types, accessibles via un indice ou plusieurs pour les tableaux
+		même type, accessibles via un indice ou plusieurs pour les tableaux
 		multidimensionnels
 	\item 
 		les \textbf{objets}, qui combinent en un tout une série d’attributs et
 		des méthodes agissant sur ces attributs
 	\item 
-		la \textbf{itemize}, qui peut contenir un nombre indéfini d’éléments de
+		la \textbf{Liste}, qui peut contenir un nombre indéfini d’éléments de
 		même type
 	%\item 
 		%le \textbf{fichier séquentiel}, qui est un support physique permettant
@@ -180,15 +180,17 @@ d’ajouter ou de supprimer des éléments à la collection.
 	\begin{quote}
 	\og{}Le lièvre est plus rapide que la tortue.
 	Pour donner plus de chance à la tortue de gagner une course de 5 km, 
-	on adopte la règle de jeu suivante :
+	on adopte la règle de jeu suivante~:
+	
 	On lance un dé. 
+	
 	Si le 6 sort, le lièvre est autorisé à démarrer et gagne la course en quelques
 	secondes; sinon on laisse la tortue avancer d’un kilomètre.
 	
 	On recommence le procédé jusqu'à la victoire du lièvre ou de la tortue.\fg{}
 	\end{quote}
 	
-	Écrire un module simulant cette course.
+	Écrire un algorithme simulant cette course.
 \end{Exercice}
 
 \begin{Exercice}{Un jeu de poursuite}
@@ -209,7 +211,7 @@ d’ajouter ou de supprimer des éléments à la collection.
 	Écrire un algorithme de simulation de ce jeu
 	qui se terminera par l’affichage du vainqueur ainsi que le nombre de
 	tours complets parcourus par ce vainqueur. 
-	Le lancement du dé sera simulé par l’appel du module sans argument
+	Le lancement du dé sera simulé par l’appel de l'algorithme sans argument
 	\lda{lancerDé( )} qui retourne
 	une valeur aléatoire entre 1 et 6.
 
@@ -243,18 +245,20 @@ d’ajouter ou de supprimer des éléments à la collection.
 			Vous êtes également fortement invités à définir d’autres méthodes en
 			privé pour modulariser au mieux votre code. Par exemple, on pourrait
 			définir
-		\item 
-			la méthode «\lda{~jouerCoup~}» qui joue pour un joueur et
-			indique s'il a rattrapé l’autre joueur (sans
-			répétition si on arrive sur une case \lda{vrai})
-		\item 
-			la même méthode «\lda{~jouerTour~}» effectue la même tâche
-			mais avec répétition si on arrive sur une case
-			\lda{vrai}. On fera évidemment appel à la méthode
-			ci-dessus.
-		\item 
-			la méthode «\lda{~joueurSuivant~}» qui permet de passer au
-			joueur suivant.
+			\begin{itemize}
+				\item 
+					la méthode «\lda{~jouerCoup~}» qui joue pour un joueur et
+					indique s'il a rattrapé l’autre joueur (sans
+					répétition si on arrive sur une case \lda{vrai})
+				\item 
+					la méthode «\lda{~jouerTour~}» effectue la même tâche
+					mais avec répétition si on arrive sur une case
+					\lda{vrai}. On fera évidemment appel à la méthode
+					ci-dessus.
+				\item 
+					la méthode «\lda{~joueurSuivant~}» qui permet de passer au
+					joueur suivant.
+			\end{itemize}
 	\end{itemize}
 	
 	Avec ces 3 méthodes, la méthode publique
@@ -272,14 +276,14 @@ d’ajouter ou de supprimer des éléments à la collection.
 
 	La longueur des déplacements est déterminée à
 	l’aide d’un dé à six faces, un joueur pouvant avancer d’autant de cases
-	que le point du dé. Si la case sur laquelle s’arrête un joueur est déjà
-	occupée par un autre, ce dernier est renvoyé à la case départ. D’autre
-	part, chaque fois qu’un joueur obtient la face 6, il a le droit de
+	que le nombre de points du dé. Si la case sur laquelle s’arrête un joueur 
+	est déjà 	occupée par un autre, ce dernier est renvoyé à la case départ. 
+	D’autre 	part, chaque fois qu’un joueur obtient la face 6, il a le droit de
 	rejouer avant le tour du joueur suivant. 
 
 	Écrire un algorithme de simulation de ce jeu
 	qui fournit le nom du vainqueur. Comme dans l’exercice précédent, le
-	lancement du dé est simulé par le module \lda{lancerDé(
+	lancement du dé est simulé par l'algorithme \lda{lancerDé(
 	)} qui retourne une valeur aléatoire entre 1 et 6.
 
 	Imaginer la classe \lda{Course64} qui va permettre
@@ -296,7 +300,7 @@ d’ajouter ou de supprimer des éléments à la collection.
 	\begin{itemize}
 		\item 
 			\lda{noir} : variable booléenne affectée à
-			\lda{vrai} si la case correspondante de la grille est une
+			\lda{vrai} si la case correspondant de la grille est une
 			case noire;
 		\item 
 			\lda{lettre} : contient soit le caractère inscrit par le
@@ -346,7 +350,7 @@ d’ajouter ou de supprimer des éléments à la collection.
 	\begin{minipage}[t][][t]{6cm}
 	Exemple : dans la grille ci-contre, le nombre de cases noires est 14, le
 	nombre total de mots de la grille est 37 (19 horizontaux et 18
-	verticaux) et le nombre de mots déjà complété par le joueur est 6.
+	verticaux) et le nombre de mots déjà complétés par le joueur est 6.
 	\end{minipage}
 	
 \end{Exercice}
@@ -355,7 +359,7 @@ d’ajouter ou de supprimer des éléments à la collection.
 \begin{Exercice}{Mastermind}
 	Revenons sur le jeu Mastermind déjà vu en DEV$_1$.
 	Dans ce jeu, un joueur A doit trouver une combinaison de
-	\lda{k} pions de couleurs, choisie et tenue secrète
+	\lda{k} pions de couleur, choisie et tenue secrète
 	par un autre joueur B. Cette combinaison peut contenir éventuellement
 	des pions de même couleur. À chaque proposition du joueur A, le joueur
 	B indique le nombre de pions de la proposition qui sont corrects et
@@ -429,8 +433,7 @@ d’ajouter ou de supprimer des éléments à la collection.
 	dans la suite du jeu.
 
 À chaque question, le candidat a donc trois
-	possibilités :
-
+	possibilités~:
 	\begin{itemize}
 		\item 
 			il donne la réponse correcte : dans ce cas il
@@ -461,15 +464,15 @@ d’ajouter ou de supprimer des éléments à la collection.
 	  8 &    3750~\texteuro & faux \\\hline
 	  9 &    7500~\texteuro & faux \\\hline
 	 10 &   12500~\texteuro & vrai \\\hline
-	\end{tabular}
-	\end{footnotesize}
-	\end{center}
-	\end{minipage}
+%	\end{tabular}
+%	\end{footnotesize}
+%	\end{center}
+%	\end{minipage}
 %
-	\begin{minipage}[t][][b]{3.5cm}
-	\begin{center}
-	\begin{footnotesize}
-	\begin{tabular}{|l|l|l|}\hline
+%	\begin{minipage}[t][][b]{3.5cm}
+%	\begin{center}
+%	\begin{footnotesize}
+%	\begin{tabular}{|l|l|l|}\hline
 	 11 &   25000~\texteuro & faux \\\hline
 	 12 &   50000~\texteuro & faux \\\hline
 	 13 &  100000~\texteuro & vrai \\\hline
@@ -478,9 +481,9 @@ d’ajouter ou de supprimer des éléments à la collection.
 	\end{tabular}
 	\end{footnotesize}
 	\end{center}
-	\end{minipage}
-%
-	\begin{minipage}[t][][b]{8cm}
+	\end{minipage}%
+	\hfill
+	\begin{minipage}[t][][b]{10cm}
 	%\vskip\baselineskip{}
 	Exemple : Le tableau ci-contre contient les gains associés à chaque 
 	question et une indication booléenne mise à
@@ -550,7 +553,7 @@ d’ajouter ou de supprimer des éléments à la collection.
 	{\bfseries
 	Le jeu proprement dit}
 
-	Le module \lda{jeuMillionaireConsole()} reçoit le
+	L'algorithme \lda{jeuMillionaireConsole()} reçoit le
 	questionnaire et les gains et simule le jeu :
 
 	\begin{itemize}
@@ -563,7 +566,7 @@ d’ajouter ou de supprimer des éléments à la collection.
 		lorsque le jeu est terminé, il indique au
 		candidat le montant de ses gains.
 	\item 
-		Attention ! Ce module devrait être le plus
+		Attention ! Cet algorithme devrait être le plus
 		petit possible. Imaginez que vous devez également coder une version
 		graphique. Tout code commun doit se trouver dans la classe
 	\lda{Millionnaire~}!
@@ -599,10 +602,10 @@ d’ajouter ou de supprimer des éléments à la collection.
 		\item 
 			\lda{premierJour~}: donne le
 			jour concerné par le premier élément de la liste. Ainsi
-			s'il vaut 10/9/2014 cela signifie que le premier
+			s'il vaut 10/9/2015 cela signifie que le premier
 			élément de la liste «~occupations~» renseigne sur l’occupation des
-			chambres ce 10/9/2014 ; que le deuxième élément de la liste concerne le
-			11/9/2007 et ainsi de suite...
+			chambres ce 10/9/2015 ; que le deuxième élément de la liste concerne le
+			11/9/2015 et ainsi de suite...
 	\end{itemize}
 	
 	Écrire la méthode suivante
@@ -798,10 +801,10 @@ d’ajouter ou de supprimer des éléments à la collection.
 				\RComment dit si l'ensemble est vide
 				\MethodSign{taille}{}{entier}
 				\RComment donne la taille de l'ensemble
-				\MethodSign{union}{autreEnsemble : Ensemble <T>}{Ensemble <T>}
-				\MethodSign{intersection}{autreEnsemble : Ensemble <T>}{Ensemble <T>}
-				\MethodSign{moins}{autreEnsemble : Ensemble <T>}{Ensemble <T>}
-				\MethodSign{listeÉléments}{}{Liste <T>}
+				\MethodSign{union}{autreEnsemble : Ensemble de T}{Ensemble de T}
+				\MethodSign{intersection}{autreEnsemble : Ensemble de T}{Ensemble de T}
+				\MethodSign{moins}{autreEnsemble : Ensemble de T}{Ensemble de T}
+				\MethodSign{listeÉléments}{}{Liste de T}
 				\RComment conversion en liste
 			\EndClass
 		\end{LDA}
@@ -828,6 +831,7 @@ d’ajouter ou de supprimer des éléments à la collection.
 	\end{itemize}
 	
 	Autres opérations ensemblistes :
+	
 	Nous avons défini des opérations ensemblistes ne touchant pas aux
 	ensembles de départ. Que deviennent-elles si on considère
 	qu'elles \textbf{modifient}

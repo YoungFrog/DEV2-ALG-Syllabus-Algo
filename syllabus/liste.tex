@@ -8,7 +8,7 @@
 	encore une liste de rendez-vous. Cette liste va varier ; sa taille
 	n’est donc pas fixée. Utiliser un tableau à cet effet n’est pas l’idéal. 
 	En effet, la taille d’un tableau ne peut plus changer une fois le tableau créé. 
-	Il faudrait le sur-dimensionner, ce qui n’est pas économe.
+	Il faudrait le surdimensionner, ce qui n’est pas économe.
 	
 	Il serait intéressant de disposer d’une structure qui offre toutes les
 	facilités d’un tableau tout en pouvant «~grandir~» si nécessaire.
@@ -61,10 +61,10 @@
 	
 		Nous verrons plus loin comment réaliser une classe Liste en pratique 
 		mais nous pouvons déjà définir le comportement qu’on en attend 
-		(les méthodes qu’elle doit fournir)
+		(les méthodes qu’elle doit fournir).
 		
-		Ce comportement sera indentique quel que soit le type des éléments
-		de la liste; une liste de chaine et une liste d'entiers
+		Ce comportement sera identique quel que soit le type des éléments
+		de la liste; une liste de chaines et une liste d'entiers
 		ne se distinguent que par le type de certains paramètres
 		et valeurs de retour.
 		Ici, nous indiquons \lda{T} pour indiquer un type quelconque;
@@ -83,7 +83,7 @@
 					\MethodSign{set}{pos : entier, valeur : T}{}
 						\RComment modifie un élément en position pos
 					\MethodSign{taille}{}{entier}
-						\RComment donne le nombre actuels d’éléments
+						\RComment donne le nombre actuel d’éléments
 					\MethodSign{ajouter}{valeur : T}{}
 						\RComment ajoute un élément en fin de liste
 					\MethodSign{insérer}{pos : entier, valeur : T}{}
@@ -117,7 +117,7 @@
 				grandit donc d’une unité)
 			\item 
 				«\lda{~insérer~}» insère un élément à une position donnée
-				(entre 1 et taille+1). L’élément qui s’y trouvait est décalé
+				(entre 0 et taille-1). L’élément qui s’y trouvait est décalé
 				d'une position ainsi que tous les éléments suivants.
 			\item 
 				La méthode «\lda{~supprimerPos~}»
@@ -255,7 +255,7 @@
 		Comment représenter une liste variable d’éléments ? Pour
 		l'instant, la seule structure qui peut accueillir
 		plusieurs éléments de même type est le tableau. Nous allons donc
-		prendre comme attribut principal de la liste, un tableau que nous
+		prendre comme attribut principal de la liste un tableau que nous
 		appellerons \lda{éléments}. Comment, dès lors, contourner
 		le problème de la limitation de la taille de ce tableau ?
 		
@@ -267,7 +267,7 @@
 		claire : si un \ tableau s’avère trop petit lors de son utilisation, il
 		suffit d’en créer un autre plus grand ailleurs en mémoire et d’y
 		recopier tous les éléments du premier. Évidemment, cette opération est
-		coûteuse en temps et on cherchera à l’effectuer le moins souvent
+		couteuse en temps et on cherchera à l’effectuer le moins souvent
 		possible.
 		
 		\textbf{Quelle taille donner au nouveau tableau} ? L’idée qui vient
@@ -469,7 +469,7 @@
 		
 		\begin{LDA}
 			\Method{supprimerPos}{pos : entier}{}
-				\If{ pos < 1 OU pos > tailleLogique}
+				\If{ pos < 0 OU pos $\geq$ tailleLogique}
 					\Error "position invalide"
 				\EndIf
 				\Stmt décalerGauche( pos + 1 )
@@ -575,7 +575,7 @@
 	%===================
 	
 		\begin{Exercice}{Manipulation d'une liste}
-			Écrire un module qui crée la liste suivante :
+			Écrire un algorithme qui crée la liste suivante :
 			\begin{enumerate}[start=0]
 			\item 494
 			\item 209
@@ -586,27 +586,27 @@
 		\end{Exercice}
 		
 		\begin{Exercice}{Liste des premiers entiers}
-			Écrire un module qui reçoit un entier $n$ en paramètre et retourne la
+			Écrire un algorithme qui reçoit un entier $n$ en paramètre et retourne la
 			liste contenant les entiers de 1 à $n$ dans l'ordre
 			décroissant. On peut supposer que $n$ est positif.
 		\end{Exercice}
 			
 		\begin{Exercice}{Somme d'une liste}
 			\marginicon{java}
-			Écrire un module qui calcule la somme des éléments d’une liste
+			Écrire un algorithme qui calcule la somme des éléments d’une liste
 			d’entiers.
 		\end{Exercice}
 		
 		\begin{Exercice}{Les extrêmes}
 				\marginicon{java}
-				Écrire un module qui supprime le minimum et le maximum des éléments
+				Écrire un algorithme qui supprime le minimum et le maximum des éléments
 				d’une liste d’entiers. On peut supposer que le maximum et le minimum
 				sont uniques.
 		\end{Exercice}
 		
 		\begin{Exercice}{Anniversaires}
 				%\marginicon{java}
-				Écrire un module qui reçoit une liste de structure Personne 
+				Écrire un algorithme qui reçoit une liste de structure Personne 
 				(nom + prénom + date de naissance) et retourne la liste
 				de ceux qui sont nés durant un mois passé en paramètre 
 				(donné sous la forme d'un entier entre 1 et 12).
@@ -614,7 +614,7 @@
 			
 		\begin{Exercice}{Concaténation de deux listes}
 				\marginicon{java}
-				Écrire un module qui reçoit 2 listes et ajoute
+				Écrire un algorithme qui reçoit 2 listes et ajoute
 				à la suite de la première les éléments de la seconde; la seconde liste
 				n'est pas modifiée par cette opération.
 		\end{Exercice}
@@ -622,7 +622,7 @@
 		\begin{Exercice}{Fusion de deux listes}
 				\marginicon{java}
 				Soit deux listes \textbf{ordonnées}
-				d'entiers (redondances possibles). Écrire un module
+				d'entiers (redondances possibles). Écrire un algorithme
 				qui les fusionne. Le résultat est une liste encore ordonnée contenant
 				tous les entiers des deux listes de départ (qu'on
 				laisse inchangées).
@@ -632,7 +632,7 @@
 		\end{Exercice}
 		
 		\begin{Exercice}{Le nettoyage}
-			Écrire un module qui reçoit une liste de chaines en paramètre et
+			Écrire un algorithme qui reçoit une liste de chaines en paramètre et
 			supprime de cette liste tous les éléments de valeur donnée en
 			paramètre. L'algorithme retournera le nombre de
 			suppressions effectuées.
@@ -641,7 +641,7 @@
 		\begin{Exercice}{Éliminer les doublons d'une liste}
 				Soit une liste \textbf{ordonnée} 
 				d'entiers avec de possibles redondances. Écrire un
-				module qui enlève les redondances de la liste.
+				algorithme qui enlève les redondances de la liste.
 						
 				Exemple : Si la liste est (1, 3, 3, 7, 8, 8, 8),
 				le résultat est (1, 3, 7, 8).
@@ -658,7 +658,7 @@
 				
 		\begin{Exercice}{Rendez-vous}
 			Soit la structure «\lda{~RendezVous~}» composée d’une date
-			et d’un motif de rencontre. Écrire un module qui reçoit une liste de
+			et d’un motif de rencontre. Écrire un algorithme qui reçoit une liste de
 			rendez-vous et la met à jour en supprimant tous ceux qui sont désormais
 			passés. 
 		\end{Exercice}
