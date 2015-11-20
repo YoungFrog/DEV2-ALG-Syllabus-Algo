@@ -56,7 +56,7 @@
 		Pour \textbf{accéder} à une case du tableau on donnera les deux indices
 		entre crochets.
 		Comme en DEV$_1$, on va considérer que la première ligne 
-		et la première colonne porte le numéro (l'indice) $0$.  
+		et la première colonne portent le numéro (l'indice) $0$.  
 		
 		\textbf{Exemple} :
 		
@@ -106,7 +106,7 @@
 		Ainsi, la valeur de \lda{tabLettres[2,3]} 
 		est le caractère ‘r’. 
 		
-		La vision «~tableau de tableau~» 
+		La vision «~tableau de tableaux~» 
 		(ou décomposition en niveaux)
 		donnerait :
 	
@@ -227,7 +227,8 @@
 	
 		\begin{small}
 		\begin{center}
-			\begin{tabular}{*{8}{>{\centering\arraybackslash}m{1.3cm}}}
+			%\begin{tabular}{*{8}{>{\centering\arraybackslash}m{1.2cm}}}
+			\begin{tabular}{m{1.5cm}*{7}{>{\centering\arraybackslash}m{1.2cm}}}
 				~ & {article0} & {article1} & {article2} & \dots & {article7} & {article8} & {article9}\\
 			\end{tabular}	
 			\begin{tabular}{|m{1.5cm}|*{7}{>{\centering\arraybackslash}m{1.2cm}|}}
@@ -271,7 +272,7 @@
 			%\Decl{i, j}{entiers}
 			\For{i}{0}{6}
 				\For{j}{0}{9}
-					\Let cpt[i,j] \Gets 0
+					\Let entiers[i,j] \Gets 0
 				\EndFor
 			\EndFor
 		\EndAlgo
@@ -322,7 +323,7 @@
 
 	Comme nous l'avons fait pour les tableaux à  une dimension,
 	envisageons le parcours des tableaux à deux dimensions 
-	(n lignes et m colonnes).
+	($n$ lignes et $m$ colonnes).
 	Nos algorithmes sont valables quel que soit le type des éléments.
 	Utilisons \lda{T} pour désigner un type quelconque.
 	
@@ -358,10 +359,13 @@
 		Ce qui donne l'algorithme :
 		
 		\begin{LDA}
-			\LComment{Parcours de la ligne $l$ d'un tableau à deux dimensions}
-			\For{c}{0}{m-1}
-				\Write tab[l,c] \RComment On peut faire autre chose qu'afficher
-			\EndFor
+			\LComment{Parcours de la ligne $ligne$ d'un tableau à deux dimensions}
+			\Algo{affichageElémentsLigne}{\Par{tab}{\Array{n $\times$ m}{T}}, 
+				\Par{ligne}{entier}}{}
+				\For{colonne}{0}{m-1}
+					\Write tab[ligne,colonne] \RComment On peut faire autre chose qu'afficher
+				\EndFor
+			\EndAlgo
 		\end{LDA}
 
 		Retenons~: pour parcourir une ligne, on utilise une boucle sur les colonnes. 
@@ -370,10 +374,13 @@
 		avec l'algorithme suivant.
 		
 		\begin{LDA}
-			\LComment{Parcours de la colonne $c$ d'un tableau à deux dimensions}
-			\For{l}{0}{n-1}
-				\Write tab[l,c] \RComment On peut faire autre chose qu'afficher
-			\EndFor
+			\LComment{Parcours de la colonne $colonne$ d'un tableau à deux dimensions}
+			\Algo{affichageElémentsColonne}{\Par{tab}{\Array{n $\times$ m}{T}}, 
+				\Par{colonne}{entier}}{}
+				\For{ligne}{0}{n-1}
+					\Write tab[ligne,colonne] \RComment On peut faire autre chose qu'afficher
+				\EndFor
+			\EndAlgo
 		\end{LDA}
 		
 		Si le tableau est carré ($n=m$) on peut aussi envisager le parcours
@@ -399,9 +406,11 @@
 		
 		\begin{LDA}
 			\LComment{Parcours de la diagonale descendante d'un tableau carré}
-			\For{i}{0}{n-1}
-				\Write tab[i,i] \RComment On peut faire autre chose qu'afficher
-			\EndFor
+			\Algo{affichageElémentsDiagonaleDescendante}{\Par{tab}{\Array{n $\times$ n}{T}}}{}
+				\For{i}{0}{n-1}
+					\Write tab[i,i] \RComment On peut faire autre chose qu'afficher
+				\EndFor
+			\EndAlgo
 		\end{LDA}
 		
 		Pour la diagonale montante, 
@@ -423,18 +432,23 @@
 		
 		\begin{LDA}
 			\LComment{Parcours de la diagonale montante d'un tableau carré - 2 indices}
-			\Let j \Gets n-1
-			\For{i}{0}{n-1}
-				\Write tab[i,j] \RComment On peut faire autre chose qu'afficher
-				\Let j \Gets j - 1
-			\EndFor
+			\Algo{affichageElémentsDiagonaleMontante}{\Par{tab}{\Array{n $\times$ n}{T}}}{}
+				\Decl {j}{entier}
+				\Let j \Gets n-1
+				\For{i}{0}{n-1}
+					\Write tab[i,j] \RComment On peut faire autre chose qu'afficher
+					\Let j \Gets j - 1
+				\EndFor
+			\EndAlgo
 		\end{LDA}
 		
 		\begin{LDA}
 			\LComment{Parcours de la diagonale montante d'un tableau carré - 1 indice}
-			\For{i}{0}{n-1}
-				\Write tab[i, n - 1 - i]  \RComment On peut faire autre chose qu'afficher
-			\EndFor
+			\Algo{affichageElémentsDiagonaleMontante}{\Par{tab}{\Array{n $\times$ n}{T}}}{}
+				\For{i}{0}{n-1}
+					\Write tab[i, n - 1 - i]  \RComment On peut faire autre chose qu'afficher
+				\EndFor
+			\EndAlgo
 		\end{LDA}
 
 	\subsection{Parcours des deux dimensions}
@@ -483,20 +497,24 @@
 			
 			\begin{LDA}
 				\LComment{Parcours d'un tableau à 2 dimensions, ligne par ligne}
-				\For{lg}{0}{n-1}
-					\For{col}{0}{m-1}
-						\Write tab[lg,col] \RComment On peut faire autre chose qu'afficher
+				\Algo{affichageElémentsLigneParLigne}{\Par{tab}{\Array{n $\times$ m}{T}}}{}
+					\For{lg}{0}{n-1}
+						\For{col}{0}{m-1}
+							\Write tab[lg,col] \RComment On peut faire autre chose qu'afficher
+						\EndFor
 					\EndFor
-				\EndFor
+				\EndAlgo
 			\end{LDA}
 			
 			\begin{LDA}
 				\LComment{Parcours d'un tableau à 2 dimensions, colonne par colonne}
-				\For{col}{0}{m-1}
-					\For{lg}{0}{n-1}
-						\Write tab[lg,col] \RComment On peut faire autre chose qu'afficher
+				\Algo{affichageElémentsColonneParColonne}{\Par{tab}{\Array{n $\times$ m}{T}}}{}
+					\For{col}{0}{m-1}
+						\For{lg}{0}{n-1}
+							\Write tab[lg,col] \RComment On peut faire autre chose qu'afficher
+						\EndFor
 					\EndFor
-				\EndFor
+				\EndAlgo
 			\end{LDA}
 			
 			Mais on peut obtenir le même résultat avec une seule boucle
@@ -510,16 +528,19 @@
 			
 			\begin{LDA}
 				\LComment{Parcours d'un tableau à 2 dimensions via une seule boucle}
-				\Let lg \Gets 0
-				\Let col \Gets 0
-				\For{i}{0}{n*m-1}
-					\Write tab[lg,col] \RComment On peut faire autre chose qu'afficher
-					\Let col \Gets col + 1	\RComment Passer à la case suivante
-					\If{col = m} \RComment On déborde sur la droite, passer à la ligne suivante
-						\Let col \Gets 0
-						\Let lg \Gets lg + 1
-					\EndIf
-				\EndFor
+				\Algo{affichageElémentsLigneParLigne}{\Par{tab}{\Array{n $\times$ m}{T}}}{}
+					\Decl {lg, col}{entiers}
+					\Let lg \Gets 0
+					\Let col \Gets 0
+					\For{i}{0}{(n*m)-1}
+						\Write tab[lg,col] \RComment On peut faire autre chose qu'afficher
+						\Let col \Gets col + 1	\RComment Passer à la case suivante
+						\If{col = m} \RComment On déborde sur la droite, passer à la ligne suivante
+							\Let col \Gets 0
+							\Let lg \Gets lg + 1
+						\EndIf
+					\EndFor
+				\EndAlgo
 			\end{LDA}
 			
 			L'avantage de cette solution apparaitra 
@@ -537,31 +558,37 @@
 			
 			\begin{LDA}
 				\LComment{Parcours d'un tableau à 2 dimensions, ligne par ligne, via un tant que}
-				\Let lg \Gets 0
-				\While{lg $<$ n}
-					\Let col \Gets 0
-					\While{col $<$ m}
-						\Write tab[lg, col] \RComment On peut faire autre chose qu'afficher
-						\Let col \Gets col + 1
+				\Algo{affichageElémentsLigneParLigne}{\Par{tab}{\Array{n $\times$ m}{T}}}{}
+					\Decl {lg, col}{entiers}
+					\Let lg \Gets 0
+					\While{lg $<$ n}
+						\Let col \Gets 0
+						\While{col $<$ m}
+							\Write tab[lg, col] \RComment On peut faire autre chose qu'afficher
+							\Let col \Gets col + 1
+						\EndWhile
+						\Let lg \Gets lg + 1
 					\EndWhile
-					\Let lg \Gets lg + 1
-				\EndWhile
+				\EndAlgo
 			\end{LDA}
 			
 			\begin{LDA}
 				\LComment{Parcours d'un tableau à 2 dimensions via une seule boucle et un tant que}
-				\Let lg \Gets 0
-				\Let col \Gets 0
-				\Let i \Gets 0
-				\While{i $<$ n*m} \RComment ou "lg $<$ n" 
-					\Write tab[lg,col] \RComment On peut faire autre chose qu'afficher
-					\Let col \Gets col + 1	\RComment Passer à la case suivante
-					\If{col = m} \RComment On déborde sur la droite, passer à la ligne suivante
-						\Let col \Gets 0
-						\Let lg \Gets lg + 1
-					\EndIf
-					\Let i \Gets i + 1		
-				\EndWhile
+				\Algo{affichageElémentsLigneParLigne}{\Par{tab}{\Array{n $\times$ m}{T}}}{}
+					\Decl {lg, col, i}{entiers}
+					\Let lg \Gets 0
+					\Let col \Gets 0
+					\Let i \Gets 0
+					\While{i $<$ n*m} \RComment ou "lg $<$ n" 
+						\Write tab[lg,col] \RComment On peut faire autre chose qu'afficher
+						\Let col \Gets col + 1	\RComment Passer à la case suivante
+						\If{col = m} \RComment On déborde sur la droite, passer à la ligne suivante
+							\Let col \Gets 0
+							\Let lg \Gets lg + 1
+						\EndIf
+						\Let i \Gets i + 1		
+					\EndWhile
+				\EndAlgo
 			\end{LDA}
 			
 			On peut à présent introduire le test comme on l'a fait 
@@ -575,38 +602,45 @@
 			
 			\begin{LDA}
 				\LComment{Parcours avec test d'arrêt - deux boucles et un booléen}
-				\Let trouvé \Gets faux
-				\Let lg \Gets 0
-				\While{lg $<$ n ET NON trouvé}
-					\Let col \Gets 0
-					\While{col $<$ m ET NON trouvé}
-						\If{\textit{tab[lg, col] est l'élément recherché}}
-							\Let trouvé \Gets vrai
-						\Else \RComment Ne pas modifier les indices si arrêt demandé
-							\Let col \Gets col + 1
+				\Algo{chercherEléments}{\Par{tab}{\Array{n $\times$ m}{T}}}{}
+					\Decl {lg, col}{entiers}
+					\Decl {trouvé}{booléen}
+					\Let trouvé \Gets faux
+					\Let lg \Gets 0
+					\While{lg $<$ n ET NON trouvé}
+						\Let col \Gets 0
+						\While{col $<$ m ET NON trouvé}
+							\If{\textit{tab[lg, col] est l'élément recherché}}
+								\Let trouvé \Gets vrai
+							\Else \RComment Ne pas modifier les indices si arrêt demandé
+								\Let col \Gets col + 1
+							\EndIf
+						\EndWhile
+						\If{NON trouvé} \RComment Ne pas modifier les indices si arrêt demandé
+							\Let lg \Gets lg + 1
 						\EndIf
 					\EndWhile
-					\If{NON trouvé} \RComment Ne pas modifier les indices si arrêt demandé
-						\Let lg \Gets lg + 1
-					\EndIf
-				\EndWhile
-				\LComment Tester trouvé pour savoir si on a trouvé l'élement recherché
+					\LComment Tester trouvé pour savoir si on a trouvé l'élément recherché
+				\EndAlgo
 			\end{LDA}
 			
 			\begin{LDA}
 				\LComment{Parcours avec test d'arrêt - une boucle et pas de booléen}
-				\Let lg \Gets 0
-				\Let col \Gets 0
-				\Let i \Gets 0
-				\While{i $<$ n*m ET \textit{tab[lg, col] n'est pas l'élément recherché}}  
-					\Let col \Gets col + 1	\RComment Passer à la case suivante
-					\If{col = m} \RComment On déborde sur la droite, passer à la ligne suivante
-						\Let col \Gets 0
-						\Let lg \Gets lg + 1
-					\EndIf
-					\Let i \Gets i + 1		
-				\EndWhile
-				\LComment L'élément recherché a été trouvé si i $<$ n*m.
+				\Algo{chercherEléments}{\Par{tab}{\Array{n $\times$ m}{T}}}{}
+					\Decl {lg, col, i}{entiers}
+					\Let lg \Gets 0
+					\Let col \Gets 0
+					\Let i \Gets 0
+					\While{i $<$ n*m ET \textit{tab[lg, col] n'est pas l'élément recherché}}  
+						\Let col \Gets col + 1	\RComment Passer à la case suivante
+						\If{col = m} \RComment On déborde sur la droite, passer à la ligne suivante
+							\Let col \Gets 0
+							\Let lg \Gets lg + 1
+						\EndIf
+						\Let i \Gets i + 1		
+					\EndWhile
+					\LComment L'élément recherché a été trouvé si i $<$ n*m.
+				\EndAlgo
 			\end{LDA}
 
 		\subsubsection*{Parcours plus compliqué - le serpent}
@@ -633,18 +667,21 @@
 			
 			\begin{LDA}
 				\LComment{Parcours du serpent dans un tableau à deux dimensions}
-				\Let lg \Gets 0
-				\Let col \Gets 0
-				\Let depl \Gets 1	\RComment 1 pour avancer, -1 pour reculer
-				\For{i}{0}{n*m-1}
-					\Write tab[lg, col] \RComment On peut faire autre chose qu'afficher
-					\If{0 $\le$ col + depl ET col + depl $<$ m}
-						\Let col \Gets col + depl \RComment On se déplace dans la ligne
-					\Else
-						\Let lg \Gets lg + 1	\RComment On passe à la ligne suivante
-						\Let depl \Gets -depl	\RComment et on change de sens
-					\EndIf
-				\EndFor
+				\Algo{affichageElémentsSerpent}{\Par{tab}{\Array{n $\times$ m}{T}}}{}
+					\Decl {lg, col, depl}{entiers}
+					\Let lg \Gets 0
+					\Let col \Gets 0
+					\Let depl \Gets 1	\RComment 1 pour avancer, -1 pour reculer
+					\For{i}{0}{(n*m)-1}
+						\Write tab[lg, col] \RComment On peut faire autre chose qu'afficher
+						\If{0 $\le$ col + depl ET col + depl $<$ m}
+							\Let col \Gets col + depl \RComment On se déplace dans la ligne
+						\Else
+							\Let lg \Gets lg + 1	\RComment On passe à la ligne suivante
+							\Let depl \Gets -depl	\RComment et on change de sens
+						\EndIf
+					\EndFor
+				\EndAlgo
 			\end{LDA}
 
 % ===================
@@ -652,21 +689,21 @@
 % ===================
 
 	\begin{Exercice}{Affichage}
-		Écrire un module qui affiche tous les éléments d'un
+		Écrire un algorithme qui affiche tous les éléments d'un
 		tableau à $n$ lignes et $m$ colonnes
 		\\\quad a) ligne par ligne \qquad b) colonne par colonne
 	\end{Exercice}
 	
 	\begin{Exercice}{Les nuls}
 		\marginicon{java}
-		Écrire un module qui reçoit un tableau ($n$ x $m$)
+		Écrire un algorithme qui reçoit un tableau ($n$ x $m$)
 		d'entiers et qui affiche la proportion
 		d'éléments nuls dans ce tableau.
 	\end{Exercice}
 	
 	\begin{Exercice}{Tous positifs}
 		\marginicon{java}
-		Écrire un module qui reçoit un tableau ($n$ x $m$) d’entiers et qui vérifie
+		Écrire un algorithme qui reçoit un tableau ($n$ x $m$) d’entiers et qui vérifie
 		si tous les nombres qu’il contient sont strictement positifs. Bien sûr,
 		on veillera à éviter tout travail inutile; la rencontre d’un nombre
 		négatif doit arrêter le module.
@@ -690,7 +727,7 @@
 		d'une quelconque de ses lignes, de ses colonnes ou de
 		ses deux diagonales, on obtient à chaque fois le même résultat.
 	
-		Écrire un module recevant en paramètres le tableau [1 à $n$, 1 à $n$]
+		Écrire un algorithme recevant en paramètres le tableau ($n$ x $n$)
 		d'entiers représentant le carré et renvoyant une valeur booléenne
 		indiquant si c'est un carré magique ou pas.
 	\end{Exercice}
@@ -707,7 +744,7 @@
 			case à la gauche de la précédente.
 		\end{itemize}
 	
-		Écrire un module qui reçoit en paramètre un entier
+		Écrire un algorithme qui reçoit en paramètre un entier
 		$n$, et qui renvoie un tableau contenant les
 		$n+1$ premières lignes du triangle de Pascal
 		(indicées de $0$ à $n$).
@@ -731,12 +768,12 @@
 	\end{Exercice}
 	
 	\begin{Exercice}{Lignes et colonnes}
-		Écrire un module qui reçoit un tableau d’entiers à 2 dimensions en paramètre 
+		Écrire un algorithme qui reçoit un tableau d’entiers à 2 dimensions en paramètre 
 		et qui retourne un booléen indiquant si ce tableau 
 		possède 2 lignes ou 2 colonnes identiques.
 		
 		Dans l’affirmative, 
-		ce module renverra également en paramètres les informations suivantes :
+		cet algorithme renverra également en paramètres les informations suivantes :
 		\begin{itemize}
 		\item les indices des lignes ou colonnes identiques
 		\item un caractère valant ‘L’ ou ‘C’ selon qu’il s’agit de lignes ou de
@@ -752,11 +789,11 @@
 		\marginicon{java}
 		On donne un tableau d’entiers \lda{tabEnt} 
 		à $n$ lignes et $m$ colonnes. 
-		Écrire un module retournant la somme 
+		Écrire un algorithme retournant la somme 
 		de tous les éléments \textit{impairs}
 		situés sur le bord du tableau.
 	
-		Exemple : pour le tableau suivant, le module doit renvoyer $32$
+		Exemple : pour le tableau suivant, l'algorithme doit renvoyer $32$
 	
 		\begin{center}
 		\begin{tabular}{|*{4}{>{\centering\arraybackslash}m{0.6cm}|}}
@@ -767,7 +804,7 @@
 		\end{tabular}
 		\end{center}
 	
-		Et pour le suivant, le module doit renvoyer $6$
+		Et pour le suivant, l'algorithme doit renvoyer $6$
 	
 		\begin{center}
 		\begin{tabular}{|*{5}{>{\centering\arraybackslash}m{0.3cm}|}}
@@ -780,7 +817,7 @@
 	\begin{Exercice}{À vos pinceaux !}
 		On possède un tableau à $n$ lignes et $n$ colonnes dont les éléments de type
 		Couleur valent NOIR ou BLANC. On suppose que le tableau est initialisé
-		à BLANC au départ. Écrire un module qui \emph{noircit} les cases de ce
+		à BLANC au départ. Écrire un algorithme qui \emph{noircit} les cases de ce
 		tableau comme le suggèrent les dessins suivants~(les exemples sont
 		donnés pour un tableau 10 x 10 mais les algorithmes doivent fonctionner
 		quelle que soit la taille du tableau).
