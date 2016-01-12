@@ -173,8 +173,7 @@
 		Le premier choix semble le plus évident mais réfléchissons-y de plus
 		près. D’une part, pourquoi se limiter aux heures. On pourrait
 		introduire un champ ‘\lda{jour}’ (après tout on a bien
-		une méthode \lda{getJour()}). 
-		
+		une méthode \lda{getJour()}). 		
 		Quel critère doit vraiment nous permettre de décider ? Il faut une
 		représentation qui soit suffisante (tout est représenté) et qui
 		permette d’écrire des méthodes lisibles et si possible efficaces
@@ -188,7 +187,7 @@
 				\Private
 					\Decl{totalSecondes}{entier}
 				\Public
-					\LComment idem
+					\LComment Ici viennent les constructeurs et les méthodes
 			\EndClass
 		\end{LDA}
 	
@@ -234,14 +233,19 @@
 		\begin{LDA}
 			\Constr{Durée}{secondes~: entier}
 				\If{secondes < 0}
-					\Stmt \K{erreur} "paramètre négatif"
+					\Stmt \K{erreur} "paramètre négatif"%
+					\footnote{%
+						L'instruction \K{erreur} indique
+						que l'algorithme ne peut pas poursuivre normalement.
+						Il s'arrête avec un message d'erreur.
+					}					
 				\EndIf
 				\Let totalSecondes \Gets secondes
 			\EndConstr
 		\Empty
 			\Constr{Durée}{heure, minute, seconde~: entiers}
-				\If{heure < 0 OU minute < 0 OU seconde < 0}
-					\Stmt \K{erreur} "un des paramètres est négatif"
+				\If{heure < 0 OU minute < 0 OU seconde < 0 OU minute>59 ou seconde>59}
+					\Stmt \K{erreur} "un des paramètres est invalide"
 				\EndIf
 				\Let totalSecondes \Gets 3600*heure + 60*minute + seconde
 			\EndConstr
@@ -311,7 +315,9 @@
 
 	Pour utiliser le nouveau type de donnée créé,
 	il faut l'instancier, c'est-à-dire créer un nouvel objet de ce type.
-	Nous allons reprendre une notation très proche de Java.
+	Nous allons utiliser le mot clé \K{nouveau}
+	(ou \K{nouvelle} si vous jugez utile d'accorder avec le type)
+	pour rester très proche de Java.
 	
 	Illustrons cela au travers d'un petit algorithme
 	qui calcule la différence entre deux durées.
@@ -319,8 +325,8 @@
 	\begin{LDA}
 		\Algo{diffDurée}{}{}
 			\Decl{durée1, durée2}{Durée}	\RComment Les variables sont déclarées/créées
-			\Let durée1 \Gets \K{nouveau} Durée(3, 4, 49)	\RComment Les objets sont créés
-			\Let durée2 \Gets \K{nouveau} Durée(3, 24, 37)	\RComment Les objets sont créés
+			\Let durée1 \Gets \K{nouvelle} Durée(3, 4, 49)	\RComment Les objets sont créés
+			\Let durée2 \Gets \K{nouvelle} Durée(3, 24, 37)	\RComment Les objets sont créés
 			\Write durée2.différence(durée1)
 		\EndAlgo
 	\end{LDA}
@@ -338,7 +344,7 @@
 
 			\begin{LDA}
 				\Decl{rendezVous}{Durée}
-				\Let rendezVous \Gets \K{nouveau} Durée(14, 23, 56)
+				\Let rendezVous \Gets \K{nouvelle} Durée(14, 23, 56)
 				\Write rendezVous 
 				\RComment affichera 14, 23 et 56 dans un format lisible quelconque
 			\end{LDA}
@@ -362,7 +368,7 @@
 			
 			\begin{LDA}
 				\Decl{parcours}{Durée}								\RComment parcours = rien
-				\Let parcours \Gets \K{nouveau} Durée( 14, 23, 56 )	\RComment parcours ${\neq}$ rien
+				\Let parcours \Gets \K{nouvelle} Durée( 14, 23, 56 )	\RComment parcours ${\neq}$ rien
 				\If{parcours $\neq$ rien}
 					\Let parcours \Gets rien						\RComment parcours = rien
 				\EndIf
