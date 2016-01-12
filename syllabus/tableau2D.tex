@@ -84,27 +84,27 @@
 		\textbf{Exemple} : Soit le tableau déclaré ainsi :
 	
 		\begin{LDA}
-		\Decl{tabLettres}{\Array{4$\times$5}{caractères}}
+		\Decl{nombres}{\Array{4$\times$5}{entiers}}
 		\end{LDA}
 	
 		On peut le visualiser à l’aide d’une grille à 4 lignes et 5 colonnes.
 
 		\begin{center}
-		\begin{tabular}{*{6}{>{\centering\arraybackslash}m{3mm}}}
+		\begin{tabular}{*{6}{>{\centering\arraybackslash}m{5mm}}}
 			{} & 0 & 1 & 2 & 3 & 4 \\
 		\end{tabular}
 		\\
-		\begin{tabular}{>{\centering\arraybackslash}m{3mm}|*{5}{>{\centering\arraybackslash}m{3mm}|}}
+		\begin{tabular}{>{\centering\arraybackslash}m{3mm}|*{5}{>{\centering\arraybackslash}m{5mm}|}}
 			\cline{2-6}
-			0 & d & h & v & q & z \\\cline{2-6}
-			1 & j & g & k & o & u \\\cline{2-6}
-			2 & i & f & y & r & t \\\cline{2-6}
-			3 & n & d & e & a & s \\\cline{2-6}
+			0 & 0 & 1 & 2 & 3 & 4 \\\cline{2-6}
+			1 & 10 & 11 & 12 & 13 & 14 \\\cline{2-6}
+			2 & 20 & 21 & 22 & 23 & 24 \\\cline{2-6}
+			3 & 30 & 31 & 32 & 33 & 34 \\\cline{2-6}
 		\end{tabular}
 		\end{center}
 	
-		Ainsi, la valeur de \lda{tabLettres[2,3]} 
-		est le caractère ‘r’. 
+		Ainsi, la valeur de \lda{nombres[2,3]} 
+		est la valeur 23. 
 		
 		La vision «~tableau de tableaux~» 
 		(ou décomposition en niveaux)
@@ -124,7 +124,7 @@
 				\\		
 				\begin{tabular}{|*{5}{>{\centering\arraybackslash}m{1.5mm}|}}
 					\hline
-					d & h & v & q & z \\
+					0 & 1 & 2 & 3 & 4 \\
 					\hline
 				\end{tabular}
 				\\
@@ -137,7 +137,7 @@
 				\\		
 				\begin{tabular}{|*{5}{>{\centering\arraybackslash}m{1.5mm}|}}
 					\hline
-					j & g & k & o & u \\
+					10 & 11 & 12 & 13 & 14 \\
 					\hline
 				\end{tabular}
 				\\
@@ -150,7 +150,7 @@
 				\\		
 				\begin{tabular}{|*{5}{>{\centering\arraybackslash}m{1.5mm}|}}
 					\hline
-					i & f & y & r & t \\
+					20 & 21 & 22 & 23 & 24 \\
 					\hline
 				\end{tabular}
 				\\
@@ -163,7 +163,7 @@
 				\\		
 				\begin{tabular}{|*{5}{>{\centering\arraybackslash}m{1.5mm}|}}
 					\hline
-					n & d & e & a & s \\
+					30 & 31 & 32 & 33 & 34 \\
 					\hline
 				\end{tabular}
 				\\
@@ -173,7 +173,7 @@
 		\end{tabular}
 		\end{center}
 
-		Dans cette représentation, le tableau \lda{tabLettres} est
+		Dans cette représentation, le tableau \lda{nombres} est
 		d’abord décomposé à un premier niveau en quatre éléments auxquels on
 		accède par le premier indice. Ensuite, chaque élément de premier niveau
 		est décomposé en cinq éléments de deuxième niveau accessibles par le
