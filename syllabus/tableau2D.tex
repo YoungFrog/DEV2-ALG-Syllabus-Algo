@@ -260,7 +260,7 @@
 			\For{jour}{0}{6}
 				\Stmt traiterStock1Jour(cpt, jour)
 				\For{produit}{0}{9}
-					\Write "quantité vendue de produit ", produit, " ce jour ", jour, "~: ", cpt[jour,i]
+					\Write "quantité vendue de produit ", produit, " ce jour ", jour, "~: ", cpt[jour,produit]
 				\EndFor
 			\EndFor	
 		\EndAlgo
