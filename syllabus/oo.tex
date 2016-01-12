@@ -131,11 +131,13 @@
 				retourne 23 et pas 24 (autrement dit, il n’y a pas d’arrondi vers le
 				haut).
 			\item 
-				Il n’y a pas de \textit{mutateur }(\lda{setXXX()}). Ce qui
-				signifie qu’on ne peut pas changer directement la valeur de l’objet
-				après son initialisation. On aurait pu en définir mais nous
-				n'avons pas jugé utile de le faire dans ce cas
-				précis.
+				Il n’y a pas de \textit{mutateur} (\lda{setXXX()}). 
+				Ce qui signifie qu’on ne peut pas changer directement la valeur de l’objet
+				après son initialisation. 
+				Les seules modifications viendront de la méthode \lda{ajouter()}.
+				On aurait pu définir des mutateurs mais nous
+				n'avons pas jugé utile de le faire dans ce cas précis.
+				Vous verrez dans le cours de Java des motivations à ce choix.
 			\item 
 				La méthode \lda{ajouter()} ne retourne rien. En effet,
 				elle ajoute la durée à l’objet sur lequel est appelée la méthode. C’est
