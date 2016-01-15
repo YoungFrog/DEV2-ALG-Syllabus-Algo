@@ -1,197 +1,142 @@
 %===================================
-\chapter{Représentation des données%
-\index{Representation des données@Représentation des données}}
+\chapter{Représentation des données\index{Representation des données@Représentation des données}}
 %====================================
 
-Nous voici arrivés au terme de ce cours d'algorithmique. 
-Ce chapitre apporte une synthèse des différentes notions vues 
-tout au long de vos cours d'algorithmiques de 1\iere\ année 
-et propose quelques pistes de réflexion 
-quant au choix d’une bonne représentation des données 
-qui se pose lors de la résolution de problèmes de programmation avancés.
-
-Pour la plupart de ces exercices,
-la difficulté tient en partie dans le bon choix d’une représentation des données 
-et de la démarche algorithmique la plus adéquate à mettre en œuvre pour agir sur ces
-données en vue d’obtenir le résultat escompté. Noter que l’efficacité
-d’un algorithme est lié étroitement au choix de la représentation.
+	Nous voici arrivés au terme de ce cours d'algorithmique. 
+	Ce chapitre apporte une synthèse des différentes notions vues 
+	tout au long de vos cours d'algorithmiques de 1\iere\ année 
+	et propose quelques pistes de réflexion 
+	quant au choix d’une bonne représentation des données 
+	qui se pose lors de la résolution de problèmes de programmation avancés.
+	
+	Pour la plupart de ces exercices,
+	la difficulté tient en partie dans le bon choix d’une représentation des données 
+	et de la démarche algorithmique la plus adéquate à mettre en \oe{}uvre 
+	pour agir sur ces données en vue d’obtenir le résultat escompté. 
+	Noter que l’efficacité d’un algorithme 
+	est lié étroitement au choix de la représentation.
 
 %======================================
 \section{Se poser les bonnes questions}
 %=======================================
 
-Revenons à la case départ : nous avons commencé ce cours en situant les
-notions de \textbf{problème} et de \textbf{résolution}. Nous avons vu
-qu’un problème bien spécifié s’inscrit dans le schéma :
-
-	\begin{center}
-	\begin{Ovalbox}
-		{\textbf{étant donné} [la situation de départ] 
-		\textbf{on demande} [l’objectif]}
-	\end{Ovalbox}
-	\end{center}
-
-Une fois le problème correctement posé, on peut partir à la recherche
-d’une \textbf{méthode de résolution}, c’est-à-dire d’un algorithme en
-ce qui concerne les problèmes à résoudre par les moyens informatiques.
-
-Tout au long de l’année, nous avons vu divers modèles et techniques
-algorithmiques adaptés à des structures particulières (les nombres,
-les chaines, les tableaux, les variables structurées, les objets, les
-listes\dots). La plupart des exercices portaient directement
-sur ces structures (par ex. calculer la somme des nombres d’un tableau,
-extraire une sous-liste à partir
-d’une liste donnée). Ces exercices d’entrainement et de formation
-quelque peu théoriques constituent en fait des démarches algorithmiques
-de base qui trouvent toutes une place dans des problèmes plus
-complexes.
-
-Mais la plupart des problèmes issus des situations de la vie courante
-auxquels se confronte le programmeur s’expriment généralement de
-manière plus floue : par ex. dresser la comptabilité des dépenses
-mensuelles d’une firme, faire un tableau récapitulatif du résultat des
-élections par cantons électoraux, faire une version informatique d’un
-jeu télévisé… Les exemples sont infinis !
-
-
-C’est dans le cadre de ce genre de problème plus complexe que se pose le
-problème de la \textbf{représentation de données}. Une fois le problème
-bien spécifié (par les données et l’objectif) apparaissent
-naturellement les questions suivantes : quelles données du problème
-sont réellement utiles à sa résolution ?~(Il est fréquent que l’énoncé
-d’un problème contienne des données superflues ou inutiles). Y a-t-il
-des données plus importantes que d’autres ? (données principales ou
-secondaires). Les données doivent-elles être consultées plusieurs fois ?
-Quelles données faut-il conserver en mémoire ? Sous quelle forme ?
-Faut-il utiliser un tableau ? Une liste ? Faut-il créer une nouvelle
-classe ? Les données doivent-elles être classées suivant un critère
-précis ? Ou la présentation brute des données suffit-elle pour
-solutionner le problème posé ?
-
-Les réponses ne sont pas directes, et les différents outils qui sont à
-notre disposition peuvent être ou ne pas être utilisés. Il n’y a pas de
-règles précises pour répondre à ces questions, c’est le flair et le
-savoir-faire développés patiemment par le programmeur au fil de ses
-expériences et de son apprentissage qui le guideront vers la solution
-la plus efficace. Parfois plusieurs solutions peuvent fonctionner sans
-pouvoir départager la meilleure d’entre elles.
-
-Ce type de questionnement est peut-être l’aspect le plus délicat et le
-plus difficile de l’activité de programmation, car d’une réponse
-appropriée dépendra toute l’efficacité du code développé. Un mauvais
-choix de représentation des données peut mener à un code lourd et
-maladroit. 
-En vous accompagnant dans la résolution des exercices qui suivent,
-nous vous donnerons quelques indices et pistes de réflexion, 
-qui seront consolidées par l’expérience acquise lors des
-laboratoires de langages informatiques ainsi que par les techniques de
-modélisation vues au cours d’analyse.
-
+	Revenons à la case départ : 
+	nous avons commencé le cours d'algorithmique de DEV$_{1}$
+	en situant les notions de \textbf{problème} et de \textbf{résolution}. 
+	Nous avons vu qu’un problème bien spécifié s’inscrit dans le schéma :
+	
+		\begin{center}
+		\begin{Ovalbox}
+			{\textbf{étant donné} [la situation de départ] 
+			\textbf{on demande} [l’objectif]}
+		\end{Ovalbox}
+		\end{center}
+	
+	Une fois le problème correctement posé, 
+	on peut partir à la recherche d’une \textbf{méthode de résolution}, 
+	c’est-à-dire d’un algorithme en ce qui concerne les problèmes 
+	à résoudre par les moyens informatiques.
+	
+	Tout au long de l’année, 
+	nous avons vu divers modèles et techniques algorithmiques adaptés 
+	à des structures particulières 
+	(les nombres, les chaines, les tableaux, les variables structurées, 
+	les objets, les listes\dots). 
+	La plupart des exercices portaient directement sur ces structures 
+	(par ex. calculer la somme des nombres d’un tableau,
+	extraire une sous-liste à partir d’une liste donnée). 
+	Ces exercices d’entrainement et de formation quelque peu théoriques 
+	constituent en fait des démarches algorithmiques de base 
+	qui trouvent toutes une place dans des problèmes plus complexes.
+	
+	Mais la plupart des problèmes 
+	issus des situations de la vie courante 
+	auxquels se confronte le programmeur 
+	s’expriment généralement de manière plus floue : 
+	par ex. dresser la comptabilité des dépenses mensuelles d’une firme, 
+	faire un tableau récapitulatif du résultat des élections par cantons électoraux, 
+	faire une version informatique d’un jeu télévisé\dots{} 
+	Les exemples sont infinis !
+	
+	C’est dans le cadre de ce genre de problème plus complexe 
+	que se pose le problème de la \textbf{représentation de données}. 
+	Une fois le problème bien spécifié (par les données et l’objectif) 
+	apparaissent naturellement les questions suivantes : 
+	quelles données du problème sont réellement utiles à sa résolution ?
+	(Il est fréquent que l’énoncé d’un problème contienne 
+	des données superflues ou inutiles). 
+	Y a-t-il des données plus importantes que d’autres ? 
+	(données principales ou secondaires). 
+	Les données doivent-elles être consultées plusieurs fois ?
+	Quelles données faut-il conserver en mémoire ? Sous quelle forme ?
+	Faut-il utiliser un tableau ? Une liste ? 
+	Faut-il créer une nouvelle classe ? 
+	Les données doivent-elles être classées suivant un critère précis ? 
+	Ou la présentation brute des données suffit-elle pour
+	solutionner le problème posé ?
+	
+	Les réponses ne sont pas directes, 
+	et les différents outils qui sont à notre disposition 
+	peuvent être ou ne pas être utilisés. 
+	Il n’y a pas de règles précises pour répondre à ces questions, 
+	c’est le flair et le savoir-faire 
+	développés patiemment par le programmeur au fil de ses expériences 
+	et de son apprentissage qui le guideront vers la solution la plus efficace. 
+	Parfois plusieurs solutions peuvent fonctionner 
+	sans pouvoir départager la meilleure d’entre elles.
+	
+	Ce type de questionnement est peut-être l’aspect le plus délicat 
+	et le plus difficile de l’activité de programmation, 
+	car d’une réponse appropriée dépendra toute l’efficacité du code développé. 
+	Un mauvais choix de représentation des données 
+	peut mener à un code lourd et maladroit. 
+	En vous accompagnant dans la résolution des exercices qui suivent,
+	nous vous donnerons quelques indices et pistes de réflexion, 
+	qui seront consolidées par l’expérience acquise 
+	lors des laboratoires de langages informatiques 
+	ainsi que par les techniques de modélisation vues au cours d’analyse.
 
 %==================================
-\section{Les structures de données%
-\index{Structures de donnees@Structures de données}}
+\section{Les structures de données\index{Structures de donnees@Structures de données}}
 %==================================
 
-Rappelons brièvement les différentes structures étudiées dans ce cours
-\index{Structures a connaitre@Structures à connaitre} :
-
-\begin{itemize}
-	\item 
-		les \textbf{données «~simples~»} (variables isolées : entiers, réels,
-		chaines, caractères, booléens)
-	\item 
-		les \textbf{variables structurées}, qui regroupent en une seule entité
-		une collection de variables simples
-	\item 
-		le \textbf{tableau}, qui contient un nombre déterminé de variables de
-		même type, accessibles via un indice ou plusieurs pour les tableaux
-		multidimensionnels
-	\item 
-		les \textbf{objets}, qui combinent en un tout une série d’attributs et
-		des méthodes agissant sur ces attributs
-	\item 
-		la \textbf{Liste}, qui peut contenir un nombre indéfini d’éléments de
-		même type
-	%\item 
-		%le \textbf{fichier séquentiel}, qui est un support physique permettant
-		%le stockage «~à long terme~» de données
-\end{itemize}
-
-D’autres structures particulières s’ajouteront dans le cours de
-2\textsuperscript{e} année : les listes chainées, les piles, les
-files, les arbres et les graphes.
-
-Chacune de ces structures possède ses spécificités propres quant à la
-façon d’accéder aux valeurs, de les parcourir, de les modifier,
-d’ajouter ou de supprimer des éléments à la collection. 
-
-%%========================================
-%\section{Quelques conseils pour terminer}
-%%========================================
-
-%Nous vous conseillons de relire le paragraphe 4.7 du
-%cours d'algorithmique de DEV1 intitulé
-%:~«~\textit{qu’est-ce qu’un algorithme de qualité ?}~». 
-%Après une année d’apprentissage, 
-%vous comprendrez certainement sous un nouvel éclairage
-%les termes de validité, d’extensibilité, de réutilisabilité, de
-%lisibilité et d’efficience.
-
-%Outre ces grands principes de base, ajoutons ici quelques conseils en
-%vrac qui pourraient vous être utiles :
-
-%\begin{itemize}
-	%\item 
-		%\textbf{parcours des données} : en général on évite de parcourir
-		%plusieurs fois le contenu d’un ensemble de données (surtout s’il s’agit
-		%d’un fichier) sauf s’il n’y a pas d’autre solution.
-	%\item 
-		%\textbf{duplication des données} : on évite également de créer un
-		%duplicata sous quelque forme que ce soit d’une grande structure de
-		%données. Par exemple, s’il faut trier les données d’un fichier, il est
-		%évident qu’il faut stocker l’entièreté des données en mémoire~pour
-		%pouvoir effectuer les comparaisons ; par contre, c’est inutile si le
-		%problème est d’extraire le maximum de ces données ou de les compter
-	%\item 
-		%\textbf{les booléens} : rappelons l’utilité des variables booléennes !
-		%L’expérience montre que les étudiants négligent souvent leur
-		%utilisation. Elles permettent de décrire de façon élégante l’état de
-		%différentes situations, d’exprimer de façon concise des conditions…
-	%\item 
-		%\textbf{choix des boucles} : relisez attentivement le paragraphe 7.2 sur
-		%le choix des boucles. Dans un processus itératif, il est impératif de
-		%le quitter dès qu’une réponse est connue, plutôt que de parcourir
-		%inutilement jusqu’au bout un ensemble de données. Le bon suivi de ce
-		%principe intervient de façon primordiale dans l’efficacité d’un
-		%algorithme ! 
-%\end{itemize}
+	Rappelons brièvement les différentes structures étudiées dans ce cours
+	\index{Structures a connaitre@Structures à connaitre} :
+	
+	\begin{itemize}
+		\item 
+			les \textbf{données «~simples~»} 
+			(variables isolées : entiers, réels, chaines, caractères, booléens) ;
+		\item 
+			les \textbf{variables structurées}, 
+			qui regroupent en une seule entité
+			une collection de variables simples ;
+		\item 
+			le \textbf{tableau}, 
+			qui contient un nombre déterminé de variables de même type, 
+			accessibles via un indice 
+			ou plusieurs pour les tableaux multidimensionnels ;
+		\item 
+			les \textbf{objets}, 
+			qui combinent en un tout une série d’attributs 
+			et des méthodes agissant sur ces attributs ;
+		\item 
+			la \textbf{Liste}, 
+			qui peut contenir un nombre indéfini d’éléments de même type.
+	\end{itemize}
+	
+	D’autres structures particulières s’ajouteront 
+	dans le cours d'algorithmique de DEV$_{3}$ : 
+	les listes chainées, les piles, les files, les arbres et les graphes.
+	
+	Chacune de ces structures possède ses spécificités propres quant à la
+	façon d’accéder aux valeurs, de les parcourir, de les modifier,
+	d’ajouter ou de supprimer des éléments à la collection. 
 
 \clearpage
 %==================
 \section{Exercices}
 %==================
-
-\begin{Exercice}{Le lièvre et la tortue}
-
-	\emph{lu sur le net} :
-	{\footnotesize \url{http://mathemathieu.free.fr/2b/doc/pb_algo/problemes_et_algorithmique.pdf}}
-	
-	\begin{quote}
-	\og{}Le lièvre est plus rapide que la tortue.
-	Pour donner plus de chance à la tortue de gagner une course de 5 km, 
-	on adopte la règle de jeu suivante~:
-	
-	On lance un dé. 
-	
-	Si le 6 sort, le lièvre est autorisé à démarrer et gagne la course en quelques
-	secondes; sinon on laisse la tortue avancer d’un kilomètre.
-	
-	On recommence le procédé jusqu'à la victoire du lièvre ou de la tortue.\fg{}
-	\end{quote}
-	
-	Écrire un algorithme simulant cette course.
-\end{Exercice}
 
 \begin{Exercice}{Un jeu de poursuite}
 	Deux joueurs A et B se poursuivent sur un

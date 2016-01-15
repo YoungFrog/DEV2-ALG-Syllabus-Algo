@@ -46,6 +46,7 @@
 	Voyons comment définir ce nouveau type de données en orienté objet.
 	
 	\subsection{Ce que l’on veut vraiment}
+	%=====================================
 	
 		Avant tout, il faut bien préciser ce que l’on veut décrire
 		et bien faire la distinction entre un \emph{moment} et une \emph{durée}.
@@ -65,6 +66,7 @@
 		}.
 	
 	\subsection{Le comportement (les méthodes)}
+	%==========================================
 	
 		La première question à se poser est celle des services qu’on veut
 		fournir, c’est-à-dire des méthodes publiques de la classe. On doit
@@ -157,6 +159,7 @@
 		\end{itemize}
 	
 	\subsection{La représentation de l'état (les attributs)}
+	%=======================================================
 	
 		La question suivante est~: «~Comment représenter une durée en interne ?
 		». Plusieurs possibilités existent. Par exemple~:	
@@ -192,6 +195,7 @@
 		\end{LDA}
 	
 	\subsection{L'implémentation}
+	%============================
 	
 		On est à présent prêt pour écrire le code des méthodes. 
 		Pour une meilleure lisibilité,
@@ -308,28 +312,403 @@
 				\Return totalSecondes < autreDurée.totalSecondes
 			\EndMethod
 		\end{LDA}
-
-%=====================================
-\section{Utiliser}
-%=====================================
-
-	Pour utiliser le nouveau type de donnée créé,
-	il faut l'instancier, c'est-à-dire créer un nouvel objet de ce type.
-	Nous allons utiliser le mot clé \K{nouveau}
-	(ou \K{nouvelle} si vous jugez utile d'accorder avec le type)
-	pour rester très proche de Java.
 	
-	Illustrons cela au travers d'un petit algorithme
-	qui calcule la différence entre deux durées.
+	%=====================================
+	\subsection{Utilisation}
+	%=====================================
+
+		Pour utiliser le nouveau type de donnée créé,
+		il faut l'instancier, c'est-à-dire créer un nouvel objet de ce type.
+		Nous allons utiliser le mot clé \K{nouveau}
+		(ou \K{nouvelle} si vous jugez utile d'accorder avec le type)
+		pour rester très proche de Java.
+		
+		Illustrons cela au travers d'un petit algorithme
+		qui calcule la différence entre deux durées.
+		
+		\begin{LDA}
+			\Algo{diffDurée}{}{}
+				\Decl{durée1, durée2}{Durée}	\RComment Les variables sont déclarées/créées
+				\Let durée1 \Gets \K{nouvelle} Durée(3, 4, 49)	\RComment Les objets sont créés
+				\Let durée2 \Gets \K{nouvelle} Durée(3, 24, 37)	\RComment Les objets sont créés
+				\Write durée2.différence(durée1)
+			\EndAlgo
+		\end{LDA}
+			
+%==================================================
+\section{Mise en pratique : Le lièvre et la tortue}
+%==================================================
+
+	Partons d'un petit jeu, \og{}Le lièvre et la tortue\fg{}%
+	\footnote{%
+		Lu sur le net : 
+		\url{http://mathemathieu.free.fr/2b/doc/pb_algo/problemes_et_algorithmique.pdf}
+	}, 
+	et voyons comment le coder en OO.
+
+	\subsection{Description du jeu}
+	%==============================
 	
-	\begin{LDA}
-		\Algo{diffDurée}{}{}
-			\Decl{durée1, durée2}{Durée}	\RComment Les variables sont déclarées/créées
-			\Let durée1 \Gets \K{nouvelle} Durée(3, 4, 49)	\RComment Les objets sont créés
-			\Let durée2 \Gets \K{nouvelle} Durée(3, 24, 37)	\RComment Les objets sont créés
-			\Write durée2.différence(durée1)
-		\EndAlgo
-	\end{LDA}
+		Un lièvre et une tortue font une course.
+		Le lièvre est plus rapide que la tortue.
+		Pour donner plus de chance à la tortue de gagner une course de 5 km, 
+		on adopte la règle de jeu suivante~:
+		\begin{itemize}
+		\item 
+			On lance un dé. 
+		\item
+			Si le 6 sort, 
+			le lièvre est autorisé à démarrer et gagne la course; 
+			sinon on laisse la tortue avancer d’un kilomètre.
+		\item
+			On recommence le procédé jusqu'à la victoire du lièvre ou de la tortue.
+		\end{itemize}
+		
+	\subsection{Solution non orientée objet}
+	%=======================================
+	
+		Pour ne pas aller trop vite et vous perdre tout de suite,
+		commençons par une version non orientée objet du jeu.
+		
+		\subsubsection*{Représenter le jeu}
+		%----------------------------------	
+
+			Il faut d'abord se poser cette question :
+			Comment représenter le jeu ?
+			Une représentation du jeu doit-être complète.
+			C'est-à-dire qu'à partir de cette représentation,
+			on doit pouvoir indiquer exactement où on en est dans le jeu
+			et le poursuivre.
+			
+			Pour le dire autrement, 
+			imaginons qu'on joue à ce jeu \og{}en vrai\fg{}, sur une table de jeu.
+			La représentation informatique doit capturer tout ce qui est pertinent
+			dans le jeu physique de sorte que, si on range la boite de jeu,
+			on peut, le lendemain, reconstruire le jeu exactement comme il était.
+			
+			Dans notre exemple, cela veut dire quoi ?
+			\begin{description}
+			\item[La tortue]
+				On doit pouvoir savoir où elle en est dans son avancée.
+				Un petit entier (de 0 à 5) reprenant son avancée en km suffit.
+				Appelons-le \lda{avancéeTortue} par exemple.
+			\item[Le lièvre]
+				Pendant le jeu, il est en permanence au départ
+				et lorsque sort un 6, il atteint directement l'arrivée.
+				Plusieurs possibilités s'offrent à nous :
+			
+				1) On pourrait imaginer un entier valant 0 ou 5,
+				appelé \lda{avancéeLièvre}.
+
+				2) On pourrait aussi imaginer un booléen à vrai 
+				lorsqu'il est au départ et faux lorsqu'il est à l'arrivée.
+				On pourrait l'appeler \lda{lièvreAuDépart}
+
+				3) Ou encore un booléen ayant exactement le sens inverse.
+				Le nom devra être choisi judicieusement pour ne pas induire
+				le lecteur en erreur.
+				Par exemple, ici, on pourrait choisir \lda{lièvreArrivé}
+
+				Ici, le troisième choix nous semble le plus pertinent.
+			\item[Le dé]
+				Un entier de 1 à 6 suffit pour représenter le résultat d'un dé.
+				Appelons-le simplement \lda{dé}.
+			%\item[Jeu fini]
+				%On y pense moins facilement
+				%mais c'est utile de savoir que le jeu est fini et qui a gagné.
+				%Cela va permettre d'empêcher de continuer le jeu
+				%(lancer le dé\dots) lorsqu'il sera fini
+				%et d'afficher clairement le vainqueur.
+				%Est-il nécessaire d'avoir une donnée spécifique ?
+				%Ici, pas obligatoirement car on peut le déduire
+				%des autres données.
+				%Le jeu est fini si \lda{avancéeTortue} vaut 5 (la tortue a gagné)
+				%ou si \lda{lièvreArrivé} est à vrai (le lièvre a gagné).
+				
+				%Néanmoins, il est souvent plus facile de retenir ces informations
+				%dans des variables à part. 
+				%On pourrait alors imaginer d'utiliser deux booléens.
+				%\begin{itemize}
+				%\item 
+					%\lda{fini} : à vrai lorsque le jeu est fini
+				%\item 
+					%\lda{tortueGagne} : à vrai si la tortue a gagné et à faux sinon.
+					%La valeur de ce booléen ne serait pertinent que si la partie est finie.
+				%\end{itemize}
+				
+				%Remarquons, également que ces deux booléens 
+				%rendent le booléen \lda{lièvreArrivé} inutile
+				%car il peut être déduit des deux autres.
+			\item[Les joueurs]
+				Si on observe un jeu physique,
+				on peut s'attarder sur les personnes en train de jouer.
+				Faut-il les représenter ?
+				On pourrait imaginer de connaitre leur nom,
+				le nombre de fois qu'elles ont jouer à ce jeu,
+				leur nombre de victoires.
+				Dans l'énoncé, 
+				rien n'indique qu'il faille tenir compte de tout cela. 
+				On s'intéresse au jeu proprement dit, et c'est tout.
+			\item[Le plateau]
+				On peut imaginer que dans le jeu physique,
+				il y aurait une sorte de plateau 
+				avec des km indiqués
+				sur lequel avancerait la tortue.
+				Mais il n'y a aucune information changeante
+				sur ce plateau qui vaille la peine d'être retenue.
+			\end{description}
+
+		\subsubsection*{Un macro algorithme}
+		%----------------------------------	
+				
+			Nous pouvons à présent envisager d'écrire une solution
+			non détaillée du jeu.
+			Cela donnerait :
+			
+			\begin{LDA}
+				\Algo{jeuLièvreTortue}{}{}
+					\Decl{avancéeTortue}{entier}
+					\Decl{lièvreArrivé}{booléen}
+					\Decl{dé}{entier}
+					\Stmt Initialiser le jeu
+					\While{le jeu n'est pas fini}
+						\Stmt{Lancer le dé}
+						\If{le dé est 6}
+							\Stmt Le lièvre est arrivé
+						\Else
+							\Stmt La tortue avance
+						\EndIf
+					\EndWhile
+					\Stmt Afficher le vainqueur
+				\EndAlgo
+			\end{LDA}
+			
+		\subsubsection*{Détailler l'algorithme}
+		%----------------------------------	
+	
+			Nous devons à présent repasser sur l'algorithme
+			et vérifier que nous pouvons détailler 
+			chacun des points restés généraux.
+			\begin{itemize}
+			\item \textbf{Initialiser le jeu} :
+				Il suffit de placer la tortue en 0
+				et d'indiquer que le lièvre n'est pas encore arrivé.
+				La valeur initiale du dé n'a pas d'importance.
+			\item \textbf{le jeu n'est pas fini} :
+				Le jeu sera fini lorsque le lièvre sera arrivé
+				(ce qu'on peut tester grâce au boolén \lda{lièvreArrivé})
+				ou que la tortue sera au km 5.
+			\item \textbf{lancer le dé} :
+				C'est trivial si on utilise l'algorithme \lda{hasard()}
+				à notre disposition.
+			\item \textbf{la lièvre est arrivé} :
+				Il suffit de mettre le booléen \lda{lièvreArrivé} à vrai.
+			\item \textbf{La tortue avance} : 
+				C'est trivial.
+			\item \textbf{Afficher le vainqueur} :
+				Ce sera le lièvre si son booléen est à vrai et la tortue sinon
+				(dans ce cas, son avancée sera forçément de 5 puisque le jeu est fini).
+			\end{itemize}
+			
+			Au final, on obtient :
+			\begin{LDA}
+				\Algo{jeuLièvreTortue}{}{}
+					\Decl{avancéeTortue}{entier}
+					\Decl{lièvreArrivé}{booléen}
+					\Decl{dé}{entier}
+
+					\Empty
+					\Let avancéeTortue \Gets 0
+					\Let lièvreArrivé \Gets faux
+					\While{avancéeTortue < 5 ET NON lièvreArrivé}
+						\Let dé \Gets hasard(6)
+						\If{dé = 6}
+							\Let lièvreArrivé \Gets vrai
+						\Else
+							\Let avancéeTortue \Gets avancéeTortue + 1
+						\EndIf
+					\EndWhile
+
+					\Empty
+					\If{lièvreArrivé}
+						\Write "Le lièvre à gagné"
+					\Else
+						\Write "Le tortue à gagné"
+					\EndIf
+				\EndAlgo
+			\end{LDA}
+
+	\subsection{Solution orientée objet}
+	%=======================================
+		
+		Voyons à présent ce que ça pourrait donner si on introduit
+		de l'orienté objet.
+		Examinons d'abord les objets physiques du jeu.
+		
+		\subsubsection*{La tortue}
+		%-------------------------
+		
+			On peut envisager de définir une classe pour la tortue.
+			Une tortue a une avancée. 
+			Au départ, elle est au kilomètre 0.
+			Elle peut avancer d'un kilomètre à la fois.
+			Elle a fini et gagne lorsqu'elle arrive au kilomètre 5.
+			
+			Ce qui donne :
+			
+			\begin{LDA}
+				\Class{Tortue}
+				\Private
+					\Decl{avancéeTortue}{entier}
+				\Public
+					\Constr{Tortue}{}
+						\Let avancéeTortue \Gets 0						
+					\EndConstr
+					\Empty
+					\Method{avancer}{}{}
+						\Let avancéeTortue \Gets avancéeTortue + 1						
+					\EndMethod
+					\Empty
+					\Method{estArrivée}{}{booléen}
+						\Return avancéeTortue = 5
+					\EndMethod
+				\EndClass
+			\end{LDA}
+
+		\subsubsection*{Le lièvre}
+		%-------------------------
+		
+			On peut appliquer la même démarche pour le lièvre 
+			et obtenir :
+
+			\begin{LDA}
+				\Class{Lièvre}
+				\Private
+					\Decl{lièvreArrivé}{booléen}
+				\Public
+					\Constr{Lièvre}{}
+						\Let lièvreArrivé \Gets faux					
+					\EndConstr
+					\Empty
+					\Method{avancer}{}{}
+						\Let lièvreArrivé \Gets vrai
+					\EndMethod
+					\Empty
+					\Method{estArrivé}{}{booléen}
+						\Return lièvreArrivé
+					\EndMethod
+				\EndClass
+			\end{LDA}
+
+		\subsubsection*{Le dé}
+		%-------------------------
+		
+			Le dé est également un objet de notre jeu
+			et peut être défini via une classe.
+
+			\begin{LDA}
+				\Class{Dé}
+				\Private
+					\Decl{valeur}{entier}
+				\Public
+					\Constr{Dé}{}
+					\EndConstr
+					\Empty
+					\Method{lancer}{}{}
+						\Let valeur \Gets hasard(6)
+					\EndMethod
+					\Empty
+					\Method{getValeur}{}{entier}
+						\Return valeur
+					\EndMethod
+				\EndClass
+			\end{LDA}
+
+		\subsubsection*{L'algorithme du jeu}
+		%-----------------------------------
+		
+			L'algorithme du jeu peut être récrit
+			en utilisant les trois classes qu'on vient de définir.
+			
+			\begin{LDA}
+				\Algo{jeuLièvreTortue}{}{}
+					\Decl{tortue}{Tortue}
+					\Decl{lièvre}{Lièvre}
+					\Decl{dé}{Dé}
+
+					\Empty
+					\Let tortue \Gets \K{nouvelle} Tortue()
+					\Let lièvre \Gets \K{nouveau} Lièvre()
+					\Let dé \Gets \K{nouveau} Dé()
+					
+					\Empty
+					\While{NON tortue.estArrivée() et NON lièvre.estArrivé()}
+						\Stmt dé.lancer()
+						\If{dé.getValeur()=6}
+							lièvre.avancer()
+						\Else
+							tortue.avancer()
+						\EndIf
+					\EndWhile
+
+					\Empty
+					\If{lièvre.estArrivé()}
+						\Write "Le lièvre à gagné"
+					\Else
+						\Write "Le tortue à gagné"
+					\EndIf
+				\EndAlgo
+			\end{LDA}
+			
+			Est-ce que c'est une bonne idée d'avoir définit ces trois classes ?
+			C'est une question qu'il est légitime de se poser
+			quand les classes sont aussi simples.
+			Remarquons toutefois que le code est plus modulaire
+			et que la méthode principale est plus facile à lire.
+			
+			La classe \lda{Dé} se justifie d'autant plus 
+			qu'elle pourra probablement servir à de nombreuses occasions.
+			Ce sera encore plus le cas
+			si on la généralise à des dés qui n'ont pas forcément 6 faces.
+
+			\begin{LDA}
+				\Class{Dé}
+				\Private
+					\Decl{nbFaces}{entier}
+					\Decl{valeur}{entier}
+				\Public
+					\Constr{Dé}{\Par{nf}{entier}}
+						\Let nbFaces \Gets nf
+					\EndConstr
+					\Empty
+					\Method{lancer}{}{}
+						\Let valeur \Gets hasard(nbFaces)
+					\EndMethod
+					\Empty
+					\Method{getValeur}{}{entier}
+						\Return valeur
+					\EndMethod
+				\EndClass
+			\end{LDA}
+			
+			Dans l'algorithme principal,
+			le seul changement est la créaion du dé qui devient :
+			\begin{LDA}
+					\Let dé \Gets \K{nouveau} Dé(6)
+			\end{LDA}
+				
+		
+	%\paragraph{Les données.}
+	
+	%En résumé, nous avons pour l'instant :
+	
+	%\begin{LDA}
+	%\Class{LièvreTortue}
+	%\Public
+		%\Decl{avancéeTortue}{entier}
+		%\Decl{fini, tortueGagne}{booléens}
+	%\EndClass
+	%\end{LDA}
 	
 %=====================================
 \section{Quelques éléments de syntaxe}
