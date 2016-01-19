@@ -334,7 +334,51 @@
 				\Write durée2.différence(durée1)
 			\EndAlgo
 		\end{LDA}
+
+%=====================================
+\section{Quelques éléments de syntaxe}
+%=====================================
+
+	Clarifions certaines notations liées aux objets.
+
+	\begin{itemize}
+		\item
+			On peut directement afficher un objet. 
+			Cela affiche son état, c'est-à-dire les valeurs de ses attributs.
+
+			\begin{LDA}
+				\Decl{rendezVous}{Durée}
+				\Let rendezVous \Gets \K{nouvelle} Durée(14, 23, 56)
+				\Write rendezVous 
+				\RComment affichera 14, 23 et 56 dans un format lisible quelconque
+			\end{LDA}
+		\item
+			De même, on peut directement lire un objet,
+			ce qui a pour effet de créer un objet avec un état
+			correspondant aux valeurs lues pour ses attributs.
+
+			\begin{LDA}
+				\Decl {rendezVous}{Durée}
+				\Read rendezVous
+			\end{LDA}
+		\item 
+			Le signe «~=~» peut être utilisé pour comparer deux objets.
+			Ils seront considérés comme égaux s'ils sont dans le même état, 
+			c'est-à-dire que leurs attributs ont la même valeur.
+		\item
+			Lorsqu'on déclare un objet, il n'est pas encore créé.
+			On peut utiliser la valeur spéciale «~rien~»
+			pour indiquer ou tester qu'un objet n'est pas encore créé.
 			
+			\begin{LDA}
+				\Decl{parcours}{Durée}								\RComment parcours = rien
+				\Let parcours \Gets \K{nouvelle} Durée( 14, 23, 56 )	\RComment parcours ${\neq}$ rien
+				\If{parcours $\neq$ rien}
+					\Let parcours \Gets rien						\RComment parcours = rien
+				\EndIf
+			\end{LDA}
+	\end{itemize}
+		
 %==================================================
 \section{Mise en pratique : Le lièvre et la tortue}
 %==================================================
@@ -413,32 +457,6 @@
 			\item[Le dé]
 				Un entier de 1 à 6 suffit pour représenter le résultat d'un dé.
 				Appelons-le simplement \lda{dé}.
-			%\item[Jeu fini]
-				%On y pense moins facilement
-				%mais c'est utile de savoir que le jeu est fini et qui a gagné.
-				%Cela va permettre d'empêcher de continuer le jeu
-				%(lancer le dé\dots) lorsqu'il sera fini
-				%et d'afficher clairement le vainqueur.
-				%Est-il nécessaire d'avoir une donnée spécifique ?
-				%Ici, pas obligatoirement car on peut le déduire
-				%des autres données.
-				%Le jeu est fini si \lda{avancéeTortue} vaut 5 (la tortue a gagné)
-				%ou si \lda{lièvreArrivé} est à vrai (le lièvre a gagné).
-				
-				%Néanmoins, il est souvent plus facile de retenir ces informations
-				%dans des variables à part. 
-				%On pourrait alors imaginer d'utiliser deux booléens.
-				%\begin{itemize}
-				%\item 
-					%\lda{fini} : à vrai lorsque le jeu est fini
-				%\item 
-					%\lda{tortueGagne} : à vrai si la tortue a gagné et à faux sinon.
-					%La valeur de ce booléen ne serait pertinent que si la partie est finie.
-				%\end{itemize}
-				
-				%Remarquons, également que ces deux booléens 
-				%rendent le booléen \lda{lièvreArrivé} inutile
-				%car il peut être déduit des deux autres.
 			\item[Les joueurs]
 				Si on observe un jeu physique,
 				on peut s'attarder sur les personnes en train de jouer.
@@ -478,6 +496,7 @@
 						\Else
 							\Stmt La tortue avance
 						\EndIf
+						\Write l'état du jeu
 					\EndWhile
 					\Stmt Afficher le vainqueur
 				\EndAlgo
@@ -505,6 +524,9 @@
 				Il suffit de mettre le booléen \lda{lièvreArrivé} à vrai.
 			\item \textbf{La tortue avance} : 
 				C'est trivial.
+			\item \textbf{Afficher l'état du jeu} :
+				À savoir, sur quelle face est tombé le dé
+				et où se trouvent à présent le lièvre et la tortue.
 			\item \textbf{Afficher le vainqueur} :
 				Ce sera le lièvre si son booléen est à vrai et la tortue sinon
 				(dans ce cas, son avancée sera forçément de 5 puisque le jeu est fini).
@@ -527,6 +549,7 @@
 						\Else
 							\Let avancéeTortue \Gets avancéeTortue + 1
 						\EndIf
+						\Write dé, avancéeTortue, lièvreArrivé
 					\EndWhile
 
 					\Empty
@@ -544,68 +567,70 @@
 		Voyons à présent ce que ça pourrait donner si on introduit
 		de l'orienté objet.
 		Examinons d'abord les objets physiques du jeu.
-		
-		\subsubsection*{La tortue}
-		%-------------------------
-		
+		\begin{description}
+		\item[La tortue]
 			On peut envisager de définir une classe pour la tortue.
 			Une tortue a une avancée. 
 			Au départ, elle est au kilomètre 0.
 			Elle peut avancer d'un kilomètre à la fois.
 			Elle a fini et gagne lorsqu'elle arrive au kilomètre 5.
+		\item[Le lièvre]
+			On peut appliquer la même démarche pour le lièvre
+			qui aurai tun attribut booléen indiquant s'il est arrivé ou pas.
+		\item[Le dé]		
+			Le dé est également un objet de notre jeu
+			et peut être défini via une classe.
+		\end{description}
+
+		Au final, on a :
 			
-			Ce qui donne :
-			
+			\begin{footnotesize}
+			\begin{minipage}[t]{8cm}
+			\tiny
 			\begin{LDA}
 				\Class{Tortue}
 				\Private
-					\Decl{avancéeTortue}{entier}
+					\Decl{avancée}{entier}
 				\Public
 					\Constr{Tortue}{}
-						\Let avancéeTortue \Gets 0						
+						\Let avancée \Gets 0						
 					\EndConstr
 					\Empty
 					\Method{avancer}{}{}
-						\Let avancéeTortue \Gets avancéeTortue + 1						
+						\Let avancée \Gets avancée + 1						
 					\EndMethod
 					\Empty
 					\Method{estArrivée}{}{booléen}
-						\Return avancéeTortue = 5
+						\Return avancée = 5
 					\EndMethod
+					\Empty
+					\LComment{+ accesseur mais pas de mutateur}
 				\EndClass
 			\end{LDA}
-
-		\subsubsection*{Le lièvre}
-		%-------------------------
-		
-			On peut appliquer la même démarche pour le lièvre 
-			et obtenir :
-
+			\end{minipage}
+			~ 
+			\begin{minipage}[t]{8cm}
 			\begin{LDA}
 				\Class{Lièvre}
 				\Private
-					\Decl{lièvreArrivé}{booléen}
+					\Decl{arrivé}{booléen}
 				\Public
 					\Constr{Lièvre}{}
-						\Let lièvreArrivé \Gets faux					
+						\Let arrivé \Gets faux					
 					\EndConstr
 					\Empty
 					\Method{avancer}{}{}
-						\Let lièvreArrivé \Gets vrai
+						\Let arrivé \Gets vrai
 					\EndMethod
 					\Empty
 					\Method{estArrivé}{}{booléen}
-						\Return lièvreArrivé
+						\Return arrivé
 					\EndMethod
 				\EndClass
 			\end{LDA}
-
-		\subsubsection*{Le dé}
-		%-------------------------
-		
-			Le dé est également un objet de notre jeu
-			et peut être défini via une classe.
-
+			\end{minipage}
+			\end{footnotesize}
+			
 			\begin{LDA}
 				\Class{Dé}
 				\Private
@@ -624,6 +649,11 @@
 				\EndClass
 			\end{LDA}
 
+			Remarquez qu'on n'introduit pas de mutateur
+			car on veut que la tortue n'avance qu'en respectant les
+			règles du jeu.
+
+
 		\subsubsection*{L'algorithme du jeu}
 		%-----------------------------------
 		
@@ -639,16 +669,17 @@
 					\Empty
 					\Let tortue \Gets \K{nouvelle} Tortue()
 					\Let lièvre \Gets \K{nouveau} Lièvre()
-					\Let dé \Gets \K{nouveau} Dé()
+					\Let dé \Gets \K{nouveau} Dé(6)
 					
 					\Empty
-					\While{NON tortue.estArrivée() et NON lièvre.estArrivé()}
+					\While{NON tortue.estArrivée() ET NON lièvre.estArrivé()}
 						\Stmt dé.lancer()
 						\If{dé.getValeur()=6}
-							lièvre.avancer()
+							\Stmt lièvre.avancer()
 						\Else
-							tortue.avancer()
+							\Stmt tortue.avancer()
 						\EndIf
+						\Write dé.getValeur(), tortue.getAvancée(), lièvre.estArrivé()
 					\EndWhile
 
 					\Empty
@@ -692,64 +723,201 @@
 			\end{LDA}
 			
 			Dans l'algorithme principal,
-			le seul changement est la créaion du dé qui devient :
+			le seul changement est la création du dé qui devient :
 			\begin{LDA}
 					\Let dé \Gets \K{nouveau} Dé(6)
 			\end{LDA}
 				
+	\subsection{Solution MVC (\og{}Modèle-Vue-Contrôleur\fg{})}
+	%=======================================
 		
-	%\paragraph{Les données.}
-	
-	%En résumé, nous avons pour l'instant :
-	
-	%\begin{LDA}
-	%\Class{LièvreTortue}
-	%\Public
-		%\Decl{avancéeTortue}{entier}
-		%\Decl{fini, tortueGagne}{booléens}
-	%\EndClass
-	%\end{LDA}
-	
-%=====================================
-\section{Quelques éléments de syntaxe}
-%=====================================
+		Dans la version OO qu'on vient de voir,
+		on a introduit trois classes 
+		mais il reste tout un morceau, l'algorithme principal, qui n'est pas OO.
+		Peut-on aller plus loin dans l'OO ?
+		Bien sûr ! 
+		Mais il y a de bonnes et de mauvaises façons de le faire.
+		
+		La mauvaise approche 
+		est de simplement mettre l'algorithme principal dans une classe.
+		Ce qui donnerait :
 
-	Clarifions certaines notations liées aux objets.
+		\begin{LDA}
+			\Class{LièvreTortue}
+				\Constr{LièvreTortue}{}
+				\EndConstr
+				\Empty
+				\Method{jouer}{}{}
+					\LComment Idem algorithme jeuLièvreTortue() ci-dessus  
+				\EndMethod
+			\EndClass
+		\end{LDA}
+		
+		Ce qui réduirait l'algorithme principal à :
+		\begin{LDA}
+			\Algo{jeuLièvreTortue}{}{}
+				\Decl{jeu}{LièvreTortue}
+				\Let jeu \Gets \K{nouveau} LièvreTortue()
+				\Stmt jeu.jouer()
+			\EndAlgo
+		\end{LDA}
 
-	\begin{itemize}
+		Cette approche est correcte mais n'exploite en rien 
+		les avantages de l'OO.
+		Une meilleure idée est de suivre l'approche MVC
+		que nous allons vous expliquer.
+		
+		Dans l'approche MVC,
+		on découpe le code en différentes parties.
+		La partie \og{}modèle\fg{} regroupe les bouts de code
+		qui font vraiment quelquechose (on parle de \og{}métier\fg{})
+		tandis que la partie \og{}vue\fg{} regroupe les bouts de code
+		qui interagissent avec l'utilisateur (demandes et affichages).
+		La partie \og{}contrôleur\fg{}, quant à elle,
+		conserve le code qui fait le lien entre le modèle et la vue.
+		
+		Si on respecte cette approche, 
+		le métier ne contient pas d'interaction avec l'utilisateur
+		et la vue ne s'occupe que de l'interaction avec l'utilisateur.
+		Il y a là de nombreux avantages :
+		\begin{itemize}
 		\item
-			On peut directement afficher un objet. 
-			Cela affiche son état, c'est-à-dire les valeurs de ses attributs.
-
-			\begin{LDA}
-				\Decl{rendezVous}{Durée}
-				\Let rendezVous \Gets \K{nouvelle} Durée(14, 23, 56)
-				\Write rendezVous 
-				\RComment affichera 14, 23 et 56 dans un format lisible quelconque
-			\end{LDA}
+			Les compétences pour écrire le modèle
+			(connaissance du métier, accès à des bases de données\dots)
+			et le dialogue avec les utilisateurs 
+			(ergonomie, graphisme\dots)
+			ne sont pas les mêmes.
+			On peut donc confier ces parties à des équipes spécialisées.
 		\item
-			De même, on peut directement lire un objet,
-			ce qui a pour effet de créer un objet avec un état
-			correspondant aux valeurs lues pour ses attributs.
-
-			\begin{LDA}
-				\Decl {rendezVous}{Durée}
-				\Read rendezVous
-			\end{LDA}
-		\item 
-			Le signe «~=~» peut être utilisé pour comparer deux objets.
-			Ils seront considérés comme égaux s'ils sont dans le même état, 
-			c'est-à-dire que leurs attributs ont la même valeur.
+			On pourra facilement changer le dialogue avec l'utilisateur.
+			Ainsi, si on possède une version console du jeu,
+			il suffira, pour en faire une version graphique ou web,
+			de recommencer la vue sans toucher au modèle.
+		\end{itemize}
+	
+		\paragraph{Le modèle.}
+		%---------------------
+		Dans notre exemple, le modèle contiendrait les algorithmes suivants :
+		\begin{itemize}
 		\item
-			Lorsqu'on déclare un objet, il n'est pas encore créé.
-			On peut utiliser la valeur spéciale «~rien~»
-			pour indiquer ou tester qu'un objet n'est pas encore créé.
+			Initialiser le jeu : 
+			placer la tortue et le lièvre à leur position de départ.
+		\item
+			Jouer un coup : 
+			lancer le dé et déplacer le lièvre ou la tortue.
+		\item
+			Tester si le jeu est fini ou pas.
+		\item
+			Trouver le vainqueur.
+		\end{itemize}
+
+		Chacun de ces algorithmes est implémenté par une méthode
+		(sauf l'initialisation qui est du ressort du constructeur).
+		Au niveau des attribtuts, 
+		on retrouve les éléments du jeu : le lièvre, la tortue et le dé.
+		\footnote{%
+			Une autre façon de voir les choses
+			est de dire qu'on trouve en attributs
+			les variables locales de la version non OO
+			qui sont partagées par les différentes méthodes.
+			Ici, il s'agit de toutes les variables locales
+			mais ce n'est pas toujours le cas.
+		}
+		
+		Ce qui donne :
+		\begin{LDA}
+			\Class{LièvreTortue}
+				\Private
+					\Decl{tortue}{Tortue}
+					\Decl{lièvre}{Lièvre}
+					\Decl{dé}{Dé}
+				\Public
+					\Constr{LièvreTortue}{}
+						\Let tortue \Gets \K{nouvelle} Tortue()
+						\Let lièvre \Gets \K{nouveau} Lièvre()
+						\Let dé \Gets \K{nouveau} Dé(6)						
+					\EndConstr				
+					
+					\Empty
+					\Method{estFini}{}{booléen}
+						\Return tortue.estArrivée() OU lièvre.estArrivé()
+					\EndMethod
+
+					\Empty
+					\Method{jouerCoup}{}{}
+						\Stmt dé.lancer()
+						\If{dé.getValeur()=6}
+							\Stmt lièvre.avancer()
+						\Else
+							\Stmt tortue.avancer()
+						\EndIf
+					\EndMethod
+	
+					\Empty
+					\Method{getVainqueur}{}{chaine}
+						\If{lièvre.estArrivé()}
+							\Return "Lièvre"
+						\Else
+							\Return "Tortue"
+						\EndIf
+					\EndMethod
+					
+					\Empty
+					\LComment
+						+ les accesseurs des attributs mais pas les mutateurs
+			\EndClass
+		\end{LDA}
 			
-			\begin{LDA}
-				\Decl{parcours}{Durée}								\RComment parcours = rien
-				\Let parcours \Gets \K{nouvelle} Durée( 14, 23, 56 )	\RComment parcours ${\neq}$ rien
-				\If{parcours $\neq$ rien}
-					\Let parcours \Gets rien						\RComment parcours = rien
-				\EndIf
-			\end{LDA}
-	\end{itemize}
+		\paragraph{La vue.}
+		%---------------------
+		Avec notre exemple, plutôt simple, il n'y a pas de lecture
+		mais il reste des affichages :
+		\begin{itemize}
+		\item
+			Afficher l'état du jeu après un coup : 
+			valeur du dé et nouvelles positions du lièvre et de la tortue.
+		\item
+			Afficher le vainqueur.
+		\end{itemize}
+		
+		Cet exemple est probablement trop simple pour nécessiter une classe%
+		\footnote{
+			Une erreur classique est de placer ces algorithmes
+			dans les classes associées du modèle
+			mais cela contrevient à la règle : 
+			pas d'interaction utilisateur dans le modèle.
+		}.
+		On pourrait se contenter de deux algorithmes classiques.
+		
+		\begin{LDA}
+			\Algo{afficherJeu}{\Par{jeu}{LièvreTortue}}{}
+				\Write jeu.getDé().getValeur()
+				\Write jeu.getTortue().getAvancée()
+				\Write jeu.getLièvre().estArrivé()
+			\EndAlgo
+			
+			\Empty
+			\Algo{afficherVainqueur}{\Par{jeu}{LièvreTortue}}{}
+				\Write "Le gagnant est : ", jeu.getVainqueur()
+			\EndAlgo
+		\end{LDA}
+		
+		\paragraph{Le contrôleur.}
+		%-------------------------
+		
+		Le contrôleur est ce qui n'a pas été placé dans la vue ou le modèle,
+		c'est-à-dire le code qui crée la dynamique entre tous ces éléments.
+
+		\begin{LDA}
+			\Algo{jeuLièvreTortue}{}{}
+				\Decl{jeu}{LièvreTortue}
+				\Stmt jeu \Gets \K{nouveau} LièvreTortue()
+				\While{NON jeu.estFini()}
+					\Stmt jeu.jouerCoup()
+					\Stmt afficherJeu(jeu)
+				\EndWhile
+				\Stmt afficherVainqueur(jeu)
+			\EndAlgo
+		\end{LDA}
+		
+		Remarquez la concision et la lisibilité de ce qu'on vient d'écrire.
