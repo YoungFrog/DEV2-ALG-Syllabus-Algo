@@ -343,6 +343,12 @@
 
 	\begin{itemize}
 		\item
+			Pour un attribut \lda{brol},
+			on choisira de nommer l'accesseur \lda{getBrol}
+			et le mutateur \lda{setBrol}.
+			Dans le cas particulier d'un attribut booléen,
+			on pourra appeler l'accesseur \lda{isBrol} ou encore \lda{estBrol}.
+		\item
 			On peut directement afficher un objet. 
 			Cela affiche son état, c'est-à-dire les valeurs de ses attributs.
 
@@ -377,10 +383,16 @@
 					\Let parcours \Gets rien						\RComment parcours = rien
 				\EndIf
 			\end{LDA}
+		\item
+			Si une classe ne propose pas de constructeur,
+			on peut néanmoins instancier un objet 
+			(via \lda{\K{nouveau} NomClasse()}).
+			On considère dans ce cas que les attributs ne sont pas initialisés.
 	\end{itemize}
-		
+
+\clearpage	
 %==================================================
-\section{Mise en pratique : Le lièvre et la tortue}
+\section{Mise en pratique : le lièvre et la tortue}
 %==================================================
 
 	Partons d'un petit jeu, \og{}Le lièvre et la tortue\fg{}%
@@ -422,7 +434,7 @@
 			Une représentation du jeu doit-être complète.
 			C'est-à-dire qu'à partir de cette représentation,
 			on doit pouvoir indiquer exactement où on en est dans le jeu
-			et le poursuivre.
+			et pouvoir le poursuivre.
 			
 			Pour le dire autrement, 
 			imaginons qu'on joue à ce jeu \og{}en vrai\fg{}, sur une table de jeu.
@@ -441,18 +453,21 @@
 				et lorsque sort un 6, il atteint directement l'arrivée.
 				Plusieurs possibilités s'offrent à nous :
 			
-				1) On pourrait imaginer un entier valant 0 ou 5,
-				appelé \lda{avancéeLièvre}.
-
-				2) On pourrait aussi imaginer un booléen à vrai 
-				lorsqu'il est au départ et faux lorsqu'il est à l'arrivée.
-				On pourrait l'appeler \lda{lièvreAuDépart}
-
-				3) Ou encore un booléen ayant exactement le sens inverse.
-				Le nom devra être choisi judicieusement pour ne pas induire
-				le lecteur en erreur.
-				Par exemple, ici, on pourrait choisir \lda{lièvreArrivé}
-
+				\begin{enumerate}
+				\item
+					On pourrait imaginer un entier valant 0 ou 5,
+					appelé \lda{avancéeLièvre}.
+				\item
+					On pourrait aussi imaginer un booléen à vrai 
+					lorsqu'il est au départ et faux lorsqu'il est à l'arrivée.
+					On pourrait l'appeler \lda{lièvreAuDépart}.
+				\item
+					Ou encore un booléen ayant exactement le sens inverse.
+					Le nom devra être choisi judicieusement pour ne pas induire
+					le lecteur en erreur.
+					Par exemple, ici, on pourrait choisir \lda{lièvreArrivé}.
+				\end{enumerate}
+				
 				Ici, le troisième choix nous semble le plus pertinent.
 			\item[Le dé]
 				Un entier de 1 à 6 suffit pour représenter le résultat d'un dé.
@@ -462,7 +477,7 @@
 				on peut s'attarder sur les personnes en train de jouer.
 				Faut-il les représenter ?
 				On pourrait imaginer de connaitre leur nom,
-				le nombre de fois qu'elles ont jouer à ce jeu,
+				le nombre de fois qu'elles ont joué à ce jeu,
 				leur nombre de victoires.
 				Dans l'énoncé, 
 				rien n'indique qu'il faille tenir compte de tout cela. 
@@ -479,15 +494,12 @@
 		\subsubsection*{Un macro algorithme}
 		%----------------------------------	
 				
-			Nous pouvons à présent envisager d'écrire une solution
-			non détaillée du jeu.
-			Cela donnerait :
+			Avant de se lancer dans l'écriture d'une solution détaillée du jeu,
+			commençons par une solution non détaillée
+			et voyons si tout semble clair et faisable.
 			
 			\begin{LDA}
 				\Algo{jeuLièvreTortue}{}{}
-					\Decl{avancéeTortue}{entier}
-					\Decl{lièvreArrivé}{booléen}
-					\Decl{dé}{entier}
 					\Stmt Initialiser le jeu
 					\While{le jeu n'est pas fini}
 						\Stmt{Lancer le dé}
@@ -498,38 +510,39 @@
 						\EndIf
 						\Write l'état du jeu
 					\EndWhile
-					\Stmt Afficher le vainqueur
+					\Write le vainqueur
 				\EndAlgo
 			\end{LDA}
 			
 		\subsubsection*{Détailler l'algorithme}
 		%----------------------------------	
 	
-			Nous devons à présent repasser sur l'algorithme
-			et vérifier que nous pouvons détailler 
+			Repassons à présent sur l'algorithme
+			et vérifions que nous pouvons détailler 
 			chacun des points restés généraux.
 			\begin{itemize}
-			\item \textbf{Initialiser le jeu} :
+			\item \textbf{Initialiser le jeu.}
 				Il suffit de placer la tortue en 0
 				et d'indiquer que le lièvre n'est pas encore arrivé.
 				La valeur initiale du dé n'a pas d'importance.
-			\item \textbf{le jeu n'est pas fini} :
+			\item \textbf{le jeu n'est pas fini.}
 				Le jeu sera fini lorsque le lièvre sera arrivé
 				(ce qu'on peut tester grâce au boolén \lda{lièvreArrivé})
 				ou que la tortue sera au km 5.
-			\item \textbf{lancer le dé} :
+			\item \textbf{lancer le dé.}
 				C'est trivial si on utilise l'algorithme \lda{hasard()}
 				à notre disposition.
-			\item \textbf{la lièvre est arrivé} :
+			\item \textbf{la lièvre est arrivé.}
 				Il suffit de mettre le booléen \lda{lièvreArrivé} à vrai.
-			\item \textbf{La tortue avance} : 
+			\item \textbf{La tortue avance.}
 				C'est trivial.
-			\item \textbf{Afficher l'état du jeu} :
+			\item \textbf{Afficher l'état du jeu.}
 				À savoir, sur quelle face est tombé le dé
 				et où se trouvent à présent le lièvre et la tortue.
-			\item \textbf{Afficher le vainqueur} :
+			\item \textbf{Afficher le vainqueur.}
 				Ce sera le lièvre si son booléen est à vrai et la tortue sinon
-				(dans ce cas, son avancée sera forçément de 5 puisque le jeu est fini).
+				(dans ce cas, son avancée sera forcément de 5 
+				puisque le jeu est fini).
 			\end{itemize}
 			
 			Au final, on obtient :
@@ -574,19 +587,7 @@
 			Au départ, elle est au kilomètre 0.
 			Elle peut avancer d'un kilomètre à la fois.
 			Elle a fini et gagne lorsqu'elle arrive au kilomètre 5.
-		\item[Le lièvre]
-			On peut appliquer la même démarche pour le lièvre
-			qui aurai tun attribut booléen indiquant s'il est arrivé ou pas.
-		\item[Le dé]		
-			Le dé est également un objet de notre jeu
-			et peut être défini via une classe.
-		\end{description}
 
-		Au final, on a :
-			
-			\begin{footnotesize}
-			\begin{minipage}[t]{8cm}
-			\tiny
 			\begin{LDA}
 				\Class{Tortue}
 				\Private
@@ -604,12 +605,27 @@
 						\Return avancée = 5
 					\EndMethod
 					\Empty
-					\LComment{+ accesseur mais pas de mutateur}
+					\Method{getAvancée}{}{entier}
+						\Return avancée
+					\EndMethod
 				\EndClass
 			\end{LDA}
-			\end{minipage}
-			~ 
-			\begin{minipage}[t]{8cm}
+
+			Remarquez qu'on n'introduit pas de mutateur
+			car on veut que la tortue n'avance qu'en respectant les
+			règles du jeu.
+
+\clearpage
+
+		\item[Le lièvre]
+			On peut appliquer la même démarche pour le lièvre
+			qui aurait un attribut booléen indiquant s'il est arrivé ou pas.
+
+		\item[Le dé]		
+			Le dé est également un objet de notre jeu
+			et peut être défini via une classe.
+
+			\begin{minipage}{6cm}
 			\begin{LDA}
 				\Class{Lièvre}
 				\Private
@@ -629,8 +645,8 @@
 				\EndClass
 			\end{LDA}
 			\end{minipage}
-			\end{footnotesize}
-			
+			~
+			\begin{minipage}{6cm}
 			\begin{LDA}
 				\Class{Dé}
 				\Private
@@ -648,11 +664,9 @@
 					\EndMethod
 				\EndClass
 			\end{LDA}
+			\end{minipage}
 
-			Remarquez qu'on n'introduit pas de mutateur
-			car on veut que la tortue n'avance qu'en respectant les
-			règles du jeu.
-
+		\end{description}
 
 		\subsubsection*{L'algorithme du jeu}
 		%-----------------------------------
@@ -669,7 +683,7 @@
 					\Empty
 					\Let tortue \Gets \K{nouvelle} Tortue()
 					\Let lièvre \Gets \K{nouveau} Lièvre()
-					\Let dé \Gets \K{nouveau} Dé(6)
+					\Let dé \Gets \K{nouveau} Dé()
 					
 					\Empty
 					\While{NON tortue.estArrivée() ET NON lièvre.estArrivé()}
@@ -691,7 +705,7 @@
 				\EndAlgo
 			\end{LDA}
 			
-			Est-ce que c'est une bonne idée d'avoir définit ces trois classes ?
+			Est-ce une bonne idée d'avoir définit ces trois classes ?
 			C'est une question qu'il est légitime de se poser
 			quand les classes sont aussi simples.
 			Remarquons toutefois que le code est plus modulaire
@@ -748,7 +762,7 @@
 				\EndConstr
 				\Empty
 				\Method{jouer}{}{}
-					\LComment Idem algorithme jeuLièvreTortue() ci-dessus  
+					\LComment Idem algorithme jeuLièvreTortue() ci-avant  
 				\EndMethod
 			\EndClass
 		\end{LDA}
@@ -759,6 +773,12 @@
 				\Decl{jeu}{LièvreTortue}
 				\Let jeu \Gets \K{nouveau} LièvreTortue()
 				\Stmt jeu.jouer()
+			\EndAlgo
+		\end{LDA}
+		ou même, en se passant de la variable locale :
+		\begin{LDA}
+			\Algo{jeuLièvreTortue}{}{}
+				\Stmt (\K{nouveau} LièvreTortue()).jouer()
 			\EndAlgo
 		\end{LDA}
 
@@ -777,8 +797,8 @@
 		conserve le code qui fait le lien entre le modèle et la vue.
 		
 		Si on respecte cette approche, 
-		le métier ne contient pas d'interaction avec l'utilisateur
-		et la vue ne s'occupe que de l'interaction avec l'utilisateur.
+		le métier ne contient \textbf{aucune} interaction avec l'utilisateur
+		et la vue ne s'occupe \textbf{que} de l'interaction avec l'utilisateur.
 		Il y a là de nombreux avantages :
 		\begin{itemize}
 		\item
@@ -791,8 +811,11 @@
 		\item
 			On pourra facilement changer le dialogue avec l'utilisateur.
 			Ainsi, si on possède une version console du jeu,
-			il suffira, pour en faire une version graphique ou web,
-			de recommencer la vue sans toucher au modèle.
+			il suffira, pour en faire une autre version 
+			(console, graphique, web\dots)
+			de recommencer la vue 
+			(et probablement d'adapter le contrôleur)
+			sans toucher au modèle.
 		\end{itemize}
 	
 		\paragraph{Le modèle.}
@@ -822,6 +845,10 @@
 			qui sont partagées par les différentes méthodes.
 			Ici, il s'agit de toutes les variables locales
 			mais ce n'est pas toujours le cas.
+			Le dé, par exemple, n'est un attribut que parce que
+			la vue voudra le connaitre pour le montrer à l'utilisateur.
+			Sans cela, il pourrait être une variable locale
+			de la méthode \lda{jouerCoup()}.
 		}
 		
 		Ce qui donne :
@@ -832,40 +859,46 @@
 					\Decl{lièvre}{Lièvre}
 					\Decl{dé}{Dé}
 				\Public
-					\Constr{LièvreTortue}{}
-						\Let tortue \Gets \K{nouvelle} Tortue()
-						\Let lièvre \Gets \K{nouveau} Lièvre()
-						\Let dé \Gets \K{nouveau} Dé(6)						
-					\EndConstr				
-					
-					\Empty
-					\Method{estFini}{}{booléen}
-						\Return tortue.estArrivée() OU lièvre.estArrivé()
-					\EndMethod
-
-					\Empty
-					\Method{jouerCoup}{}{}
-						\Stmt dé.lancer()
-						\If{dé.getValeur()=6}
-							\Stmt lièvre.avancer()
-						\Else
-							\Stmt tortue.avancer()
-						\EndIf
-					\EndMethod
-	
-					\Empty
-					\Method{getVainqueur}{}{chaine}
-						\If{lièvre.estArrivé()}
-							\Return "Lièvre"
-						\Else
-							\Return "Tortue"
-						\EndIf
-					\EndMethod
-					
-					\Empty
+					\ConstrSign{LièvreTortue}{}
+					\MethodSign{estFini}{}{booléen}
+					\MethodSign{jouerCoup}{}{}
+					\MethodSign{getVainqueur}{}{chaine}
 					\LComment
-						+ les accesseurs des attributs mais pas les mutateurs
+						+ les accesseurs (getLièvre, getTortue et getDé)
+						des attributs mais pas les mutateurs
 			\EndClass
+		\end{LDA}
+		
+		\begin{LDA}
+			\Constr{LièvreTortue}{}
+				\Let tortue \Gets \K{nouvelle} Tortue()
+				\Let lièvre \Gets \K{nouveau} Lièvre()
+				\Let dé \Gets \K{nouveau} Dé(6)						
+			\EndConstr				
+			\Empty
+			\Method{estFini}{}{booléen}
+				\Return tortue.estArrivée() OU lièvre.estArrivé()
+			\EndMethod
+		\end{LDA}
+		
+		\begin{LDA}
+			\Method{jouerCoup}{}{}
+				\Stmt dé.lancer()
+				\If{dé.getValeur()=6}
+					\Stmt lièvre.avancer()
+				\Else
+					\Stmt tortue.avancer()
+				\EndIf
+			\EndMethod
+
+			\Empty
+			\Method{getVainqueur}{}{chaine}
+				\If{lièvre.estArrivé()}
+					\Return "Lièvre"
+				\Else
+					\Return "Tortue"
+				\EndIf
+			\EndMethod
 		\end{LDA}
 			
 		\paragraph{La vue.}
@@ -884,13 +917,13 @@
 		\footnote{
 			Une erreur classique est de placer ces algorithmes
 			dans les classes associées du modèle
-			mais cela contrevient à la règle : 
-			pas d'interaction utilisateur dans le modèle.
+			car cela contrevient à la règle : 
+			aucune interaction utilisateur dans le modèle.
 		}.
 		On pourrait se contenter de deux algorithmes classiques.
 		
 		\begin{LDA}
-			\Algo{afficherJeu}{\Par{jeu}{LièvreTortue}}{}
+			\Algo{afficherÉtat}{\Par{jeu}{LièvreTortue}}{}
 				\Write jeu.getDé().getValeur()
 				\Write jeu.getTortue().getAvancée()
 				\Write jeu.getLièvre().estArrivé()
@@ -914,7 +947,7 @@
 				\Stmt jeu \Gets \K{nouveau} LièvreTortue()
 				\While{NON jeu.estFini()}
 					\Stmt jeu.jouerCoup()
-					\Stmt afficherJeu(jeu)
+					\Stmt afficherÉtat(jeu)
 				\EndWhile
 				\Stmt afficherVainqueur(jeu)
 			\EndAlgo
