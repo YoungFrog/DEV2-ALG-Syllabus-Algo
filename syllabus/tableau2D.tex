@@ -11,7 +11,7 @@
 	pour faire référence à un de ses éléments. Attention de ne pas confondre 
 	avec la	taille !
 	
-	En DEV$_1$, nous avons introduit les tableaux à une dimension.
+	En DEV1, nous avons introduit les tableaux à une dimension.
 	Un seul indice suffisait à localiser un de ses éléments. 
 	Pour le dire autrement,
 	chaque case possédait \textbf{un} numéro.
@@ -55,7 +55,7 @@
 		\marginicon{definition}
 		Pour \textbf{accéder} à une case du tableau on donnera les deux indices
 		entre crochets.
-		Comme en DEV$_1$, on va considérer que la première ligne 
+		Comme en DEV1, on va considérer que la première ligne 
 		et la première colonne portent le numéro (l'indice) $0$.  
 		
 		\textbf{Exemple} :
@@ -285,7 +285,7 @@
 			\Write "Introduisez le numéro du produit~:"
 			\Read numéroProduit
 			\Empty
-			\While{numéroProduit $\geq$ 0}
+			\While{numéroProduit $\geq$ 0 et numéroProduit $<$ 10}
 				\Empty
 				\Write "Introduisez la quantité vendue~:"
 				\Read quantité
@@ -431,7 +431,7 @@
 		\end{center}
 		
 		\begin{LDA}
-			\LComment{Parcours de la diagonale montante d'un tableau carré - 2 indices}
+			\LComment{Parcours de la diagonale montante d'un tableau carré - version 2 indices}
 			\Algo{affichageElémentsDiagonaleMontante}{\Par{tab}{\Array{n $\times$ n}{T}}}{}
 				\Decl {j}{entier}
 				\Let j \Gets n-1
@@ -443,7 +443,7 @@
 		\end{LDA}
 		
 		\begin{LDA}
-			\LComment{Parcours de la diagonale montante d'un tableau carré - 1 indice}
+			\LComment{Parcours de la diagonale montante d'un tableau carré - version 1 indice}
 			\Algo{affichageElémentsDiagonaleMontante}{\Par{tab}{\Array{n $\times$ n}{T}}}{}
 				\For{i}{0}{n-1}
 					\Write tab[i, n - 1 - i]  \RComment On peut faire autre chose qu'afficher
