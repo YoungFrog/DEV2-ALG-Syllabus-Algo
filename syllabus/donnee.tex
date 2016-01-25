@@ -138,232 +138,227 @@
 \section{Exercices}
 %==================
 
+%---------------------------------------------------
+\begin{Exercice}{La course à la case 64 à 4 joueurs}
+%---------------------------------------------------
+	Commençons par un petit jeu très simple de course avec un dé, dont voici les règles.
+	
+	\begin{quote}
+	\og Ce jeu se joue à $n$ joueurs qui doivent parcourir un chemin de 64 cases.
+	Ils commencent tous sur la case 1 et jouent à tour de rôle
+	(en commençant par le premier joueur).
+	À son tour, le joueur lance un dé à 6 faces 
+	et avance du nombre de cases indiqué par le dé.
+	Le premier joueur à atteindre ou dépasser la case 64 a gagné.
+	Seule contrainte, un joueur ne peut pas terminer son tour
+	sur une case occupée. 
+	Si c'est le cas, il avance jusqu'à la case libre suivante.\fg
+	\end{quote}
+	
+	Voici 3 propositions de représentation de données. 
+	On vous demande pour chaque proposition de vérifier, 
+	sans écrire l'algorithme, si elle permet la programmation du jeu. 
+	On vous conseille vivement de \og{}dessiner\fg{}%
+	\footnote{
+		Par là, on veut dire : imaginer une situation de jeu
+		(positions des joueurs sur le chemin par exemple)
+		et voir quelles valeurs doivent avoir les variables
+		introduites dans la représentation pour correspondre
+		à cette situation de jeu. 
+	} les propositions
+	pour mieux les comprendre.
+	
+	\begin{enumerate}
+	\item 
+		Un tableau de 64 entiers.
+		La case $k$ contient $i$ si le joueur $i$ s'y trouve 
+		ou $0$ si la case est libre.
+		Mais aussi un entier \lda{joueurCourant} donnant
+		le numéro du joueur courant.
+	\item
+		Un tableau de 1 à n entiers. 
+		La case i contient la position du joueur i.
+		Mais aussi un entier \lda{joueurCourant} donnant
+		le numéro du joueur courant.
+	\item
+		On combine les deux premières propositions
+		(on a donc deux tableaux).
+	\end{enumerate}
+
+	Après ces vérifications vous choisirez une des représentations 
+	pour écrire la solution du jeu sous forme d'une classe \lda{Course64}.
+	Pensez à découper votre solution.
+	
+\end{Exercice}
+
+%---------------------------------------------------
+\begin{Exercice}{La course à la case 64 à n joueurs}
+%---------------------------------------------------
+
+	Modifiez l'exercice précédent 
+	afin que le jeu puisse se jouer à $n$ joueurs,
+	où $n$ est un entier supérieur ou égal à 2, choisi au début du jeu.
+
+\end{Exercice}
+	
+%-------------------------------------------------
+\begin{Exercice}{La course à la case 64 à n joueurs - variantes}
+%-------------------------------------------------
+
+	Reprenons la course à la case 64 de l'exercice précédent.
+	Voici quelques propositions de modification des règles.
+	Pour chaque proposition, indiquez si la représentation
+	choisie dans l'exercice précédent est toujours valable et pertinente.
+	\begin{enumerate}
+	\item 
+		Si un joueur arrive sur une case occupée, 
+		le joueur qui s'y trouvait retourne à la première case.
+	\item
+		Si un joueur termine sa course sur une case qui est un multiple de 5,
+		il rejoue directement.
+	\item
+		Un joueur rejoue directement s'il termine sa course
+		sur les cases 1, 2, 7, 11, 17, 31, 42 ou 53.
+	\end{enumerate}
+	
+\end{Exercice}
+
+%------------------------------------
 \begin{Exercice}{Un jeu de poursuite}
-	Deux joueurs A et B se poursuivent sur un
-	circuit de 50 cases. Chaque case contient une valeur vrai ou faux
-	indiquant si le joueur pourra rejouer.
+%------------------------------------
+
+	Deux joueurs A et B se poursuivent sur un circuit de 50 cases. 
 	Au départ, A se trouve sur la case 1 et B est placé sur la case 26.
-	C’est A qui commence. Chaque joueur joue à son tour en lançant un dé
-	dont la valeur donne le nombre de cases duquel il doit avancer sur le
-	jeu. Si la case sur laquelle tombe le joueur contient la valeur
-	\lda{vrai} il avance encore
-	une fois du même nombre de cases (et de même s’il tombe encore sur
-	\lda{vrai}). Lorsqu’un joueur
-	arrive sur la case 50 et qu’il doit encore avancer, il continue son
-	parcours à partir de la case 1. Le jeu se termine lorsqu’un joueur
-	rattrape ou dépasse l’autre.
+	C’est A qui commence. 
+	Chaque joueur joue à son tour en lançant un dé dont la valeur 
+	donne le nombre de cases duquel il doit avancer sur le jeu. 
+	Lorsqu’un joueur arrive sur la case 50 et qu’il doit encore avancer, 
+	il continue son parcours à partir de la case 1. 
+	Le jeu se termine lorsqu’un joueur rattrape ou dépasse l’autre.
 
 	Écrire un algorithme de simulation de ce jeu
 	qui se terminera par l’affichage du vainqueur ainsi que le nombre de
 	tours complets parcourus par ce vainqueur. 
-	Le lancement du dé sera simulé par l’appel de l'algorithme sans argument
-	\lda{lancerDé( )} qui retourne
-	une valeur aléatoire entre 1 et 6.
 
-	\textbf{Aide} :	Définir la classe
-	\lda{JeuPoursuite}
-	
-	Elle permet de représenter
+	La solution se trouvera dans une classe \lda{JeuPoursuite}
+	qui contiendra les méthodes suivantes :
 	\begin{itemize}
 		\item 
-			le circuit des 50 cases
-		\item 
-			la position des 2 joueurs
-		\item 
-			le nombre de tours effectués par chacun des joueurs
-		\item 
-			qui est le joueur courant
-	\end{itemize}
-	Plusieurs possibilités existent ; faites votre choix !
-	\begin{itemize}
-		\item 
-			Le constructeur reçoit la configuration du circuit (pour savoir si les
-			cases contiennent \lda{vrai} ou
-			\lda{faux})
+			Le constructeur reçoit la configuration du circuit 
+			(pour savoir si les cases contiennent \lda{vrai} ou \lda{faux})
 		\item 
 			La méthode \lda{initialiser()} initialise le jeu
-			(placement des joueurs, ...).
+			(placement des joueurs\dots).
 		\item 
 			La méthode \lda{jouer()} lance le jeu jusqu’à son terme et
 			donne le vainqueur et le nombre de tours effectués.
 		\item 
 			Vous êtes également fortement invités à définir d’autres méthodes en
-			privé pour modulariser au mieux votre code. Par exemple, on pourrait
-			définir
+			privé pour modulariser au mieux votre code. 
+			Par exemple, on pourrait définir :
 			\begin{itemize}
 				\item 
-					la méthode «\lda{~jouerCoup~}» qui joue pour un joueur et
-					indique s'il a rattrapé l’autre joueur (sans
-					répétition si on arrive sur une case \lda{vrai})
+					la méthode \og{}\lda{~jouerCoup~}\fg{} qui joue pour un joueur et
+					indique s'il a rattrapé l’autre joueur
 				\item 
-					la méthode «\lda{~jouerTour~}» effectue la même tâche
-					mais avec répétition si on arrive sur une case
-					\lda{vrai}. On fera évidemment appel à la méthode
-					ci-dessus.
-				\item 
-					la méthode «\lda{~joueurSuivant~}» qui permet de passer au
+					la méthode \og{}\lda{~joueurSuivant~}\fg{} qui permet de passer au
 					joueur suivant.
 			\end{itemize}
+			Avec ces méthodes, la méthode publique \og{}\lda{~jouer~}\fg{} 
+			devient triviale.
 	\end{itemize}
+
+	À nouveau, on vous fait plusieurs propositions pour la représentation
+	de l'état du jeu.
+	On vous demande pour chaque d'elles de vérifier, 
+	sans écrire les méthodes de la classe, 
+	si elles permettent la programmation du jeu. 
+	Après ces vérifications vous choisirez 
+	une des représentations pour écrire la classe complète.
 	
-	Avec ces 3 méthodes, la méthode publique
-	«\lda{~jouer~}» devient triviale.
-\end{Exercice}
-
-\begin{Exercice}{La course à la case 64}
-	Une piste de 65 cases (numérotées de 0 à 64)
-	doit être parcourue le plus rapidement possible par quatre joueurs. Un
-	tableau \lda{joueurs} de quatre chaines contient les noms et prénoms des
-	joueurs. Au départ, tous les joueurs se trouvent sur la case de départ
-	(la case numéro 0). Les joueurs jouent à tour de rôle, dans l’ordre où
-	ils apparaissent dans le tableau Joueur. Le joueur qui gagne est celui
-	qui arrive le premier sur la case 64.
-
-	La longueur des déplacements est déterminée à
-	l’aide d’un dé à six faces, un joueur pouvant avancer d’autant de cases
-	que le nombre de points du dé. Si la case sur laquelle s’arrête un joueur 
-	est déjà 	occupée par un autre, ce dernier est renvoyé à la case départ. 
-	D’autre 	part, chaque fois qu’un joueur obtient la face 6, il a le droit de
-	rejouer avant le tour du joueur suivant. 
-
-	Écrire un algorithme de simulation de ce jeu
-	qui fournit le nom du vainqueur. Comme dans l’exercice précédent, le
-	lancement du dé est simulé par l'algorithme \lda{lancerDé(
-	)} qui retourne une valeur aléatoire entre 1 et 6.
-
-	Imaginer la classe \lda{Course64} qui va permettre
-	de résoudre ce problème. Comment faire pour pouvoir accepter un nombre
-	quelconque de joueurs ?
-\end{Exercice}
-
-\begin{Exercice}{Mots croisés}
-	Un tableau \lda{grille} à 10 lignes et 10 colonnes contient les données
-	relatives à un jeu de mots croisés simulé sur ordinateur. Chaque
-	élément de ce tableau est une structure \lda{Case},
-	contenant les deux champs :
-
 	\begin{itemize}
+	\item 
+		Dans cette proposition, nous avons deux attributs.
+		\begin{itemize}
 		\item 
-			\lda{noir} : variable booléenne affectée à
-			\lda{vrai} si la case correspondant de la grille est une
-			case noire;
-		\item 
-			\lda{lettre} : contient soit le caractère inscrit par le
-			joueur dans une case, soit le caractère «~espace~» (‘ ‘) si la case est
-			encore blanche; lorsque \lda{noir} est vrai, le contenu
-			de \lda{lettre} est indéterminé et ne peut donc être
-			utilisé. 
-	\end{itemize}
-	
-	Écrire une classe \lda{Grille} offrant les méthodes
-	suivantes :
-
-	\begin{itemize}
-		\item 
-			placer une lettre à un endroit de la grille (une case non noire bien
-			sûr)
-		\item 
-			donner le nombre de cases noires sur la grille
-		\item 
-			donner le nombre total de mots de la grille (donc y compris ceux que le
-			joueur n’a pas encore complétés). Attention, les mots
-			d'une seule lettre ne sont pas pris en compte.
-		\item 
-			donner le nombre de mots déjà complétés par le joueur
-	\end{itemize}
-
-	\begin{minipage}[t][][b]{8cm}	
-	\begin{footnotesize}
-	\begin{center}
-	\begin{tabular}{|*{10}{>{\centering\arraybackslash}m{0.30cm}|}}
-	\hline
-	~ & ~ & A & ~ & ~ & ~ & \cellcolor{gray!50} & ~ & ~ & ~ \\\hline
-	~ & ~ & L & ~ & \cellcolor{gray!50} & ~ & ~ & ~ & ~ & ~ \\\hline
-	L & O & G & I & Q & U & E & \cellcolor{gray!50} & ~ & ~ \\\hline
-	~ & ~ & O & \cellcolor{gray!50} & ~ & ~ & ~ & \cellcolor{gray!50} & ~ & ~ \\\hline
-	\cellcolor{gray!50} & ~ & R & ~ & \cellcolor{gray!50} & ~ & \cellcolor{gray!50} & ~ & ~ & ~ \\\hline
-	E & S & I & \cellcolor{gray!50} & O & ~ & H & ~ & \cellcolor{gray!50} & ~ \\\hline
-	~ & \cellcolor{gray!50} & T & A & B & L & E & A & U & \cellcolor{gray!50} \\\hline
-	~ & ~ & H & \cellcolor{gray!50} & J & ~ & B & ~ & ~ & ~ \\\hline
-	~ & ~ & M & ~ & E & ~ & \cellcolor{gray!50} & ~ & ~ & ~ \\\hline
-	~ & ~ & E & ~ & T & ~ & ~ & ~ & ~ & ~ \\\hline
-	\end{tabular}
-	\end{center}
-	\end{footnotesize}
-	%
-	\end{minipage}
-	\begin{minipage}[t][][t]{6cm}
-	Exemple : dans la grille ci-contre, le nombre de cases noires est 14, le
-	nombre total de mots de la grille est 37 (19 horizontaux et 18
-	verticaux) et le nombre de mots déjà complétés par le joueur est 6.
-	\end{minipage}
-	
-\end{Exercice}
-
-%\clearpage
-\begin{Exercice}{Mastermind}
-	Revenons sur le jeu Mastermind déjà vu en DEV$_1$.
-	Dans ce jeu, un joueur A doit trouver une combinaison de
-	\lda{k} pions de couleur, choisie et tenue secrète
-	par un autre joueur B. Cette combinaison peut contenir éventuellement
-	des pions de même couleur. À chaque proposition du joueur A, le joueur
-	B indique le nombre de pions de la proposition qui sont corrects et
-	bien placés et le nombre de pions corrects mais mal placés. 
-
-	\textbf{Exemple}
-
-	Utilisons des lettres pour représenter les couleurs.
-	
-	\begin{minipage}{5cm}
-		\begin{center}
-		Combinaison secrète
-		
-		\begin{tabular}{|*{5}{>{\centering\arraybackslash}m{0.35cm}|}}
-			\hline
-			R & R & V & B & J \\
-			\hline
-		\end{tabular}
-		\end{center}	
-	\end{minipage}
-	\
-	\begin{minipage}{5cm}
-		\begin{center}
-		Proposition du joueur
-	
-		\begin{tabular}{|*{5}{>{\centering\arraybackslash}m{0.35cm}|}}
-			\hline
-			R & V & B & B & V \\
-			\hline
-		\end{tabular}
-		\end{center}
-	\end{minipage}
-	
-	Il sera indiqué au joueur qu'il a :
-	\begin{itemize}
-	\item 2 pions bien placés : le R en 1\iere{} position et le
-	second B en 4\ieme{} position ;
-	\item 1 pion mal placé : un des deux V (ils ne peuvent compter tous les deux).
-	\end{itemize}
-	
-	\medskip
-	Supposons une énumération \lda{Couleur} avec toutes les couleurs possibles de
-	pion.
-
-	\begin{enumerate}[label=\alph*)]
+			\lda{circuit}: un tableau de 1 à 50 chaines de caractères. 
+			Les chaines de caractères représenteront la position des joueurs 
+			(au départ, "A" en 1 et "B" en 26, " " dans les autres positions).
 		\item
-			Écrire une classe «\lda{~Combinaison~}» pour
-			représenter une combinaison de \lda{k} pions. Elle
-			possède une méthode pour générer une combinaison aléatoire (que vous ne
-			devez pas écrire) et une méthode pour comparer une combinaison à la
-			combinaison secrète (que vous devez écrire)
+			\lda{joueurCourant}: un entier donnant la position du joueur courant.
+		\end{itemize}
+	\item
+		Cette proposition introduit une structure \lda{Joueur} et le nombre de tours.
+		\begin{itemize}
 		\item
-			Écrire ensuite une classe «\lda{~MasterMind~}» qui
-			représente le jeu et permet d’y jouer. La taille de la combinaison et
-			le nombre d’essais permis seront des paramètres du constructeur.
-	\end{enumerate}
+			\lda{circuit}: un tableau de 1 à 50 éléments \lda{Joueur}.  
+			La structure \lda{Joueur} est composée d'un nom (chaine) 
+			et d'un nombre de tours (entier).			
+			Joueur reprendra le nom du joueur à cette position ("A","B" ou "" si la case est vide); 
+			nbTour donne le nombre de tours qu'a fait le joueur qui est à cette position. 
+			(0 si la case est vide)
+		\item
+			\lda{joueurCourant}: un entier donnant la position du joueur courant.
+		\end{itemize}
+	\item
+		Dans cette proposition, le tableau change de signification
+		\begin{itemize}
+		\item
+			\lda{circuit}: un tableau de 2 éléments \lda{Joueur}.  
+			La structure \lda{Joueur} est composée 
+			de position: entier et nbTour: entier 
+			où position donne la position du joueur sur le circuit 
+			(entier entre 1 et 50) 
+			et nbTour donne le nombre de tours qu'a fait le joueur.
+		\item
+			\lda{joueurCourant}: un entier donnant la position du joueur courant.
+		\end{itemize}
+	\item
+		Dans cette proposition, la structure est remplacée par une classe
+		contenant les mêmes données mais introduisant des méthodes.
+		\begin{itemize}
+		\item
+			\lda{circuit}: un tableau de 2 éléments \lda{Joueur}.  
+			La structure \lda{Joueur} est composée 
+			de position: entier et nbTour: entier 
+			où position donne la position du joueur sur le circuit 
+			(entier entre 1 et 50) 
+			et nbTour donne le nombre de tours qu'a fait le joueur.
+		\item
+			\lda{joueurCourant}: un entier donnant la position du joueur courant.
+		\end{itemize}
+	\item
+		Cette proposition est fort proche de la précédente mais, cette-fois,
+		un joueur reprendra plutôt le numéro de la case de départ
+		et le nombre de cases parcourues.
+	\end{itemize}
+	
 \end{Exercice}
 
+%-----------------------------------------------
+\begin{Exercice}{Un jeu de poursuite - variante}
+%-----------------------------------------------
+
+	Dans cette variante,
+	chaque case contient une valeur vrai ou faux
+	indiquant si le joueur pourra rejouer.
+	Si la case sur laquelle tombe le joueur contient la valeur
+	\lda{vrai} il avance encore une fois du même nombre de cases 
+	(et de même s’il tombe encore sur \lda{vrai}).
+
+	Qu'est-ce que cela change au niveau des données ?
+	Modifiez la classe \lda{JeuPoursuite en conséquence}.
+	
+	Pour le code, 
+	nous vous conseillons de ne pas modifier la méthode \lda{jouerCoup} 
+	mais de la rendre privée et d'introduire une méthode qui y fait appel
+	plusieurs fois si nécessaire.
+\end{Exercice}
+
+%---------------------------------------
 \begin{Exercice}{Le Jeu du Millionnaire}
+%---------------------------------------
+
 	Un questionnaire de quinze questions à choix
 	multiples de difficulté croissante est soumis à un candidat. Quatre
 	possibilités de réponses (dont une seule est correcte) sont proposées à
@@ -377,7 +372,7 @@
 	une somme acquise que le candidat est sûr d’empocher, quoiqu’il arrive
 	dans la suite du jeu.
 
-À chaque question, le candidat a donc trois
+	À chaque question, le candidat a donc trois
 	possibilités~:
 	\begin{itemize}
 		\item 
@@ -409,15 +404,6 @@
 	  8 &    3750~\texteuro & faux \\\hline
 	  9 &    7500~\texteuro & faux \\\hline
 	 10 &   12500~\texteuro & vrai \\\hline
-%	\end{tabular}
-%	\end{footnotesize}
-%	\end{center}
-%	\end{minipage}
-%
-%	\begin{minipage}[t][][b]{3.5cm}
-%	\begin{center}
-%	\begin{footnotesize}
-%	\begin{tabular}{|l|l|l|}\hline
 	 11 &   25000~\texteuro & faux \\\hline
 	 12 &   50000~\texteuro & faux \\\hline
 	 13 &  100000~\texteuro & vrai \\\hline
@@ -429,7 +415,6 @@
 	\end{minipage}%
 	\hfill
 	\begin{minipage}[t][][b]{10cm}
-	%\vskip\baselineskip{}
 	Exemple : Le tableau ci-contre contient les gains associés à chaque 
 	question et une indication booléenne mise à
 	\lda{vrai} lorsque la question
@@ -444,8 +429,7 @@
 	
 	Il y aurait de nombreuses façons de coder ce problème; en voici une :
 
-	{\bfseries
-	La structure Question}
+	{\bfseries La structure Question}
 
 	Une question est composée du libellé de la question, des 4 libellés pour
 	les réponses et d’une indication de la bonne réponse (un entier de 1 à
@@ -453,16 +437,14 @@
 	une classe si on voulait par exemple vérifier que la «~bonne réponse~»
 	possède une valeur correcte.
 
-	{\bfseries
-	La structure Gain}
+	{\bfseries La structure Gain}
 
 	Représente un niveau de gain. Elle contient les champs :
 	montant (entier) et palier (un booléen à
 	\lda{vrai} si cette somme est
 	assurée, \lda{faux} sinon)
 
-	{\bfseries
-	La classe Millionnaire}
+	{\bfseries La classe Millionnaire}
 
 	Cette classe code le moteur du jeu. On y retrouve
 
@@ -518,7 +500,10 @@
 	\end{itemize}
 \end{Exercice}
 
+%---------------------------------
 \begin{Exercice}{Chambre avec vue}
+%---------------------------------
+
 	Un grand hôtel a décidé d’informatiser sa
 	gestion administrative. Il a confié ce travail à la société ESI\_INFO
 	dans laquelle vous êtes un informaticien chevronné. On vous a confié la
@@ -586,68 +571,102 @@
 	\end{itemize}
 \end{Exercice}
 
-\begin{Exercice}{Puissance 4}
-	Le jeu de puissance 4 se déroule dans un tableau vertical comportant 6
-	rangées et 7 colonnes dans lequel deux joueurs introduisent tour à tour
-	des jetons (rouges pour l’un, jaunes pour l’autre). Avec l’aide de la
-	gravité, les jetons tombent toujours le plus bas possible dans les
-	colonnes où on les place. Le jeu s’achève lorsqu’un des joueurs a
-	réussi à aligner 4 de ses jetons horizontalement, verticalement ou en
-	oblique, ou lorsque les deux joueurs ont disposé chacun leur 21 jetons
-	sans réaliser d’alignement (match nul).
+%---------------------------
+\begin{Exercice}{L'ensemble}
+%---------------------------
 
-
-	%!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	% !!!!!!!! Je dois avoir écrit qqch de faux pcq erreur compil !!!!!!!!
-	%!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	
-	%\begin{center}
-	%\tablehead{}
-	%\begin{supertabular}{m{3.626cm}m{10.175cm}}
-		\begin{minipage}[t][][b]{4cm}
-		%\begin{center}
-		\includegraphics[width=0.8\textwidth]{image/puissance4}
-		%\end{center}
-		\end{minipage}
-	%	&
-		\begin{minipage}[t][][b]{10cm}
-		N.B. : sur ce dessin noir et
-		blanc, les jetons rouges apparaissent en noir, les jetons jaunes en
-		gris et les cases blanches désignent l'absence de
-		jetons. Cet exemple montre une situation du jeu où le joueur «~jaune~»
-		est gagnant. En introduisant un jeton dans la
-		4\textsuperscript{e} colonne,
-		il a réalisé un alignement de 4 jetons en oblique.
-		\end{minipage}
-	%\end{supertabular}
-	%\end{center}
-
-	
-	On demande d’implémenter une classe Puissance4 qui permette de contrôler
-	l’état des différentes phases du jeu. Déterminez les attributs de cette
-	classe et décrivez-les brièvement de manière à justifier votre choix.
-	Dotez ensuite la classe des méthodes permettant de :
+	La notion d’ensemble fini est une notion qui vous est déjà 
+	familière pour l’avoir rencontrée dans plusieurs cours. Nous rappelons
+	certaines de ses propriétés et opérations. 
+			
+	Étant donnés deux ensembles
+	finis \textbf{S} et \textbf{T} ainsi qu’un élément \textbf{x} :
 
 	\begin{itemize}
-		\item 
-			savoir si la grille est pleine
-		\item 
-			mettre la grille à jour lorsque le joueur n (1 ou 2) joue dans la
-			colonne j (entre 1 et 7). Cette méthode renverra la valeur booléenne
-			faux si la colonne en question est déjà pleine
-		\item 
-			vérifier si le joueur qui vient de jouer dans la colonne j a gagné la
-			partie
+	\item 
+		\textbf{x} {${\in}$} \textbf{S} signifie que l’élément \textbf{x}
+		est un élément de l’ensemble \textbf{S}.
+	\item 
+		L’ensemble vide, noté \textbf{${\emptyset}$} 
+		est l’ensemble qui n’a pas d’élément 
+		(\textbf{x} {${\in}$} \textbf{${\emptyset}$} 
+		est faux quel que soit \textbf{x} ).
+	\item 
+		L’ordre des éléments dans un ensemble n’a
+		aucune signification, l’ensemble \{1,2\} est
+		identique à \{2,1\}.
+	\item 
+		Un élément \textbf{x} ne peut
+		pas être plus d’une fois élément d’un même ensemble 
+		(pas de répétition).
+	\item 
+		L’union \textbf{S ${\cup}$ T} 
+		est l’ensemble contenant les éléments qui sont dans 
+		\textbf{S} ou (non exclusif) dans \textbf{T}.
+	\item 
+		L’intersection \textbf{S ${\cap}$ T} 
+		est l’ensemble des éléments qui sont à la fois 
+		dans \textbf{S} et dans \textbf{T}.
+	\item 
+		La différence \textbf{S {\textbackslash} T} 
+		est l’ensemble des éléments qui sont 
+		dans \textbf{S} mais pas dans \textbf{T}.
 	\end{itemize}
 	
-	N.B. : pour la structure qui contiendra le contenu du tableau de jetons,
-	on adoptera la convention suivante : 0 pour l’absence de jeton, 1
-	représentera un jeton du 1\textsuperscript{er} joueur, et 2 un jeton du
-	2\textsuperscript{e} joueur (on peut donc faire abstraction de la
-	couleur du jeton dans ce problème).
+	Créer la classe \lda{Ensemble}
+	décrite ci-dessous.
+	
+	\begin{LDA}
+		\Class{Ensemble de E}{} 
+		\RComment E est le type des éléments de l'ensemble
+		
+			\Public
+			\ConstrSign{Ensemble de E}{} 
+			\RComment construit un ensemble vide
+			\MethodSign{ajouter}{élt : E}{}
+			\RComment ajoute l'élément à l'ensemble
+			\MethodSign{enlever}{élt : E}{})
+			\RComment enlève un élément de l'ensemble
+			\MethodSign{contient}{élt : E}{booléen}
+			\RComment dit si l'élément est présent
+			\MethodSign{estVide}{}{booléen}
+			\RComment dit si l'ensemble est vide
+			\MethodSign{taille}{}{entier}
+			\RComment donne la taille de l'ensemble
+			\MethodSign{union}{autreEnsemble : Ensemble de E}{Ensemble de E}
+			\MethodSign{intersection}{autreEnsemble : Ensemble de E}{Ensemble de E}
+			\MethodSign{moins}{autreEnsemble : Ensemble de E}{Ensemble de E}
+			\MethodSign{éléments}{}{Liste de E}
+			\RComment conversion en liste
+		\EndClass
+	\end{LDA}
+		
+	\medskip
+	Quelques remarques :
+	\begin{itemize}
+		\item 
+			La méthode d'ajout (resp. de suppression) n'a
+			pas d'effet si l'élément est déjà
+			(resp. n'est pas) dans l'ensemble.
+		\item 
+			Les méthodes \lda{union()}, 
+			\lda{intersection()} et 
+			\lda{moins()} retournent un troisième ensemble, 
+			résultat des 2 premiers sans toucher
+			à ces 2 ensembles. On aurait pu envisager des méthodes modifiant
+			l'ensemble sur lequel on les appelle.
+		\item 
+			La méthode \lda{éléments()}
+			est nécessaire si on veut parcourir les éléments de
+			l'ensemble (par exemple pour les afficher).
+	\end{itemize}
+	
 \end{Exercice}
 
+%---------------------------
 \begin{Exercice}{Les congés}
+%---------------------------
+
 	Les périodes de congés des différents employés d’une firme sont reprises
 	dans un tableau booléen \textbf{Congés} bidimensionnel à \textit{n}
 	lignes et 366 colonnes. Chaque ligne du tableau correspond à un employé
@@ -687,103 +706,10 @@
 	\end{LDA}
 \end{Exercice}
 
-\begin{Exercice}{L'ensemble}
-		La notion d’ensemble fini est une notion qui vous est déjà 
-		familière pour l’avoir rencontrée dans plusieurs cours. Nous rappelons
-		certaines de ses propriétés et opérations. 
-				
-		Étant donnés deux ensembles
-		finis \textbf{S} et \textbf{T} ainsi qu’un élément \textbf{x} :
-
-		\begin{itemize}
-		\item 
-			\textbf{x} {${\in}$} \textbf{S} signifie que l’élément \textbf{x}
-			est un élément de l’ensemble \textbf{S}.
-		\item 
-			L’ensemble vide, noté \textbf{${\emptyset}$} 
-			est l’ensemble qui n’a pas d’élément 
-			(\textbf{x} {${\in}$} \textbf{${\emptyset}$} 
-			est faux quel que soit \textbf{x} ).
-		\item 
-			L’ordre des éléments dans un ensemble n’a
-			aucune signification, l’ensemble \{1,2\} est
-			identique à \{2,1\}.
-		\item 
-			Un élément \textbf{x} ne peut
-			pas être plus d’une fois élément d’un même ensemble 
-			(pas de répétition).
-		\item 
-			L’union \textbf{S ${\cup}$ T} 
-			est l’ensemble contenant les éléments qui sont dans 
-			\textbf{S} ou (non exclusif) dans \textbf{T}.
-		\item 
-			L’intersection \textbf{S ${\cap}$ T} 
-			est l’ensemble des éléments qui sont à la fois 
-			dans \textbf{S} et dans \textbf{T}.
-		\item 
-			La différence \textbf{S {\textbackslash} T} 
-			est l’ensemble des éléments qui sont 
-			dans \textbf{S} mais pas dans \textbf{T}.
-		\end{itemize}
-		
-		Créer la classe \lda{Ensemble}
-		décrite ci-dessous.
-		
-		\begin{LDA}
-			\Class{Ensemble de T}{} 
-			\RComment T est le type des éléments de l'ensemble
-			
-				\Public
-				\ConstrSign{Ensemble de T}{} 
-				\RComment construit un ensemble vide
-				\MethodSign{ajouter}{élt : T}{}
-				\RComment ajoute l'élément à l'ensemble
-				\MethodSign{enlever}{élt : T}{})
-				\RComment enlève un élément de l'ensemble
-				\MethodSign{contient}{élt : T}{booléen}
-				\RComment dit si l'élément est présent
-				\MethodSign{estVide}{}{booléen}
-				\RComment dit si l'ensemble est vide
-				\MethodSign{taille}{}{entier}
-				\RComment donne la taille de l'ensemble
-				\MethodSign{union}{autreEnsemble : Ensemble de T}{Ensemble de T}
-				\MethodSign{intersection}{autreEnsemble : Ensemble de T}{Ensemble de T}
-				\MethodSign{moins}{autreEnsemble : Ensemble de T}{Ensemble de T}
-				\MethodSign{listeÉléments}{}{Liste de T}
-				\RComment conversion en liste
-			\EndClass
-		\end{LDA}
-		
-	\bigskip
-
-	Quelques remarques :
-	\begin{itemize}
-		\item 
-			La méthode d'ajout (resp. de suppression) n'a
-			pas d'effet si l'élément est déjà
-			(resp. n'est pas) dans l'ensemble.
-		\item 
-			Les méthodes \lda{union()}, 
-			\lda{intersection()} et 
-			\lda{moins()} retournent un troisième ensemble, 
-			résultat des 2 premiers sans toucher
-			à ces 2 ensembles. On aurait pu envisager des méthodes modifiant
-			l'ensemble sur lequel on les appelle.
-		\item 
-			La méthode \lda{listeÉlément()}
-			est nécessaire si on veut parcourir les éléments de
-			l'ensemble (par exemple pour les afficher).
-	\end{itemize}
-	
-	Autres opérations ensemblistes :
-	
-	Nous avons défini des opérations ensemblistes ne touchant pas aux
-	ensembles de départ. Que deviennent-elles si on considère
-	qu'elles \textbf{modifient}
-	l'ensemble sur lequel elles sont appliquées ?
-\end{Exercice}
-
+%-----------------------
 \begin{Exercice}{Casino}
+%-----------------------
+
 	Pour cet exercice,
 	on vous demande un petit programme qui simule un jeu de roulette
 	très simplifié dans un casino.
@@ -830,5 +756,195 @@
 	(le numéro misé et le numéro gagnant sont identiques ou ont la même couleur), 
 	le croupier remet au joueur la somme initialement misée avant d'y ajouter ses gains. 
 	Cela veut dire que, dans ces deux scénarios, le joueur récupère de l'argent. 
-	Il n'y a que dans le troisième cas qu'il perd la somme misée. 
+	Il n'y a que dans le troisième cas qu'il perd la somme misée.
+	
+	Comme vous pouvez le constater,
+	on ne vous fait pas de proposition pour la représentation des données.
+	À vous de joueur !
 \end{Exercice}
+
+%-----------------------------
+\begin{Exercice}{Mots croisés}
+%-----------------------------
+
+	Voici une grille de mots croisés.
+	(on ne s'intéresse pas ici aux définitions).
+	Écrire une classe \lda{Grille} offrant les méthodes
+	suivantes :
+	\begin{itemize}
+		\item 
+			placer une lettre à un endroit de la grille 
+			(une case non noire bien sûr) ;
+		\item 
+			donner le nombre de cases noires sur la grille ;
+		\item 
+			donner le nombre total de mots (plus d'une lettrre) de la grille 
+			(donc y compris ceux que le
+			joueur n’a pas encore complétés) ; 
+		\item 
+			donner le nombre de mots déjà complétés par le joueur.
+	\end{itemize}
+
+	\medskip
+	\begin{minipage}[t][][t]{6cm}
+	Exemple : dans la grille ci-contre, le nombre de cases noires est 14, le
+	nombre total de mots de la grille est 37 (19 horizontaux et 18
+	verticaux) et le nombre de mots déjà complétés par le joueur est 6.
+	\end{minipage}
+	~
+	\begin{minipage}[t][][b]{8cm}	
+	\begin{footnotesize}
+	\begin{center}
+	\begin{tabular}{|*{10}{>{\centering\arraybackslash}m{0.30cm}|}}
+	\hline
+	~ & ~ & A & ~ & ~ & ~ & \cellcolor{gray!50} & ~ & ~ & ~ \\\hline
+	~ & ~ & L & ~ & \cellcolor{gray!50} & ~ & ~ & ~ & ~ & ~ \\\hline
+	L & O & G & I & Q & U & E & \cellcolor{gray!50} & ~ & ~ \\\hline
+	~ & ~ & O & \cellcolor{gray!50} & ~ & ~ & ~ & \cellcolor{gray!50} & ~ & ~ \\\hline
+	\cellcolor{gray!50} & ~ & R & ~ & \cellcolor{gray!50} & ~ & \cellcolor{gray!50} & ~ & ~ & ~ \\\hline
+	E & S & I & \cellcolor{gray!50} & O & ~ & H & ~ & \cellcolor{gray!50} & ~ \\\hline
+	~ & \cellcolor{gray!50} & T & A & B & L & E & A & U & \cellcolor{gray!50} \\\hline
+	~ & ~ & H & \cellcolor{gray!50} & J & ~ & B & ~ & ~ & ~ \\\hline
+	~ & ~ & M & ~ & E & ~ & \cellcolor{gray!50} & ~ & ~ & ~ \\\hline
+	~ & ~ & E & ~ & T & ~ & ~ & ~ & ~ & ~ \\\hline
+	\end{tabular}
+	\end{center}
+	\end{footnotesize}
+	\end{minipage}
+	
+	%Un tableau \lda{grille} à 10 lignes et 10 colonnes contient les données
+	%relatives à un jeu de mots croisés simulé sur ordinateur. Chaque
+	%élément de ce tableau est une structure \lda{Case},
+	%contenant les deux champs :
+
+	%\begin{itemize}
+		%\item 
+			%\lda{noir} : variable booléenne affectée à
+			%\lda{vrai} si la case correspondant de la grille est une
+			%case noire;
+		%\item 
+			%\lda{lettre} : contient soit le caractère inscrit par le
+			%joueur dans une case, soit le caractère «~espace~» (‘ ‘) si la case est
+			%encore blanche; lorsque \lda{noir} est vrai, le contenu
+			%de \lda{lettre} est indéterminé et ne peut donc être
+			%utilisé. 
+	%\end{itemize}
+		
+\end{Exercice}
+
+%----------------------------
+\begin{Exercice}{Puissance 4}
+%----------------------------
+
+	Le jeu de puissance 4 se déroule dans un tableau vertical comportant 6
+	rangées et 7 colonnes dans lequel deux joueurs introduisent tour à tour
+	des jetons (rouges pour l’un, jaunes pour l’autre). Avec l’aide de la
+	gravité, les jetons tombent toujours le plus bas possible dans les
+	colonnes où on les place. Le jeu s’achève lorsqu’un des joueurs a
+	réussi à aligner 4 de ses jetons horizontalement, verticalement ou en
+	oblique, ou lorsque les deux joueurs ont disposé chacun leur 21 jetons
+	sans réaliser d’alignement (match nul).
+
+	\begin{minipage}[t][][b]{4cm}
+	\includegraphics[width=0.8\textwidth]{image/puissance4}
+	\end{minipage}
+	\begin{minipage}[t][][b]{10cm}
+	N.B. : sur ce dessin noir et
+	blanc, les jetons rouges apparaissent en noir, les jetons jaunes en
+	gris et les cases blanches désignent l'absence de
+	jetons. Cet exemple montre une situation du jeu où le joueur «~jaune~»
+	est gagnant. En introduisant un jeton dans la
+	4\textsuperscript{e} colonne,
+	il a réalisé un alignement de 4 jetons en oblique.
+	\end{minipage}
+	
+	On demande d’implémenter une classe Puissance4 qui permette de contrôler
+	l’état des différentes phases du jeu. Déterminez les attributs de cette
+	classe et décrivez-les brièvement de manière à justifier votre choix.
+	Dotez ensuite la classe des méthodes permettant de :
+
+	\begin{itemize}
+		\item 
+			savoir si la grille est pleine
+		\item 
+			mettre la grille à jour lorsque le joueur n (1 ou 2) joue dans la
+			colonne j (entre 1 et 7). Cette méthode renverra la valeur booléenne
+			faux si la colonne en question est déjà pleine
+		\item 
+			vérifier si le joueur qui vient de jouer dans la colonne j a gagné la
+			partie
+	\end{itemize}
+	
+	N.B. : pour la structure qui contiendra le contenu du tableau de jetons,
+	on adoptera la convention suivante : 0 pour l’absence de jeton, 1
+	représentera un jeton du 1\textsuperscript{er} joueur, et 2 un jeton du
+	2\textsuperscript{e} joueur (on peut donc faire abstraction de la
+	couleur du jeton dans ce problème).
+	
+\end{Exercice}
+
+\begin{Exercice}{Mastermind}
+	Revenons sur le jeu Mastermind déjà vu en DEV$_1$.
+	Dans ce jeu, un joueur A doit trouver une combinaison de
+	\lda{k} pions de couleur, choisie et tenue secrète
+	par un autre joueur B. Cette combinaison peut contenir éventuellement
+	des pions de même couleur. À chaque proposition du joueur A, le joueur
+	B indique le nombre de pions de la proposition qui sont corrects et
+	bien placés et le nombre de pions corrects mais mal placés. 
+
+	\textbf{Exemple}
+
+	Utilisons des lettres pour représenter les couleurs.
+	
+	\begin{minipage}{5cm}
+		\begin{center}
+		Combinaison secrète
+		
+		\begin{tabular}{|*{5}{>{\centering\arraybackslash}m{0.35cm}|}}
+			\hline
+			R & R & V & B & J \\
+			\hline
+		\end{tabular}
+		\end{center}	
+	\end{minipage}
+	\
+	\begin{minipage}{5cm}
+		\begin{center}
+		Proposition du joueur
+	
+		\begin{tabular}{|*{5}{>{\centering\arraybackslash}m{0.35cm}|}}
+			\hline
+			R & V & B & B & V \\
+			\hline
+		\end{tabular}
+		\end{center}
+	\end{minipage}
+	
+	Il sera indiqué au joueur qu'il a :
+	\begin{itemize}
+	\item 2 pions bien placés : le R en 1\iere{} position et le
+	second B en 4\ieme{} position ;
+	\item 1 pion mal placé : un des deux V (ils ne peuvent compter tous les deux).
+	\end{itemize}
+	
+	\medskip
+	Supposons une énumération \lda{Couleur} avec toutes les couleurs possibles de
+	pion.
+
+	\begin{enumerate}[label=\alph*)]
+		\item
+			Écrire une classe «\lda{~Combinaison~}» pour
+			représenter une combinaison de \lda{k} pions. Elle
+			possède une méthode pour générer une combinaison aléatoire (que vous ne
+			devez pas écrire) et une méthode pour comparer une combinaison à la
+			combinaison secrète (que vous devez écrire)
+		\item
+			Écrire ensuite une classe «\lda{~MasterMind~}» qui
+			représente le jeu et permet d’y jouer. La taille de la combinaison et
+			le nombre d’essais permis seront des paramètres du constructeur.
+	\end{enumerate}
+\end{Exercice}
+
+
+
+
