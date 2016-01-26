@@ -4,7 +4,7 @@
 
 	\marginicon{objectif}
 	
-	Imaginons qu’on désire manipuler par programme une liste de contacts ou
+	Imaginons que l’on désire manipuler par programme une liste de contacts ou
 	encore une liste de rendez-vous. Cette liste va varier ; sa taille
 	n’est donc pas fixée. Utiliser un tableau à cet effet n’est pas l’idéal. 
 	En effet, la taille d’un tableau ne peut plus changer une fois le tableau créé. 
@@ -341,7 +341,7 @@
 		\end{itemize}
 		
 		\textbf{Les tableaux dynamiques}. 
-		En \emph{DEV$_1$},
+		En \emph{DEV1},
 		nous n'avons vu que des tableaux
 		qu'on appellera \emph{statiques},
 		qui sont créés lors de leur déclaration.
@@ -485,7 +485,7 @@
 				\Decl{pos}{entier}
 				\Let estPrésent \Gets existe(valeur, pos)
 				\If{estPrésent}
-					\Stmt supprimer( pos )
+					\Stmt supprimerPos( pos )
 				\EndIf
 				\Return estPrésent
 			\EndMethod
@@ -533,7 +533,7 @@
 			\Method {décalerGauche}{début : entier}{}
 				\LComment Décale toutes les éléments d'une position vers
 				la gauche à partir de début ; 
-				\LComment ce paramètre vaut toujours au moins 2.
+				\LComment ce paramètre vaut toujours au moins 1.
 				\For{i}{début}{tailleLogique-1}
 					\Let éléments[ i - 1 ] \Gets éléments[ i ]
 				\EndFor
@@ -583,7 +583,7 @@
 			\item 425
 			\end{enumerate}
 			affiche sa taille, demande si la valeur 425 est présente, 
-			supprime la valeur 209 puis insére la valeur 101 en tête de liste.
+			supprime la valeur 209 puis insère la valeur 101 en tête de liste.
 		\end{Exercice}
 		
 		\begin{Exercice}{Liste des premiers entiers}
@@ -622,9 +622,9 @@
 		
 		\begin{Exercice}{Fusion de deux listes}
 				\marginicon{java}
-				Soit deux listes \textbf{ordonnées}
+				Soit deux listes \textbf{triées}
 				d'entiers (redondances possibles). Écrire un algorithme
-				qui les fusionne. Le résultat est une liste encore ordonnée contenant
+				qui les fusionne. Le résultat est une liste encore triée contenant
 				tous les entiers des deux listes de départ (qu'on
 				laisse inchangées).
 		
@@ -641,7 +641,7 @@
 		
 		\begin{Exercice}{Éliminer les doublons d'une liste}
 		\marginicon{java}	
-				Soit une liste \textbf{ordonnée} 
+				Soit une liste \textbf{triée} 
 				d'entiers avec de possibles redondances. Écrire un
 				algorithme qui enlève les redondances de la liste.
 						
