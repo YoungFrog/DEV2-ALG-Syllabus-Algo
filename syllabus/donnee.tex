@@ -176,7 +176,7 @@
 		Mais aussi un entier \lda{joueurCourant} donnant
 		le numéro du joueur courant.
 	\item
-		Un tableau de 1 à n entiers. 
+		Un tableau de 4 entiers. 
 		La case i contient la position du joueur i.
 		Mais aussi un entier \lda{joueurCourant} donnant
 		le numéro du joueur courant.
@@ -244,14 +244,13 @@
 	qui contiendra les méthodes suivantes :
 	\begin{itemize}
 		\item 
-			Le constructeur reçoit la configuration du circuit 
-			(pour savoir si les cases contiennent \lda{vrai} ou \lda{faux})
+			Le constructeur.
 		\item 
 			La méthode \lda{initialiser()} initialise le jeu
 			(placement des joueurs\dots).
 		\item 
 			La méthode \lda{jouer()} lance le jeu jusqu’à son terme et
-			donne le vainqueur et le nombre de tours effectués.
+			donne le vainqueur et le nombre de tours effectués par chacun.
 		\item 
 			Vous êtes également fortement invités à définir d’autres méthodes en
 			privé pour modulariser au mieux votre code. 
@@ -281,11 +280,11 @@
 		Dans cette proposition, nous avons deux attributs.
 		\begin{itemize}
 		\item 
-			\lda{circuit}: un tableau de 1 à 50 chaines de caractères. 
+			\lda{circuit}~: un tableau de 1 à 50 chaines de caractères. 
 			Les chaines de caractères représenteront la position des joueurs 
 			(au départ, "A" en 1 et "B" en 26, " " dans les autres positions).
 		\item
-			\lda{joueurCourant}: un entier donnant la position du joueur courant.
+			\lda{joueurCourant}~: un entier donnant la position du joueur courant.
 		\end{itemize}
 	\item
 		Cette proposition introduit une structure \lda{Joueur} et le nombre de tours.
@@ -294,9 +293,12 @@
 			\lda{circuit}: un tableau de 1 à 50 éléments \lda{Joueur}.  
 			La structure \lda{Joueur} est composée d'un nom (chaine) 
 			et d'un nombre de tours (entier).			
-			Joueur reprendra le nom du joueur à cette position ("A", "B" ou "" si la case est vide); 
-			nbTour donne le nombre de tours qu'a fait le joueur qui est à cette position. 
-			(0 si la case est vide)
+			Joueur reprendra le nom du joueur à cette position 
+			("A", "B" ou " " si la case est vide); 
+			nbTour donne le nombre de tours qu'a fait le joueur qui est à cette position 
+			(0 si la case est vide).
+			Un joueur a fait un tour complet quand il a est de nouveau sur sa position de départ
+			ou la dépasse.
 		\item
 			\lda{joueurCourant}: un entier donnant la position du joueur courant.
 		\end{itemize}
@@ -345,6 +347,9 @@
 	Si la case sur laquelle tombe le joueur contient la valeur
 	\lda{vrai} il avance encore une fois du même nombre de cases 
 	(et de même s’il tombe encore sur \lda{vrai}).
+	
+			Le constructeur reçoit la configuration du circuit 
+			(pour savoir si les cases contiennent \lda{vrai} ou \lda{faux})
 
 	Qu'est-ce que cela change au niveau des données ?
 	Modifiez la classe \lda{JeuPoursuite en conséquence}.
