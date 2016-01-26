@@ -50,14 +50,14 @@
 	
 		Avant tout, il faut bien préciser ce que l’on veut décrire
 		et bien faire la distinction entre un \emph{moment} et une \emph{durée}.
-		L’«~heure~» est un concept multifacettes. 
+		L’«~heure~» est un concept multifacette. 
 		Parle-t-on de l’heure comme moment dans la journée 
 		ou de l’heure comme représentant une durée ? 
 		Dans le premier cas, elle ne peut dépasser 24h 
 		et la différence entre 2 heures n’a pas de sens 
 		(ou plus précisément n’est pas une heure, mais une durée !).
 		Ce que nous nous proposons de créer ici est une durée,
-		correspondand au deuxième cas.
+		correspondant au deuxième cas.
 		Et pour être plus précis encore,
 		nous allons nous limiter à une précision à la seconde près,
 		pas plus%
@@ -68,7 +68,7 @@
 	\subsection{Le comportement (les méthodes)}
 	%==========================================
 	
-		La première question à se poser est celle des services qu’on veut
+		La première question à se poser est celle des services que l’on veut
 		fournir, c’est-à-dire des méthodes publiques de la classe. On doit
 		pouvoir \textit{construire} une durée. On doit pouvoir connaitre le
 		nombre de jours, d’heures, minutes ou secondes correspondant à une durée. On doit
@@ -129,7 +129,7 @@
 			\item 
 				Les méthodes \lda{getTotalXXX()} retournent le nombre
 				(toujours entier) de XXX contenus dans la durée. Exemple, avec la durée
-				0h23’52'’, \lda{getTotalMinutes()}
+				0h23’52’’, \lda{getTotalMinutes()}
 				retourne 23 et pas 24 (autrement dit, il n’y a pas d’arrondi vers le
 				haut).
 			\item 
@@ -169,7 +169,7 @@
 			\item 
 				via le nombre total de secondes
 			\item 
-				via une chaine, par exemple au format «~HH~:MM~:SS~» où HH pourrait
+				via une chaine, par exemple au format «~HH~:~MM~:~SS~» où HH pourrait
 				éventuellement excéder 23.
 		\end{itemize}
 		
@@ -431,7 +431,7 @@
 
 			Il faut d'abord se poser cette question :
 			Comment représenter le jeu ?
-			Une représentation du jeu doit-être complète.
+			Une représentation du jeu doit être complète.
 			C'est-à-dire qu'à partir de cette représentation,
 			on doit pouvoir indiquer exactement où on en est dans le jeu
 			et pouvoir le poursuivre.
@@ -525,14 +525,14 @@
 				Il suffit de placer la tortue en 0
 				et d'indiquer que le lièvre n'est pas encore arrivé.
 				La valeur initiale du dé n'a pas d'importance.
-			\item \textbf{le jeu n'est pas fini.}
+			\item \textbf{Le jeu n'est pas fini.}
 				Le jeu sera fini lorsque le lièvre sera arrivé
-				(ce qu'on peut tester grâce au boolén \lda{lièvreArrivé})
+				(ce qu'on peut tester grâce au booléen \lda{lièvreArrivé})
 				ou que la tortue sera au km 5.
-			\item \textbf{lancer le dé.}
+			\item \textbf{Lancer le dé.}
 				C'est trivial si on utilise l'algorithme \lda{hasard()}
 				à notre disposition.
-			\item \textbf{la lièvre est arrivé.}
+			\item \textbf{Le lièvre est arrivé.}
 				Il suffit de mettre le booléen \lda{lièvreArrivé} à vrai.
 			\item \textbf{La tortue avance.}
 				C'est trivial.
@@ -555,6 +555,8 @@
 					\Empty
 					\Let avancéeTortue \Gets 0
 					\Let lièvreArrivé \Gets faux
+					
+					\Empty
 					\While{avancéeTortue < 5 ET NON lièvreArrivé}
 						\Let dé \Gets hasard(6)
 						\If{dé = 6}
@@ -567,9 +569,9 @@
 
 					\Empty
 					\If{lièvreArrivé}
-						\Write "Le lièvre à gagné"
+						\Write "Le lièvre a gagné"
 					\Else
-						\Write "Le tortue à gagné"
+						\Write "Le tortue a gagné"
 					\EndIf
 				\EndAlgo
 			\end{LDA}
@@ -698,9 +700,9 @@
 
 					\Empty
 					\If{lièvre.estArrivé()}
-						\Write "Le lièvre à gagné"
+						\Write "Le lièvre a gagné"
 					\Else
-						\Write "Le tortue à gagné"
+						\Write "Le tortue a gagné"
 					\EndIf
 				\EndAlgo
 			\end{LDA}
@@ -790,7 +792,7 @@
 		Dans l'approche MVC,
 		on découpe le code en différentes parties.
 		La partie \og{}modèle\fg{} regroupe les bouts de code
-		qui font vraiment quelquechose (on parle de \og{}métier\fg{})
+		qui font vraiment quelque chose (on parle de \og{}métier\fg{})
 		tandis que la partie \og{}vue\fg{} regroupe les bouts de code
 		qui interagissent avec l'utilisateur (demandes et affichages).
 		La partie \og{}contrôleur\fg{}, quant à elle,
@@ -836,7 +838,7 @@
 
 		Chacun de ces algorithmes est implémenté par une méthode
 		(sauf l'initialisation qui est du ressort du constructeur).
-		Au niveau des attribtuts, 
+		Au niveau des attributs, 
 		on retrouve les éléments du jeu : le lièvre, la tortue et le dé.
 		\footnote{%
 			Une autre façon de voir les choses
