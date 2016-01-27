@@ -244,10 +244,15 @@
 	qui contiendra les méthodes suivantes :
 	\begin{itemize}
 		\item 
-			Le constructeur.
-		\item 
 			La méthode \lda{initialiser()} initialise le jeu
-			(placement des joueurs\dots).
+			(placement des joueurs\dots).%
+			\footnote{%
+				Vous vous demandez peut-être pourquoi 
+				ce n'est pas le constructeur qui initialise le jeu ?
+				Cette approche permettra de rejouer une partie
+				sans devoir reconstruire le jeu,
+				ce qui est plus rapide.%
+			}
 		\item 
 			La méthode \lda{jouer()} lance le jeu jusqu’à son terme et
 			donne le vainqueur et le nombre de tours effectués par chacun.
@@ -258,7 +263,7 @@
 			\begin{itemize}
 				\item 
 					la méthode \og{}\lda{~jouerCoup~}\fg{} qui joue pour un joueur et
-					indique s'il a rattrapé l’autre joueur
+					indique s'il a rattrapé l’autre joueur ;
 				\item 
 					la méthode \og{}\lda{~joueurSuivant~}\fg{} qui permet de passer au
 					joueur suivant.
@@ -275,7 +280,7 @@
 	Après ces vérifications vous choisirez 
 	une des représentations pour écrire la classe complète.
 	
-	\begin{itemize}
+	\begin{enumerate}
 	\item 
 		Dans cette proposition, nous avons deux attributs.
 		\begin{itemize}
@@ -290,50 +295,54 @@
 		Cette proposition introduit une structure \lda{Joueur} et le nombre de tours.
 		\begin{itemize}
 		\item
-			\lda{circuit}: un tableau de 1 à 50 éléments \lda{Joueur}.  
-			La structure \lda{Joueur} est composée d'un nom (chaine) 
-			et d'un nombre de tours (entier).			
-			Joueur reprendra le nom du joueur à cette position 
-			("A", "B" ou " " si la case est vide); 
-			nbTour donne le nombre de tours qu'a fait le joueur qui est à cette position 
-			(0 si la case est vide).
-			Un joueur a fait un tour complet quand il a est de nouveau sur sa position de départ
+			\lda{circuit}: un tableau de 1 à 50 éléments \lda{Joueur}, une structure.
+			\begin{LDA}
+				\Struct{Joueur}
+					\Decl{nom}{chaine} 
+						\RComment{\scriptsize Le nom du joueur à cette position ("A", "B" ou " " si la case est vide)}
+					\Decl{nbTours}{entier} 
+						\RComment{\scriptsize Nb de tours qu'a fait le joueur qui est à cette position (0 si case vide)}
+				\EndStruct
+			\end{LDA}
+			Un joueur a fait un tour complet quand il est de nouveau sur sa position de départ
 			ou la dépasse.
 		\item
 			\lda{joueurCourant}: un entier donnant la position du joueur courant.
 		\end{itemize}
 	\item
-		Dans cette proposition, le tableau change de signification
+		Dans cette proposition, le tableau change de signification.
 		\begin{itemize}
 		\item
-			\lda{circuit}: un tableau de 2 éléments \lda{Joueur}.  
-			La structure \lda{Joueur} est composée 
-			de position: entier et nbTour: entier 
-			où position donne la position du joueur sur le circuit 
-			(entier entre 1 et 50) 
-			et nbTour donne le nombre de tours qu'a fait le joueur.
+			\lda{circuit}: un tableau de 2 éléments \lda{Joueur}, une structure différente.  
+			\begin{LDA}
+				\Struct{Joueur}
+					\Decl{position}{entier} 
+						\RComment{\footnotesize Donne la position du joueur sur le circuit (entier entre 1 et 50)}
+					\Decl{nbTours}{entier} 
+						\RComment{\footnotesize Le nombre de tours qu'a fait ce joueur}
+				\EndStruct
+			\end{LDA}
 		\item
 			\lda{joueurCourant}: un entier donnant la position du joueur courant.
 		\end{itemize}
 	\item
-		Dans cette proposition, la structure est remplacée par une classe
-		contenant les mêmes données mais introduisant des méthodes.
+		Cette proposition est identique à la précédente sauf sur un point :
 		\begin{itemize}
 		\item
-			\lda{circuit}: un tableau de 2 éléments \lda{Joueur}.  
-			La structure \lda{Joueur} est composée 
-			de position: entier et nbTour: entier 
-			où position donne la position du joueur sur le circuit 
-			(entier entre 1 et 50) 
-			et nbTour donne le nombre de tours qu'a fait le joueur.
-		\item
-			\lda{joueurCourant}: un entier donnant la position du joueur courant.
+			On ne retient plus le nombre de tours effectués
+			mais simplement le nombre de cases parcourues.
+			Par exemple, si un joueur a fait exactement deux tours complets,
+			le nombre de cases parcourues sera de 100.
+			\begin{LDA}
+				\Struct{Joueur}
+					\Decl{position}{entier} 
+						\RComment{\footnotesize Donne la position du joueur sur le circuit (entier entre 1 et 50)}
+					\Decl{nbCasesParcourues}{entier} 
+						\RComment{\footnotesize Nb de cases parcourues par le joueur depuis le départ}
+				\EndStruct
+			\end{LDA}
 		\end{itemize}
-	\item
-		Cette proposition est fort proche de la précédente mais, cette fois,
-		un joueur reprendra plutôt le numéro de la case de départ
-		et le nombre de cases parcourues.
-	\end{itemize}
+	\end{enumerate}
 	
 \end{Exercice}
 
@@ -348,16 +357,21 @@
 	\lda{vrai} il avance encore une fois du même nombre de cases 
 	(et de même s’il tombe encore sur \lda{vrai}).
 	
-			Le constructeur reçoit la configuration du circuit 
-			(pour savoir si les cases contiennent \lda{vrai} ou \lda{faux})
-
 	Qu'est-ce que cela change au niveau des données ?
 	Modifiez la classe \lda{JeuPoursuite en conséquence}.
-	
-	Pour le code, 
-	nous vous conseillons de ne pas modifier la méthode \lda{jouerCoup} 
-	mais de la rendre privée et d'introduire une méthode qui y fait appel
-	plusieurs fois si nécessaire.
+
+	Au niveau du code,
+	les changements seront à apporter à deux niveaux :
+	\begin{itemize}
+	\item 
+		Le constructeur recevra la configuration du circuit 
+		(pour savoir si les cases contiennent \lda{vrai} ou \lda{faux})
+	\item
+		Nous vous conseillons de ne pas modifier la méthode \lda{jouerCoup} 
+		mais de la rendre privée 
+		et d'introduire une méthode (par ex. \lda{jouerTour}) 
+		qui y fait appel plusieurs fois si nécessaire.
+	\end{itemize}
 \end{Exercice}
 
 %---------------------------------------
@@ -668,6 +682,16 @@
 	
 \end{Exercice}
 
+%-----------------------------------------------
+\begin{Exercice}{Un jeu de poursuite - sans structure}
+%-----------------------------------------------
+
+	Reprenez la solution que vous avez écrite pour l'exercice 5
+	(Un jeu de poursuite - variante)
+	et voyez comment transformer la structure utilisée en une classe.
+	
+\end{Exercice}
+	
 %---------------------------
 \begin{Exercice}{Les congés}
 %---------------------------
