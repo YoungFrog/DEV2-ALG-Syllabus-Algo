@@ -186,7 +186,7 @@
 	\end{enumerate}
 
 	Après ces vérifications vous choisirez une des représentations 
-	pour écrire la solution du jeu sous forme d'une classe \lda{Course64}.
+	pour écrire la solution (non OO à ce stade) du jeu.
 	Pensez à découper votre solution.
 	
 \end{Exercice}
@@ -236,40 +236,22 @@
 	il continue son parcours à partir de la case 1. 
 	Le jeu se termine lorsqu’un joueur rattrape ou dépasse l’autre.
 
-	Écrire un algorithme de simulation de ce jeu
+	Écrire un algorithme (non OO pour le moment) de simulation de ce jeu
 	qui se terminera par l’affichage du vainqueur ainsi que le nombre de
 	tours complets parcourus par ce vainqueur. 
 
-	La solution se trouvera dans une classe \lda{JeuPoursuite}
-	qui contiendra les méthodes suivantes :
+	Il est important de bien découper votre algorithme.
+	On vous suggère d'écrire les algorithmes suivant :
 	\begin{itemize}
 		\item 
-			La méthode \lda{initialiser()} initialise le jeu
-			(placement des joueurs\dots).%
-			\footnote{%
-				Vous vous demandez peut-être pourquoi 
-				ce n'est pas le constructeur qui initialise le jeu ?
-				Cette approche permettra de rejouer une partie
-				sans devoir reconstruire le jeu,
-				ce qui est plus rapide.%
-			}
+			un algorithme \lda{initialiser()} qui initialise le jeu
+			(placement des joueurs\dots) ;
 		\item 
-			La méthode \lda{jouer()} lance le jeu jusqu’à son terme et
-			donne le vainqueur et le nombre de tours effectués par chacun.
+			un algorithme \og{}\lda{~jouerCoup~}\fg{} 
+			qui joue pour un joueur et indique s'il a rattrapé l’autre joueur ;
 		\item 
-			Vous êtes également fortement invités à définir d’autres méthodes en
-			privé pour modulariser au mieux votre code. 
-			Par exemple, on pourrait définir :
-			\begin{itemize}
-				\item 
-					la méthode \og{}\lda{~jouerCoup~}\fg{} qui joue pour un joueur et
-					indique s'il a rattrapé l’autre joueur ;
-				\item 
-					la méthode \og{}\lda{~joueurSuivant~}\fg{} qui permet de passer au
-					joueur suivant.
-			\end{itemize}
-			Avec ces méthodes, la méthode publique \og{}\lda{~jouer~}\fg{} 
-			devient triviale.
+			un algorithme \og{}\lda{~joueurSuivant~}\fg{} 
+			qui permet de passer au joueur suivant.
 	\end{itemize}
 
 	À nouveau, on vous fait plusieurs propositions pour la représentation
@@ -358,20 +340,14 @@
 	(et de même s’il tombe encore sur \lda{vrai}).
 	
 	Qu'est-ce que cela change au niveau des données ?
-	Modifiez la classe \lda{JeuPoursuite en conséquence}.
-
-	Au niveau du code,
-	les changements seront à apporter à deux niveaux :
-	\begin{itemize}
-	\item 
-		Le constructeur recevra la configuration du circuit 
-		(pour savoir si les cases contiennent \lda{vrai} ou \lda{faux})
-	\item
-		Nous vous conseillons de ne pas modifier la méthode \lda{jouerCoup} 
-		mais de la rendre privée 
-		et d'introduire une méthode (par ex. \lda{jouerTour}) 
-		qui y fait appel plusieurs fois si nécessaire.
-	\end{itemize}
+	Modifiez votre solution en conséquence.
+	
+	Pour adapter le code,
+	il faudra adapter les paramètres fournis à l'algorithme d'initialisation
+	et à l'algorithme qui joue un coup.
+	Nous vous conseillons également de ne pas modifier l'algorithme \lda{jouerCoup} 
+	mais d'introduire un nouvel algorithme (par ex. \lda{jouerTour}) 
+	qui y fait appel plusieurs fois si nécessaire.
 \end{Exercice}
 
 %---------------------------------------
@@ -683,12 +659,22 @@
 \end{Exercice}
 
 %-----------------------------------------------
-\begin{Exercice}{Un jeu de poursuite - sans structure}
+\begin{Exercice}{La course à la case 64 en version OO}
+%-----------------------------------------------
+
+	Reprenez la solution que vous avez écrite pour l'exercice 2
+	(La course à la case 64 à n joueurs)
+	et voyez comment le transformer pour en faire une version OO.
+	
+\end{Exercice}
+
+%-----------------------------------------------
+\begin{Exercice}{Un jeu de poursuite en version OO}
 %-----------------------------------------------
 
 	Reprenez la solution que vous avez écrite pour l'exercice 5
 	(Un jeu de poursuite - variante)
-	et voyez comment transformer la structure utilisée en une classe.
+	et voyez comment le transformer pour en faire une version OO.
 	
 \end{Exercice}
 	
