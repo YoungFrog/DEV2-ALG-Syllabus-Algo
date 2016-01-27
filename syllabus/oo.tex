@@ -194,6 +194,12 @@
 			\EndClass
 		\end{LDA}
 	
+		Pour rappel de votre cours de langage,
+		ce qui est privé n'est pas utilisable directement 
+		par du code extérieur à la classe.
+		Un code extérieur, manipulant des objets de cette classe,
+		ne peut utiliser que ce qui est public.
+		
 	\subsection{L'implémentation}
 	%============================
 	
@@ -344,8 +350,18 @@
 	\begin{itemize}
 		\item
 			Pour un attribut \lda{brol},
-			on choisira de nommer l'accesseur \lda{getBrol}
-			et le mutateur \lda{setBrol}.
+			on choisira de nommer l'accesseur%
+			\footnote{%
+				Pour rappel,
+				un \emph{accesseur} est une méthode 
+				donnant la valeur d'un attribut.
+			} \lda{getBrol}
+			et le mutateur%
+			\footnote{%
+				Pour rappel,
+				un \emph{mutateur} est une méthode 
+				permetant de modifier la valeur d'un attribut.
+			} \lda{setBrol}.
 			Dans le cas particulier d'un attribut booléen,
 			on pourra appeler l'accesseur \lda{isBrol} ou encore \lda{estBrol}.
 		\item
