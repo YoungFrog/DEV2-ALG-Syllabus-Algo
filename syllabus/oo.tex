@@ -366,13 +366,16 @@
 			on pourra appeler l'accesseur \lda{isBrol} ou encore \lda{estBrol}.
 		\item
 			On peut directement afficher un objet. 
-			Cela affiche son état, c'est-à-dire les valeurs de ses attributs.
+			Cela affiche l'état d'un objet d'une façon claire pour l'utilisateur%
+			\footnote{%
+				Le format précis n'est pas spécifié car il n'est pas important pour ce cours.
+			}.
 
 			\begin{LDA}
 				\Decl{rendezVous}{Durée}
 				\Let rendezVous \Gets \K{nouvelle} Durée(14, 23, 56)
 				\Write rendezVous 
-				\RComment affichera 14, 23 et 56 dans un format lisible quelconque
+				\RComment affichera 14, 23 et 56 dans un format lisible.
 			\end{LDA}
 		\item
 			De même, on peut directement lire un objet,
@@ -384,8 +387,10 @@
 				\Read rendezVous
 			\end{LDA}
 		\item 
-			Le signe «~=~» peut être utilisé pour comparer deux objets.
-			Ils seront considérés comme égaux s'ils sont dans le même état, 
+			La comparaison de deux objets est toujours un problème délicat en orienté objet.
+			Nous nous baserons ici sur les conventions \bsc{Java}
+			et utiliserons la notation \lda{o1.égale(o2)}
+			quand il s'agira de vérifier que \lda{o1} et \lda{o2} sont dans le même état,
 			c'est-à-dire que leurs attributs ont la même valeur.
 		\item
 			Lorsqu'on déclare un objet, il n'est pas encore créé.
