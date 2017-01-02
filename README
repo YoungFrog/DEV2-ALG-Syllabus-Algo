@@ -1,10 +1,10 @@
 ========================================================================
-  Slides pour le cours d'Algorithmique 2 (DEV2) en 1ère année à l’ESI 
-  (http://www.heb.be/esi)
+  Slides pour le cours d'Algorithmique (UE DEV2) au bloc 1 à l’ESI 
+  (http://www.he2b.be/esi)
   Contact : mcodutti@heb.be
 ========================================================================
 
-Pour produire le document : pdflatex dev2-alm-syllabus.tex 
+Pour produire le document : pdflatex dev2-alg-syllabus.tex 
 
 Pour les détails sur l'écriture de pseudo-code avec laTeX,
-cf. la cours d'Algorithmique 1.
+cf. le cours d'Algorithmique en DEV1.
