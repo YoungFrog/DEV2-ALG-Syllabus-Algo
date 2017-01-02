@@ -659,10 +659,22 @@
 		\end{Exercice}
 				
 		\begin{Exercice}{Rendez-vous}
-			Soit la structure «\lda{~RendezVous~}» composée d’une date
-			et d’un motif de rencontre. Écrire un algorithme qui reçoit une liste de
-			rendez-vous et la met à jour en supprimant tous ceux qui sont désormais
-			passés. 
+			Soit la structure \lda{RendezVous} composée 
+			d’une date (cf. la structure Date du cours de DEV1)
+			et d’un motif de rencontre. 
+			
+			\begin{LDA}
+				\Struct{RendezVous}
+				\Decl{date}{Date}
+				\Decl{motif}{Chaine}
+				\EndStruct
+			\end{LDA}
+
+			Écrire un algorithme qui reçoit une liste de rendez-vous 
+			et la met à jour en supprimant tous ceux qui sont désormais passés. 			
+			
+			Pour résoudre cet exercice, vous pouvez utiliser sans l'écrire
+			un algorithme \lda{aujourdhui()} qui retourne la date du jour.
 		\end{Exercice}
 		
 	
