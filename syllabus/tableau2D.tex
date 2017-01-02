@@ -518,7 +518,7 @@
 			\end{LDA}
 			
 			Mais on peut obtenir le même résultat avec une seule boucle
-			si l'indice sert juste à compter le nombre de passages
+			si l'indice sert juste à compter le nombre de passages ($n*m$)
 			et que les indices de lignes et de colonnes sont gérés manuellement.
 			
 			L'algorithme suivant montre ce que ça donne
@@ -532,7 +532,7 @@
 					\Decl {lg, col}{entiers}
 					\Let lg \Gets 0
 					\Let col \Gets 0
-					\For{i}{0}{(n*m)-1}
+					\For{i}{1}{n*m}
 						\Write tab[lg,col] \RComment On peut faire autre chose qu'afficher
 						\Let col \Gets col + 1	\RComment Passer à la case suivante
 						\If{col = m} \RComment On déborde sur la droite, passer à la ligne suivante
@@ -578,8 +578,8 @@
 					\Decl {lg, col, i}{entiers}
 					\Let lg \Gets 0
 					\Let col \Gets 0
-					\Let i \Gets 0
-					\While{i $<$ n*m} \RComment ou "lg $<$ n" 
+					\Let i \Gets 1
+					\While{i $\le$ n*m} \RComment ou "lg $<$ n" 
 						\Write tab[lg,col] \RComment On peut faire autre chose qu'afficher
 						\Let col \Gets col + 1	\RComment Passer à la case suivante
 						\If{col = m} \RComment On déborde sur la droite, passer à la ligne suivante
@@ -630,8 +630,8 @@
 					\Decl {lg, col, i}{entiers}
 					\Let lg \Gets 0
 					\Let col \Gets 0
-					\Let i \Gets 0
-					\While{i $<$ n*m ET \textit{tab[lg, col] n'est pas l'élément recherché}}  
+					\Let i \Gets 1
+					\While{i $\le$ n*m ET \textit{tab[lg, col] n'est pas l'élément recherché}}  
 						\Let col \Gets col + 1	\RComment Passer à la case suivante
 						\If{col = m} \RComment On déborde sur la droite, passer à la ligne suivante
 							\Let col \Gets 0
@@ -672,7 +672,7 @@
 					\Let lg \Gets 0
 					\Let col \Gets 0
 					\Let depl \Gets 1	\RComment 1 pour avancer, -1 pour reculer
-					\For{i}{0}{(n*m)-1}
+					\For{i}{1}{n*m}
 						\Write tab[lg, col] \RComment On peut faire autre chose qu'afficher
 						\If{0 $\le$ col + depl ET col + depl $<$ m}
 							\Let col \Gets col + depl \RComment On se déplace dans la ligne
