@@ -409,18 +409,14 @@
 		
 		\begin{LDA}
 			\Method{get}{pos : entier}{T}
-				\If{ pos < 0 OU pos $\geq$ tailleLogique}
-					\Error "position invalide"
-				\EndIf
+				\LComment{pos doit être compris entre 0 et tailleLogique-1, inclus}
 				\Return éléments[ pos ]
 			\EndMethod
 		\end{LDA}
 		
 		\begin{LDA}
 			\Method{set}{pos : entier, valeur : T}{}
-				\If{ pos < 0 OU pos $\geq$ tailleLogique}
-					\Error "position invalide"
-				\EndIf
+				\LComment{pos doit être compris entre 0 et tailleLogique-1, inclus}
 				\Let éléments[ pos ] \Gets valeur
 			\EndMethod
 		\end{LDA}
@@ -445,9 +441,7 @@
 		
 		\begin{LDA}
 			\Method{insérer}{pos : entier, valeur : T}{}
-				\If{ pos < 0 OU pos $\geq$ tailleLogique}
-					\Error "position invalide"
-				\EndIf
+				\LComment{pos doit être compris entre 0 et tailleLogique-1, inclus}
 				\If{tailleLogique = taillePhysique}
 					\Stmt agrandir()
 				\EndIf
@@ -460,19 +454,14 @@
 		
 		\begin{LDA}
 			\Method{supprimer}{}{}
-				\LComment supprime le dernier élément
-				\If{tailleLogique = 0}
-					\Error "liste vide"
-				\EndIf
+				\LComment Supprime le dernier élément; la liste ne peut pas être vide
 				\Let tailleLogique \Gets tailleLogique - 1
 			\EndMethod
 		\end{LDA}
 		
 		\begin{LDA}
 			\Method{supprimerPos}{pos : entier}{}
-				\If{ pos < 0 OU pos $\geq$ tailleLogique}
-					\Error "position invalide"
-				\EndIf
+				\LComment{pos doit être compris entre 0 et tailleLogique-1, inclus}
 				\Stmt décalerGauche( pos + 1 )
 				\RComment voir méthode ci-dessous
 				\Let tailleLogique\Gets tailleLogique - 1
