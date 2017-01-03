@@ -1,0 +1,107 @@
+\chapter{Compléments}
+
+	Nous présentons ici quelques éléments qui pourront
+	vous être utiles pour résoudre certains exercices.
+	
+%===================================================
+\section{Énumération}
+%===================================================
+
+	Parfois, une variable ne peut prendre 
+	qu’un ensemble fixe et fini de valeurs. 
+	Par exemple une variable représentant une saison 
+	ne peut prendre que quatre valeurs (HIVER, PRINTEMPS, ÉTÉ, AUTOMNE). 
+	On va l’indiquer grâce à l’énumération 
+	qui introduit un \textbf{nouveau type} de donnée.
+
+	\begin{LDA}
+		\Stmt \K{énumération} Saison \{ HIVER, PRINTEMPS, ÉTÉ, AUTOMNE \}
+	\end{LDA}
+
+	Il y a deux avantages à cela~:~
+	une indication claire des possibilités de la variable lors de la déclaration 
+	et une lisibilité du code grâce à l’utilisation des valeurs explicites.
+
+	Par exemple, 
+
+	\begin{LDA}
+		\LComment Lit une saison et affiche sa particularité
+		\Algo{particularitéSaisonnière}{}{}
+			\Decl{uneSaison}{Saison}
+			\Read uneSaison
+			\RComment on lira la valeur HIVER ou PRINTEMPS ou ÉTÉ ou AUTOMNE
+			\If{uneSaison = HIVER}
+				\Write "il neige"
+			\ElsIf{uneSaison = PRINTEMPS}
+				\Write "les fleurs poussent"
+			\ElsIf{uneSaison = ÉTÉ}
+				\Write "le soleil brille"
+			\Else
+				\Write "les feuilles tombent"
+			\EndIf
+		\EndAlgo
+	\end{LDA}
+
+
+	\begin{Exercice}{Autres situations}
+	
+		Pouvez-vous identifier d’autres données qui pourraient
+		avantageusement s’exprimer avec une énumération~?
+	
+	\end{Exercice}
+
+	\subsection{Quid des langages de programmation~?}
+	%-------------------------------------------------
+	
+		Certains langages (comme Java) proposent un type énuméré complet.
+		D’autres (comme C et C++) proposent un type énuméré incomplet 
+		mais qui permet néanmoins une écriture comme celle ci-dessus.
+		Cobol propose des «~noms conditions~» qui représentent
+		l’ensemble des valeurs possibles d’une variable. 
+		D’autres langages, enfin, ne proposent rien. 
+		Pour ces langages, le truc est de définir des constantes entières 
+		qui vont permettre une écriture proche de celle ci-dessus 
+		(mais sans une déclaration explicite).
+
+	\subsection{Lien avec les entiers}
+	%-------------------------------------
+	
+		Dans l’exemple ci-dessus, on lit une Saison mais souvent,
+		si on travaille avec les Mois par exemple,
+		on disposera plutôt d’un entier. 
+		Il faut pouvoir convertir les valeurs. 
+		Chaque langage de programmation propose sa propre technique; 
+		nous allons adopter la syntaxe suivante~:
+
+		\begin{LDA}
+			\Stmt Saison(3) 
+				\RComment donne l’énumération de la saison numéro 3 (on commence à 1);
+				\Stmt\RComment donne ÉTÉ dans notre exemple.
+			\Stmt position(uneSaison)
+				\RComment donne l’entier associé à une saison;
+				\Stmt\RComment si on a lu HIVER comme valeur pour uneSaison, donne la valeur 1.
+		\end{LDA}
+		
+	
+	%===================================================
+	\section{Gestion des erreurs}
+	%===================================================
+
+		Lorsqu'un algorithme se trouve dans un état incorrect,
+		particulièrement lorsqu'un paramètre est invalide,
+		on peut l'indiquer via la primitive \lda{\K{erreur}}.
+	
+		Par exemple :	
+		\begin{LDA}
+			\Algo{racineCarrée}{\Par{nb}{entier}}{}
+				\If{nb<0}
+					\Error{"Le nombre doit être positif"}
+				\EndIf
+				\Stmt suite de l'algorithme...
+			\EndAlgo
+		\end{LDA}
+			
+		Pratiquement, cette primitive stoppe l'algorithme
+		sans aucune possibilité de récupération.
+		Dans un langage comme \bsc{Java} vous utiliserez
+		le mécanisme des exceptions qui est plus souple. 
