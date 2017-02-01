@@ -250,12 +250,12 @@
 		\LComment Calcule et affiche la quantité vendue de 10 produits
 		\LComment pour chaque jour de la semaine (de 0~: lundi à 6~: dimanche).
 		\Algo{statistiquesVentesSemaine}{}{}
-			\Empty
+			%\Empty
 			\Decl{cpt}{\Array{7$\times$10}{entiers}}
 			%\Decl{produit, jour}{entiers}
-			\Empty
+			%\Empty
 			\Stmt initialiser(cpt)
-			\Empty
+			%\Empty
 			\LComment Pour chaque jour de la semaine
 			\For{jour}{0}{6}
 				\Stmt traiterStock1Jour(cpt, jour)
@@ -284,17 +284,17 @@
 			\Decl{numéroProduit, quantité}{entiers}
 			\Write "Introduisez le numéro du produit~:"
 			\Read numéroProduit
-			\Empty
+			%\Empty
 			\While{numéroProduit $\geq$ 0 et numéroProduit $<$ 10}
-				\Empty
+				%\Empty
 				\Write "Introduisez la quantité vendue~:"
 				\Read quantité
-				\Empty
+				%\Empty
 				\Let cpt[jour,numéroProduit] \Gets cpt[jour,numéroProduit] + quantité
-				\Empty
+				%\Empty
 				\Write "Introduisez le numéro du produit~:"
 				\Read numéroProduit
-				\Empty
+				%\Empty
 			\EndWhile
 		\EndAlgo
 		\end{LDA}
@@ -309,7 +309,7 @@
 			contient ou pas la valeur nulle.
 			
 			\begin{LDA}
-				\Entete{estNul}{\Par{tab}{\Array{n $\times$ m}{entiers}}, \Par{ligne, colonne}{entiers}}{booléen}
+				\Entete{estNul}{\Par{tab}{\Array{n $\times$ m}{entiers}}, \Par{lg, col}{entiers}}{booléen}
 			\end{LDA}
 		\end{Exercice}
 
@@ -323,7 +323,31 @@
 			Dans le cas contraire, l'algorithme ne fait rien.
 			
 			\begin{LDA}
-				\Entete{assigner}{\Par{tab}{\Array{n $\times$ m}{entiers}}, \Par{ligne, colonne, valeur}{entiers}}{}
+				\Entete{assigner}{\Par{tab}{\Array{n $\times$ m}{entiers}}, \Par{lg, col, val}{entiers}}{}
+			\end{LDA}
+		\end{Exercice}
+
+		\begin{Exercice}{Un bord du tableau}
+			Écrire un algorithme qui reçoit un tableau d'entiers
+			(à $n$ lignes et $m$ colonnes)
+			ainsi que les coordonnées d'une case (ligne, colonne).
+			L'algorithme doit indiquer si la case donnée
+			est ou non sur un \textbf{bord} du tableau.
+			
+			\begin{LDA}
+				\Entete{assigner}{\Par{tab}{\Array{n $\times$ m}{entiers}}, \Par{lg, col}{entiers}}{booléen}
+			\end{LDA}
+		\end{Exercice}
+
+		\begin{Exercice}{Un coin du tableau}
+			Écrire un algorithme qui reçoit un tableau d'entiers
+			(à $n$ lignes et $m$ colonnes)
+			ainsi que les coordonnées d'une case (ligne, colonne).
+			L'algorithme doit indiquer si la case donnée
+			est ou non sur un des 4 \textbf{coins} du tableau.
+			
+			\begin{LDA}
+				\Entete{assigner}{\Par{tab}{\Array{n $\times$ m}{entiers}}, \Par{lg, col}{entiers}}{booléen}
 			\end{LDA}
 		\end{Exercice}
 
@@ -722,6 +746,28 @@
 		Écrivez un autre algorithme qui affiche cette fois les éléments
 		colonne par colonne
 	\end{Exercice}
+
+	\begin{Exercice}{Toute une ligne de valeurs non nulles ?}
+		Écrire un algorithme qui reçoit un tableau d'entiers
+		(à $n$ lignes et $m$ colonnes)
+		ainsi qu'un numéro de ligne
+		et qui retourne un booléen indiquant si la ligne donnée du tableau
+		ne contient que des valeurs non nulles.
+		
+		\begin{LDA}
+			\Entete{lignePleine}{\Par{tab}{\Array{n $\times$ m}{entiers}}, \Par{lg}{entiers}}{booléen}
+		\end{LDA}
+		
+		Faites de même pour une colonne.
+	\end{Exercice}
+	
+	\begin{Exercice}{Cases adjacentes}
+		Écrire un algorithme qui reçoit un tableau d'entiers
+		(à $n$ lignes et $m$ colonnes)
+		ainsi que les coordonnées d'une case (ligne, colonne)
+		et \emph{affiche} les coordonnées
+		des cases \emph{adjacentes}.		
+	\end{Exercice}
 	
 	\begin{Exercice}{Les nuls}
 		\marginicon{java}
@@ -757,12 +803,17 @@
 		$n$, et qui renvoie un tableau contenant les
 		$n+1$ premières lignes du triangle de Pascal
 		(indicées de $0$ à $n$).
-		
-		N.B.: le «~triangle~» sera bien entendu renvoyé dans un tableau carré.
+
+		\begin{minipage}[t][][t]{6cm}	
+		N.B.: le «~triangle~» sera bien entendu renvoyé dans un tableau carré
+		(ce qui ne sera forcément le cas en Java).
 		Quid des cases non occupées ?
-	
-		Par exemple, pour $n$ qui vaut 5, on aura le tableau suivant :
-	
+		
+		\medskip
+		Par exemple, pour $n$ qui vaut 5, on aura le tableau ci-contre.
+		\end{minipage}
+		~
+		\begin{minipage}[t][][b]{8cm}	
 		\begin{center}
 		\begin{tabular}{|*{6}{>{\centering\arraybackslash}m{0.35cm}|}}
 		\hline
@@ -774,6 +825,7 @@
 		 1 & 5 & 10 & 10 & 5 & 1 \\\hline
 		\end{tabular}
 		\end{center}
+		\end{minipage}
 	\end{Exercice}
 
 	\begin{Exercice}{Tous positifs}
