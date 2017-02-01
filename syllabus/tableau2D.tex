@@ -298,9 +298,35 @@
 			\EndWhile
 		\EndAlgo
 		\end{LDA}
-		
-		Pour plus d'exemples, allez faire un tour à la section \vref{algo:Tab2D}.
 	
+	\subsection{Exercices}
+			
+		\begin{Exercice}{Case nulle ?}
+			Écrire un algorithme qui reçoit un tableau d'entiers
+			(à $n$ lignes et $m$ colonnes)
+			ainsi que les coordonnées d'une case (ligne, colonne)
+			et qui retourne un booléen indiquant si la case désignée
+			contient ou pas la valeur nulle.
+			
+			\begin{LDA}
+				\Entete{estNul}{\Par{tab}{\Array{n $\times$ m}{entiers}}, \Par{ligne, colonne}{entiers}}{booléen}
+			\end{LDA}
+		\end{Exercice}
+
+		\begin{Exercice}{Assigner une case}
+			Écrire un algorithme qui reçoit un tableau d'entiers
+			(à $n$ lignes et $m$ colonnes)
+			ainsi que les coordonnées d'une case (ligne, colonne)
+			et une valeur entière.
+			L'algorithme met la valeur donnée dans la case indiquée
+			pour autant que la case contienne actuellement la valeur nulle.
+			Dans le cas contraire, l'algorithme ne fait rien.
+			
+			\begin{LDA}
+				\Entete{assigner}{\Par{tab}{\Array{n $\times$ m}{entiers}}, \Par{ligne, colonne, valeur}{entiers}}{}
+			\end{LDA}
+		\end{Exercice}
+
 % ============================================
 \section{La troisième dimension (et au-delà)}
 % ============================================
