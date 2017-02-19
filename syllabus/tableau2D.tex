@@ -649,10 +649,12 @@
 			Le premier introduit un test en utilisant un booléen
 			alors que le second introduit un test
 			sans utiliser de booléen.
+			Dans les deux cas, l'algorithme retourne un booléen indiquant si
+			l'élément a été trouvé ou pas
 			
 			\begin{LDA}
 				\LComment{Parcours avec test d'arrêt - deux boucles et un booléen}
-				\Algo{chercherEléments}{\Par{tab}{\Array{n $\times$ m}{T}}}{}
+				\Algo{chercherElément}{\Par{tab}{\Array{n $\times$ m}{T}}, \Par{élt}{T}}{booléen}
 					\Decl {lg, col}{entiers}
 					\Decl {trouvé}{booléen}
 					\Let trouvé \Gets faux
@@ -660,7 +662,7 @@
 					\While{lg $<$ n ET NON trouvé}
 						\Let col \Gets 0
 						\While{col $<$ m ET NON trouvé}
-							\If{\textit{tab[lg, col] est l'élément recherché}}
+							\If{\textit{tab[lg, col] = élt}}
 								\Let trouvé \Gets vrai
 							\Else \RComment Ne pas modifier les indices si arrêt demandé
 								\Let col \Gets col + 1
@@ -670,18 +672,18 @@
 							\Let lg \Gets lg + 1
 						\EndIf
 					\EndWhile
-					\LComment Tester trouvé pour savoir si on a trouvé l'élément recherché
+					\Return trouvé
 				\EndAlgo
 			\end{LDA}
 			
 			\begin{LDA}
 				\LComment{Parcours avec test d'arrêt - une boucle et pas de booléen}
-				\Algo{chercherEléments}{\Par{tab}{\Array{n $\times$ m}{T}}}{}
+				\Algo{chercherElément}{\Par{tab}{\Array{n $\times$ m}{T}}, \Par{élt}{T}}{}
 					\Decl {lg, col, i}{entiers}
 					\Let lg \Gets 0
 					\Let col \Gets 0
 					\Let i \Gets 1
-					\While{i $\le$ n*m ET \textit{tab[lg, col] n'est pas l'élément recherché}}  
+					\While{i $\le$ n*m ET \textit{tab[lg, col] $\neq$ élt}}  
 						\Let col \Gets col + 1	\RComment Passer à la case suivante
 						\If{col = m} \RComment On déborde sur la droite, passer à la ligne suivante
 							\Let col \Gets 0
@@ -689,7 +691,7 @@
 						\EndIf
 						\Let i \Gets i + 1		
 					\EndWhile
-					\LComment L'élément recherché a été trouvé si i $<$ n*m.
+					\Return  $i<n*m$
 				\EndAlgo
 			\end{LDA}
 
