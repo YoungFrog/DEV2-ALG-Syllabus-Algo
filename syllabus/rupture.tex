@@ -1,0 +1,599 @@
+%===================================
+\chapter{Les traitements de rupture}
+\label{chap:rupture}
+%===================================
+
+	Dans ce chapitre, on étudie une classe de problèmes qui peuvent tous se
+	résoudre avec un même type d'algorithme :
+	l'algorithme de rupture. 
+	
+	Cet algorithme est notamment adapté pour un problème comme celui-ci :
+	\begin{quotation}
+		\slshape
+		\og{}Soit une liste d'étudiants, 
+		où un étudiant est représenté par un objet reprenant son nom,
+		son numéro, son option et son année.
+		Écrire un algorithme qui compte le nombre d'étudiants dans chaque section
+		et, plus précisément, dans chaque année de chaque section.\fg{}
+	\end{quotation}
+	
+	Nous verrons que l'algorithme que nous allons pouvoir écrire va dépendre
+	fortement de la façon dont la liste est triée (ou pas).
+	C'est pourquoi nous allons commencer par parler du \emph{classement complexe}
+	des éléments.
+	
+	À la fin du chapitre vous
+	devrez être capable de :	
+	\begin{itemize}
+		\item 
+			Détecter qu'on se trouve bien face à un problème qui
+			peut entrer dans le cadre d'un algorithme de rupture
+			et identifier si le tri des éléments est adapté au problème.
+		\item 
+			Adapter le squelette général de l'algorithme de rupture
+			au problème donné.
+	\end{itemize}
+
+%===============================
+\section{Le classement complexe}
+%===============================
+
+\subsection*{Introduction}
+
+	Dans le chapitre sur les tris du cours d'algorithmique I (DEV1), 
+	vous avez abordé naturellement la notion du classement des données. 
+	Néanmoins, les données étaient «~simples~» : 
+	nombres ou chaînes, pour lesquelles la relation d’ordre est évidente. 
+	Les algorithmes mis en œuvre peuvent facilement s’adapter pour d’autre types, 
+	par exemple des objets Date, où l’opérateur de comparaison est remplacé par la méthode
+	«~estAntérieure()~».
+	
+	Plus généralement, les données composées de plusieurs
+	champs (les structures) ou attributs (les objets)
+	ne possèdent pas de relation d’ordre naturelle. 
+	C'est le cas, par exemple, des points d’un espace à deux ou trois dimensions
+	ou encore des informations figurant sur une carte d’identité. 
+	Si on veut ordonner une série de telles données, 
+	il faudra choisir un premier critère de classement 
+	(par exemple le nom ou la date de naissance) 
+	et en cas d’égalité sur le premier critère 
+	(deux personnes peuvent avoir un même nom ou être nées le même jour), 
+	il faudra départager sur un second critère, 
+	et ainsi de suite.
+	
+	Ces critères de classement sont bien entendu arbitraires, 
+	et dépendent de l’information qu’on veut retirer de l’ensemble des données. 
+	Notons aussi que l’ordre de classement peut être, pour chaque critère, 
+	croissant ou décroissant.
+
+\subsection*{Exemple de classement simple}
+
+	Prenons l’exemple d’une structure \texttt{Etudiant}, 
+	contenant les champs \texttt{matricule}, \texttt{nom}, \texttt{prénom}, 
+	\texttt{dateNaissance} et \texttt{option} (G, I ou R). 
+	Pour l’exemple, considérons une liste de 6 étudiants :
+	
+	\begin{center}
+	\small
+	\begin{tabular}{cllrc}
+		matricule 	& nom 		& prénom 	& dateNaissance & option \\
+		\hline 
+		29845     	& Durant 	& Kevin 	& 20/01/94 		& R\\
+		30125 		& Dupont	& Fabrice 	& 13/06/94 		& G\\
+		30351 		& Simon 	& André 	& 18/11/94 		& G\\
+		30597 		& Dupont 	& Charles 	& 9/07/94 		& G\\
+		31857 		& Guilmant  & Léon 		& 17/03/96 		& R\\
+		31886 		& Durant  	& Sam 		& 30/05/94 		& I\\
+		\hline 
+	\end{tabular}
+	\end{center}
+	
+	Cette liste est classée sur le numéro de matricule. C’est un classement
+	simple réalisé sur un seul champ des données. Le numéro de matricule
+	étant dans ce cas-ci un \textbf{\textcolor{black}{identifiant}} des
+	données, le problème de devoir départager ne se pose pas.
+
+\subsection*{Exemple de classement double}
+
+	Si nous désirons à présent classer sur l’ordre alphabétique des noms, il
+	faut décider de départager en cas de noms identiques sur un autre
+	champ, de façon naturelle sur celui des prénoms. Ceci donnerait le
+	classement double suivant, en \textbf{majeur} sur le nom et en
+	\textbf{mineur} sur le prénom :
+	
+	\begin{center}
+	\small
+	\begin{tabular}{cllrc}
+		matricule 	& nom 		& prénom 	& dateNaissance & option \\
+		\hline 
+		30597 		& Dupont 	& Charles 	& 9/07/94 		& G\\
+		30125 		& Dupont	& Fabrice 	& 13/06/94 		& G\\
+		29845     	& Durant 	& Kevin 	& 20/01/94 		& R\\
+		31886 		& Durant  	& Sam 		& 30/05/94 		& I\\
+		31857 		& Guilmant  & Léon 		& 17/03/96 		& R\\
+		30351 		& Simon 	& André 	& 18/11/94 		& G\\
+		\hline 
+	\end{tabular}
+	\end{center}
+	
+\subsection*{Exemple de classement triple}
+
+	Supposons enfin que nous voulions grouper les étudiants par sections,
+	nous devons alors classer prioritairement sur l’option, départager sur
+	les noms et ensuite sur les prénoms. C’est alors un classement triple :
+	en \textbf{majeur} sur l’option, en \textbf{médian} sur le nom et en
+	\textbf{mineur} sur le prénom : 
+
+	\begin{center}
+	\small
+	\begin{tabular}{cllrc}
+		matricule 	& nom 		& prénom 	& dateNaissance & option \\
+		\hline 
+		30597 		& Dupont 	& Charles 	& 9/07/94 		& G\\
+		30125 		& Dupont	& Fabrice 	& 13/06/94 		& G\\
+		30351 		& Simon 	& André 	& 18/11/94 		& G\\
+		31886 		& Durant  	& Sam 		& 30/05/94 		& I\\
+		29845     	& Durant 	& Kevin 	& 20/01/94 		& R\\
+		31857 		& Guilmant  & Léon 		& 17/03/96 		& R\\
+		\hline 
+	\end{tabular}
+	\end{center}
+
+
+	Remarque : le classement sur l’option n’est pas forcément un classement
+	alphabétique des trois lettres G, I, R ! Toute autre permutation de ces
+	trois lettres serait acceptable.
+
+\subsection*{Résumé}
+	Les exemples ci-dessus constituent des exemples de \textbf{classements complexes}. 
+	On dira que des données sont classées sur la \textbf{clé composée} 
+	champ $1$ – champ $2$ – \dots{} – champ $i$ – \dots{} – champ $n$ 
+	(où \og{}champ $i$\fg{} est un champ de la structure des données) 
+	si le classement se fait prioritairement depuis le champ $1$ jusqu’au champ $n$. 
+	Autrement dit, si deux données ont tous leurs champs $1$, $2$,\dots, $i$ égaux ($i<n$), 
+	le classement se fait en départageant sur le champ $i+1$. 
+	L’indice du champ correspond au \textbf{niveau} du classement complexe.
+
+%=============================
+\section{La notion de rupture}
+%==============================
+
+	Les algorithmes que nous allons voir 
+	peuvent s'appliquer à n'importe quel \textbf{ensemble logique} d'éléments
+	qui peut faire l'objet d'un traitement séquentiel
+	(les listes, les tableaux\dots)%
+	\footnote{%
+		Et également les fichiers moyennant une petite adaptation
+		liée au fait qu'on ne connait pas, dans ce cas, 
+		la taille l'ensemble lorsqu'on commence à le traiter.
+	}. 
+	Les éléments peuvent être de n'importe quel \textbf{type complexe} 
+	(variables structurées, objets\dots).
+	Nos exemples seront souvent pris sur des listes de variables structurées. 
+		
+	Nous parlons de \textbf{rupture} lorsque dans ce traitement itératif, on
+	constate que l’information courante que l’on souhaite traiter
+	n’appartient plus à l’ensemble (ou au sous-ensemble) des informations
+	déjà traitées précédemment.
+	
+	Les ruptures sont intimement liées au classement complexe des données,
+	et elles ne se qualifient que par rapport aux champs des données qui
+	interviennent dans ce classement. On parle donc de \textit{rupture sur
+	un champ} des données.
+	
+	Par exemple, dans le dernier classement des étudiants ci-dessus, il y a
+	rupture sur l’option au niveau de Durant Sam et de Durant Kevin. En
+	effet, ces deux étudiants délimitent les sous-ensembles d’étudiants
+	partageant une même option.
+	
+	Par contre, cela n’aurait pas de sens de parler de rupture sur l’option
+	dans les deux classements précédents. Ce champ n’appartenant pas à la
+	clé composée pour le classement de ces données, la succession des
+	lettres G, I, R doit être considérée comme aléatoire dans ces deux cas
+	et sans signification pour le traitement itératif.
+	
+	Dans le 2\ieme{} classement, nous pouvons parler de
+	rupture sur les noms : l’étudiant Durant Kevin met fin au sous-ensemble
+	des Dupont, et l’étudiant Guilmant met fin à celui des Durant.
+		
+	Dans le 1\ier{} classement, qui est un classement simple
+	sur le numéro de matricule, on peut considérer qu’il n’y a qu’un
+	ensemble de données d’un seul tenant sans ruptures, ou alors qu’il y a
+	rupture à chaque étudiant, puisque chaque étudiant forme un
+	sous-ensemble isolé par son numéro de matricule, vu qu’ils sont
+	obligatoirement distincts.
+	
+	Notez que toute rupture à un niveau $i$ de la clé de classement complexe
+	entraine une rupture aux niveaux supérieurs à $i$. Ainsi, dans le
+	classement triple, le passage à Durant Kevin entraîne une rupture sur
+	l’option mais aussi sur le nom. Le fait qu’il y ait dans ce classement
+	deux Durant qui se succèdent doit être considéré comme une coïncidence.
+	Bien qu’ayant le même nom, ces deux étudiants appartiennent à deux
+	sous-ensembles différents lorsqu’on prend l’option en considération.
+	
+%	Notons encore que d’un point de vue théorique, deux éléments ont un rôle
+%	spécial et se singularisent quelque peu des autres : il s’agit du
+%	\textbf{premier} et du \textbf{dernier} élément qui ont pour rôle de
+%	délimiter l’ensemble logique. Le premier est singulier dans la mesure
+%	où il n’est précédé par aucun autre élément, et de plus sa présence
+%	détermine l’existence de l’ensemble (par opposition à un ensemble
+%	vide). Le dernier est particulier parce qu’il termine l’ensemble des
+%	données. Remarquez que \textbf{rien} dans ces deux éléments ne signale ces
+%	particularités! Autrement dit, il n’y a pas, à l’intérieur de ces
+%	éléments une information particulière signifiant \textit{je suis le
+%	premier élément} ou \textit{je suis le dernier}.
+
+
+%===========================================================
+\section{Traitement des ruptures dans une séquence ordonnée}
+%===========================================================
+
+\subsection*{Rupture de niveau 0}
+
+	Quel que soit l’ordre de tri des données de l'ensemble parcouru séquentiellement, 
+	il est toujours possible de détecter la fin des données grâce à sa taille%
+	\footnote{%
+		Ou via une marque spéciale de \emph{fin de fichier}
+		dans les cas des fichiers séquentiels.
+	}.
+	Cette \og{}fin\fg{} constitue donc la rupture principale, 
+	celle signalant la fin du parcours itératif.
+	
+	Sans le savoir, nous avons donc déjà traité la rupture générale d’un
+	ensemble de données (c’est la rupture de «~niveau 0~»,
+	car elle n’est pas liée à un champ des données, 
+	et est naturellement prioritaire sur ces champs). 
+	Pour illustrer cela, reprenons l’exemple de la liste d’étudiants. 
+	Le parcours de base de cet ensemble est le suivant%
+	\footnote{%
+		Vous vous demandez peut-être pourquoi ne pas utiliser le \og{}pour\fg{} ?
+		Ce serait tout-à-fait valable dans ce cas précis mais ça ne pourra pas
+		être généralisé lorsqu'il y a plusieurs niveaux de rupture.
+	} :
+
+	\begin{LDA}
+		\Algo{RuptureNiveau0}{\Par{etudiants}{liste d'Etudiant}}{}
+			\Decl{etd}{Etudiant}
+			\Decl{i}{entier}
+			\Let i \Gets 0
+			\While{i < etudiants.taille()}
+				\LComment traitement de etudiants.get(i)
+				\Let i \Gets i + 1
+			\EndWhile
+		\EndAlgo
+	\end{LDA}
+
+	Si nous voulons faire des statistiques globales sur l’ensemble des
+	étudiants (par ex. simplement les compter), le traitement de
+	l’information consiste à incrémenter un compteur, et l’algorithme
+	ci-dessus peut fonctionner quel que soit l’ordre de classement choisi.
+
+\subsection*{Rupture de niveau 1}
+
+	Passons à présent au «~niveau 1~» ; c’est-à-dire un traitement de
+	rupture correspondant à un classement complexe sur un champ. 
+	Imaginons que nous voulions savoir quel est le nombre d’étudiants dans chaque option. 
+	Une solution consisterait à avoir 3 compteurs, un par option.
+	On peut imaginer une façon plus judicieuse de faire à partir du dernier classement
+	qui contient précisément les étudiants déjà groupés par option : 
+	à chaque fois qu’il y a rupture sur l’option, 
+	on connait alors le total d’étudiants dans l’option qui vient d’être parcourue. 
+	Ceci ne nécessite qu’un seul compteur remis à 0 à chaque fois qu’une nouvelle
+	option est rencontrée, c’est-à-dire à chaque rupture. 
+	De plus l’algorithme serait aussi fonctionnel quelle que soit le nombre d’options. 
+	Voici une solution : 
+
+	\begin{LDA}
+		\Algo{RuptureNiveau1}{\Par{etudiants}{liste d'Etudiant}}{}
+			\LComment on suppose les données classées en majeur sur l’option
+			\Decl{etd}{Etudiant}
+			\Decl{saveOption}{chaine}
+			\Decl{cpt}{entier}
+			\Decl{etudiant}{Etudiant}
+	
+			\Let i \Gets 0
+			\While{i < etudiants.taille()}
+				\Let saveOption \Gets etudiants.get(i).option
+				\Let cpt \Gets 0
+				\While{i < etudiants.taille() ET saveOption = etudiants.get(i).option}
+					\Let cpt \Gets cpt + 1
+					\Let i \Gets i + 1
+				\EndWhile
+				\Write cpt, «~étudiant dans l’option~», saveOption
+			\EndWhile
+		\EndAlgo
+	\end{LDA}
+
+	\medskip
+	Questions de réflexion :
+	\begin{itemize}
+		\item 
+			pourquoi la condition \textsf{i < etudiants.taille()}
+			apparaît-elle une 2\ieme{} fois dans la boucle intérieure ?
+		\item 
+			pourquoi est-ce que \textsf{i} et \textsf{cpt} 
+			ne sont pas initialisés au même endroit ?
+		\item 
+			pourquoi l'incrémentation de \textsf{i} se fait-elle dans la boucle centrale 
+			et pas ailleurs ?
+		\item 
+			pourquoi utilise-t'on 
+			\textsf{saveOption} plutôt que \textsf{etudiants.get(i).option}
+			dans l’instruction d’affichage ?
+		\item 
+			l’ordre des conditions apparaissant dans le 2\ieme{} \og{}tant que\fg{} 
+			est-il important ?
+	\end{itemize}
+
+\subsection*{Rupture de niveau 2}
+
+	L’algorithme ci-dessus se généralise facilement si on ajoute davantage de niveaux de rupture. 
+	Pour illustrer le «~niveau 2~», prenons encore l’exemple suivant : 
+	on veut connaître pour chaque groupe le nombre d’étudiants nés dans les différentes années de naissance. 
+	L’algorithme correspondant s’écrit facilement et fonctionne lorsque les données sont, cette fois-ci,
+	classées en majeur sur le groupe et en mineur sur la date de naissance
+	(ou encore classement double sur la clé composée option – dateNaissance) :
+	
+	\begin{LDA}
+		\Algo{RuptureNiveau2}{\Par{etudiants}{liste d'Etudiant}}{}
+			\LComment on suppose les données classées en majeur sur l’option
+			\LComment et en mineur sur la date de naissance (ordre chronologique)
+			\Decl{etd}{Etudiant}
+			\Decl{saveOption}{chaine}
+			\Decl{saveAnnéeNaissance}{entier}
+			\Decl{cpt}{entier}
+	
+			\Let i \Gets 0
+			\While{i < etudiants.taille()}
+				\Let saveOption \Gets etd.option
+				\While{i < etudiants.taille() ET saveOption = etudiants.get(i).option}
+					\Let saveAnnéeNaissance \Gets etudiants.get(i).dateNaissance.année
+					\Let cpt \Gets 0
+					\While{i < etudiants.taille() 
+							\Stmt \Indent \Indent ET saveOption = etudiants.get(i).option 
+							\Stmt \Indent \Indent ET saveAnnéeNaissance = etudiants.get(i).dateNaissance.année}
+						\Let cpt \Gets cpt + 1
+						\Let i \Gets i + 1		
+					\EndWhile
+					\Write cpt, «~étudiant dans l’option~», saveOption, 
+					«~sont nés en~», saveAnneeNaissance
+				\EndWhile
+			\EndWhile
+		\EndAlgo
+	\end{LDA}
+
+	Ces exemples montrent que l’algorithme de rupture 
+	et le tri des listes sont étroitement liés. 
+	La structure de l’algorithme épouse le schéma de la clé composée du classement des données
+	et à un classement déterminé correspondra un algorithme bien précis, 
+
+%====================================================
+\section{Traitements de clôture et d’initialisation}
+%====================================================
+
+	Chaque rupture du traitement itératif des éléments d’un ensemble
+	entraîne un \textbf{traitement de clôture} sur cet ensemble. Comme une
+	rupture à un niveau implique des ruptures en cascade sur tous les
+	niveaux d’ordre plus grands, un traitement de clôture d’un ensemble ne
+	pourra se faire que lorsque le dernier sous-ensemble de cet ensemble
+	sera clôturé.
+	
+	De la même manière, l’arrivée d’un élément appartenant à un nouvel
+	ensemble nécessite un \textbf{traitement d’initialisation} de ce nouvel
+	ensemble.
+	
+	En fait, il ne s’agit que de généraliser ce qui se fait au niveau 0 
+	(travaux d’initialisation consistant par exemple à mettre des totalisateurs 
+	ou compteurs à zéro et travaux de clôture consistant par exemple 
+	à imprimer des résultats totaux particuliers) 
+	à tous les ensembles et sous-ensembles !
+%==================
+\section{Exercices}
+%===================
+
+
+\begin{Exercice}{La chasse au gaspi [rupture de niveau 1]}
+	À l’ÉSI, les quantités de feuilles imprimées et photocopiées 
+	par les professeurs et les étudiants sont enregistrées à des fins de traitement.
+	Le service technique désirant facturer les «~exagérations~», 
+	vous fournit une liste de toutes les impressions effectuées depuis le début de l'année.
+	Cette liste présente la structure d’enregistrement \textbf{Job} suivante 
+	et est ordonné croissant \textbf{en majeur} sur le champ \textsf{login}  :
+
+	\begin{LDA}
+		\Struct{Job}
+			\Decl{login}{chaine}
+			\Decl{date}{date}
+			\Decl{nombre}{entier}
+		\EndStruct
+	\end{LDA}
+
+	Écrivez un algorithme permettant d'afficher une ligne par
+	utilisateur dont le nombre total de feuilles imprimées dépasse une
+	valeur limite entrée en paramètre. 
+	Cette ligne contiendra le login et le nombre.
+\end{Exercice}
+
+\begin{Exercice}{Compter les étudiants [rupture de niveau 2]}
+	
+	Supposons que la structure \textsf{Etudiant} contienne également
+	un champ indiquant dans quel bloc se trouve l'étudiant (1, 2 ou 3).
+	On voudrait un algorithme qui reçoit une liste d'étudiants et calcule
+	le nombre d'étudiants dans chaque section et, par section, dans chaque bloc.
+	
+	L'affichage ressemblera à :
+	{\small
+	\begin{verbatim}
+    Gestion
+        bloc 1 : 130 étudiants
+        bloc 2 : 42 étudiants
+        bloc 3 : 16 étudiants
+        TOTAL  : 188 étudiants
+    Industriel
+        bloc 1 : 32 étudiants
+        bloc 2 : 14 étudiants
+        bloc 3 : 8 étudiants
+        TOTAL  : 54 étudiants
+    Réseau
+        bloc 1 : 82 étudiants
+        bloc 2 : 31 étudiants
+        bloc 3 : 13 étudiants
+        TOTAL  : 126 étudiants
+	\end{verbatim}
+	}
+	\begin{enumerate}[label=\alph*)]
+		\item 
+		Quel doit-être le tri de la liste pour pouvoir résoudre cet exercice
+		avec un algorithme de rupture ?
+		\item 
+		Écrivez cet algorithme.
+	\end{enumerate}
+\end{Exercice}
+	
+\begin{Exercice}{Statistiques de ventes de voitures [rupture de niveau 2]}
+	Un grand quotidien dispose d’une liste 
+	regroupant les ventes de voitures neuves pendant l’année dernière. 
+	Les éléments de cette liste sont de type \textsl{Voiture} dont voici la définition :
+
+	\begin{LDA}
+	\Struct{Voiture}
+		\Decl{plaque}{chaine} 	\RComment{numéro d’immatriculation}
+		\Decl{marque}{chaine} 	\RComment{marque de la voiture (par ex. «~Citroën~»)}
+		\Decl{type}{chaine}		\RComment{type de modèle dans la marque (par ex. «~Berlingo~»)}
+		\Decl{nom}{chaine}		\RComment{nom du propriétaire}
+		\Decl{adresse}{chaine}	\RComment{adresse du propriétaire}
+		\Decl{date}{date}		\RComment{date de la demande d’immatriculation}
+	\EndStruct
+	\end{LDA}
+
+	La liste est ordonnée croissant \textbf{en majeur sur la marque de
+	voiture et en mineur sur le type}. 
+
+	Afin de préparer le travail des journalistes, 
+	il a été demandé au service informatique de préparer un affichage 
+	qui globalise les ventes de voiture par marque 
+	et pour chaque marque, par type. 
+	Cet affichage contiendra les renseignements suivants :
+
+	\begin{itemize}
+		\item 
+			un titre général \og{}Ventes de voitures neuves en 2017\fg{} 
+		\item 
+			pour chaque marque :
+			\begin{itemize}
+				\item 
+					le nom de la marque
+				\item 
+					pour chaque type de modèle
+                \begin{itemize} 
+        			\item 
+		      			le nom de ce type et le nombre de voitures neuves vendues
+                \end{itemize}				
+				\item 
+					le nombre total de voitures vendues pour cette marque
+			\end{itemize}
+		\item 
+			enfin, le total global du nombre de voitures vendues toutes marques
+			confondues
+	\end{itemize}
+	
+	Écrivez un algorithme produisant l'affichage décrit.
+\end{Exercice}
+
+\begin{Exercice}{Les fanas d'info  [rupture de niveau 2]}
+
+	Une grande société d’informatique a organisé durant les douze derniers
+	mois une multitude de concours ouverts aux membres de clubs d’informatique. 
+	Elle souhaiterait récompenser le club qui aura été le plus «~méritant~» 
+	durant cette période au point de vue de la participation des membres mineurs. 
+	Chaque résultat individuel des participants (y compris des majeurs) est repris dans une liste
+	dont les éléments sont de type \textbf{Participant}.
+
+	\begin{LDA}
+	\Struct{Voiture}
+	\Decl{nom}{chaine} 		\RComment{nom et prénom du participant}
+	\Decl{âge}{entier} 		\RComment{âge du participant au moment du concours}
+	\Decl{référence}{chaine}\RComment{référence du club auquel appartient ce participant}
+	\Decl{numéro}{entier}	\RComment{numéro du concours auquel il a participé}
+	\Decl{résultat}{entier}	\RComment{résultat obtenu lors de ce concours (sur 100)}
+	\EndStruct
+	\end{LDA}
+
+	Sachant que la liste est ordonnée \textbf{en majeur sur le champ \textsf{référence}
+	et en mineur sur le champ \textsf{nom}}, 
+	on demande d’écrire l’algorithme qui affiche les informations suivantes :
+
+	pour chaque club :
+	\begin{itemize}
+		\item 
+			sa référence
+		\item 
+			pour chaque membre mineur de ce club :
+        \begin{itemize}
+		    \item 
+			   son nom et prénom
+		    \item 
+			   la cote moyenne sur 100 des concours auquel ce membre a participé
+        \end{itemize}
+		\item 
+			le nombre total de participations des membres mineurs
+	\end{itemize}
+	
+	\textbf{N.B.~:} un membre mineur qui s’est inscrit à un concours = une
+	participation. Un club qui n’aura eu aucun membre mineur participant
+	figurera quand même dans le résultat avec la mention 
+	\og{}Pas de participation de membre mineur\fg{}. 
+	Par contre, un club dont aucun membre n’a participé au moindre concours ne sera pas affiché.
+
+	À la fin, on affichera la référence du meilleur club, à savoir celui qui
+	a eu la plus haute cote moyenne de membres mineurs 
+	(simplifions on ne gérant pas les possibles ex-\ae{}quo).
+
+\end{Exercice}
+
+\clearpage
+\begin{Exercice}{Une suite logique}
+	Voici une petite suite logique :
+	
+	\begin{minipage}{5cm}
+		\small
+		\begin{verbatim}
+	1
+	1 1
+	2 1
+	1 2 1 1
+	1 1 1 2 2 1
+	3 1 2 2 1 1
+	1 3 1 1 2 2 2 1
+	1 1 1 3 2 1 3 2 1 1
+	3 1 1 3 1 2 1 1 1 3 1 2 2 1
+	...
+		\end{verbatim}
+	\end{minipage}
+	\begin{minipage}{9cm}
+		\begin{enumerate}[label=\alph*)]
+		\item
+			Comprenez la logique derrière cette suite 
+			et écrivez la ligne suivante.
+		\item
+			Écrivez un algorithme qui reçoit une ligne 
+			(sous forme d'une liste d'entiers) 
+			et retourne la ligne suivante 
+			(sous forme d'une autre liste d'entiers).
+			Votre première tâche sera probablement de comprendre 
+			ce que vient faire cet exercice dans le chapitre des ruptures.
+		\item
+			Écrivez l'algorithme qui reçoit $N$ (un entier) 
+			et affiche les $N$ premières lignes de cette suite logique.	
+		\end{enumerate}
+	\end{minipage}
+\end{Exercice}
+
+\begin{Exercice}{Éliminer les doublons d'une liste.}
+	Soit une liste ordonnée d'entiers avec des possibles redondances. 
+	Écrire un algorithme qui enlève les redondances de la liste. 
+	On vous demande de créer une nouvelle liste (la liste de départ reste inchangée).
+	
+	Exemple : si la liste est $(1, 3, 3, 7, 8, 8, 8)$ 
+	le résultat sera $(1, 3, 7, 8)$.
+\end{Exercice}
