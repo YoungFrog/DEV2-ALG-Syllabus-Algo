@@ -3,8 +3,8 @@
 \label{chap:rupture}
 %===================================
 
-	Dans ce chapitre, on étudie une classe de problèmes qui peuvent tous se
-	résoudre avec un même type d'algorithme :
+	Dans ce chapitre, nous allons étudier une classe de problèmes 
+	qui peuvent tous se résoudre avec un même type d'algorithme :
 	l'algorithme de rupture. 
 	
 	Cet algorithme est notamment adapté pour un problème comme celui-ci :
@@ -28,7 +28,7 @@
 		\item 
 			Détecter qu'on se trouve bien face à un problème qui
 			peut entrer dans le cadre d'un algorithme de rupture
-			et identifier si le tri des éléments est adapté au problème.
+			et identifier si le tri des éléments est adéquat.
 		\item 
 			Adapter le squelette général de l'algorithme de rupture
 			au problème donné.
@@ -45,10 +45,10 @@
 	Néanmoins, les données étaient «~simples~» : 
 	nombres ou chaînes, pour lesquelles la relation d’ordre est évidente. 
 	Les algorithmes mis en œuvre peuvent facilement s’adapter pour d’autre types, 
-	par exemple des objets Date, où l’opérateur de comparaison est remplacé par la méthode
-	«~estAntérieure()~».
+	par exemple des objets \lda{Date}, où l’opérateur de comparaison est remplacé par la méthode
+	«~\lda{estAntérieure()}~».
 	
-	Plus généralement, les données composées de plusieurs
+	Mais, plus généralement, les données composées de plusieurs
 	champs (les structures) ou attributs (les objets)
 	ne possèdent pas de relation d’ordre naturelle. 
 	C'est le cas, par exemple, des points d’un espace à deux ou trois dimensions
@@ -74,7 +74,7 @@
 	Pour l’exemple, considérons une liste de 6 étudiants :
 	
 	\begin{center}
-	\small
+	\small\sffamily
 	\begin{tabular}{cllrc}
 		matricule 	& nom 		& prénom 	& dateNaissance & option \\
 		\hline 
@@ -96,13 +96,13 @@
 \subsection*{Exemple de classement double}
 
 	Si nous désirons à présent classer sur l’ordre alphabétique des noms, il
-	faut décider de départager en cas de noms identiques sur un autre
+	faut décider de départager, en cas de noms identiques, sur un autre
 	champ, de façon naturelle sur celui des prénoms. Ceci donnerait le
 	classement double suivant, en \textbf{majeur} sur le nom et en
 	\textbf{mineur} sur le prénom :
 	
 	\begin{center}
-	\small
+	\small\sffamily
 	\begin{tabular}{cllrc}
 		matricule 	& nom 		& prénom 	& dateNaissance & option \\
 		\hline 
@@ -125,7 +125,7 @@
 	\textbf{mineur} sur le prénom : 
 
 	\begin{center}
-	\small
+	\small\sffamily
 	\begin{tabular}{cllrc}
 		matricule 	& nom 		& prénom 	& dateNaissance & option \\
 		\hline 
@@ -165,16 +165,16 @@
 	\footnote{%
 		Et également les fichiers moyennant une petite adaptation
 		liée au fait qu'on ne connait pas, dans ce cas, 
-		la taille l'ensemble lorsqu'on commence à le traiter.
+		la taille de l'ensemble lorsqu'on commence à le traiter.
 	}. 
 	Les éléments peuvent être de n'importe quel \textbf{type complexe} 
 	(variables structurées, objets\dots).
 	Nos exemples seront souvent pris sur des listes de variables structurées. 
 		
-	Nous parlons de \textbf{rupture} lorsque dans ce traitement itératif, on
-	constate que l’information courante que l’on souhaite traiter
-	n’appartient plus à l’ensemble (ou au sous-ensemble) des informations
-	déjà traitées précédemment.
+	Nous parlons de \textbf{rupture} lorsque, dans ce traitement itératif, 
+	on constate que l’information courante que l’on souhaite traiter
+	n’appartient plus à l’ensemble (ou au sous-ensemble) 
+	des informations déjà traitées précédemment.
 	
 	Les ruptures sont intimement liées au classement complexe des données,
 	et elles ne se qualifient que par rapport aux champs des données qui
@@ -187,9 +187,9 @@
 	partageant une même option.
 	
 	Par contre, cela n’aurait pas de sens de parler de rupture sur l’option
-	dans les deux classements précédents. Ce champ n’appartenant pas à la
-	clé composée pour le classement de ces données, la succession des
-	lettres G, I, R doit être considérée comme aléatoire dans ces deux cas
+	dans le cas des deux classements précédents. 
+	Ce champ n’appartenant pas à la clé composée pour le classement de ces données, 
+	la succession des lettres G, I, R doit être considérée comme aléatoire dans ces deux cas
 	et sans signification pour le traitement itératif.
 	
 	Dans le 2\ieme{} classement, nous pouvons parler de
@@ -284,18 +284,19 @@
 	Voici une solution : 
 
 	\begin{LDA}
+		\label{algo:rupt1}
 		\Algo{RuptureNiveau1}{\Par{etudiants}{liste d'Etudiant}}{}
 			\LComment on suppose les données classées en majeur sur l’option
 			\Decl{etd}{Etudiant}
 			\Decl{saveOption}{chaine}
 			\Decl{cpt}{entier}
-			\Decl{etudiant}{Etudiant}
+			\Decl{i}{entier}
 	
 			\Let i \Gets 0
 			\While{i < etudiants.taille()}
 				\Let saveOption \Gets etudiants.get(i).option
 				\Let cpt \Gets 0
-				\While{i < etudiants.taille() ET saveOption = etudiants.get(i).option}
+				\While{i < etudiants.taille() ET etudiants.get(i).option = saveOption}
 					\Let cpt \Gets cpt + 1
 					\Let i \Gets i + 1
 				\EndWhile
@@ -336,22 +337,24 @@
 	
 	\begin{LDA}
 		\Algo{RuptureNiveau2}{\Par{etudiants}{liste d'Etudiant}}{}
+		\label{algo:rupt2}
 			\LComment on suppose les données classées en majeur sur l’option
 			\LComment et en mineur sur la date de naissance (ordre chronologique)
 			\Decl{etd}{Etudiant}
 			\Decl{saveOption}{chaine}
 			\Decl{saveAnnéeNaissance}{entier}
 			\Decl{cpt}{entier}
+			\Decl{i}{entier}
 	
 			\Let i \Gets 0
 			\While{i < etudiants.taille()}
 				\Let saveOption \Gets etd.option
-				\While{i < etudiants.taille() ET saveOption = etudiants.get(i).option}
+				\While{i < etudiants.taille() ET etudiants.get(i).option = saveOption}
 					\Let saveAnnéeNaissance \Gets etudiants.get(i).dateNaissance.année
 					\Let cpt \Gets 0
 					\While{i < etudiants.taille() 
-							\Stmt \Indent \Indent ET saveOption = etudiants.get(i).option 
-							\Stmt \Indent \Indent ET saveAnnéeNaissance = etudiants.get(i).dateNaissance.année}
+							\Stmt \Indent \Indent ET etudiants.get(i).option = saveOption 
+							\Stmt \Indent \Indent ET etudiants.get(i).dateNaissance.année = saveAnnéeNaissance}
 						\Let cpt \Gets cpt + 1
 						\Let i \Gets i + 1		
 					\EndWhile
@@ -397,8 +400,8 @@
 	par les professeurs et les étudiants sont enregistrées à des fins de traitement.
 	Le service technique désirant facturer les «~exagérations~», 
 	vous fournit une liste de toutes les impressions effectuées depuis le début de l'année.
-	Cette liste présente la structure d’enregistrement \textbf{Job} suivante 
-	et est ordonné croissant \textbf{en majeur} sur le champ \textsf{login}  :
+	Cette liste présente la structure d’enregistrement \lda{Job} suivante 
+	et est ordonnée croissante \textbf{en majeur} sur le champ \lda{login}  :
 
 	\begin{LDA}
 		\Struct{Job}
@@ -414,9 +417,15 @@
 	Cette ligne contiendra le login et le nombre.
 \end{Exercice}
 
+\begin{Exercice}{Compter les nombre d'étudiants par option}
+	Reprenons l'exemple donné pour la rupture de niveau 2 (\lda{RuptureNiveau2}, page \pageref{algo:rupt2}).
+	Que faut-il ajouter à l'algorithme pour qu'il affiche également 
+	le nombre total d'étudiants par option ?
+\end{Exercice}
+
 \begin{Exercice}{Compter les étudiants [rupture de niveau 2]}
 	
-	Supposons que la structure \textsf{Etudiant} contienne également
+	Supposons que la structure \lda{Etudiant} contienne également
 	un champ indiquant dans quel bloc se trouve l'étudiant (1, 2 ou 3).
 	On voudrait un algorithme qui reçoit une liste d'étudiants et calcule
 	le nombre d'étudiants dans chaque section et, par section, dans chaque bloc.
@@ -450,55 +459,55 @@
 	\end{enumerate}
 \end{Exercice}
 	
-\begin{Exercice}{Statistiques de ventes de voitures [rupture de niveau 2]}
-	Un grand quotidien dispose d’une liste 
-	regroupant les ventes de voitures neuves pendant l’année dernière. 
-	Les éléments de cette liste sont de type \textsl{Voiture} dont voici la définition :
-
-	\begin{LDA}
-	\Struct{Voiture}
-		\Decl{plaque}{chaine} 	\RComment{numéro d’immatriculation}
-		\Decl{marque}{chaine} 	\RComment{marque de la voiture (par ex. «~Citroën~»)}
-		\Decl{type}{chaine}		\RComment{type de modèle dans la marque (par ex. «~Berlingo~»)}
-		\Decl{nom}{chaine}		\RComment{nom du propriétaire}
-		\Decl{adresse}{chaine}	\RComment{adresse du propriétaire}
-		\Decl{date}{date}		\RComment{date de la demande d’immatriculation}
-	\EndStruct
-	\end{LDA}
-
-	La liste est ordonnée croissant \textbf{en majeur sur la marque de
-	voiture et en mineur sur le type}. 
-
-	Afin de préparer le travail des journalistes, 
-	il a été demandé au service informatique de préparer un affichage 
-	qui globalise les ventes de voiture par marque 
-	et pour chaque marque, par type. 
-	Cet affichage contiendra les renseignements suivants :
-
-	\begin{itemize}
-		\item 
-			un titre général \og{}Ventes de voitures neuves en 2017\fg{} 
-		\item 
-			pour chaque marque :
-			\begin{itemize}
-				\item 
-					le nom de la marque
-				\item 
-					pour chaque type de modèle
-                \begin{itemize} 
-        			\item 
-		      			le nom de ce type et le nombre de voitures neuves vendues
-                \end{itemize}				
-				\item 
-					le nombre total de voitures vendues pour cette marque
-			\end{itemize}
-		\item 
-			enfin, le total global du nombre de voitures vendues toutes marques
-			confondues
-	\end{itemize}
-	
-	Écrivez un algorithme produisant l'affichage décrit.
-\end{Exercice}
+%\begin{Exercice}{Statistiques de ventes de voitures [rupture de niveau 2]}
+%	Un grand quotidien dispose d’une liste 
+%	regroupant les ventes de voitures neuves pendant l’année dernière. 
+%	Les éléments de cette liste sont de type \textsl{Voiture} dont voici la définition :
+%
+%	\begin{LDA}
+%	\Struct{Voiture}
+%		\Decl{plaque}{chaine} 	\RComment{numéro d’immatriculation}
+%		\Decl{marque}{chaine} 	\RComment{marque de la voiture (par ex. «~Citroën~»)}
+%		\Decl{type}{chaine}		\RComment{type de modèle dans la marque (par ex. «~Berlingo~»)}
+%		\Decl{nom}{chaine}		\RComment{nom du propriétaire}
+%		\Decl{adresse}{chaine}	\RComment{adresse du propriétaire}
+%		\Decl{date}{date}		\RComment{date de la demande d’immatriculation}
+%	\EndStruct
+%	\end{LDA}
+%
+%	La liste est ordonnée croissant \textbf{en majeur sur la marque de
+%	voiture et en mineur sur le type}. 
+%
+%	Afin de préparer le travail des journalistes, 
+%	il a été demandé au service informatique de préparer un affichage 
+%	qui globalise les ventes de voiture par marque 
+%	et pour chaque marque, par type. 
+%	Cet affichage contiendra les renseignements suivants :
+%
+%	\begin{itemize}
+%		\item 
+%			un titre général \og{}Ventes de voitures neuves en 2017\fg{} 
+%		\item 
+%			pour chaque marque :
+%			\begin{itemize}
+%				\item 
+%					le nom de la marque
+%				\item 
+%					pour chaque type de modèle
+%                \begin{itemize} 
+%        			\item 
+%		      			le nom de ce type et le nombre de voitures neuves vendues
+%                \end{itemize}				
+%				\item 
+%					le nombre total de voitures vendues pour cette marque
+%			\end{itemize}
+%		\item 
+%			enfin, le total global du nombre de voitures vendues toutes marques
+%			confondues
+%	\end{itemize}
+%	
+%	Écrivez un algorithme produisant l'affichage décrit.
+%\end{Exercice}
 
 \begin{Exercice}{Les fanas d'info  [rupture de niveau 2]}
 
@@ -507,7 +516,7 @@
 	Elle souhaiterait récompenser le club qui aura été le plus «~méritant~» 
 	durant cette période au point de vue de la participation des membres mineurs. 
 	Chaque résultat individuel des participants (y compris des majeurs) est repris dans une liste
-	dont les éléments sont de type \textbf{Participant}.
+	dont les éléments sont de type \lda{Participant}.
 
 	\begin{LDA}
 	\Struct{Voiture}
@@ -520,7 +529,7 @@
 	\end{LDA}
 
 	Sachant que la liste est ordonnée \textbf{en majeur sur le champ \textsf{référence}
-	et en mineur sur le champ \textsf{nom}}, 
+	et en mineur sur le champ \lda{nom}}, 
 	on demande d’écrire l’algorithme qui affiche les informations suivantes :
 
 	pour chaque club :
@@ -551,7 +560,15 @@
 
 \end{Exercice}
 
-\clearpage
+\begin{Exercice}{Éliminer les doublons d'une liste.}
+	Soit une liste ordonnée d'entiers avec des possibles redondances. 
+	Écrire un algorithme qui enlève les redondances de la liste. 
+	On vous demande de créer une nouvelle liste (la liste de départ reste inchangée).
+	
+	Exemple : si la liste est $(1, 3, 3, 7, 8, 8, 8)$ 
+	le résultat sera $(1, 3, 7, 8)$.
+\end{Exercice}
+
 \begin{Exercice}{Une suite logique}
 	Voici une petite suite logique :
 	
@@ -589,11 +606,9 @@
 	\end{minipage}
 \end{Exercice}
 
-\begin{Exercice}{Éliminer les doublons d'une liste.}
-	Soit une liste ordonnée d'entiers avec des possibles redondances. 
-	Écrire un algorithme qui enlève les redondances de la liste. 
-	On vous demande de créer une nouvelle liste (la liste de départ reste inchangée).
-	
-	Exemple : si la liste est $(1, 3, 3, 7, 8, 8, 8)$ 
-	le résultat sera $(1, 3, 7, 8)$.
+\begin{Exercice}{Alternative à la rupture}
+	Reprenons l'exemple donné pour la rupture de niveau 1 (\lda{RuptureNiveau1}, page \pageref{algo:rupt1}).
+	Supposons que la liste ne soit \textbf{pas} triée sur l'option.
+	Écrivez l'algorithme qui calcule le nombre d'étudiants pas option en un seul parcours de la liste
+	(vous devrez utiliser trois compteurs distincts).
 \end{Exercice}
