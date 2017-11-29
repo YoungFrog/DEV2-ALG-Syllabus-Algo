@@ -419,16 +419,17 @@
 	Partons d'un petit jeu, \og{}Le lièvre et la tortue\fg{}%
 	\footnote{%
 		Lu sur le net : 
-		\url{http://mathemathieu.free.fr/2b/doc/pb_algo/problemes_et_algorithmique.pdf}
+		\url{http://mathemathieu.free.fr/2b/doc/pb_algo/problemes_et_algorithmique.pdf} (site désormais inaccessible)%
 	}, 
 	et voyons comment le coder en OO.
 
 	\subsection{Description du jeu}
 	%==============================
-	
+
+	\newcommand{\nbMaxKmTortue}{6}
 		Un lièvre et une tortue font une course.
 		Le lièvre est plus rapide que la tortue.
-		Pour donner plus de chance à la tortue de gagner une course de 5 km, 
+		Pour donner plus de chance à la tortue de gagner une course de \nbMaxKmTortue{} km, 
 		on adopte la règle de jeu suivante~:
 		\begin{itemize}
 		\item 
@@ -471,7 +472,7 @@
 			\begin{description}
 			\item[La tortue]
 				On doit pouvoir savoir où elle en est dans son avancée.
-				Un petit entier (de 0 à 5) reprenant son avancée en km suffit.
+				Un petit entier (de 0 à \nbMaxKmTortue{}) reprenant son avancée en km suffit.
 				Appelons-le \lda{avancéeTortue} par exemple.
 			\item[Le lièvre]
 				Pendant le jeu, il est en permanence au départ
@@ -480,7 +481,7 @@
 			
 				\begin{enumerate}
 				\item
-					On pourrait imaginer un entier valant 0 ou 5,
+					On pourrait imaginer un entier valant 0 ou \nbMaxKmTortue{},
 					appelé \lda{avancéeLièvre}.
 				\item
 					On pourrait aussi imaginer un booléen à vrai 
@@ -553,7 +554,7 @@
 			\item \textbf{Le jeu n'est pas fini.}
 				Le jeu sera fini lorsque le lièvre sera arrivé
 				(ce qu'on peut tester grâce au booléen \lda{lièvreArrivé})
-				ou que la tortue sera au km 5.
+				ou que la tortue sera au km \nbMaxKmTortue{}.
 			\item \textbf{Lancer le dé.}
 				C'est trivial si on utilise l'algorithme \lda{hasard()}
 				à notre disposition.
@@ -566,7 +567,7 @@
 				et où se trouvent à présent le lièvre et la tortue.
 			\item \textbf{Afficher le vainqueur.}
 				Ce sera le lièvre si son booléen est à vrai et la tortue sinon
-				(dans ce cas, son avancée sera forcément de 5 
+				(dans ce cas, son avancée sera forcément de \nbMaxKmTortue{} 
 				puisque le jeu est fini).
 			\end{itemize}
 
@@ -583,7 +584,7 @@
 					\Let lièvreArrivé \Gets faux
 					
 					\Empty
-					\While{avancéeTortue < 5 ET NON lièvreArrivé}
+					\While{avancéeTortue < \nbMaxKmTortue{} ET NON lièvreArrivé}
 						\Let dé \Gets hasard(6)
 						\If{dé = 6}
 							\Let lièvreArrivé \Gets vrai
@@ -614,7 +615,7 @@
 			Une tortue a une avancée. 
 			Au départ, elle est au kilomètre 0.
 			Elle peut avancer d'un kilomètre à la fois.
-			Elle a fini et gagne lorsqu'elle arrive au kilomètre 5.
+			Elle a fini et gagne lorsqu'elle arrive au kilomètre \nbMaxKmTortue{}.
 
 			\begin{LDA}
 				\Class{Tortue}
@@ -630,7 +631,7 @@
 					\EndMethod
 					\Empty
 					\Method{estArrivée}{}{booléen}
-						\Return avancée = 5
+						\Return avancée = \nbMaxKmTortue{}
 					\EndMethod
 					\Empty
 					\Method{getAvancée}{}{entier}
