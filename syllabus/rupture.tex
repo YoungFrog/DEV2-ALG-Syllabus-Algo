@@ -273,15 +273,15 @@
 	Passons à présent au «~niveau 1~» ; c’est-à-dire un traitement de
 	rupture correspondant à un classement complexe sur un champ. 
 	Imaginons que nous voulions savoir quel est le nombre d’étudiants dans chaque option. 
-	Une solution consisterait à avoir 3 compteurs, un par option.
-	On peut imaginer une façon plus judicieuse de faire à partir du dernier classement
+	Une solution, sans algorithme de rupture, consisterait à avoir 3 compteurs, un par option.
+	On peut imaginer une façon plus judicieuse de faire à partir du dernier classement, celui
 	qui contient précisément les étudiants déjà groupés par option : 
 	à chaque fois qu’il y a rupture sur l’option, 
-	on connait alors le total d’étudiants dans l’option qui vient d’être parcourue. 
+	on peut alors connaitre le total d’étudiants dans l’option qui vient d’être parcourue. 
 	Ceci ne nécessite qu’un seul compteur remis à 0 à chaque fois qu’une nouvelle
 	option est rencontrée, c’est-à-dire à chaque rupture. 
-	De plus l’algorithme serait aussi fonctionnel quelle que soit le nombre d’options. 
-	Voici une solution : 
+	De plus l’algorithme fonctionnera quel que soit le nombre d’options. 
+	Voici une telle solution : 
 
 	\begin{LDA}
 		\label{algo:rupt1}
