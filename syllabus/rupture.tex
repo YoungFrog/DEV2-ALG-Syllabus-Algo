@@ -200,7 +200,8 @@
 	ensemble de données d’un seul tenant sans ruptures, ou alors qu’il y a
 	rupture à chaque étudiant, puisque chaque étudiant forme un
 	sous-ensemble isolé par son numéro de matricule, vu qu’ils sont
-	obligatoirement distincts.
+	obligatoirement distincts (mais dans ce cas nous n'utilisons pas 
+        l'algorithme de rupture : c'est une simple itération sur la liste).
 	
 	Notez que toute rupture à un niveau $i$ de la clé de classement complexe
 	entraine une rupture aux niveaux supérieurs à $i$. Ainsi, dans le
