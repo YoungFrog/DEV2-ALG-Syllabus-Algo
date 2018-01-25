@@ -43,8 +43,8 @@
 	Dans le chapitre sur les tris du cours d'algorithmique I (DEV1), 
 	vous avez abordé naturellement la notion du classement des données. 
 	Néanmoins, les données étaient «~simples~» : 
-	nombres ou chaînes, pour lesquelles la relation d’ordre est évidente. 
-	Les algorithmes mis en œuvre peuvent facilement s’adapter pour d’autre types, 
+	nombres ou chaines, pour lesquelles la relation d’ordre est évidente. 
+	Les algorithmes mis en œuvre peuvent facilement s’adapter pour d’autres types, 
 	par exemple des objets \lda{Date}, où l’opérateur de comparaison est remplacé par la méthode
 	«~\lda{estAntérieure()}~».
 	
@@ -176,7 +176,7 @@
 	n’appartient plus à l’ensemble (ou au sous-ensemble) 
 	des informations déjà traitées précédemment.
 	
-	Lorsque les données sont triées selon une clef complexe, il est naturel
+	Lorsque les données sont triées selon une clé complexe, il est naturel
         de parler de \textit{rupture sur un champ} de ces données, ou de rupture
         de niveau donné (voir section suivante).
 	
@@ -205,7 +205,7 @@
 	
 	% Notez que toute rupture à un niveau $i$ de la clé de classement complexe
 	% entraine une rupture aux niveaux supérieurs à $i$. Ainsi, dans le
-	% classement triple, le passage à Durant Kevin entraîne une rupture sur
+	% classement triple, le passage à Durant Kevin entraine une rupture sur
 	% l’option mais aussi sur le nom. Le fait qu’il y ait dans ce classement
 	% deux Durant qui se succèdent doit être considéré comme une coïncidence.
 	% Bien qu’ayant le même nom, ces deux étudiants appartiennent à deux
@@ -310,7 +310,7 @@
 	\begin{itemize}
 		\item 
 			pourquoi la condition \textsf{i < etudiants.taille()}
-			apparaît-elle une 2\ieme{} fois dans la boucle intérieure ?
+			apparait-elle une 2\ieme{} fois dans la boucle intérieure ?
 		\item 
 			pourquoi est-ce que \textsf{i} et \textsf{cpt} 
 			ne sont pas initialisés au même endroit ?
@@ -318,7 +318,7 @@
 			pourquoi l'incrémentation de \textsf{i} se fait-elle dans la boucle centrale 
 			et pas ailleurs ?
 		\item 
-			pourquoi utilise-t'on 
+			pourquoi utilise-t-on 
 			\textsf{saveOption} plutôt que \textsf{etudiants.get(i).option}
 			dans l’instruction d’affichage ?
 		\item 
@@ -330,7 +330,7 @@
 
 	L’algorithme ci-dessus se généralise facilement si on ajoute davantage de niveaux de rupture. 
 	Pour illustrer le «~niveau 2~», prenons encore l’exemple suivant : 
-	on veut connaître pour chaque option le nombre d’étudiants nés dans les différentes années de naissance. 
+	on veut connaitre pour chaque option le nombre d’étudiants nés dans les différentes années de naissance. 
 	L’algorithme correspondant s’écrit facilement et fonctionne lorsque les données sont, cette fois-ci,
 	classées en majeur sur l'option et en mineur sur la date de naissance
 	(ou encore classement double sur la clé composée option – dateNaissance) :
@@ -375,9 +375,9 @@
 %====================================================
 
 	Chaque rupture du traitement itératif des éléments d’un ensemble
-	entraîne un \textbf{traitement de clôture} sur cet ensemble. Comme une
+	entraine un \textbf{traitement de clôture} sur cet ensemble. Comme une
 	rupture à un niveau implique des ruptures en cascade sur tous les
-	niveaux d’ordre plus grands, un traitement de clôture d’un ensemble ne
+	niveaux d’ordres plus grands, un traitement de clôture d’un ensemble ne
 	pourra se faire que lorsque le dernier sous-ensemble de cet ensemble
 	sera clôturé.
 	
@@ -411,7 +411,7 @@
 		\EndStruct
 	\end{LDA}
 
-	Écrivez un algorithme permettant d'afficher une ligne par
+	Écrire un algorithme permettant d'afficher une ligne par
 	utilisateur dont le nombre total de feuilles imprimées dépasse une
 	valeur limite entrée en paramètre. 
 	Cette ligne contiendra le login et le nombre.
@@ -455,7 +455,7 @@
 		Quel doit-être le tri de la liste pour pouvoir résoudre cet exercice
 		avec un algorithme de rupture ?
 		\item 
-		Écrivez cet algorithme.
+		Écrire cet algorithme.
 	\end{enumerate}
 \end{Exercice}
 	
@@ -590,17 +590,17 @@
 	\begin{minipage}{9cm}
 		\begin{enumerate}[label=\alph*)]
 		\item
-			Comprenez la logique derrière cette suite 
-			et écrivez la ligne suivante.
+			Comprendre la logique derrière cette suite 
+			et écrire la ligne suivante.
 		\item
-			Écrivez un algorithme qui reçoit une ligne 
+			Écrire un algorithme qui reçoit une ligne 
 			(sous forme d'une liste d'entiers) 
 			et retourne la ligne suivante 
 			(sous forme d'une autre liste d'entiers).
 			Votre première tâche sera probablement de comprendre 
 			ce que vient faire cet exercice dans le chapitre des ruptures puisque la liste n'est pas triée.
 		\item
-			Écrivez l'algorithme qui reçoit $N$ (un entier) 
+			Écrire l'algorithme qui reçoit $N$ (un entier) 
 			et affiche les $N$ premières lignes de cette suite logique.	
 		\end{enumerate}
 	\end{minipage}
