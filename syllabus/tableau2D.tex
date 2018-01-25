@@ -280,7 +280,7 @@
 	
 		\begin{LDA}
 		\LComment Effectue le traitement du stock pour une journée.
-		\Algo{traiterStock1Jour}{\Par{cpt\InOut}{\Array{7$\times$10}{entiers}}, \Par{jour~}{entier}}{}
+		\Algo{traiterStock1Jour}{\Par{cpt\InOut}{\Array{7$\times$10}{entiers}}, \Par{jour\In}{entier}}{}
 			\Decl{numéroProduit, quantité}{entiers}
 			\Write "Introduisez le numéro du produit~:"
 			\Read numéroProduit
@@ -323,7 +323,7 @@
 			Dans le cas contraire, l'algorithme ne fait rien.
 			
 			\begin{LDA}
-				\Entete{assigner}{\Par{tab}{\Array{n $\times$ m}{entiers}}, \Par{lg, col, val}{entiers}}{}
+				\Entete{assigner}{\Par{tab\InOut}{\Array{n $\times$ m}{entiers}}, \Par{lg\In, col\In, val\In}{entiers}}{}
 			\end{LDA}
 		\end{Exercice}
 
