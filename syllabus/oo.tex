@@ -922,12 +922,18 @@
 			\Method{getVainqueur}{}{chaine}
 				\If{lièvre.estArrivé()}
 					\Return "Lièvre"
-				\Else
+				\ElsIf{tortue.estArrivée()}
 					\Return "Tortue"
+				\Else
+					\Return "Aucun, partie en cours"
 				\EndIf
 			\EndMethod
 		\end{LDA}
 			
+		Remarque : Dans un langage comme \bsc{Java}, la méthode 
+		\lda{getVainqueur()} pourrait lancer une \texttt{IllegalStateException}
+		si elle est appelée avant que la partie ne soit finie.
+		
 		\paragraph{La vue.}
 		%---------------------
 		Avec notre exemple, plutôt simple, il n'y a pas de lecture
