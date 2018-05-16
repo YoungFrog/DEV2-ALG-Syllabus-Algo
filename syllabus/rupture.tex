@@ -253,7 +253,6 @@
 
 	\begin{LDA}
 		\Algo{RuptureNiveau0}{\Par{etudiants}{liste d'Etudiant}}{}
-			\Decl{etd}{Etudiant}
 			\Decl{i}{entier}
 			\Let i \Gets 0
 			\While{i < etudiants.taille()}
@@ -287,7 +286,6 @@
 		\label{algo:rupt1}
 		\Algo{RuptureNiveau1}{\Par{etudiants}{liste d'Etudiant}}{}
 			\LComment on suppose les données classées en majeur sur l’option
-			\Decl{etd}{Etudiant}
 			\Decl{saveOption}{chaine}
 			\Decl{cpt}{entier}
 			\Decl{i}{entier}
@@ -340,7 +338,6 @@
 		\label{algo:rupt2}
 			\LComment on suppose les données classées en majeur sur l’option
 			\LComment et en mineur sur la date de naissance (ordre chronologique)
-			\Decl{etd}{Etudiant}
 			\Decl{saveOption}{chaine}
 			\Decl{saveAnnéeNaissance}{entier}
 			\Decl{cpt}{entier}
@@ -348,7 +345,7 @@
 	
 			\Let i \Gets 0
 			\While{i < etudiants.taille()}
-				\Let saveOption \Gets etd.option
+				\Let saveOption \Gets etudiants.get(i).option
 				\While{i < etudiants.taille() ET etudiants.get(i).option = saveOption}
 					\Let saveAnnéeNaissance \Gets etudiants.get(i).dateNaissance.année
 					\Let cpt \Gets 0
