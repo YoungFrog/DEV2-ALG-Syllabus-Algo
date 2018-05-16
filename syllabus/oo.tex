@@ -303,19 +303,19 @@
 			\EndMethod
 		\Empty
 			\Method{ajouter}{autreDurée~: Durée}{}
-				\Let totalSecondes \Gets totalSecondes + autreDurée.totalSecondes
+				\Let totalSecondes \Gets totalSecondes + autreDurée.getTotalSecondes()
 			\EndMethod
 		\Empty
 			\Method{différence}{autreDurée~: Durée}{Durée}
-				\Return \K{nouvelle} Durée(valeurAbsolue(totalSecondes - autreDurée.totalSecondes))
+				\Return \K{nouvelle} Durée(valeurAbsolue(totalSecondes - autreDurée.getTotalSecondes()))
 			\EndMethod
 		%\Empty
 			%\Method{égale}{autreDurée~: Durée}{booléen}
-				%\Return totalSecondes = autreDurée.totalSecondes
+				%\Return totalSecondes = autreDurée.getTotalSecondes()
 			%\EndMethod
 		\Empty
 			\Method{plusPetit}{autreDurée~: Durée}{booléen}
-				\Return totalSecondes < autreDurée.totalSecondes
+				\Return totalSecondes < autreDurée.getTotalSecondes()
 			\EndMethod
 		\end{LDA}
 	
