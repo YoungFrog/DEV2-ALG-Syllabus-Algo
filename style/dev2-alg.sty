@@ -1,0 +1,12 @@
+\usepackage{textcomp}	        % Plein de symboles
+
+%---------------------------------------
+% Pour mettre une icone en marge
+% Utilisation: \marginicon{nomIcone}
+% L'icone doit être présente dans le dossier icon
+% dans un format reconnu (pas de gif)
+%---------------------------------------
+\usepackage{marginnote}
+\newcommand{\marginicon}[1]{
+	\marginnote{\includegraphics[width=25px]{icon/#1}}[8pt]
+}

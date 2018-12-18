@@ -1,0 +1,59 @@
+%=====================================================================
+%						style-esi/french.sty
+%
+%	Base pour un document LaTeX moderne écrit en français.
+%
+%	cf. http://blog.dorian-depriester.fr/latex/
+%	mais-a-quoi-bon-servent-les-packages-fontenc-et-inputenc
+%=====================================================================
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{french}[2018/06/10 Documents francais a l'ESI]
+
+%---------------------------------------------------------------------
+%	inputenc - encodage utilisé dans le source.
+%---------------------------------------------------------------------
+%		utf8 : permet d'écrire "é" au lieu de "\'e"
+%---------------------------------------------------------------------
+
+\RequirePackage[utf8]{inputenc}
+
+%---------------------------------------------------------------------
+%	fontenc - police utilisée dans le PDF
+%---------------------------------------------------------------------
+%		OT1 (défaut) : police 7 bits sans accents -> simulé en PDF ->
+%			a) copier-coller difficile
+%			b) césures mauvaises
+%		T1 : utilise une police 8 bits avec accents
+%---------------------------------------------------------------------
+
+\RequirePackage[T1]{fontenc}
+
+%---------------------------------------------------------------------
+%	babel - gère les langues
+%---------------------------------------------------------------------
+%	Utilise les textes adaptés à la langue (table des matières).
+%	Gère les césures de la langue et les règles de mise en page.
+%---------------------------------------------------------------------
+
+\RequirePackage[french]{babel}
+
+%--------------------------------------------------------------------
+%	Choix de la police
+%--------------------------------------------------------------------
+%	Le fait de passer en fontenc T1 (cf. + haut)
+%	change les polices en variante non vectorielle.
+%	Ici on rétablit le vectoriel avec des polices modernisées.
+% 	http://www.tug.dk/FontCatalogue/lmodern/
+%--------------------------------------------------------------------
+
+% --- lmodern : polices modernes.
+\RequirePackage{lmodern}
+
+% --- kpfonts : une variante à lmodern
+% --- Avec l'option light, économise le toner
+% --- Semble plus large
+% --- Pas plus d'indice pour les départager ?
+% --- Oui ! lmodern contient une tt variable (lmvtt)
+%\usepackage[light]{kpfonts}
+
