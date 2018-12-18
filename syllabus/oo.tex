@@ -243,9 +243,9 @@
 		\begin{LDA}
 			\Constr{Durée}{secondes~: entier}
 				\If{secondes < 0}
-					\Stmt \K{erreur} "paramètre négatif"%
+					\Error "paramètre négatif"%
 					\footnote{%
-						L'instruction \K{erreur} indique
+						L'instruction \Error indique
 						que l'algorithme ne peut pas poursuivre normalement.
 						Il s'arrête avec un message d'erreur.
 					}					
@@ -255,7 +255,7 @@
 		\Empty
 			\Constr{Durée}{heure, minute, seconde~: entiers}
 				\If{heure < 0 OU minute < 0 OU seconde < 0 OU minute>59 ou seconde>59}
-					\Stmt \K{erreur} "un des paramètres est invalide"
+					\Error "un des paramètres est invalide"
 				\EndIf
 				\Let totalSecondes \Gets 3600*heure + 60*minute + seconde
 			\EndConstr
@@ -575,9 +575,9 @@
 			Au final, on obtient :
 			\begin{LDA}
 				\Algo{jeuLièvreTortue}{}{}
-					\Decl{avancéeTortue}{entier}
-					\Decl{lièvreArrivé}{booléen}
-					\Decl{dé}{entier}
+					\Decl{avancéeTortue}{integer}
+					\Decl{lièvreArrivé}{boolean}
+					\Decl{dé}{integer}
 
 					\Empty
 					\Let avancéeTortue \Gets 0
@@ -620,7 +620,7 @@
 			\begin{LDA}
 				\Class{Tortue}
 				\Private
-					\Decl{avancée}{entier}
+					\Decl{avancée}{integer}
 				\Public
 					\Constr{Tortue}{}
 						\Let avancée \Gets 0						
@@ -630,11 +630,11 @@
 						\Let avancée \Gets avancée + 1						
 					\EndMethod
 					\Empty
-					\Method{estArrivée}{}{booléen}
+					\Method{estArrivée}{}{boolean}
 						\Return avancée = \nbMaxKmTortue{}
 					\EndMethod
 					\Empty
-					\Method{getAvancée}{}{entier}
+					\Method{getAvancée}{}{integer}
 						\Return avancée
 					\EndMethod
 				\EndClass
@@ -656,7 +656,7 @@
 			\begin{LDA}
 				\Class{Lièvre}
 				\Private
-					\Decl{arrivé}{booléen}
+					\Decl{arrivé}{boolean}
 				\Public
 					\Constr{Lièvre}{}
 						\Let arrivé \Gets faux					
@@ -666,7 +666,7 @@
 						\Let arrivé \Gets vrai
 					\EndMethod
 					\Empty
-					\Method{estArrivé}{}{booléen}
+					\Method{estArrivé}{}{boolean}
 						\Return arrivé
 					\EndMethod
 				\EndClass
@@ -677,7 +677,7 @@
 			\begin{LDA}
 				\Class{Dé}
 				\Private
-					\Decl{valeur}{entier}
+					\Decl{valeur}{integer}
 				\Public
 					\Constr{Dé}{}
 					\EndConstr
@@ -686,7 +686,7 @@
 						\Let valeur \Gets hasard(6)
 					\EndMethod
 					\Empty
-					\Method{getValeur}{}{entier}
+					\Method{getValeur}{}{integer}
 						\Return valeur
 					\EndMethod
 				\EndClass
@@ -746,10 +746,10 @@
 			\begin{LDA}
 				\Class{Dé}
 				\Private
-					\Decl{nbFaces}{entier}
-					\Decl{valeur}{entier}
+					\Decl{nbFaces}{integer}
+					\Decl{valeur}{integer}
 				\Public
-					\Constr{Dé}{\Par{nf}{entier}}
+					\Constr{Dé}{\Par{nf}{integer}}
 						\Let nbFaces \Gets nf
 					\EndConstr
 					\Empty
@@ -757,7 +757,7 @@
 						\Let valeur \Gets hasard(nbFaces)
 					\EndMethod
 					\Empty
-					\Method{getValeur}{}{entier}
+					\Method{getValeur}{}{integer}
 						\Return valeur
 					\EndMethod
 				\EndClass
@@ -887,9 +887,9 @@
 					\Decl{dé}{Dé}
 				\Public
 					\ConstrSign{LièvreTortue}{}
-					\MethodSign{estFini}{}{booléen}
+					\MethodSign{estFini}{}{boolean}
 					\MethodSign{jouerCoup}{}{}
-					\MethodSign{getVainqueur}{}{chaine}
+					\MethodSign{getVainqueur}{}{string}
 					\LComment
 						+ les accesseurs (getLièvre(), getTortue() et getDé())
 						des attributs mais pas les mutateurs
@@ -903,7 +903,7 @@
 				\Let dé \Gets \K{nouveau} Dé(6)						
 			\EndConstr				
 			\Empty
-			\Method{estFini}{}{booléen}
+			\Method{estFini}{}{boolean}
 				\Return tortue.estArrivée() OU lièvre.estArrivé()
 			\EndMethod
 		\end{LDA}
@@ -919,7 +919,7 @@
 			\EndMethod
 
 			\Empty
-			\Method{getVainqueur}{}{chaine}
+			\Method{getVainqueur}{}{string}
 				\If{lièvre.estArrivé()}
 					\Return "Lièvre"
 				\ElsIf{tortue.estArrivée()}

@@ -280,9 +280,9 @@
 			\lda{circuit}: un tableau de 1 à 50 éléments \lda{Joueur}, une structure.
 			\begin{LDA}
 				\Struct{Joueur}
-					\Decl{nom}{chaine} 
+					\Decl{nom}{string} 
 						\RComment{\scriptsize Le nom du joueur à cette position ("A", "B" ou " " si la case est vide)}
-					\Decl{nbTours}{entier} 
+					\Decl{nbTours}{integer} 
 						\RComment{\scriptsize Nb de tours qu'a fait le joueur qui est à cette position (0 si case vide)}
 				\EndStruct
 			\end{LDA}
@@ -298,9 +298,9 @@
 			\lda{circuit}: un tableau de 2 éléments \lda{Joueur}, une structure différente.  
 			\begin{LDA}
 				\Struct{Joueur}
-					\Decl{position}{entier} 
+					\Decl{position}{integer} 
 						\RComment{\footnotesize Donne la position du joueur sur le circuit (entier entre 1 et 50)}
-					\Decl{nbTours}{entier} 
+					\Decl{nbTours}{integer} 
 						\RComment{\footnotesize Le nombre de tours qu'a fait ce joueur}
 				\EndStruct
 			\end{LDA}
@@ -317,9 +317,9 @@
 			le nombre de cases parcourues sera de 100.
 			\begin{LDA}
 				\Struct{Joueur}
-					\Decl{position}{entier} 
+					\Decl{position}{integer} 
 						\RComment{\footnotesize Donne la position du joueur sur le circuit (entier entre 1 et 50)}
-					\Decl{nbCasesParcourues}{entier} 
+					\Decl{nbCasesParcourues}{integer} 
 						\RComment{\footnotesize Nb de cases parcourues par le joueur depuis le départ}
 				\EndStruct
 			\end{LDA}
@@ -537,7 +537,7 @@
 
 	\begin{LDA}
 		\Entete{effectuerRéservation}{demande\In : DemandeRéservation,
-		chambre\Out : entier}{booléen}
+		chambre\Out : integer}{boolean}
 	\end{LDA}
 	
 	où la structure de demande de réservation est
@@ -545,9 +545,9 @@
 	
 	\begin{LDA}
 		\Struct{DemandeRéservation}
-			\Decl{numéroClient}{entier}
+			\Decl{numéroClient}{integer}
 			\Decl{débutRéservation}{Date}
-			\Decl{nbNuitées}{entier}
+			\Decl{nbNuitées}{integer}
 		\EndStruct
 	\end{LDA}
 
@@ -622,16 +622,16 @@
 			\RComment ajoute l'élément à l'ensemble
 			\MethodSign{enlever}{élt : E}{})
 			\RComment enlève un élément de l'ensemble
-			\MethodSign{contient}{élt : E}{booléen}
+			\MethodSign{contient}{élt : E}{boolean}
 			\RComment dit si l'élément est présent
-			\MethodSign{estVide}{}{booléen}
+			\MethodSign{estVide}{}{boolean}
 			\RComment dit si l'ensemble est vide
-			\MethodSign{taille}{}{entier}
+			\MethodSign{taille}{}{integer}
 			\RComment donne la taille de l'ensemble
 			\MethodSign{union}{autreEnsemble : Ensemble de E}{Ensemble de E}
 			\MethodSign{intersection}{autreEnsemble : Ensemble de E}{Ensemble de E}
 			\MethodSign{moins}{autreEnsemble : Ensemble de E}{Ensemble de E}
-			\MethodSign{éléments}{}{Liste de E}
+			\MethodSign{éléments}{}{List of E}
 			\RComment conversion en liste
 		\EndClass
 	\end{LDA}
@@ -716,7 +716,7 @@
 	de la classe Date, sans devoir détailler son code :
 	
 	\begin{LDA}
-		\Entete{numéroJour}{}{entier}
+		\Entete{numéroJour}{}{integer}
 		\RComment la position du jour dans l’année (entre 1 et 366)
 	\end{LDA}
 \end{Exercice}

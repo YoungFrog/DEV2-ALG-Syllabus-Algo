@@ -12,7 +12,7 @@
 	
 	Il serait intéressant de disposer d’une structure qui offre toutes les
 	facilités d’un tableau tout en pouvant «~grandir~» si nécessaire.
-	Construisons une telle structure de données et appelons-la «~Liste~»
+	Construisons une telle structure de données et appelons-la «~List~»
 	pour rester en phase avec son appellation commune en Java.
 	
 	Par exemple, considérons une liste de courses.
@@ -56,7 +56,7 @@
 	Et encore plein de choses que nous allons détailler.
 	
 	%========================
-	\section{La classe Liste}
+	\section{La classe List}
 	%=========================
 	
 		Intéressons-nous au comportement qu’on attend d'une liste,
@@ -70,34 +70,34 @@
 		entier, chaine, Date\dots
 		
 		\begin{LDA}
-			\Class{Liste de T}
+			\Class{List of T}
 				\RComment T est un type quelconque
 %				\Private
 %					\LComment sera complété plus tard	
 				\Public
-					\ConstrSign{Liste de T}{}			
+					\ConstrSign{List of T}{}			
 						\RComment construit une liste vide
-					\MethodSign{get}{pos : entier}{T}
+					\MethodSign{get}{pos : integer}{T}
 						\RComment donne un élément en position pos
-					\MethodSign{set}{pos : entier, valeur : T}{}
+					\MethodSign{set}{pos : integer, valeur : T}{}
 						\RComment modifie un élément en position pos
-					\MethodSign{taille}{}{entier}
+					\MethodSign{taille}{}{integer}
 						\RComment donne le nombre actuel d’éléments
 					\MethodSign{ajouter}{valeur : T}{}
 						\RComment ajoute un élément en fin de liste
-					\MethodSign{insérer}{pos : entier, valeur : T}{}
+					\MethodSign{insérer}{pos : integer, valeur : T}{}
 						\RComment insère un élément en position pos
 					\MethodSign{supprimer}{}{}
 						\RComment supprime le dernier élément
-					\MethodSign{supprimerPos}{pos : entier}{}
+					\MethodSign{supprimerPos}{pos : integer}{}
 						\RComment supprime l'élément en position pos
-					\MethodSign{supprimer}{valeur : T}{booléen}
+					\MethodSign{supprimer}{valeur : T}{boolean}
 						\RComment supprime l'élément de valeur donnée
 					\MethodSign{vider}{}{}
 						\RComment vide la liste
-					\MethodSign{estVide}{}{booléen}
+					\MethodSign{estVide}{}{boolean}
 						\RComment la liste est-elle vide ?
-					\MethodSign{existe}{valeur \In : T, pos \Out : entier}{booléen}
+					\MethodSign{existe}{valeur \In : T, pos \Out : entier}{boolean}
 						\RComment recherche un élément
 				\EndClass
 		\end{LDA}
@@ -165,8 +165,8 @@
 		
 		\begin{LDA}
 			\Algo{ex1}{}{}
-				\Decl{l}{Liste d'entiers}
-				\Let l \Gets \K{nouvelle} Liste d'entiers()
+				\Decl{l}{List of integers}
+				\Let l \Gets \K{new} List of integers()
 				\Stmt l.ajouter(42)
 				\Stmt l.ajouter(54)
 				\Stmt l.set(1,44)
@@ -227,7 +227,7 @@
 		reçue en paramètre.
 
 		\begin{LDA}
-			\Algo{afficher}{\Par{liste}{Liste d'entiers}}{}
+			\Algo{afficher}{\Par{liste}{List of integers}}{}
 			\For{i}{0}{liste.taille()-1}
 				\Write liste.get(i)
 			\EndFor
@@ -246,11 +246,11 @@
 		l’écrire ainsi :
 		
 		\begin{LDA}
-			\Algo{indicesMinimum}{\Par{tab}{\Array{n}{entiers}}}{Liste d'entiers}
-				\Decl{min}{entier}
-				\Decl{indicesMin}{Liste d'entiers}
+			\Algo{indicesMinimum}{\Par{tab}{\Array{n}{integers}}}{List of integers}
+				\Decl{min}{integer}
+				\Decl{indicesMin}{List of integers}
 				\Let min \Gets tab[0]
-				\Let indicesMin \Gets \K{nouvelle} Liste d'entiers()
+				\Let indicesMin \Gets \K{new} List of integers()
 				\Stmt indicesMin.ajouter( 0 )
 				\For{i}{1}{n-1}
 					\If{tab[i] = min}
@@ -673,7 +673,7 @@
 			\begin{LDA}
 				\Struct{RendezVous}
 				\Decl{date}{Date}
-				\Decl{motif}{Chaine}
+				\Decl{motif}{string}
 				\EndStruct
 			\end{LDA}
 

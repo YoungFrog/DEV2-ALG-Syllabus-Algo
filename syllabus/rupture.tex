@@ -252,8 +252,8 @@
 	} :
 
 	\begin{LDA}
-		\Algo{RuptureNiveau0}{\Par{etudiants}{liste d'Etudiant}}{}
-			\Decl{i}{entier}
+		\Algo{RuptureNiveau0}{\Par{etudiants}{List of Etudiant}}{}
+			\Decl{i}{integer}
 			\Let i \Gets 0
 			\While{i < etudiants.taille()}
 				\LComment traitement de etudiants.get(i)
@@ -284,11 +284,11 @@
 
 	\begin{LDA}
 		\label{algo:rupt1}
-		\Algo{RuptureNiveau1}{\Par{etudiants}{liste d'Etudiant}}{}
+		\Algo{RuptureNiveau1}{\Par{etudiants}{List of Etudiant}}{}
 			\LComment on suppose les données classées en majeur sur l’option
-			\Decl{saveOption}{chaine}
-			\Decl{cpt}{entier}
-			\Decl{i}{entier}
+			\Decl{saveOption}{string}
+			\Decl{cpt}{integer}
+			\Decl{i}{integer}
 	
 			\Let i \Gets 0
 			\While{i < etudiants.taille()}
@@ -334,14 +334,14 @@
 	(ou encore classement double sur la clé composée option – dateNaissance) :
 	
 	\begin{LDA}
-		\Algo{RuptureNiveau2}{\Par{etudiants}{liste d'Etudiant}}{}
+		\Algo{RuptureNiveau2}{\Par{etudiants}{List of Etudiant}}{}
 		\label{algo:rupt2}
 			\LComment on suppose les données classées en majeur sur l’option
 			\LComment et en mineur sur la date de naissance (ordre chronologique)
-			\Decl{saveOption}{chaine}
-			\Decl{saveAnnéeNaissance}{entier}
-			\Decl{cpt}{entier}
-			\Decl{i}{entier}
+			\Decl{saveOption}{string}
+			\Decl{saveAnnéeNaissance}{integer}
+			\Decl{cpt}{integer}
+			\Decl{i}{integer}
 	
 			\Let i \Gets 0
 			\While{i < etudiants.taille()}
@@ -402,9 +402,9 @@
 
 	\begin{LDA}
 		\Struct{Job}
-			\Decl{login}{chaine}
+			\Decl{login}{string}
 			\Decl{date}{date}
-			\Decl{nombre}{entier}
+			\Decl{nombre}{integer}
 		\EndStruct
 	\end{LDA}
 
@@ -517,11 +517,11 @@
 
 	\begin{LDA}
 	\Struct{Participant}
-	\Decl{nom}{chaine} 		\RComment{nom et prénom du participant}
-	\Decl{âge}{entier} 		\RComment{âge du participant au moment du concours}
-	\Decl{référence}{chaine}\RComment{référence du club auquel appartient ce participant}
-	\Decl{numéro}{entier}	\RComment{numéro du concours auquel il a participé}
-	\Decl{résultat}{entier}	\RComment{résultat obtenu lors de ce concours (sur 100)}
+	\Decl{nom}{string} 		\RComment{nom et prénom du participant}
+	\Decl{âge}{integer} 		\RComment{âge du participant au moment du concours}
+	\Decl{référence}{string}\RComment{référence du club auquel appartient ce participant}
+	\Decl{numéro}{integer}	\RComment{numéro du concours auquel il a participé}
+	\Decl{résultat}{integer}	\RComment{résultat obtenu lors de ce concours (sur 100)}
 	\EndStruct
 	\end{LDA}
 

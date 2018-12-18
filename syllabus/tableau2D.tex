@@ -43,7 +43,7 @@
 		\textbf{Exemple} :
 		
 		\begin{LDA}
-			\Decl{tab}{\Array{5$\times$10}{entiers}}
+			\Decl{tab}{\Array{5$\times$10}{integers}}
 		\end{LDA}
 		
 		déclare un tableau de 5 lignes par 10 colonnes dont chaque case
@@ -84,7 +84,7 @@
 		\textbf{Exemple} : Soit le tableau déclaré ainsi :
 	
 		\begin{LDA}
-		\Decl{nombres}{\Array{4$\times$5}{entiers}}
+		\Decl{nombres}{\Array{4$\times$5}{integers}}
 		\end{LDA}
 	
 		On peut le visualiser à l’aide d’une grille à 4 lignes et 5 colonnes.
@@ -212,7 +212,7 @@
 		\begin{LDA}
 		\LComment Déclare un tableau et donne des valeurs aux coins.
 		\Algo{remplirCoins}{}{}
-			\Decl{grille}{\Array{3$\times$5}{chaines}}
+			\Decl{grille}{\Array{3$\times$5}{string}}
 			\Let grille[0,0] \Gets "NO"
 			\Let grille[0,4] \Gets "NE"
 			\Let grille[2,0] \Gets "SO"
@@ -251,13 +251,12 @@
 		\LComment pour chaque jour de la semaine (de 0~: lundi à 6~: dimanche).
 		\Algo{statistiquesVentesSemaine}{}{}
 			%\Empty
-			\Decl{cpt}{\Array{7$\times$10}{entiers}}
+			\Decl{cpt}{\Array{7$\times$10}{integers}}
 			%\Decl{produit, jour}{entiers}
 			%\Empty
 			\Stmt initialiser(cpt)
 			%\Empty
-			\LComment Pour chaque jour de la semaine
-			\For{jour}{0}{6}
+			\For{jour}{0}{6} \Comment Pour chaque jour de la semaine
 				\Stmt traiterStock1Jour(cpt, jour)
 				\For{produit}{0}{9}
 					\Write "quantité vendue de produit ", produit, " ce jour ", jour, "~: ", cpt[jour,produit]
@@ -268,7 +267,7 @@
 	
 		\begin{LDA}
 		\LComment Initialise le tableau d'entiers à 0
-		\Algo{initialiser}{\Par{entiers\InOut}{\Array{7$\times$10}{entiers}}}{}
+		\Algo{initialiser}{\Par{entiers\InOut}{\Array{7$\times$10}{integers}}}{}
 			%\Decl{i, j}{entiers}
 			\For{i}{0}{6}
 				\For{j}{0}{9}
@@ -280,8 +279,8 @@
 	
 		\begin{LDA}
 		\LComment Effectue le traitement du stock pour une journée.
-		\Algo{traiterStock1Jour}{\Par{cpt\InOut}{\Array{7$\times$10}{entiers}}, \Par{jour\In}{entier}}{}
-			\Decl{numéroProduit, quantité}{entiers}
+		\Algo{traiterStock1Jour}{\Par{cpt\InOut}{\Array{7$\times$10}{integers}}, \Par{jour\In}{integer}}{}
+			\Decl{numéroProduit, quantité}{integers}
 			\Write "Introduisez le numéro du produit~:"
 			\Read numéroProduit
 			%\Empty
@@ -309,7 +308,7 @@
 			contient ou pas la valeur nulle.
 			
 			\begin{LDA}
-				\Entete{estNul}{\Par{tab}{\Array{n $\times$ m}{entiers}}, \Par{lg, col}{entiers}}{booléen}
+				\Entete{estNul}{\Par{tab}{\Array{n $\times$ m}{integers}}, \Par{lg, col}{integers}}{boolean}
 			\end{LDA}
 		\end{Exercice}
 
@@ -323,7 +322,7 @@
 			Dans le cas contraire, l'algorithme ne fait rien.
 			
 			\begin{LDA}
-				\Entete{assigner}{\Par{tab\InOut}{\Array{n $\times$ m}{entiers}}, \Par{lg\In, col\In, val\In}{entiers}}{}
+				\Entete{assigner}{\Par{tab\InOut}{\Array{n $\times$ m}{integers}}, \Par{lg\In, col\In, val\In}{integers}}{}
 			\end{LDA}
 		\end{Exercice}
 
@@ -335,7 +334,7 @@
 			est ou non sur un \textbf{bord} du tableau.
 			
 			\begin{LDA}
-				\Entete{estBord}{\Par{tab}{\Array{n $\times$ m}{entiers}}, \Par{lg, col}{entiers}}{booléen}
+				\Entete{estBord}{\Par{tab}{\Array{n $\times$ m}{integers}}, \Par{lg, col}{integers}}{boolean}
 			\end{LDA}
 		\end{Exercice}
 
@@ -347,7 +346,7 @@
 			est ou non sur un des 4 \textbf{coins} du tableau.
 			
 			\begin{LDA}
-				\Entete{estCoin}{\Par{tab}{\Array{n $\times$ m}{entiers}}, \Par{lg, col}{entiers}}{booléen}
+				\Entete{estCoin}{\Par{tab}{\Array{n $\times$ m}{integers}}, \Par{lg, col}{integers}}{boolean}
 			\end{LDA}
 		\end{Exercice}
 
@@ -411,7 +410,7 @@
 		\begin{LDA}
 			\LComment{Parcours de la ligne $ligne$ d'un tableau à deux dimensions}
 			\Algo{affichageElémentsLigne}{\Par{tab}{\Array{n $\times$ m}{T}}, 
-				\Par{ligne}{entier}}{}
+				\Par{ligne}{integer}}{}
 				\For{colonne}{0}{m-1}
 					\Write tab[ligne,colonne] \RComment On peut faire autre chose qu'afficher
 				\EndFor
@@ -426,7 +425,7 @@
 		\begin{LDA}
 			\LComment{Parcours de la colonne $colonne$ d'un tableau à deux dimensions}
 			\Algo{affichageElémentsColonne}{\Par{tab}{\Array{n $\times$ m}{T}}, 
-				\Par{colonne}{entier}}{}
+				\Par{colonne}{integer}}{}
 				\For{ligne}{0}{n-1}
 					\Write tab[ligne,colonne] \RComment On peut faire autre chose qu'afficher
 				\EndFor
@@ -579,7 +578,7 @@
 			\begin{LDA}
 				\LComment{Parcours d'un tableau à 2 dimensions via une seule boucle}
 				\Algo{affichageElémentsLigneParLigne}{\Par{tab}{\Array{n $\times$ m}{T}}}{}
-					\Decl {lg, col}{entiers}
+					\Decl {lg, col}{integers}
 					\Let lg \Gets 0
 					\Let col \Gets 0
 					\For{i}{1}{n*m}
@@ -609,7 +608,7 @@
 			\begin{LDA}
 				\LComment{Parcours d'un tableau à 2 dimensions, ligne par ligne, via un tant que}
 				\Algo{affichageElémentsLigneParLigne}{\Par{tab}{\Array{n $\times$ m}{T}}}{}
-					\Decl {lg, col}{entiers}
+					\Decl {lg, col}{integers}
 					\Let lg \Gets 0
 					\While{lg $<$ n}
 						\Let col \Gets 0
@@ -625,7 +624,7 @@
 			\begin{LDA}
 				\LComment{Parcours d'un tableau à 2 dimensions via une seule boucle et un tant que}
 				\Algo{affichageElémentsLigneParLigne}{\Par{tab}{\Array{n $\times$ m}{T}}}{}
-					\Decl {lg, col, i}{entiers}
+					\Decl {lg, col, i}{integers}
 					\Let lg \Gets 0
 					\Let col \Gets 0
 					\Let i \Gets 1
@@ -654,9 +653,9 @@
 			
 			\begin{LDA}
 				\LComment{Parcours avec test d'arrêt - deux boucles et un booléen}
-				\Algo{chercherElément}{\Par{tab}{\Array{n $\times$ m}{T}}, \Par{élt}{T}}{booléen}
-					\Decl {lg, col}{entiers}
-					\Decl {trouvé}{booléen}
+				\Algo{chercherElément}{\Par{tab}{\Array{n $\times$ m}{T}}, \Par{élt}{T}}{boolean}
+					\Decl {lg, col}{integers}
+					\Decl {trouvé}{boolean}
 					\Let trouvé \Gets faux
 					\Let lg \Gets 0
 					\While{lg $<$ n ET NON trouvé}
@@ -679,7 +678,7 @@
 			\begin{LDA}
 				\LComment{Parcours avec test d'arrêt - une boucle et pas de booléen}
 				\Algo{chercherElément}{\Par{tab}{\Array{n $\times$ m}{T}}, \Par{élt}{T}}{}
-					\Decl {lg, col, i}{entiers}
+					\Decl {lg, col, i}{integers}
 					\Let lg \Gets 0
 					\Let col \Gets 0
 					\Let i \Gets 1
@@ -720,7 +719,7 @@
 			\begin{LDA}
 				\LComment{Parcours du serpent dans un tableau à deux dimensions}
 				\Algo{affichageElémentsSerpent}{\Par{tab}{\Array{n $\times$ m}{T}}}{}
-					\Decl {lg, col, depl}{entiers}
+					\Decl {lg, col, depl}{integers}
 					\Let lg \Gets 0
 					\Let col \Gets 0
 					\Let depl \Gets 1	\RComment 1 pour avancer, -1 pour reculer
@@ -832,7 +831,7 @@
 		ne contient que des valeurs non nulles.
 		
 		\begin{LDA}
-			\Entete{lignePleine}{\Par{tab}{\Array{n $\times$ m}{entiers}}, \Par{lg}{entier}}{booléen}
+			\Entete{lignePleine}{\Par{tab}{\Array{n $\times$ m}{integers}}, \Par{lg}{integer}}{boolean}
 		\end{LDA}
 		
 		Faites de même pour une colonne.
