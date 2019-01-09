@@ -25,19 +25,26 @@
 \input{style/fiche.sty}
 
 %==============================
-% La configuration du document
-% (école, UE, AA, profs, année)
+% Paramètres du document
 %==============================
-\input{syllabus/config}
+\title{Algorithmique}
+\subtitle{Bachelor en Informatique\\DEV2}
+\date{2019}
+\author{%
+	M. Codutti (MCD), H. Delannoy (HDE),\\
+	S. Drobisz (SDR), A. Paquot (APA) \& N. Richard (NRI)
+}
 
 %=========================
 \begin{document}
 %=========================
 
-	\include{syllabus/cover}
-	\include{syllabus/colophon}
-	\include{syllabus/toc}
-
+	\maketitle
+	\pagedeux	
+	\ccbysa{esi-webg5-list@he2b.be}
+	\setcounter{tocdepth}{1}
+	\tableofcontents
+	
 	\include{syllabus/tableau2D}
 	\include{syllabus/oo}
 	\include{syllabus/liste}
