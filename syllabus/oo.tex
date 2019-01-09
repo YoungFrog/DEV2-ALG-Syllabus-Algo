@@ -64,7 +64,9 @@
 		\footnote{%
 			Ajouter plus de précision ne serait pas plus compliqué à faire.%
 		}.
-	
+
+\newpage 
+
 	\subsection{Le comportement (les méthodes)}
 	%==========================================
 	
@@ -82,13 +84,13 @@
 		\begin{algo}
 			\Class{Durée}{
 				%\Private
-					%\LComment rien encore
+					%\Comment rien encore\;
 				\Public{
 					\ConstrSign{Durée}{secondes~: entier}\;
 					\ConstrSign{Durée}{heure, minute, seconde~: entiers}\;
 					\;
 					\MethodSign{getJour}{}{entier}
-					\RComment{nb de jours dans une durée}
+					\RComment{nb de jours dans une durée}\;
 					\MethodSign{getHeure}{}{entier}
 					\RComment{entier entre 0 et 23 inclus}
 					\MethodSign{getMinute}{}{entier}
@@ -189,10 +191,10 @@
 		\begin{algo}
 			\Class{Durée}{
 				\Private{
-					\Decl{totalSecondes}{entier}
+					\Decl{totalSecondes}{entier}\;
 				}
 				\Public{
-					\LComment{Ici viennent les constructeurs et les méthodes}
+					\Comment{Ici viennent les constructeurs et les méthodes}\;
 				}
 			}
 		\end{algo}
@@ -215,7 +217,7 @@
 		\begin{algo}
 			\Class{Durée}{
 				\Private{
-					\Decl{totalSecondes}{entier}
+					\Decl{totalSecondes}{entier}\;
 				}
 				\Public{
 					\ConstrSign{Durée}{secondes~: entier}\;
@@ -265,40 +267,40 @@
 				totalSecondes \Gets 3600*heure + 60*minute + seconde\;
 			}
 		\;
-			\LComment{Retourne le nombre de jours dans une représentation JJ/HH:MM:SS}
+			\Comment{Retourne le nombre de jours dans une représentation JJ/HH:MM:SS}\;
 			\Method{getJour}{}{entier}{
 				\Return totalSecondes DIV (3600*24)\;
 			}
 		\;
-			\LComment{Retourne le nombre d'heures dans une représentation JJ/HH:MM:SS}
-			\Method{getHeure}{}{entier}{
-				\LComment{On doit enlever les jours éventuels}
-				\Return (totalSecondes DIV 3600) MOD 24\;
+			\Comment{Retourne le nombre d'heures dans une représentation JJ/HH:MM:SS}\;
+			\Method{getHeure}{}{entier}{		
+				\Return (totalSecondes DIV 3600) MOD 24
+				\RComment{On doit enlever les jours éventuels}
 			}
 		\;
-			\LComment{Retourne le nombre de minutes dans une représentation JJ/HH:MM:SS}
+			\Comment{Retourne le nombre de minutes dans une représentation JJ/HH:MM:SS}\;
 			\Method{getMinute}{}{entier}{
-				\LComment{On doit enlever les heures éventuelles}
-				\Return (totalSecondes DIV 60) MOD 60\;
+				\Return (totalSecondes DIV 60) MOD 60
+				\RComment{On doit enlever les heures éventuelles}
 			}
 		\;
-			\LComment{Retourne le nombre de secondes dans une représentation JJ/HH:MM:SS}
+			\Comment{Retourne le nombre de secondes dans une représentation JJ/HH:MM:SS}\;
 			\Method{getSeconde}{}{entier}{
-				\LComment{On doit enlever les minutes éventuelles}
-				\Return totalSecondes  MOD 60\;
+				\Return totalSecondes  MOD 60
+				\RComment{On doit enlever les minutes éventuelles}
 			}
 		\;
-			\LComment{Retourne le nombre entier d’heures complètes}
+			\Comment{Retourne le nombre entier d’heures complètes}\;
 			\Method{getTotalHeures}{}{entier}{
 				\Return totalSecondes DIV 3600\;
 			}
 		\;
-			\LComment{Retourne le nombre entier de minutes complètes}
+			\Comment{Retourne le nombre entier de minutes complètes}\;
 			\Method{getTotalMinutes}{}{entier}{
 				\Return totalSecondes DIV 60\;
 			}
 		\;
-			\LComment{Retourne le nombre entier de secondes complètes}
+			\Comment{Retourne le nombre entier de secondes complètes}\;
 			\Method{getTotalSecondes}{}{entier}{
 				\Return totalSecondes\;
 			}
@@ -308,7 +310,7 @@
 			}
 		\;
 			\Method{différence}{autreDurée~: Durée}{Durée}{
-				\Return \KwSty{nouvelle} Durée(valeurAbsolue(totalSecondes - autreDurée.getTotalSecondes()))
+				\Return \New Durée(valeurAbsolue(totalSecondes - autreDurée.getTotalSecondes()))
 			}
 		%\;
 			%\Method{égale}{autreDurée~: Durée}{booléen}
@@ -326,19 +328,16 @@
 
 		Pour utiliser le nouveau type de donnée créé,
 		il faut l'instancier, c'est-à-dire créer un nouvel objet de ce type.
-		Nous allons utiliser le mot clé \KwSty{nouveau}
-		(ou \KwSty{nouvelle} si vous jugez utile d'accorder avec le type)
-		pour rester très proche de Java.
+		Nous allons utiliser le mot clé \lda{\New} pour rester très proche de Java.
 		
 		Illustrons cela au travers d'un petit algorithme
 		qui calcule la différence entre deux durées.
 		
 		\begin{algo}
 			\Algo{diffDurée}{}{}{
-				\LComment{Les variables sont déclarées/créées}
-				\Decl{durée1, durée2}{Durée}	
-				durée1 \Gets \KwSty{nouvelle} Durée(3, 4, 49)	\RComment{Les objets sont créés}
-				durée2 \Gets \KwSty{nouvelle} Durée(3, 24, 37)	\RComment{Les objets sont créés}
+				\Decl{durée1, durée2}{Durée}        \RComment{Les variables sont déclarées}
+				durée1 \Gets \New Durée(3, 4, 49)	\RComment{durée1 est créé}
+				durée2 \Gets \New Durée(3, 24, 37)	\RComment{durée2 est créé}
 				\Write durée2.différence(durée1)\;
 			}
 		\end{algo}
@@ -374,8 +373,8 @@
 			}.
 
 			\begin{algo}
-				\Decl{rendezVous}{Durée}
-				rendezVous \Gets \KwSty{nouvelle} Durée(14, 23, 56)\;
+				\Decl{rendezVous}{Durée}\;
+				rendezVous \Gets \New Durée(14, 23, 56)\;
 				\Write rendezVous
 				\RComment{affichera 14, 23 et 56 dans un format lisible.}
 			\end{algo}
@@ -385,7 +384,7 @@
 			correspondant aux valeurs lues pour ses attributs.
 
 			\begin{algo}
-				\Decl {rendezVous}{Durée}
+				\Decl {rendezVous}{Durée}\;
 				\Read rendezVous\;
 			\end{algo}
 		\item 
@@ -401,7 +400,7 @@
 			
 			\begin{algo}
 				\Decl{parcours}{Durée}								\RComment{parcours = rien}
-				parcours \Gets \KwSty{nouvelle} Durée( 14, 23, 56 )	\RComment{parcours ${\neq}$ rien}
+				parcours \Gets \New Durée( 14, 23, 56 )	\RComment{parcours ${\neq}$ rien}
 				\If{parcours $\neq$ rien}{
 					parcours \Gets rien						\RComment{parcours = rien}
 				}
@@ -409,7 +408,7 @@
 		\item
 			Si une classe ne propose pas de constructeur,
 			on peut néanmoins instancier un objet 
-			(via \lda{\KwSty{nouveau} NomClasse()}).
+			(via \lda{\New NomClasse()}).
 			On considère dans ce cas que les attributs ne sont pas initialisés.
 	\end{itemize}
 
@@ -479,8 +478,7 @@
 			\item[Le lièvre]
 				Pendant le jeu, il est en permanence au départ
 				et lorsque sort un 6, il atteint directement l'arrivée.
-				Plusieurs possibilités s'offrent à nous :
-			
+				Plusieurs possibilités s'offrent à nous :		
 				\begin{enumerate}
 				\item
 					On pourrait imaginer un entier valant 0 ou \nbMaxKmTortue{},
@@ -577,9 +575,9 @@
 			Au final, on obtient :
 			\begin{algo}
 				\Algo{jeuLièvreTortue}{}{}{
-					\Decl{avancéeTortue}{integer}
-					\Decl{lièvreArrivé}{boolean}
-					\Decl{dé}{integer}
+					\Decl{avancéeTortue}{integer}\;
+					\Decl{lièvreArrivé}{boolean}\;
+					\Decl{dé}{integer}\;
 					\;
 					avancéeTortue \Gets 0\;
 					lièvreArrivé \Gets faux\;
@@ -619,7 +617,7 @@
 			\begin{algo}
 				\Class{Tortue}{
 					\Private{
-						\Decl{avancée}{integer}
+						\Decl{avancée}{integer}\;
 					}
 					\Public{
 						\Constr{Tortue}{}{
@@ -657,7 +655,7 @@
 			\begin{algo}
 				\Class{Lièvre}{
 					\Private{
-						\Decl{arrivé}{boolean}
+						\Decl{arrivé}{boolean}\;
 					}
 					\Public{
 						\Constr{Lièvre}{}{
@@ -680,7 +678,7 @@
 			\begin{algo}
 				\Class{Dé}{
 					\Private{
-						\Decl{valeur}{integer}
+						\Decl{valeur}{integer}\;
 					}
 					\Public{
 						\Constr{Dé}{}{
@@ -708,13 +706,13 @@
 			
 			\begin{algo}
 				\Algo{jeuLièvreTortue}{}{}{
-					\Decl{tortue}{Tortue}
-					\Decl{lièvre}{Lièvre}
-					\Decl{dé}{Dé}
+					\Decl{tortue}{Tortue}\;
+					\Decl{lièvre}{Lièvre}\;
+					\Decl{dé}{Dé}\;
 					\;
-					tortue \Gets \KwSty{nouvelle} Tortue()\;
-					lièvre \Gets \KwSty{nouveau} Lièvre()\;
-					dé \Gets \KwSty{nouveau} Dé()\;
+					tortue \Gets \New Tortue()\;
+					lièvre \Gets \New Lièvre()\;
+					dé \Gets \New Dé()\;
 					\;
 					\While{NON tortue.estArrivée() ET NON lièvre.estArrivé()}{
 						dé.lancer()\;
@@ -748,8 +746,8 @@
 			\begin{algo}
 				\Class{Dé}{
 					\Private{
-						\Decl{nbFaces}{integer}
-						\Decl{valeur}{integer}
+						\Decl{nbFaces}{integer}\;
+						\Decl{valeur}{integer}\;
 					}
 					\Public{
 						\Constr{Dé}{\Par{nf}{integer}}{
@@ -770,7 +768,7 @@
 			Dans l'algorithme principal,
 			le seul changement est la création du dé qui devient :
 			\begin{algo}
-				dé \Gets \KwSty{nouveau} Dé(6)\;
+				dé \Gets \New Dé(6)\;
 			\end{algo}
 				
 	\subsection{Solution MVC (\og{}Modèle-Vue-Contrôleur\fg{})}
@@ -793,7 +791,7 @@
 				}
 				\;
 				\Method{jouer}{}{}{
-					\LComment{Idem algorithme jeuLièvreTortue() ci-avant}
+					\Comment{Idem algorithme jeuLièvreTortue() ci-avant}\;
 				}
 			}
 		\end{algo}
@@ -801,15 +799,15 @@
 		Ce qui réduirait l'algorithme principal à :
 		\begin{algo}
 			\Algo{jeuLièvreTortue}{}{}{
-				\Decl{jeu}{LièvreTortue}
-				jeu \Gets \KwSty{nouveau} LièvreTortue()\;
+				\Decl{jeu}{LièvreTortue}\;
+				jeu \Gets \New LièvreTortue()\;
 				jeu.jouer()\;
 			}
 		\end{algo}
 		ou même, en se passant de la variable locale :
 		\begin{algo}
 			\Algo{jeuLièvreTortue}{}{}{
-				(\KwSty{nouveau} LièvreTortue()).jouer()\;
+				(\New LièvreTortue()).jouer()\;
 			}
 		\end{algo}
 
@@ -886,16 +884,16 @@
 		\begin{algo}
 			\Class{LièvreTortue}{
 				\Private{
-					\Decl{tortue}{Tortue}
-					\Decl{lièvre}{Lièvre}
-					\Decl{dé}{Dé}
+					\Decl{tortue}{Tortue}\;
+					\Decl{lièvre}{Lièvre}\;
+					\Decl{dé}{Dé}\;
 				}
 				\Public{
 					\ConstrSign{LièvreTortue}{}\;
 					\MethodSign{estFini}{}{boolean}\;
 					\MethodSign{jouerCoup}{}{}\;
 					\MethodSign{getVainqueur}{}{string}\;
-					\LComment{
+					\Comment{\;
 						+ les accesseurs (getLièvre(), getTortue() et getDé())
 						des attributs mais pas les mutateurs}
 				}
@@ -904,9 +902,9 @@
 		
 		\begin{algo}
 			\Constr{LièvreTortue}{}{
-				tortue \Gets \KwSty{nouvelle} Tortue()\;
-				lièvre \Gets \KwSty{nouveau} Lièvre()\;
-				dé \Gets \KwSty{nouveau} Dé(6)\;			
+				tortue \Gets \New Tortue()\;
+				lièvre \Gets \New Lièvre()\;
+				dé \Gets \New Dé(6)\;			
 			}				
 			\;
 			\Method{estFini}{}{boolean}{
@@ -982,8 +980,8 @@
 
 		\begin{algo}
 			\Algo{jeuLièvreTortue}{}{}{
-				\Decl{jeu}{LièvreTortue}
-				jeu \Gets \KwSty{nouveau} LièvreTortue()\;
+				\Decl{jeu}{LièvreTortue}\;
+				jeu \Gets \New LièvreTortue()\;
 				\While{NON jeu.estFini()}{
 					jeu.jouerCoup()\;
 					afficherÉtat(jeu)\;

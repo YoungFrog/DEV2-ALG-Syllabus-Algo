@@ -11,7 +11,7 @@
 	pour faire référence à un de ses éléments. Attention de ne pas confondre 
 	avec la	taille !
 	
-	En DEV1, nous avons introduit les tableaux à une dimension.
+	En \abbr{dev1}, nous avons introduit les tableaux à une dimension.
 	Un seul indice suffisait à localiser un de ses éléments. 
 	Pour le dire autrement,
 	chaque case possédait \textbf{un} numéro.
@@ -34,16 +34,16 @@
 		Pour \textbf{déclarer} un tableau à 2 dimensions, on écrira :
 	
 		\begin{algo}
-			\Decl{nomTableau}{\Array{nbLignes $\times$ nbColonnes}{TypeElément}}
+			\Decl{nomTableau}{\Array{nbLignes $\times$ nbColonnes}{TypeElément}}\;
 		\end{algo}
 	
-		où \samp{nbLignes} et \samp{nbColonnes} 
+		où \lda{nbLignes} et \lda{nbColonnes} 
 		sont des expressions entières quelconques.
 	
 		\textbf{Exemple} :
 		
 		\begin{algo}
-			\Decl{tab}{\Array{5$\times$10}{integers}}
+			\Decl{tab}{\Array{5$\times$10}{integers}}\;
 		\end{algo}
 		
 		déclare un tableau de 5 lignes par 10 colonnes dont chaque case
@@ -55,7 +55,7 @@
 		\marginicon{definition}
 		Pour \textbf{accéder} à une case du tableau on donnera les deux indices
 		entre crochets.
-		Comme en DEV1, on va considérer que la première ligne 
+		Comme en \abbr{dev1}, on considère que la première ligne 
 		et la première colonne portent le numéro (l'indice) $0$.  
 		
 		\textbf{Exemple} :
@@ -84,7 +84,7 @@
 		\textbf{Exemple} : Soit le tableau déclaré ainsi :
 	
 		\begin{algo}
-		\Decl{nombres}{\Array{4$\times$5}{integers}}
+		\Decl{nombres}{\Array{4$\times$5}{integers}}\;
 		\end{algo}
 	
 		On peut le visualiser à l’aide d’une grille à 4 lignes et 5 colonnes.
@@ -210,9 +210,9 @@
 		\end{center}
 		
 		\begin{algo}
-		\LComment{Déclare un tableau et donne des valeurs aux coins.}
+		\Comment{Déclare un tableau et donne des valeurs aux coins.}\;
 		\Algo{remplirCoins}{}{}{
-			\Decl{grille}{\Array{3$\times$5}{string}}
+			\Decl{grille}{\Array{3$\times$5}{string}}\;
 			grille[0,0] \Gets "NO"\;
 			grille[0,4] \Gets "NE"\;
 			grille[2,0] \Gets "SO"\;
@@ -247,23 +247,23 @@
 		\bigskip
 		
 		\begin{algo}
-		\LComment{Calcule et affiche la quantité vendue de 10 produits}
-		\LComment{pour chaque jour de la semaine (de 0~: lundi à 6~: dimanche).}
+		\Comment{Calcule et affiche la quantité vendue de 10 produits}\;
+		\Comment{pour chaque jour de la semaine (de 0~: lundi à 6~: dimanche).}\;
 		\Algo{statistiquesVentesSemaine}{}{}{
-			\Decl{cpt}{\Array{7$\times$10}{integers}}
+			\Decl{cpt}{\Array{7$\times$10}{integers}}\;
 			initialiser(cpt)\;
-			\LComment{Pour chaque jour de la semaine}
-			\Fori{jour}{0}{6}{ 
+			\Fori{jour}{0}{6\hfill\Comment{Pour chaque jour de la semaine}}{ 
 				traiterStock1Jour(cpt, jour)\;
 				\Fori{produit}{0}{9}{
-					\Write "quantité vendue de produit ", produit, " ce jour ", jour, "~: ", cpt[jour,produit]
+					\Write "quantité vendue de produit ", produit, 
+					" ce jour ", jour, "~: ", cpt[jour,produit]\;
 				}
 			}
 		}
 		\end{algo}
 	
 		\begin{algo}
-		\LComment{Initialise le tableau d'entiers à 0}
+		\Comment{Initialise le tableau d'entiers à 0}\;
 		\Algo{initialiser}{\Par{entiers\InOut}{\Array{7$\times$10}{integers}}}{}{
 			\Fori{i}{0}{6}{
 				\Fori{j}{0}{9}{
@@ -274,9 +274,9 @@
 		\end{algo}
 	
 		\begin{algo}
-		\LComment{Effectue le traitement du stock pour une journée.}
+		\Comment{Effectue le traitement du stock pour une journée.}\;
 		\Algo{traiterStock1Jour}{\Par{cpt\InOut}{\Array{7$\times$10}{integers}}, \Par{jour\In}{integer}}{}{
-			\Decl{numéroProduit, quantité}{integers}
+			\Decl{numéroProduit, quantité}{integers}\;
 			numéroProduit \Gets \Ask{"Introduisez le numéro du produit~:"}\; 
 			\While{numéroProduit $\geq$ 0 et numéroProduit $<$ 10}{
 				quantité \Gets \Ask{"Introduisez la quantité vendue~:"}\;
@@ -349,7 +349,7 @@
 	Pour déclarer un tableau statique à $k$ dimensions, on écrira :
 
 	\begin{algo}
-	\Decl{nomTableau}{\Array{tailleDim1 $\times$ \dots{} $\times$ tailleDimK}{TypeElément}}
+	\Decl{nomTableau}{\Array{tailleDim1 $\times$ \dots{} $\times$ tailleDimK}{TypeElément}}\;
 	\end{algo}
 	
 	
@@ -365,7 +365,7 @@
 	Utilisons \lda{T} pour désigner un type quelconque.
 	
 	\begin{algo}
-		\Decl{tab}{\Array{n $\times$ m}{T}}
+		\Decl{tab}{\Array{n $\times$ m}{T}}\;
 	\end{algo}
 	
 	Commençons par des cas plus simples 
@@ -396,7 +396,7 @@
 		Ce qui donne l'algorithme :
 		
 		\begin{algo}
-			\LComment{Parcours de la ligne $ligne$ d'un tableau à deux dimensions}
+			\Comment{Parcours de la ligne $ligne$ d'un tableau à deux dimensions}\;
 			\Algo{affichageElémentsLigne}{\Par{tab}{\Array{n $\times$ m}{T}}, 
 				\Par{ligne}{integer}}{}{
 				\Fori{colonne}{0}{m-1}{
@@ -411,7 +411,7 @@
 		avec l'algorithme suivant.
 		
 		\begin{algo}
-			\LComment{Parcours de la colonne $colonne$ d'un tableau à deux dimensions}
+			\Comment{Parcours de la colonne $colonne$ d'un tableau à deux dimensions}\;
 			\Algo{affichageElémentsColonne}{\Par{tab}{\Array{n $\times$ m}{T}}, 
 				\Par{colonne}{integer}}{}{
 				\Fori{ligne}{0}{n-1}{
@@ -442,7 +442,7 @@
 		comme le montre l'algorithme suivant.
 		
 		\begin{algo}
-			\LComment{Parcours de la diagonale descendante d'un tableau carré}
+			\Comment{Parcours de la diagonale descendante d'un tableau carré}\;
 			\Algo{affichageElémentsDiagonaleDescendante}{\Par{tab}{\Array{n $\times$ n}{T}}}{}{
 				\Fori{i}{0}{n-1}{
 					\Write tab[i,i] \RComment{On peut faire autre chose qu'afficher}
@@ -468,9 +468,9 @@
 		\end{center}
 		
 		\begin{algo}
-		\LComment{Parcours de la diagonale montante d'un tableau carré - version 2 indices}
+		\Comment{Parcours de la diagonale montante d'un tableau carré - version 2 indices}\;
 		\Algo{affichageElémentsDiagonaleMontante}{\Par{tab}{\Array{n $\times$ n}{T}}}{}{
-			\Decl{j}{entier}
+			\Decl{j}{integer}\;
 			j \Gets n-1\;
 			\Fori{i}{0}{n-1}{
 				\Write tab[i,j] \RComment{On peut faire autre chose qu'afficher}
@@ -480,7 +480,7 @@
 		\end{algo}
 		
 		\begin{algo}
-		\LComment{Parcours de la diagonale montante d'un tableau carré - version 1 indice}
+		\Comment{Parcours de la diagonale montante d'un tableau carré - version 1 indice}\;
 		\Algo{affichageElémentsDiagonaleMontante}{\Par{tab}{\Array{n $\times$ n}{T}}}{}{
 			\Fori{i}{0}{n-1}{
 				\Write tab[i, n - 1 - i]  \RComment{On peut faire autre chose qu'afficher}
@@ -533,7 +533,7 @@
 			Le plus simple est d'utiliser deux boucles imbriquées 
 			
 			\begin{algo}
-			\LComment{Parcours d'un tableau à 2 dimensions, ligne par ligne}
+			\Comment{Parcours d'un tableau à 2 dimensions, ligne par ligne}\;
 			\Algo{affichageElémentsLigneParLigne}{\Par{tab}{\Array{n $\times$ m}{T}}}{}{
 				\Fori{lg}{0}{n-1}{
 					\Fori{col}{0}{m-1}{
@@ -544,7 +544,7 @@
 			\end{algo}
 			
 			\begin{algo}
-				\LComment{Parcours d'un tableau à 2 dimensions, colonne par colonne}
+				\Comment{Parcours d'un tableau à 2 dimensions, colonne par colonne}\;
 				\Algo{affichageElémentsColonneParColonne}{\Par{tab}{\Array{n $\times$ m}{T}}}{}{
 					\Fori{col}{0}{m-1}{
 						\Fori{lg}{0}{n-1}{
@@ -564,9 +564,9 @@
 			et laissée en exercice.
 			
 			\begin{algo}
-				\LComment{Parcours d'un tableau à 2 dimensions via une seule boucle}
+				\Comment{Parcours d'un tableau à 2 dimensions via une seule boucle}\;
 				\Algo{affichageElémentsLigneParLigne}{\Par{tab}{\Array{n $\times$ m}{T}}}{}{
-					\Decl{lg, col}{integers}
+					\Decl{lg, col}{integers}\;
 					lg \Gets 0\;
 					col \Gets 0\;
 					\Fori{i}{1}{n*m}{
@@ -583,6 +583,8 @@
 			L'avantage de cette solution apparaitra 
 			quand on verra des situations plus difficiles.
 
+\newpage
+
 		\subsubsection*{Interrompre le parcours}
 		%---------------------------------------
 			
@@ -594,9 +596,9 @@
 			Par exemple, montrons les deux parcours ligne par ligne, avec une et deux boucle(s).
 			
 			\begin{algo}
-				\LComment{Parcours d'un tableau à 2 dimensions, ligne par ligne, via un tant que}
+				\Comment{Parcours d'un tableau à 2 dimensions, ligne par ligne, via un tant que}\;
 				\Algo{affichageElémentsLigneParLigne}{\Par{tab}{\Array{n $\times$ m}{T}}}{}{
-					\Decl{lg, col}{integers}
+					\Decl{lg, col}{integers}\;
 					lg \Gets 0\;
 					\While{lg $<$ n}{
 						col \Gets 0\;
@@ -610,9 +612,9 @@
 			\end{algo}
 			
 			\begin{algo}
-				\LComment{Parcours d'un tableau à 2 dimensions via une seule boucle et un tant que}
+				\Comment{Parcours d'un tableau à 2 dimensions via une seule boucle et un tant que}\;
 				\Algo{affichageElémentsLigneParLigne}{\Par{tab}{\Array{n $\times$ m}{T}}}{}{
-					\Decl{lg, col, i}{integers}
+					\Decl{lg, col, i}{integers}\;
 					lg \Gets 0\;
 					col \Gets 0\;
 					i \Gets 1\;
@@ -630,7 +632,7 @@
 			
 			On peut à présent introduire le test comme on l'a fait 
 			dans les algorithmes de parcours des tableaux à une dimension.
-			
+
 			Illustrons-le au travers de deux exemples
 			où on cherche un élément particulier.
 			Le premier introduit un test en utilisant un booléen
@@ -639,11 +641,13 @@
 			Dans les deux cas, l'algorithme retourne un booléen indiquant si
 			l'élément a été trouvé ou pas.
 			
+\newpage
+
 			\begin{algo}
-				\LComment{Parcours avec test d'arrêt - deux boucles et un booléen}
+				\Comment{Parcours avec test d'arrêt - deux boucles et un booléen}\;
 				\Algo{chercherElément}{\Par{tab}{\Array{n $\times$ m}{T}}, \Par{élt}{T}}{boolean}{
-					\Decl{lg, col}{integers}
-					\Decl{trouvé}{boolean}
+					\Decl{lg, col}{integers}\;
+					\Decl{trouvé}{boolean}\;
 					trouvé \Gets faux\;
 					lg \Gets 0\;
 					\While{lg $<$ n ET NON trouvé}{
@@ -665,9 +669,9 @@
 			\end{algo}
 			
 			\begin{algo}
-				\LComment{Parcours avec test d'arrêt - une boucle et pas de booléen}
+				\Comment{Parcours avec test d'arrêt - une boucle et pas de booléen}\;
 				\Algo{chercherElément}{\Par{tab}{\Array{n $\times$ m}{T}}, \Par{élt}{T}}{}{
-					\Decl{lg, col, i}{integers}
+					\Decl{lg, col, i}{integers}\;
 					lg \Gets 0\;
 					col \Gets 0\;
 					i \Gets 1\;
@@ -704,11 +708,12 @@
 			avec une seule boucle
 			en introduisant un sens de déplacement, 
 			ce qui donne l'algorithme :
-			
+
+\newpage
 			\begin{algo}
-				\LComment{Parcours du serpent dans un tableau à deux dimensions}
+				\Comment{Parcours du serpent dans un tableau à deux dimensions}\;
 				\Algo{affichageElémentsSerpent}{\Par{tab}{\Array{n $\times$ m}{T}}}{}{
-					\Decl{lg, col, depl}{integers}
+					\Decl{lg, col, depl}{integers}\;
 					lg \Gets 0\;
 					col \Gets 0\;
 					depl \Gets 1	\RComment{1 pour avancer, -1 pour reculer}
@@ -728,8 +733,7 @@
 \section{Exercices}
 % ===================
 
-	\begin{Exercice}{Affichage}
-		\marginicon{java}
+	\begin{Exercice}{Affichage}\marginicon{java}%
 		Écrire un algorithme qui affiche tous les éléments d'un
 		tableau (à $n$ lignes et $m$ colonnes) ligne par ligne.
 		
@@ -745,8 +749,7 @@
 		des cases \emph{adjacentes}.		
 	\end{Exercice}
 	
-	\begin{Exercice}{Les nuls}
-		\marginicon{java}
+	\begin{Exercice}{Les nuls}\marginicon{java}%
 		Écrire un algorithme qui reçoit un tableau ($n$ x $m$)
 		d'entiers et qui retourne la proportion
 		d'éléments nuls dans ce tableau.
@@ -763,7 +766,7 @@
 	\end{Exercice}
 	
 	\begin{Exercice}{Le triangle de Pascal}
-		\marginicon{java}
+		\marginicon{java}%
 		Le triangle de Pascal est construit de la façon suivante :
 		\begin{itemize}
 		\item la ligne initiale contient un seul élément de valeur 1 ;
@@ -805,7 +808,7 @@
 	\end{Exercice}
 
 	\begin{Exercice}{Tous positifs}
-		\marginicon{java}
+		\marginicon{java}%
 		Écrire un algorithme qui reçoit un tableau ($n$ x $m$) d’entiers et qui vérifie
 		si tous les nombres qu’il contient sont strictement positifs. Bien sûr,
 		on veillera à éviter tout travail inutile; la rencontre d’un nombre
@@ -827,7 +830,7 @@
 	\end{Exercice}
 
 	\begin{Exercice}{Le carré magique}
-		\marginicon{java}
+		\marginicon{java}%
 		Un carré magique est un tableau d’entiers carré
 		(c'est-à-dire possédant autant de lignes que de
 		colonnes) ayant la propriété suivante: si on additionne les éléments
@@ -911,8 +914,7 @@
 		
 	\end{Exercice}
 	
-	\begin{Exercice}{Exercices sur la complexité}
-	
+	\begin{Exercice}{Exercices sur la complexité}	
 		Quelle est la complexité 
 		\begin{enumerate}[label=\alph*)]
 		\item 

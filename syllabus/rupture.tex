@@ -253,10 +253,10 @@
 
 	\begin{algo}
 		\Algo{RuptureNiveau0}{\Par{etudiants}{\List{Etudiant}}}{}{
-			\Decl{i}{integer}
+			\Decl{i}{integer}\;
 			i \Gets 0\;
 			\While{i < etudiants.taille()}{
-				\LComment{traitement de etudiants.get(i)}
+				\Comment{traitement de etudiants.get(i)}\;
 				i \Gets i + 1\;
 			}
 		}
@@ -285,10 +285,10 @@
 	\begin{algo}
 		\label{algo:rupt1}
 		\Algo{RuptureNiveau1}{\Par{etudiants}{List of Etudiant}}{}{
-			\LComment{on suppose les données classées en majeur sur l’option}
-			\Decl{saveOption}{string}
-			\Decl{cpt}{integer}
-			\Decl{i}{integer}
+			\Comment{on suppose les données classées en majeur sur l’option}\;
+			\Decl{saveOption}{string}\;
+			\Decl{cpt}{integer}\;
+			\Decl{i}{integer}\;
 			\;
 			i \Gets 0\;
 			\While{i < etudiants.taille()}{
@@ -336,12 +336,12 @@
 	\begin{algo}
 		\Algo{RuptureNiveau2}{\Par{etudiants}{List of Etudiant}}{}{
 		\label{algo:rupt2}
-			\LComment{on suppose les données classées en majeur sur l’option}
-			\LComment{et en mineur sur la date de naissance (ordre chronologique)}
-			\Decl{saveOption}{string}
-			\Decl{saveAnnéeNaissance}{integer}
-			\Decl{cpt}{integer}
-			\Decl{i}{integer}
+			\Comment{on suppose les données classées en majeur sur l’option}\;
+			\Comment{et en mineur sur la date de naissance (ordre chronologique)}\;
+			\Decl{saveOption}{string}\;
+			\Decl{saveAnnéeNaissance}{integer}\;
+			\Decl{cpt}{integer}\;
+			\Decl{i}{integer}\;
 	
 			i \Gets 0\;
 			\While{i < etudiants.taille()}{
@@ -403,9 +403,9 @@
 
 	\begin{algo}
 		\Structure{Job}{
-			\Decl{login}{string}
-			\Decl{date}{date}
-			\Decl{nombre}{integer}
+			\Decl{login}{string}\;
+			\Decl{date}{date}\;
+			\Decl{nombre}{integer}\;
 		}
 	\end{algo}
 
@@ -464,12 +464,12 @@
 %
 %	\begin{algo}
 %	\Structure{Voiture}
-%		\Decl{plaque}{chaine} 	\RComment{numéro d’immatriculation}
-%		\Decl{marque}{chaine} 	\RComment{marque de la voiture (par ex. «~Citroën~»)}
-%		\Decl{type}{chaine}		\RComment{type de modèle dans la marque (par ex. «~Berlingo~»)}
-%		\Decl{nom}{chaine}		\RComment{nom du propriétaire}
-%		\Decl{adresse}{chaine}	\RComment{adresse du propriétaire}
-%		\Decl{date}{date}		\RComment{date de la demande d’immatriculation}
+%		\Decl{plaque}{chaine} 	\RComment{numéro d’immatriculation}\;
+%		\Decl{marque}{chaine} 	\RComment{marque de la voiture (par ex. «~Citroën~»)}\;
+%		\Decl{type}{chaine}		\RComment{type de modèle dans la marque (par ex. «~Berlingo~»)}\;
+%		\Decl{nom}{chaine}		\RComment{nom du propriétaire}\;
+%		\Decl{adresse}{chaine}	\RComment{adresse du propriétaire}\;
+%		\Decl{date}{date}		\RComment{date de la demande d’immatriculation}\;
 %	\EndStruct
 %	\end{algo}
 %
@@ -518,11 +518,11 @@
 
 	\begin{algo}
 	\Structure{Participant}{
-	\Decl{nom}{string} 		\RComment{nom et prénom du participant}
-	\Decl{âge}{integer} 		\RComment{âge du participant au moment du concours}
-	\Decl{référence}{string}\RComment{référence du club auquel appartient ce participant}
-	\Decl{numéro}{integer}	\RComment{numéro du concours auquel il a participé}
-	\Decl{résultat}{integer}	\RComment{résultat obtenu lors de ce concours (sur 100)}
+		\Decl{nom}{string} 		\RComment{nom et prénom du participant}
+		\Decl{âge}{integer} 		\RComment{âge du participant au moment du concours}
+		\Decl{référence}{string}\RComment{référence du club auquel appartient ce participant}
+		\Decl{numéro}{integer}	\RComment{numéro du concours auquel il a participé}
+		\Decl{résultat}{integer}	\RComment{résultat obtenu lors de ce concours (sur 100)}
 	}
 	\end{algo}
 

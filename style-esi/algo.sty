@@ -27,7 +27,7 @@
 % typevar
 \newif\ifvartype\vartypetrue
 \DeclareOption{typevar}{\vartypefalse}
-\newcommand{\algodecl}[2]{\ifvartype {#1: #2} \else {#2\ #1} \fi} 
+\newcommand{\algodecl}[2]{\ifvartype{#1: #2}\else{#2\ #1}\fi} 
 % asssymbol
 \newif\ifassegal\assegaltrue
 \DeclareOption{asssymbol}{\assegalfalse}
@@ -44,7 +44,7 @@
 \RequirePackage{algorithm2e}
 
 % ====================================================================
-% Éléments fins de configuration, non configurables
+% Éléments fins de configuration, hardcodés
 % ====================================================================
 
 \SetInd{.2em}{1em}                  % Espace avant/après barre verticale
@@ -55,7 +55,7 @@
 \SetArgSty{textsf}                  % conditions et autres en sf
 \newcommand{\mycommentsty}[1]{{\fontfamily{lmvtt}\footnotesize\color{gray} #1}}      
 \SetCommentSty{mycommentsty}
-\SetAlgoHangIndent{5ex}            % Indentation site longue ligne
+\SetAlgoHangIndent{5ex}            % Indentation suite longue ligne
 %\SetVlineSkip{1ex}                 % Espace après un L (défaut 0.8ex)
 
 % ====================================================================
@@ -104,11 +104,11 @@
 \newcommand{\Algo}[4]{\Algorithm{\SignInternal{#1}{#2}{#3}}{#4}}
 
 \newcommand{\Par}[2]{\algodecl{#1}{#2}}
-\newcommand{\In}{\ensuremath{\downarrow}}
-\newcommand{\Out}{\ensuremath{\uparrow}}
-\newcommand{\InOut}{\In{}\Out{}}
+\newcommand{\In}{\ensuremath{\;\downarrow\;}}
+\newcommand{\Out}{\ensuremath{\;\uparrow\;}}
+\newcommand{\InOut}{\ensuremath{\;\updownarrow\;}}
 \newcommand{\Ret}{\ \ensuremath{\rightarrow}\ }
-\renewcommand{\Return}{\KwSty{return}\ }
+%\renewcommand{\Return}{\KwSty{return}\ }
 
 \newcommand{\Sign}[4]{\KwSty{#1} \SignInternal{#2}{#3}{#4}}
 \newcommand{\AlgoSign}[3]{\Sign{algorithm}{#1}{#2}{#3}}
@@ -124,9 +124,9 @@
 % ====================================================================
 
 \SetKw{Constant}{constant}
-\newcommand{\Const}[2]{\Constant\ #1 = #2\;}
-\newcommand{\Decl}[2]{\algodecl{#1}{#2}\;}
-\newcommand{\Assign}[2]{#1\Gets{}#2\;}
+\newcommand{\Const}[2]{\Constant\ #1 = #2}
+\newcommand{\Decl}[2]{\algodecl{#1}{#2}}
+\newcommand{\Assign}[2]{#1\Gets{}#2}
 \SetKw{Write}{print}
 \SetKw{Read}{read}
 \SetKw{Ask}{ask}
@@ -208,7 +208,7 @@
 \newcommand{\MethodSign}[3]{\Sign{method}{#1}{#2}{#3}}
 \SetKwProg{MYConstr}{constructor}{}{end}
 \newcommand{\Constr}[3]{\MYConstr{\SignInternal{#1}{#2}{}}{#3}}
-\SetKwProg{MYMethod}{constructor}{}{end}
+\SetKwProg{MYMethod}{method}{}{end}
 \newcommand{\Method}[4]{\MYMethod{\SignInternal{#1}{#2}{#3}}{#4}}
 \SetKw{New}{new}
 
@@ -216,6 +216,5 @@
 % Les commentaires
 % ====================================================================
 \newcommand{\Comment}[1]{\tcp*[h]{#1}}    % Commentaire // sans fin de ligne
-\newcommand{\RComment}[1]{\tcp*[r]{#1}}   % Idem aligné à droite avec fin de ligne
-\newcommand{\LComment}[1]{\tcp{#1}}       % Idem avec fin de ligne
-\newcommand{\IComment}[1]{\tcp*[f]{#1}}   % Idem associé à ()
+\newcommand{\RComment}[1]{\tcp*{#1}}      % Idem aligné à droite sans fin de ligne
+\newcommand{\IComment}[1]{\tcp*[f]{#1}}   % Idem associé à () de \If et consorts

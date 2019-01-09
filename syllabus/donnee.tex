@@ -121,7 +121,7 @@
 			qui combinent en un tout une série d’attributs 
 			et des méthodes agissant sur ces attributs ;
 		\item 
-			la \textbf{Liste}, 
+			la \textbf{liste}, 
 			qui peut contenir un nombre indéfini d’éléments de même type.
 	\end{itemize}
 	
@@ -133,7 +133,6 @@
 	façon d’accéder aux valeurs, de les parcourir, de les modifier,
 	d’ajouter ou de supprimer des éléments à la collection. 
 
-\clearpage
 %==================
 \section{Exercices}
 %==================
@@ -194,17 +193,14 @@
 %---------------------------------------------------
 \begin{Exercice}{La course à la case 64 à n joueurs}
 %---------------------------------------------------
-
 	Modifiez l'exercice précédent 
 	afin que le jeu puisse se jouer à $n$ joueurs,
 	où $n$ est un entier supérieur ou égal à 2, choisi au début du jeu.
-
 \end{Exercice}
 	
 %-------------------------------------------------
 \begin{Exercice}{La course à la case 64 à n joueurs - variantes}
 %-------------------------------------------------
-
 	Reprenons la course à la case 64 de l'exercice précédent.
 	Voici quelques propositions de modification des règles.
 	Pour chaque proposition, indiquez si la représentation
@@ -219,14 +215,12 @@
 	\item
 		Un joueur rejoue directement s'il termine sa course
 		sur les cases 1, 2, 7, 11, 17, 31, 42 ou 53.
-	\end{enumerate}
-	
+	\end{enumerate}	
 \end{Exercice}
 
 %------------------------------------
 \begin{Exercice}{Un jeu de poursuite}
 %------------------------------------
-
 	Deux joueurs A et B se poursuivent sur un circuit de 50 cases. 
 	Au départ, A se trouve sur la case 1 et B est placé sur la case 26.
 	C’est A qui commence. 
@@ -280,9 +274,9 @@
 			\lda{circuit}: un tableau de 1 à 50 éléments \lda{Joueur}, une structure.
 			\begin{algo}
 				\Structure{Joueur}{
-					\Decl{nom}{string} 
+					\Decl{nom}{string}
 						\RComment{\scriptsize Le nom du joueur à cette position ("A", "B" ou " " si la case est vide)}
-					\Decl{nbTours}{integer} 
+					\Decl{nbTours}{integer}
 						\RComment{\scriptsize Nb de tours qu'a fait le joueur qui est à cette position (0 si case vide)}
 				}
 			\end{algo}
@@ -298,9 +292,9 @@
 			\lda{circuit}: un tableau de 2 éléments \lda{Joueur}, une structure différente.  
 			\begin{algo}
 				\Structure{Joueur}{
-					\Decl{position}{integer} 
+					\Decl{position}{integer}
 						\RComment{\footnotesize Donne la position du joueur sur le circuit (entier entre 1 et 50)}
-					\Decl{nbTours}{integer} 
+					\Decl{nbTours}{integer}
 						\RComment{\footnotesize Le nombre de tours qu'a fait ce joueur}
 				}
 			\end{algo}
@@ -317,21 +311,19 @@
 			le nombre de cases parcourues sera de 100.
 			\begin{algo}
 				\Structure{Joueur}{
-					\Decl{position}{integer} 
+					\Decl{position}{integer}
 						\RComment{\footnotesize Donne la position du joueur sur le circuit (entier entre 1 et 50)}
-					\Decl{nbCasesParcourues}{integer} 
+					\Decl{nbCasesParcourues}{integer}
 						\RComment{\footnotesize Nb de cases parcourues par le joueur depuis le départ}
 				}
 			\end{algo}
 		\end{itemize}
-	\end{enumerate}
-	
+	\end{enumerate}	
 \end{Exercice}
 
 %-----------------------------------------------
 \begin{Exercice}{Un jeu de poursuite - variante}
 %-----------------------------------------------
-
 	Dans cette variante,
 	chaque case contient une valeur vrai ou faux
 	indiquant si le joueur pourra rejouer.
@@ -353,7 +345,6 @@
 %---------------------------------------
 \begin{Exercice}{Le Jeu du Millionnaire}
 %---------------------------------------
-
 	Un questionnaire de quinze questions à choix
 	multiples de difficulté croissante est soumis à un candidat. Quatre
 	possibilités de réponses (dont une seule est correcte) sont proposées à
@@ -498,7 +489,6 @@
 %---------------------------------
 \begin{Exercice}{Chambre avec vue}
 %---------------------------------
-
 	Un grand hôtel a décidé d’informatiser sa
 	gestion administrative. Il a confié ce travail à la société ESI\_INFO
 	dans laquelle vous êtes un informaticien chevronné. On vous a confié la
@@ -545,9 +535,9 @@
 	
 	\begin{algo}
 		\Structure{DemandeRéservation}{
-			\Decl{numéroClient}{integer}
-			\Decl{débutRéservation}{Date}
-			\Decl{nbNuitées}{integer}
+			\Decl{numéroClient}{integer}\;
+			\Decl{débutRéservation}{Date}\;
+			\Decl{nbNuitées}{integer}\;
 		}
 	\end{algo}
 
@@ -569,7 +559,6 @@
 %---------------------------
 \begin{Exercice}{L'ensemble}
 %---------------------------
-
 	La notion d’ensemble fini est une notion qui vous est déjà 
 	familière pour l’avoir rencontrée dans plusieurs cours. Nous rappelons
 	certaines de ses propriétés et opérations. 
@@ -609,11 +598,11 @@
 	\end{itemize}
 	
 	Créer la classe \lda{Ensemble}
-	décrite ci-dessous.
+	décrite ci-dessous
+	(où E est le type des éléments de l'ensemble).
 	
 	\begin{algo}
-		\LComment{E est le type des éléments de l'ensemble}
-		\Class{Ensemble de E}{}{		
+		\Class{Ensemble de E}{		
 			\Public{
 				\ConstrSign{Ensemble de E}{} 
 				\RComment{construit un ensemble vide}
@@ -635,8 +624,6 @@
 			}
 		}
 	\end{algo}
-		
-	\medskip
 	Quelques remarques :
 	\begin{itemize}
 		\item 
@@ -654,38 +641,32 @@
 			La méthode \lda{éléments()}
 			est nécessaire si on veut parcourir les éléments de
 			l'ensemble (par exemple pour les afficher).
-	\end{itemize}
-	
+	\end{itemize}	
 \end{Exercice}
 
 %-----------------------------------------------
 \begin{Exercice}{La course à la case 64 en version OO}
 %-----------------------------------------------
-
 	Reprenez la solution que vous avez écrite pour l'exercice 2
 	(La course à la case 64 à n joueurs)
-	et voyez comment le transformer pour en faire une version OO.
-	
+	et voyez comment le transformer pour en faire une version OO.	
 \end{Exercice}
 
 %-----------------------------------------------
 \begin{Exercice}{Un jeu de poursuite en version OO}
 %-----------------------------------------------
-
 	Reprenez la solution que vous avez écrite pour l'exercice 5
 	(Un jeu de poursuite - variante)
 	et voyez comment le transformer pour en faire une version OO.
-	
 \end{Exercice}
 	
 %---------------------------
 \begin{Exercice}{Les congés}
 %---------------------------
-
 	Les périodes de congés des différents employés d’une firme sont reprises
 	dans un tableau booléen \textbf{Congés} bidimensionnel à \textit{n}
 	lignes et 366 colonnes. Chaque ligne du tableau correspond à un employé
-	et chaque colonne à un jour de l’année. Une case de ce tableau est mise
+	et chaque colonne à un jour de l’année. Une case est mise
 	à \textbf{vrai} si l’employé correspondant est en congé le jour
 	correspondant. La firme en question est opérationnelle 7 jours sur 7,
 	on n’y fait donc pas de distinction entre jours ouvrables, week-end et
@@ -721,10 +702,10 @@
 	\end{algo}
 \end{Exercice}
 
+\newpage
 %-----------------------
 \begin{Exercice}{Casino}
 %-----------------------
-
 	Pour cet exercice,
 	on vous demande un petit programme qui simule un jeu de roulette
 	très simplifié dans un casino.
@@ -781,7 +762,6 @@
 %-----------------------------
 \begin{Exercice}{Mots croisés}
 %-----------------------------
-
 	Voici une grille de mots croisés.
 	(on ne s'intéresse pas ici aux définitions).
 	Écrire une classe \lda{Grille} offrant les méthodes
@@ -847,10 +827,10 @@
 		
 \end{Exercice}
 
+\newpage
 %----------------------------
 \begin{Exercice}{Puissance 4}
 %----------------------------
-
 	Le jeu de puissance 4 se déroule dans un tableau vertical comportant 6
 	rangées et 7 colonnes dans lequel deux joueurs introduisent tour à tour
 	des jetons (rouges pour l’un, jaunes pour l’autre). Avec l’aide de la
@@ -901,7 +881,6 @@
 %---------------------------
 \begin{Exercice}{Mastermind}
 %---------------------------
-
 	Revenons sur le jeu Mastermind déjà vu en DEV1.
 	Dans ce jeu, un joueur A doit trouver une combinaison de
 	\lda{k} pions de couleur, choisie et tenue secrète
