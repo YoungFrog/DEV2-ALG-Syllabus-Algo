@@ -15,7 +15,7 @@
 \usepackage{environ} % Merci à astalavista pour ce truc :)
 \NewEnviron{LDA}[1][0]{%
 	\begin{flushleft}
-	\fcolorbox{gray}{gray!10}{%
+	\fcolorbox{colmain}{colverylight}{%
 		\begin{minipage}{0.97\linewidth}
 		\begin{sffamily}
 		\begin{algorithmic}[#1]
@@ -80,15 +80,15 @@
 \algblockdefx[ALGO]{Algo}{EndAlgo}[3]%
   {\printandpush\algorithmicalgo\ \textproc{#1}(#2)\ifthenelse{\equal{#3}{}}{}{\Gives\ #3}}
   {\popandprint\algorithmicend\ \algorithmicalgo}
-\algnewcommand\algorithmicalgo{\textbf{algorithme}}
-\algrenewcommand\algorithmicend{\textbf{fin}}
+\algnewcommand\algorithmicalgo{\textbf{algorithm}}
+\algrenewcommand\algorithmicend{\textbf{end}}
 \newcommand{\Par}[2]{#1 : #2}
 \newcommand{\In}{\ensuremath{\downarrow}}
 \newcommand{\Out}{\ensuremath{\uparrow}}
 \newcommand{\InOut}{\In{}\Out{}}
 \newcommand{\Gives}{\ \ensuremath{\rightarrow}{}}
 \renewcommand{\Return}{\LState\algorithmicreturn\ }
-\algrenewcommand\algorithmicreturn{\textbf{retourner}}
+%\algrenewcommand\algorithmicreturn{\textbf{return}}
 
 \newcommand{\Entete}[3]{\Stmt \algorithmicalgo\ \textproc{#1}(#2)\ifthenelse{\equal{#3}{}}{}{\Gives\ #3}}
 
@@ -113,13 +113,13 @@
 % \Write val
 % \Error motif
 %-----------------------------------------------
-\newcommand{\Open}{\LState\textbf{ouvrir}\ }
-\newcommand{\Close}{\LState\textbf{fermer}\ }
-\newcommand{\Read}{\LState\textbf{demander}\ }
-\newcommand{\Readf}{\LState\textbf{lire}\ }
-\newcommand{\Write}{\LState\textbf{afficher}\ }
-\newcommand{\Writef}{\LState\textbf{écrire}\ }
-\newcommand{\Error}{\LState\textbf{erreur}\ }
+\newcommand{\Open}{\LState\textbf{open}\ }
+\newcommand{\Close}{\LState\textbf{close}\ }
+\newcommand{\Read}{\LState\textbf{ask}\ }
+\newcommand{\Readf}{\LState\textbf{read}\ }
+\newcommand{\Write}{\LState\textbf{print}\ }
+\newcommand{\Writef}{\LState\textbf{print}\ }
+\newcommand{\Error}{\LState\textbf{error}\ }
 
 %-----------------------------------------------
 % Pour un contrôle fin
@@ -165,15 +165,15 @@
 \algdef{Ce}[ELSE]{IF}{Else}{EndIf}
   {\popandprint\pushindent\algorithmicelse}%
 \algdef{SE}[SWITCH]{Switch}{EndSwitch}[1]
-  {\printandpush\algorithmicswitch\ #1 \K{ vaut}}
+  {\printandpush\algorithmicswitch\ #1 \K{ case}}
   {\popandprint\algorithmicend\ \algorithmicswitch}%
 \algdef{C}[SWITCH]{SWITCH}{Case}[1]
   {\popandprint\pushindent\ #1:}%
 
-\algrenewcommand\algorithmicif{\textbf{si}}
-\algrenewcommand\algorithmicthen{\textbf{alors}}
-\algrenewcommand\algorithmicelse{\textbf{sinon}}
-\algnewcommand\algorithmicswitch{\textbf{selon que}}
+%\algrenewcommand\algorithmicif{\textbf{if}}
+%\algrenewcommand\algorithmicthen{\textbf{then}}
+%\algrenewcommand\algorithmicelse{\textbf{else}}
+%\algnewcommand\algorithmicswitch{\textbf{selon que}}
 
 %-----------------------------------------------
 % Boucles
@@ -191,16 +191,16 @@
   {\printandpush\algorithmicwhile\ #1\ \algorithmicdo}
   {\popandprint\algorithmicend\ \algorithmicwhile}%
 \algdef{SE}[FOR]{For}{EndFor}[4][1]
-  {\printandpush\algorithmicfor\ #2 \K{de} #3 \K{à} #4\ifthenelse{\equal{#1}{1}}{}{ \K{par} #1}\ \algorithmicdo}
+  {\printandpush\algorithmicfor\ #2 \K{from} #3 \K{to} #4\ifthenelse{\equal{#1}{1}}{}{ \K{by} #1}\ \algorithmicdo}
   {\popandprint\algorithmicend\ \algorithmicfor}%
 \algdef{SE}[REPEAT]{Repeat}{EndRepeat}
   {\printandpush\algorithmicrepeat}[1]
   {\popandprint\algorithmicwhile\ #1}%
 
-\algrenewcommand\algorithmicwhile{\textbf{tant que}}
-\algrenewcommand\algorithmicfor{\textbf{pour}}
-\algrenewcommand\algorithmicrepeat{\textbf{faire}}
-\algrenewcommand\algorithmicdo{\textbf{faire}}
+%\algrenewcommand\algorithmicwhile{\textbf{tant que}}
+%\algrenewcommand\algorithmicfor{\textbf{pour}}
+%\algrenewcommand\algorithmicrepeat{\textbf{faire}}
+%\algrenewcommand\algorithmicdo{\textbf{faire}}
 
 
 %-----------------------------------------------
@@ -220,8 +220,8 @@
 % \Array{n}{T}
 %-----------------------------------------------
 \newcommand{\Array}[3][0]{%
-	tableau~%
-	\ifthenelse{\equal{#1}{0}}{de~#2~#3}{[#1~à~#2] de #3}%	
+	array~%
+	\ifthenelse{\equal{#1}{0}}{of~#2~#3}{[#1~à~#2] de #3}%	
 }
 
 %-----------
@@ -251,15 +251,15 @@
   {\printandpush\algorithmicconstr\ \textproc{#1}(#2)}
   {\popandprint\algorithmicend\ \algorithmicconstr}
 % Parties privées/publiques
-\algdef{C}[CLASS]{CLASS}{Private}{\popandprint\pushindent\ privé:}%
+\algdef{C}[CLASS]{CLASS}{Private}{\popandprint\pushindent\ private:}%
 \algdef{C}[CLASS]{CLASS}{Public}{\popandprint\pushindent\ public:}%
 % Signatures de module / méthode / constructeur
 \newcommand{\ModuleSign}[3]{\Stmt \algorithmicprocedure\ \textproc{#1}(#2)\ifthenelse{\equal{#3}{}}{}{\Gives\ #3}}
 \newcommand{\MethodSign}[3]{\Stmt \algorithmicmethod\ \textproc{#1}(#2)\ifthenelse{\equal{#3}{}}{}{\Gives\ #3}}
 \newcommand{\ConstrSign}[2]{\Stmt \algorithmicconstr\ \textproc{#1}(#2)}
-\algnewcommand\algorithmicclass{\textbf{classe}}
-\algnewcommand\algorithmicmethod{\textbf{méthode}}
-\algnewcommand\algorithmicconstr{\textbf{constructeur}}
+\algnewcommand\algorithmicclass{\textbf{class}}
+\algnewcommand\algorithmicmethod{\textbf{method}}
+\algnewcommand\algorithmicconstr{\textbf{constructor}}
   
 % ==============================================================================
 % Ajouts propres pour la francisation des termes prédéfinis + nouveaux termes

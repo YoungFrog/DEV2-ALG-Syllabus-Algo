@@ -14,9 +14,9 @@
 	On va l’indiquer grâce à l’énumération 
 	qui introduit un \textbf{nouveau type} de donnée.
 
-	\begin{LDA}
-		\Stmt \K{enum} Saison \{ HIVER, PRINTEMPS, ÉTÉ, AUTOMNE \}
-	\end{LDA}
+	\begin{algo}
+		\KwSty{enum} Saison \{ HIVER, PRINTEMPS, ÉTÉ, AUTOMNE \}
+	\end{algo}
 
 	Il y a deux avantages à cela~:~
 	une indication claire des possibilités de la variable lors de la déclaration 
@@ -24,30 +24,28 @@
 
 	Par exemple, 
 
-	\begin{LDA}
-		\LComment Lit une saison et affiche sa particularité
-		\Algo{particularitéSaisonnière}{}{}
+	\begin{algo}
+		\LComment{Lit une saison et affiche sa particularité}
+		\Algo{particularitéSaisonnière}{}{}{
 			\Decl{uneSaison}{Saison}
 			\Read uneSaison
-			\RComment on lira la valeur HIVER ou PRINTEMPS ou ÉTÉ ou AUTOMNE
-			\If{uneSaison = HIVER}
-				\Write "il neige"
-			\ElsIf{uneSaison = PRINTEMPS}
-				\Write "les fleurs poussent"
-			\ElsIf{uneSaison = ÉTÉ}
-				\Write "le soleil brille"
-			\Else
-				\Write "les feuilles tombent"
-			\EndIf
-		\EndAlgo
-	\end{LDA}
+			\RComment{on lira la valeur HIVER ou PRINTEMPS ou ÉTÉ ou AUTOMNE}
+			\uIf{uneSaison = HIVER}{
+				\Write "il neige"\;
+			}\uElseIf{uneSaison = PRINTEMPS}{
+				\Write "les fleurs poussent"\;
+			}\uElseIf{uneSaison = ÉTÉ}{
+				\Write "le soleil brille"\;
+			}\Else{
+				\Write "les feuilles tombent"\;
+			}
+		}
+	\end{algo}
 
 
-	\begin{Exercice}{Autres situations}
-	
+	\begin{Exercice}{Autres situations}	
 		Pouvez-vous identifier d’autres données qui pourraient
 		avantageusement s’exprimer avec une énumération~?
-	
 	\end{Exercice}
 
 	\subsection{Quid des langages de programmation~?}
@@ -73,14 +71,14 @@
 		Chaque langage de programmation propose sa propre technique; 
 		nous allons adopter la syntaxe suivante~:
 
-		\begin{LDA}
-			\Stmt Saison(3) 
-				\RComment donne l’énumération de la saison numéro 3 (on commence à 1);
-				\Stmt\RComment donne ÉTÉ dans notre exemple.
-			\Stmt position(uneSaison)
-				\RComment donne l’entier associé à une saison;
-				\Stmt\RComment si on a lu HIVER comme valeur pour uneSaison, donne la valeur 1.
-		\end{LDA}
+		\begin{algo}
+			Saison(3) 
+				\RComment{donne l’énumération de la saison numéro 3 (on commence à 1);}
+				\RComment{donne ÉTÉ dans notre exemple.}
+			position(uneSaison)
+				\RComment{donne l’entier associé à une saison;}
+				\RComment{si on a lu HIVER comme valeur pour uneSaison, donne la valeur 1.}
+		\end{algo}
 		
 	
 	%===================================================
@@ -89,17 +87,17 @@
 
 		Lorsqu'un algorithme se trouve dans un état incorrect,
 		particulièrement lorsqu'un paramètre est invalide,
-		on peut l'indiquer via la primitive \lda{\K{erreur}}.
+		on peut l'indiquer via la primitive \lda{\Error}.
 	
 		Par exemple :	
-		\begin{LDA}
-			\Algo{racineCarrée}{\Par{nb}{entier}}{}
-				\If{nb<0}
-					\Error{"Le nombre doit être positif"}
-				\EndIf
-				\Stmt suite de l'algorithme...
-			\EndAlgo
-		\end{LDA}
+		\begin{algo}
+			\Algo{racineCarrée}{\Par{nb}{entier}}{}{
+				\If{nb<0}{
+					\Error{"Le nombre doit être positif"}\;
+				}
+				suite de l'algorithme
+			}
+		\end{algo}
 			
 		Pratiquement, cette primitive stoppe l'algorithme
 		sans aucune possibilité de récupération.

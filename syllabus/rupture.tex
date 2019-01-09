@@ -251,16 +251,16 @@
 		être généralisé lorsqu'il y a plusieurs niveaux de rupture.
 	} :
 
-	\begin{LDA}
-		\Algo{RuptureNiveau0}{\Par{etudiants}{List of Etudiant}}{}
+	\begin{algo}
+		\Algo{RuptureNiveau0}{\Par{etudiants}{\List{Etudiant}}}{}{
 			\Decl{i}{integer}
-			\Let i \Gets 0
-			\While{i < etudiants.taille()}
-				\LComment traitement de etudiants.get(i)
-				\Let i \Gets i + 1
-			\EndWhile
-		\EndAlgo
-	\end{LDA}
+			i \Gets 0\;
+			\While{i < etudiants.taille()}{
+				\LComment{traitement de etudiants.get(i)}
+				i \Gets i + 1\;
+			}
+		}
+	\end{algo}
 
 	Si nous voulons faire des statistiques globales sur l’ensemble des
 	étudiants (par ex. simplement les compter), le traitement de
@@ -282,26 +282,26 @@
 	De plus l’algorithme fonctionnera quel que soit le nombre d’options. 
 	Voici une telle solution : 
 
-	\begin{LDA}
+	\begin{algo}
 		\label{algo:rupt1}
-		\Algo{RuptureNiveau1}{\Par{etudiants}{List of Etudiant}}{}
-			\LComment on suppose les données classées en majeur sur l’option
+		\Algo{RuptureNiveau1}{\Par{etudiants}{List of Etudiant}}{}{
+			\LComment{on suppose les données classées en majeur sur l’option}
 			\Decl{saveOption}{string}
 			\Decl{cpt}{integer}
 			\Decl{i}{integer}
-	
-			\Let i \Gets 0
-			\While{i < etudiants.taille()}
-				\Let saveOption \Gets etudiants.get(i).option
-				\Let cpt \Gets 0
-				\While{i < etudiants.taille() ET etudiants.get(i).option = saveOption}
-					\Let cpt \Gets cpt + 1
-					\Let i \Gets i + 1
-				\EndWhile
-				\Write cpt, «~étudiant dans l’option~», saveOption
-			\EndWhile
-		\EndAlgo
-	\end{LDA}
+			\;
+			i \Gets 0\;
+			\While{i < etudiants.taille()}{
+				saveOption \Gets etudiants.get(i).option\;
+				cpt \Gets 0\;
+				\While{i < etudiants.taille() ET etudiants.get(i).option = saveOption}{
+					cpt \Gets cpt + 1\;
+					i \Gets i + 1\;
+				}
+				\Write cpt, «~étudiant dans l’option~», saveOption\;
+			}
+		}
+	\end{algo}
 
 	\medskip
 	Questions de réflexion :
@@ -333,34 +333,34 @@
 	classées en majeur sur l'option et en mineur sur la date de naissance
 	(ou encore classement double sur la clé composée option – dateNaissance) :
 	
-	\begin{LDA}
-		\Algo{RuptureNiveau2}{\Par{etudiants}{List of Etudiant}}{}
+	\begin{algo}
+		\Algo{RuptureNiveau2}{\Par{etudiants}{List of Etudiant}}{}{
 		\label{algo:rupt2}
-			\LComment on suppose les données classées en majeur sur l’option
-			\LComment et en mineur sur la date de naissance (ordre chronologique)
+			\LComment{on suppose les données classées en majeur sur l’option}
+			\LComment{et en mineur sur la date de naissance (ordre chronologique)}
 			\Decl{saveOption}{string}
 			\Decl{saveAnnéeNaissance}{integer}
 			\Decl{cpt}{integer}
 			\Decl{i}{integer}
 	
-			\Let i \Gets 0
-			\While{i < etudiants.taille()}
-				\Let saveOption \Gets etudiants.get(i).option
-				\While{i < etudiants.taille() ET etudiants.get(i).option = saveOption}
-					\Let saveAnnéeNaissance \Gets etudiants.get(i).dateNaissance.année
-					\Let cpt \Gets 0
-					\While{i < etudiants.taille() 
-							\Stmt \Indent \Indent ET etudiants.get(i).option = saveOption 
-							\Stmt \Indent \Indent ET etudiants.get(i).dateNaissance.année = saveAnnéeNaissance}
-						\Let cpt \Gets cpt + 1
-						\Let i \Gets i + 1		
-					\EndWhile
-					\Write cpt, «~étudiant dans l’option~», saveOption, 
-					«~sont nés en~», saveAnneeNaissance
-				\EndWhile
-			\EndWhile
-		\EndAlgo
-	\end{LDA}
+			i \Gets 0\;
+			\While{i < etudiants.taille()}{
+				saveOption \Gets etudiants.get(i).option\;
+				\While{i < etudiants.taille() ET etudiants.get(i).option = saveOption}{
+					saveAnnéeNaissance \Gets etudiants.get(i).dateNaissance.année\;
+					cpt \Gets 0\;
+					\While{i < etudiants.taille()
+							ET etudiants.get(i).option = saveOption
+							ET etudiants.get(i).dateNaissance.année = saveAnnéeNaissance}{
+						cpt \Gets cpt + 1\;
+						i \Gets i + 1\;
+					}
+					\Write cpt, "~étudiant dans l’option~", saveOption, 
+					"~sont nés en~", saveAnneeNaissance\;
+				}
+			}
+		}
+	\end{algo}
 
 	Ces exemples montrent que l’algorithme de rupture 
 	et le tri des listes sont étroitement liés. 
@@ -387,6 +387,7 @@
 	ou compteurs à zéro et travaux de clôture consistant par exemple 
 	à imprimer des résultats totaux particuliers) 
 	à tous les ensembles et sous-ensembles !
+
 %==================
 \section{Exercices}
 %===================
@@ -400,13 +401,13 @@
 	Cette liste présente la structure d’enregistrement \lda{Job} suivante 
 	et est ordonnée alphabétiquement \textbf{en majeur} sur le champ \lda{login}  :
 
-	\begin{LDA}
-		\Struct{Job}
+	\begin{algo}
+		\Structure{Job}{
 			\Decl{login}{string}
 			\Decl{date}{date}
 			\Decl{nombre}{integer}
-		\EndStruct
-	\end{LDA}
+		}
+	\end{algo}
 
 	Écrire un algorithme permettant d'afficher une ligne par
 	utilisateur dont le nombre total de feuilles imprimées dépasse une
@@ -461,8 +462,8 @@
 %	regroupant les ventes de voitures neuves pendant l’année dernière. 
 %	Les éléments de cette liste sont de type \textsl{Voiture} dont voici la définition :
 %
-%	\begin{LDA}
-%	\Struct{Voiture}
+%	\begin{algo}
+%	\Structure{Voiture}
 %		\Decl{plaque}{chaine} 	\RComment{numéro d’immatriculation}
 %		\Decl{marque}{chaine} 	\RComment{marque de la voiture (par ex. «~Citroën~»)}
 %		\Decl{type}{chaine}		\RComment{type de modèle dans la marque (par ex. «~Berlingo~»)}
@@ -470,7 +471,7 @@
 %		\Decl{adresse}{chaine}	\RComment{adresse du propriétaire}
 %		\Decl{date}{date}		\RComment{date de la demande d’immatriculation}
 %	\EndStruct
-%	\end{LDA}
+%	\end{algo}
 %
 %	La liste est ordonnée croissant \textbf{en majeur sur la marque de
 %	voiture et en mineur sur le type}. 
@@ -515,15 +516,15 @@
 	Chaque résultat individuel des participants (y compris des majeurs) est repris dans une liste
 	dont les éléments sont de type \lda{Participant}.
 
-	\begin{LDA}
-	\Struct{Participant}
+	\begin{algo}
+	\Structure{Participant}{
 	\Decl{nom}{string} 		\RComment{nom et prénom du participant}
 	\Decl{âge}{integer} 		\RComment{âge du participant au moment du concours}
 	\Decl{référence}{string}\RComment{référence du club auquel appartient ce participant}
 	\Decl{numéro}{integer}	\RComment{numéro du concours auquel il a participé}
 	\Decl{résultat}{integer}	\RComment{résultat obtenu lors de ce concours (sur 100)}
-	\EndStruct
-	\end{LDA}
+	}
+	\end{algo}
 
 	Sachant que la liste est ordonnée \textbf{en majeur sur le champ \textsf{référence}
 	et en mineur sur le champ \lda{nom}}, 

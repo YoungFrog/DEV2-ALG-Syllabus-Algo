@@ -228,3 +228,63 @@
 	fonttitle=\bfseries,
 	title={#2},#1%
 }
+
+%=====================================================================
+%	\begin{infobox}[options tcolorbox]
+%		texte
+%	\end{infotbox}
+%---------------------------------------------------------------------
+%   Une boite avec un bleu de la couleur collight
+% 	Options possibles : idem colbox
+%	alertbox: idem avec un fond alertlight
+%=====================================================================
+
+\newtcolorbox{infobox}[1][]{%
+	enhanced, arc=0pt,outer arc=0pt, 
+    colback=collight, colframe=colmain,
+    leftrule=0pt, rightrule=0pt, bottomrule=2pt, toprule=2pt, #1%
+}
+
+\newtcolorbox{alertbox}[1][]{%
+	enhanced, arc=0pt,outer arc=0pt, 
+    colback=colalertlight, colframe=colalert,
+    leftrule=0pt, rightrule=0pt, bottomrule=2pt, toprule=2pt, #1%
+}
+
+\usepackage{environ} % Merci à astalavista pour ce truc :)
+\NewEnviron{infotbox}[1]{%
+	\begin{infobox}
+		\textbf{\color{colmain}#1}\\
+		\BODY
+	\end{infobox}
+}
+\NewEnviron{alerttbox}[1]{%
+	\begin{alertbox}
+		\textbf{\color{colalert}#1}\\
+		\BODY
+	\end{alertbox}
+}
+
+% --------------------------------------------------------------------
+%	\begin{leftbar}{titre}
+%		Texte
+%	\end{leftbar}
+%	Un paragraphe avec une barre grisée sur le coté et un titre choisi
+%	\begin{consigne}
+%		Préconfiguré pour des consignes.	
+%	\end{consigne}
+% --------------------------------------------------------------------
+
+\newtcolorbox{consigne}{%
+	blanker,
+	before skip=10mm,after skip=10mm,
+	borderline west={1mm}{-4mm}{lightgray},
+	title=Consignes, coltitle=black, fonttitle=\sffamily\bfseries\large
+}
+
+\newtcolorbox{leftbar}[1]{%
+	blanker,
+	before skip=1em,after skip=1em,
+	borderline west={1mm}{-4mm}{lightgray},
+	title=#1, coltitle=black, fonttitle=\sffamily\bfseries\large
+}

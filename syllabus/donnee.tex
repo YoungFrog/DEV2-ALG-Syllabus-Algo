@@ -278,14 +278,14 @@
 		\begin{itemize}
 		\item
 			\lda{circuit}: un tableau de 1 à 50 éléments \lda{Joueur}, une structure.
-			\begin{LDA}
-				\Struct{Joueur}
+			\begin{algo}
+				\Structure{Joueur}{
 					\Decl{nom}{string} 
 						\RComment{\scriptsize Le nom du joueur à cette position ("A", "B" ou " " si la case est vide)}
 					\Decl{nbTours}{integer} 
 						\RComment{\scriptsize Nb de tours qu'a fait le joueur qui est à cette position (0 si case vide)}
-				\EndStruct
-			\end{LDA}
+				}
+			\end{algo}
 			Un joueur a fait un tour complet quand il est de nouveau sur sa position de départ
 			ou la dépasse.
 		\item
@@ -296,14 +296,14 @@
 		\begin{itemize}
 		\item
 			\lda{circuit}: un tableau de 2 éléments \lda{Joueur}, une structure différente.  
-			\begin{LDA}
-				\Struct{Joueur}
+			\begin{algo}
+				\Structure{Joueur}{
 					\Decl{position}{integer} 
 						\RComment{\footnotesize Donne la position du joueur sur le circuit (entier entre 1 et 50)}
 					\Decl{nbTours}{integer} 
 						\RComment{\footnotesize Le nombre de tours qu'a fait ce joueur}
-				\EndStruct
-			\end{LDA}
+				}
+			\end{algo}
 		\item
 			\lda{joueurCourant}: un entier donnant la position du joueur courant.
 		\end{itemize}
@@ -315,14 +315,14 @@
 			mais simplement le nombre de cases parcourues.
 			Par exemple, si un joueur a fait exactement deux tours complets,
 			le nombre de cases parcourues sera de 100.
-			\begin{LDA}
-				\Struct{Joueur}
+			\begin{algo}
+				\Structure{Joueur}{
 					\Decl{position}{integer} 
 						\RComment{\footnotesize Donne la position du joueur sur le circuit (entier entre 1 et 50)}
 					\Decl{nbCasesParcourues}{integer} 
 						\RComment{\footnotesize Nb de cases parcourues par le joueur depuis le départ}
-				\EndStruct
-			\end{LDA}
+				}
+			\end{algo}
 		\end{itemize}
 	\end{enumerate}
 	
@@ -535,21 +535,21 @@
 	
 	Écrire la méthode suivante
 
-	\begin{LDA}
-		\Entete{effectuerRéservation}{demande\In : DemandeRéservation,
+	\begin{algo}
+		\MethodSign{effectuerRéservation}{demande\In : DemandeRéservation,
 		chambre\Out : integer}{boolean}
-	\end{LDA}
+	\end{algo}
 	
 	où la structure de demande de réservation est
 	définie ainsi
 	
-	\begin{LDA}
-		\Struct{DemandeRéservation}
+	\begin{algo}
+		\Structure{DemandeRéservation}{
 			\Decl{numéroClient}{integer}
 			\Decl{débutRéservation}{Date}
 			\Decl{nbNuitées}{integer}
-		\EndStruct
-	\end{LDA}
+		}
+	\end{algo}
 
 	\begin{itemize}
 		\item 
@@ -611,30 +611,30 @@
 	Créer la classe \lda{Ensemble}
 	décrite ci-dessous.
 	
-	\begin{LDA}
-		\Class{Ensemble de E}{} 
-		\RComment E est le type des éléments de l'ensemble
-		
-			\Public
-			\ConstrSign{Ensemble de E}{} 
-			\RComment construit un ensemble vide
-			\MethodSign{ajouter}{élt : E}{}
-			\RComment ajoute l'élément à l'ensemble
-			\MethodSign{enlever}{élt : E}{})
-			\RComment enlève un élément de l'ensemble
-			\MethodSign{contient}{élt : E}{boolean}
-			\RComment dit si l'élément est présent
-			\MethodSign{estVide}{}{boolean}
-			\RComment dit si l'ensemble est vide
-			\MethodSign{taille}{}{integer}
-			\RComment donne la taille de l'ensemble
-			\MethodSign{union}{autreEnsemble : Ensemble de E}{Ensemble de E}
-			\MethodSign{intersection}{autreEnsemble : Ensemble de E}{Ensemble de E}
-			\MethodSign{moins}{autreEnsemble : Ensemble de E}{Ensemble de E}
-			\MethodSign{éléments}{}{List of E}
-			\RComment conversion en liste
-		\EndClass
-	\end{LDA}
+	\begin{algo}
+		\LComment{E est le type des éléments de l'ensemble}
+		\Class{Ensemble de E}{}{		
+			\Public{
+				\ConstrSign{Ensemble de E}{} 
+				\RComment{construit un ensemble vide}
+				\MethodSign{ajouter}{élt : E}{}
+				\RComment{ajoute l'élément à l'ensemble}
+				\MethodSign{enlever}{élt : E}{})
+				\RComment{enlève un élément de l'ensemble}
+				\MethodSign{contient}{élt : E}{boolean}
+				\RComment{dit si l'élément est présent}
+				\MethodSign{estVide}{}{boolean}
+				\RComment{dit si l'ensemble est vide}
+				\MethodSign{taille}{}{integer}
+				\RComment{donne la taille de l'ensemble}
+				\MethodSign{union}{autreEnsemble : Ensemble de E}{Ensemble de E}\;
+				\MethodSign{intersection}{autreEnsemble : Ensemble de E}{Ensemble de E}\;
+				\MethodSign{moins}{autreEnsemble : Ensemble de E}{Ensemble de E}\;
+				\MethodSign{éléments}{}{List of E}
+				\RComment{conversion en liste}
+			}
+		}
+	\end{algo}
 		
 	\medskip
 	Quelques remarques :
@@ -715,10 +715,10 @@
 	Il est permis d’utiliser pour résoudre cet exercice la méthode suivante
 	de la classe Date, sans devoir détailler son code :
 	
-	\begin{LDA}
-		\Entete{numéroJour}{}{integer}
-		\RComment la position du jour dans l’année (entre 1 et 366)
-	\end{LDA}
+	\begin{algo}
+		\MethodSign{numéroJour}{}{integer}
+		\RComment{la position du jour dans l’année (entre 1 et 366)}
+	\end{algo}
 \end{Exercice}
 
 %-----------------------

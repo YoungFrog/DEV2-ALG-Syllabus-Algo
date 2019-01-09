@@ -11,12 +11,12 @@
 \section*{Manipuler les nombres}
 %===================================================
 
-	\begin{description}
-	\item[\lda{hasard()\Gives~réel}]
-			Donne un nombre réel entre 0 inclus et 1 exclu.
-	\item[\lda{hasard(\Par{min}{entier}, \Par{max}{entier})\Gives~entier}]
-		Donne un entier entre min et max inclus.
-	\end{description}
+	\begin{algo}
+	\MethodSign{hasard}{}{réel}
+		\RComment{Donne un nombre réel entre 0 inclus et 1 exclu.}
+	\MethodSign{hasard}{\Par{min}{entier}, \Par{max}{entier}}{entier}
+		\RComment{Donne un entier entre min et max inclus.}
+	\end{algo}
 	
 	
 % %===================================================
@@ -101,35 +101,34 @@
 \section*{La liste}
 %===================================================
 	
-	\begin{LDA}
-		\Class{List of T}
-			\RComment T est un type quelconque
-			\Public
-				\ConstrSign{List of T}{}			
-					\RComment construit une liste vide
+	\begin{algo}
+		\LComment{T est un type quelconque}
+		\Class{\List{T}}{	
+			\Public{
+				\ConstrSign{\List{T}}{}			
+					\RComment{construit une liste vide}
 				\MethodSign{get}{pos : integer}{T}
-					\RComment donne un élément en position pos
+					\RComment{donne un élément en position pos}
 				\MethodSign{set}{pos : integer, valeur : T}{}
-					\RComment modifie un élément en position pos
+					\RComment{modifie un élément en position pos}
 				\MethodSign{taille}{}{integer}
-					\RComment donne le nombre actuel d’éléments
+					\RComment{donne le nombre actuel d’éléments}
 				\MethodSign{ajouter}{valeur : T}{}
-					\RComment ajoute un élément en fin de liste
+					\RComment{ajoute un élément en fin de liste}
 				\MethodSign{insérer}{pos : integer, valeur : T}{}
-					\RComment insère un élément en position pos
+					\RComment{insère un élément en position pos}
 				\MethodSign{supprimer}{}{}
-					\RComment supprime le dernier élément
+					\RComment{supprime le dernier élément}
 				\MethodSign{supprimerPos}{pos : integer}{}
-					\RComment supprime l'élément en position pos
+					\RComment{supprime l'élément en position pos}
 				\MethodSign{supprimer}{valeur : T}{boolean}
-					\RComment supprime l'élément de valeur donnée
+					\RComment{supprime l'élément de valeur donnée}
 				\MethodSign{vider}{}{}
-					\RComment vide la liste
+					\RComment{vide la liste}
 				\MethodSign{estVide}{}{boolean}
-					\RComment la liste est-elle vide ?
-				\MethodSign{existe}{valeur \In : T, pos \Out : integer}{boolean}
-					\RComment recherche un élément
-		\EndClass
-	\end{LDA}
-
-
+					\RComment{la liste est-elle vide ?}
+				\MethodSign{existe}{valeur \In : T, pos \Out : entier}{boolean}
+					\RComment{recherche un élément}
+			}
+		}
+	\end{algo}

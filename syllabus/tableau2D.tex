@@ -33,18 +33,18 @@
 		\marginicon{definition}
 		Pour \textbf{déclarer} un tableau à 2 dimensions, on écrira :
 	
-		\begin{LDA}
+		\begin{algo}
 			\Decl{nomTableau}{\Array{nbLignes $\times$ nbColonnes}{TypeElément}}
-		\end{LDA}
+		\end{algo}
 	
-		où \lda{nbLignes} et \lda{nbColonnes} 
+		où \samp{nbLignes} et \samp{nbColonnes} 
 		sont des expressions entières quelconques.
 	
 		\textbf{Exemple} :
 		
-		\begin{LDA}
+		\begin{algo}
 			\Decl{tab}{\Array{5$\times$10}{integers}}
-		\end{LDA}
+		\end{algo}
 		
 		déclare un tableau de 5 lignes par 10 colonnes dont chaque case
 		contient un entier.
@@ -60,10 +60,10 @@
 		
 		\textbf{Exemple} :
 		
-		\begin{LDA}
-			\Write tab[2,4] 
-				\RComment{affiche le 5\ieme{} élément de la 3\ieme{} ligne du tableau nommé \lda{tab}.}
-		\end{LDA}
+		\begin{algo}
+			\Write tab[2,4]
+				\RComment{affiche le 5\ieme{} élément de la 3\ieme{} ligne du tableau nommé \samp{tab}.}
+		\end{algo}
 		
 	\subsection{Visualiser}
 	%======================
@@ -83,9 +83,9 @@
 	
 		\textbf{Exemple} : Soit le tableau déclaré ainsi :
 	
-		\begin{LDA}
+		\begin{algo}
 		\Decl{nombres}{\Array{4$\times$5}{integers}}
-		\end{LDA}
+		\end{algo}
 	
 		On peut le visualiser à l’aide d’une grille à 4 lignes et 5 colonnes.
 
@@ -209,16 +209,16 @@
 			\end{tabular}	
 		\end{center}
 		
-		\begin{LDA}
-		\LComment Déclare un tableau et donne des valeurs aux coins.
-		\Algo{remplirCoins}{}{}
+		\begin{algo}
+		\LComment{Déclare un tableau et donne des valeurs aux coins.}
+		\Algo{remplirCoins}{}{}{
 			\Decl{grille}{\Array{3$\times$5}{string}}
-			\Let grille[0,0] \Gets "NO"
-			\Let grille[0,4] \Gets "NE"
-			\Let grille[2,0] \Gets "SO"
-			\Let grille[2,4] \Gets "SE"
-		\EndAlgo
-		\end{LDA}
+			grille[0,0] \Gets "NO"\;
+			grille[0,4] \Gets "NE"\;
+			grille[2,0] \Gets "SO"\;
+			grille[2,4] \Gets "SE"\;
+		}
+		\end{algo}
 	
 		\paragraph{Exemple 2 -- Gestion des stocks.}
 		Reprenons l'exemple du stock de 10 produits
@@ -246,57 +246,45 @@
 		
 		\bigskip
 		
-		\begin{LDA}
-		\LComment Calcule et affiche la quantité vendue de 10 produits
-		\LComment pour chaque jour de la semaine (de 0~: lundi à 6~: dimanche).
-		\Algo{statistiquesVentesSemaine}{}{}
-			%\Empty
+		\begin{algo}
+		\LComment{Calcule et affiche la quantité vendue de 10 produits}
+		\LComment{pour chaque jour de la semaine (de 0~: lundi à 6~: dimanche).}
+		\Algo{statistiquesVentesSemaine}{}{}{
 			\Decl{cpt}{\Array{7$\times$10}{integers}}
-			%\Decl{produit, jour}{entiers}
-			%\Empty
-			\Stmt initialiser(cpt)
-			%\Empty
-			\For{jour}{0}{6} \Comment Pour chaque jour de la semaine
-				\Stmt traiterStock1Jour(cpt, jour)
-				\For{produit}{0}{9}
+			initialiser(cpt)\;
+			\LComment{Pour chaque jour de la semaine}
+			\Fori{jour}{0}{6}{ 
+				traiterStock1Jour(cpt, jour)\;
+				\Fori{produit}{0}{9}{
 					\Write "quantité vendue de produit ", produit, " ce jour ", jour, "~: ", cpt[jour,produit]
-				\EndFor
-			\EndFor	
-		\EndAlgo
-		\end{LDA}
+				}
+			}
+		}
+		\end{algo}
 	
-		\begin{LDA}
-		\LComment Initialise le tableau d'entiers à 0
-		\Algo{initialiser}{\Par{entiers\InOut}{\Array{7$\times$10}{integers}}}{}
-			%\Decl{i, j}{entiers}
-			\For{i}{0}{6}
-				\For{j}{0}{9}
-					\Let entiers[i,j] \Gets 0
-				\EndFor
-			\EndFor
-		\EndAlgo
-		\end{LDA}
+		\begin{algo}
+		\LComment{Initialise le tableau d'entiers à 0}
+		\Algo{initialiser}{\Par{entiers\InOut}{\Array{7$\times$10}{integers}}}{}{
+			\Fori{i}{0}{6}{
+				\Fori{j}{0}{9}{
+					entiers[i,j] \Gets 0\;
+				}
+			}
+		}
+		\end{algo}
 	
-		\begin{LDA}
-		\LComment Effectue le traitement du stock pour une journée.
-		\Algo{traiterStock1Jour}{\Par{cpt\InOut}{\Array{7$\times$10}{integers}}, \Par{jour\In}{integer}}{}
+		\begin{algo}
+		\LComment{Effectue le traitement du stock pour une journée.}
+		\Algo{traiterStock1Jour}{\Par{cpt\InOut}{\Array{7$\times$10}{integers}}, \Par{jour\In}{integer}}{}{
 			\Decl{numéroProduit, quantité}{integers}
-			\Write "Introduisez le numéro du produit~:"
-			\Read numéroProduit
-			%\Empty
-			\While{numéroProduit $\geq$ 0 et numéroProduit $<$ 10}
-				%\Empty
-				\Write "Introduisez la quantité vendue~:"
-				\Read quantité
-				%\Empty
-				\Let cpt[jour,numéroProduit] \Gets cpt[jour,numéroProduit] + quantité
-				%\Empty
-				\Write "Introduisez le numéro du produit~:"
-				\Read numéroProduit
-				%\Empty
-			\EndWhile
-		\EndAlgo
-		\end{LDA}
+			numéroProduit \Gets \Ask{"Introduisez le numéro du produit~:"}\; 
+			\While{numéroProduit $\geq$ 0 et numéroProduit $<$ 10}{
+				quantité \Gets \Ask{"Introduisez la quantité vendue~:"}\;
+				cpt[jour,numéroProduit] \Gets cpt[jour,numéroProduit] + quantité\;
+				numéroProduit \Gets \Ask{"Introduisez le numéro du produit~:"}\;
+			}
+		}
+		\end{algo}
 	
 	\subsection{Exercices}
 			
@@ -307,9 +295,9 @@
 			et qui retourne un booléen indiquant si la case désignée
 			contient ou pas la valeur nulle.
 			
-			\begin{LDA}
-				\Entete{estNul}{\Par{tab}{\Array{n $\times$ m}{integers}}, \Par{lg, col}{integers}}{boolean}
-			\end{LDA}
+			\begin{algo}
+				\AlgoSign{estNul}{\Par{tab}{\Array{n $\times$ m}{integers}}, \Par{lg, col}{integers}}{boolean}\;
+			\end{algo}
 		\end{Exercice}
 
 		\begin{Exercice}{Assigner une case}
@@ -321,9 +309,9 @@
 			pour autant que la case contienne actuellement la valeur nulle.
 			Dans le cas contraire, l'algorithme ne fait rien.
 			
-			\begin{LDA}
-				\Entete{assigner}{\Par{tab\InOut}{\Array{n $\times$ m}{integers}}, \Par{lg\In, col\In, val\In}{integers}}{}
-			\end{LDA}
+			\begin{algo}
+				\AlgoSign{assigner}{\Par{tab\InOut}{\Array{n $\times$ m}{integers}}, \Par{lg\In, col\In, val\In}{integers}}{}\;
+			\end{algo}
 		\end{Exercice}
 
 		\begin{Exercice}{Un bord du tableau}
@@ -333,9 +321,9 @@
 			L'algorithme doit indiquer si la case donnée
 			est ou non sur un \textbf{bord} du tableau.
 			
-			\begin{LDA}
-				\Entete{estBord}{\Par{tab}{\Array{n $\times$ m}{integers}}, \Par{lg, col}{integers}}{boolean}
-			\end{LDA}
+			\begin{algo}
+				\AlgoSign{estBord}{\Par{tab}{\Array{n $\times$ m}{integers}}, \Par{lg, col}{integers}}{boolean}\;
+			\end{algo}
 		\end{Exercice}
 
 		\begin{Exercice}{Un coin du tableau}
@@ -345,9 +333,9 @@
 			L'algorithme doit indiquer si la case donnée
 			est ou non sur un des 4 \textbf{coins} du tableau.
 			
-			\begin{LDA}
-				\Entete{estCoin}{\Par{tab}{\Array{n $\times$ m}{integers}}, \Par{lg, col}{integers}}{boolean}
-			\end{LDA}
+			\begin{algo}
+				\AlgoSign{estCoin}{\Par{tab}{\Array{n $\times$ m}{integers}}, \Par{lg, col}{integers}}{boolean}\;
+			\end{algo}
 		\end{Exercice}
 
 % ============================================
@@ -360,9 +348,9 @@
 	\marginicon{definition}
 	Pour déclarer un tableau statique à $k$ dimensions, on écrira :
 
-	\begin{LDA}
+	\begin{algo}
 	\Decl{nomTableau}{\Array{tailleDim1 $\times$ \dots{} $\times$ tailleDimK}{TypeElément}}
-	\end{LDA}
+	\end{algo}
 	
 	
 % ================================================
@@ -376,9 +364,9 @@
 	Nos algorithmes sont valables quel que soit le type des éléments.
 	Utilisons \lda{T} pour désigner un type quelconque.
 	
-	\begin{LDA}
+	\begin{algo}
 		\Decl{tab}{\Array{n $\times$ m}{T}}
-	\end{LDA}
+	\end{algo}
 	
 	Commençons par des cas plus simples 
 	où on ne parcourt qu'une seule des dimensions 
@@ -407,30 +395,30 @@
 		
 		Ce qui donne l'algorithme :
 		
-		\begin{LDA}
+		\begin{algo}
 			\LComment{Parcours de la ligne $ligne$ d'un tableau à deux dimensions}
 			\Algo{affichageElémentsLigne}{\Par{tab}{\Array{n $\times$ m}{T}}, 
-				\Par{ligne}{integer}}{}
-				\For{colonne}{0}{m-1}
-					\Write tab[ligne,colonne] \RComment On peut faire autre chose qu'afficher
-				\EndFor
-			\EndAlgo
-		\end{LDA}
+				\Par{ligne}{integer}}{}{
+				\Fori{colonne}{0}{m-1}{
+					\Write tab[ligne,colonne] \RComment{On peut faire autre chose qu'afficher}
+				}
+			}
+		\end{algo}
 
 		Retenons~: pour parcourir une ligne, on utilise une boucle sur les colonnes. 
 		
 		Symétriquement, on pourrait considérer le parcours d'une colonne
 		avec l'algorithme suivant.
 		
-		\begin{LDA}
+		\begin{algo}
 			\LComment{Parcours de la colonne $colonne$ d'un tableau à deux dimensions}
 			\Algo{affichageElémentsColonne}{\Par{tab}{\Array{n $\times$ m}{T}}, 
-				\Par{colonne}{integer}}{}
-				\For{ligne}{0}{n-1}
-					\Write tab[ligne,colonne] \RComment On peut faire autre chose qu'afficher
-				\EndFor
-			\EndAlgo
-		\end{LDA}
+				\Par{colonne}{integer}}{}{
+				\Fori{ligne}{0}{n-1}{
+					\Write tab[ligne,colonne] \RComment{On peut faire autre chose qu'afficher}
+				}
+			}
+		\end{algo}
 		
 		Si le tableau est carré ($n=m$) on peut aussi envisager le parcours
 		des deux diagonales.
@@ -453,14 +441,14 @@
 		Une seule boucle suffit 
 		comme le montre l'algorithme suivant.
 		
-		\begin{LDA}
+		\begin{algo}
 			\LComment{Parcours de la diagonale descendante d'un tableau carré}
-			\Algo{affichageElémentsDiagonaleDescendante}{\Par{tab}{\Array{n $\times$ n}{T}}}{}
-				\For{i}{0}{n-1}
-					\Write tab[i,i] \RComment On peut faire autre chose qu'afficher
-				\EndFor
-			\EndAlgo
-		\end{LDA}
+			\Algo{affichageElémentsDiagonaleDescendante}{\Par{tab}{\Array{n $\times$ n}{T}}}{}{
+				\Fori{i}{0}{n-1}{
+					\Write tab[i,i] \RComment{On peut faire autre chose qu'afficher}
+				}
+			}
+		\end{algo}
 		
 		Pour la diagonale montante, 
 		on peut envisager deux solutions, 
@@ -479,26 +467,26 @@
 		\end{tabular}
 		\end{center}
 		
-		\begin{LDA}
-			\LComment{Parcours de la diagonale montante d'un tableau carré - version 2 indices}
-			\Algo{affichageElémentsDiagonaleMontante}{\Par{tab}{\Array{n $\times$ n}{T}}}{}
-				\Decl {j}{entier}
-				\Let j \Gets n-1
-				\For{i}{0}{n-1}
-					\Write tab[i,j] \RComment On peut faire autre chose qu'afficher
-					\Let j \Gets j - 1
-				\EndFor
-			\EndAlgo
-		\end{LDA}
+		\begin{algo}
+		\LComment{Parcours de la diagonale montante d'un tableau carré - version 2 indices}
+		\Algo{affichageElémentsDiagonaleMontante}{\Par{tab}{\Array{n $\times$ n}{T}}}{}{
+			\Decl{j}{entier}
+			j \Gets n-1\;
+			\Fori{i}{0}{n-1}{
+				\Write tab[i,j] \RComment{On peut faire autre chose qu'afficher}
+				j \Gets j - 1\;
+			}
+		}
+		\end{algo}
 		
-		\begin{LDA}
-			\LComment{Parcours de la diagonale montante d'un tableau carré - version 1 indice}
-			\Algo{affichageElémentsDiagonaleMontante}{\Par{tab}{\Array{n $\times$ n}{T}}}{}
-				\For{i}{0}{n-1}
-					\Write tab[i, n - 1 - i]  \RComment On peut faire autre chose qu'afficher
-				\EndFor
-			\EndAlgo
-		\end{LDA}
+		\begin{algo}
+		\LComment{Parcours de la diagonale montante d'un tableau carré - version 1 indice}
+		\Algo{affichageElémentsDiagonaleMontante}{\Par{tab}{\Array{n $\times$ n}{T}}}{}{
+			\Fori{i}{0}{n-1}{
+				\Write tab[i, n - 1 - i]  \RComment{On peut faire autre chose qu'afficher}
+			}
+		}
+		\end{algo}
 
 	\subsection{Parcours des deux dimensions}
 	%========================================
@@ -544,27 +532,27 @@
 			
 			Le plus simple est d'utiliser deux boucles imbriquées 
 			
-			\begin{LDA}
-				\LComment{Parcours d'un tableau à 2 dimensions, ligne par ligne}
-				\Algo{affichageElémentsLigneParLigne}{\Par{tab}{\Array{n $\times$ m}{T}}}{}
-					\For{lg}{0}{n-1}
-						\For{col}{0}{m-1}
-							\Write tab[lg,col] \RComment On peut faire autre chose qu'afficher
-						\EndFor
-					\EndFor
-				\EndAlgo
-			\end{LDA}
+			\begin{algo}
+			\LComment{Parcours d'un tableau à 2 dimensions, ligne par ligne}
+			\Algo{affichageElémentsLigneParLigne}{\Par{tab}{\Array{n $\times$ m}{T}}}{}{
+				\Fori{lg}{0}{n-1}{
+					\Fori{col}{0}{m-1}{
+						\Write tab[lg,col] \RComment{On peut faire autre chose qu'afficher}
+					}
+				}
+			}
+			\end{algo}
 			
-			\begin{LDA}
+			\begin{algo}
 				\LComment{Parcours d'un tableau à 2 dimensions, colonne par colonne}
-				\Algo{affichageElémentsColonneParColonne}{\Par{tab}{\Array{n $\times$ m}{T}}}{}
-					\For{col}{0}{m-1}
-						\For{lg}{0}{n-1}
-							\Write tab[lg,col] \RComment On peut faire autre chose qu'afficher
-						\EndFor
-					\EndFor
-				\EndAlgo
-			\end{LDA}
+				\Algo{affichageElémentsColonneParColonne}{\Par{tab}{\Array{n $\times$ m}{T}}}{}{
+					\Fori{col}{0}{m-1}{
+						\Fori{lg}{0}{n-1}{
+							\Write tab[lg,col] \RComment{On peut faire autre chose qu'afficher}
+						}
+					}
+				}
+			\end{algo}
 			
 			Mais on peut obtenir le même résultat avec une seule boucle
 			si l'indice sert juste à compter le nombre de passages ($n*m$)
@@ -575,22 +563,22 @@
 			La solution pour un parcours colonne par colonne est similaire
 			et laissée en exercice.
 			
-			\begin{LDA}
+			\begin{algo}
 				\LComment{Parcours d'un tableau à 2 dimensions via une seule boucle}
-				\Algo{affichageElémentsLigneParLigne}{\Par{tab}{\Array{n $\times$ m}{T}}}{}
-					\Decl {lg, col}{integers}
-					\Let lg \Gets 0
-					\Let col \Gets 0
-					\For{i}{1}{n*m}
-						\Write tab[lg,col] \RComment On peut faire autre chose qu'afficher
-						\Let col \Gets col + 1	\RComment Passer à la case suivante
-						\If{col = m} \RComment On déborde sur la droite, passer à la ligne suivante
-							\Let col \Gets 0
-							\Let lg \Gets lg + 1
-						\EndIf
-					\EndFor
-				\EndAlgo
-			\end{LDA}
+				\Algo{affichageElémentsLigneParLigne}{\Par{tab}{\Array{n $\times$ m}{T}}}{}{
+					\Decl{lg, col}{integers}
+					lg \Gets 0\;
+					col \Gets 0\;
+					\Fori{i}{1}{n*m}{
+						\Write tab[lg,col] \RComment{On peut faire autre chose qu'afficher}
+						col \Gets col + 1	\RComment{Passer à la case suivante}
+						\If(\IComment{On déborde sur la droite, passer à la ligne suivante}){col = m}{
+							col \Gets 0\;
+							lg \Gets lg + 1\;
+						}
+					}
+				}
+			\end{algo}
 			
 			L'avantage de cette solution apparaitra 
 			quand on verra des situations plus difficiles.
@@ -601,44 +589,44 @@
 			Comme avec les tableaux à une dimension, 
 			envisageons l'arrêt prématuré lors de la rencontre d'une certaine condition.
 			Et, comme avec les tableaux à une dimension, 
-			transformons d'abord nos \K{pour} en \K{tant que}.
+			transformons d'abord nos \emph{pour} en \emph{tant que}.
 			
 			Par exemple, montrons les deux parcours ligne par ligne, avec une et deux boucle(s).
 			
-			\begin{LDA}
+			\begin{algo}
 				\LComment{Parcours d'un tableau à 2 dimensions, ligne par ligne, via un tant que}
-				\Algo{affichageElémentsLigneParLigne}{\Par{tab}{\Array{n $\times$ m}{T}}}{}
-					\Decl {lg, col}{integers}
-					\Let lg \Gets 0
-					\While{lg $<$ n}
-						\Let col \Gets 0
-						\While{col $<$ m}
-							\Write tab[lg, col] \RComment On peut faire autre chose qu'afficher
-							\Let col \Gets col + 1
-						\EndWhile
-						\Let lg \Gets lg + 1
-					\EndWhile
-				\EndAlgo
-			\end{LDA}
+				\Algo{affichageElémentsLigneParLigne}{\Par{tab}{\Array{n $\times$ m}{T}}}{}{
+					\Decl{lg, col}{integers}
+					lg \Gets 0\;
+					\While{lg $<$ n}{
+						col \Gets 0\;
+						\While{col $<$ m}{
+							\Write tab[lg, col] \RComment{On peut faire autre chose qu'afficher}
+							col \Gets col + 1\;
+						}
+						lg \Gets lg + 1\;
+					}
+				}
+			\end{algo}
 			
-			\begin{LDA}
+			\begin{algo}
 				\LComment{Parcours d'un tableau à 2 dimensions via une seule boucle et un tant que}
-				\Algo{affichageElémentsLigneParLigne}{\Par{tab}{\Array{n $\times$ m}{T}}}{}
-					\Decl {lg, col, i}{integers}
-					\Let lg \Gets 0
-					\Let col \Gets 0
-					\Let i \Gets 1
-					\While{i $\le$ n*m} \RComment ou "lg $<$ n" 
-						\Write tab[lg,col] \RComment On peut faire autre chose qu'afficher
-						\Let col \Gets col + 1	\RComment Passer à la case suivante
-						\If{col = m} \RComment On déborde sur la droite, passer à la ligne suivante
-							\Let col \Gets 0
-							\Let lg \Gets lg + 1
-						\EndIf
-						\Let i \Gets i + 1		
-					\EndWhile
-				\EndAlgo
-			\end{LDA}
+				\Algo{affichageElémentsLigneParLigne}{\Par{tab}{\Array{n $\times$ m}{T}}}{}{
+					\Decl{lg, col, i}{integers}
+					lg \Gets 0\;
+					col \Gets 0\;
+					i \Gets 1\;
+					\While(\IComment{ou "lg $<$ n"}){i $\le$ n*m}{
+						\Write tab[lg,col] \RComment{On peut faire autre chose qu'afficher}
+						col \Gets col + 1	\RComment{Passer à la case suivante}
+						\If(\IComment{On déborde sur la droite, passer à la ligne suivante}){col = m}{
+							col \Gets 0\;
+							lg \Gets lg + 1\;
+						}
+						i \Gets i + 1\;
+					}
+				}
+			\end{algo}
 			
 			On peut à présent introduire le test comme on l'a fait 
 			dans les algorithmes de parcours des tableaux à une dimension.
@@ -649,50 +637,51 @@
 			alors que le second introduit un test
 			sans utiliser de booléen.
 			Dans les deux cas, l'algorithme retourne un booléen indiquant si
-			l'élément a été trouvé ou pas
+			l'élément a été trouvé ou pas.
 			
-			\begin{LDA}
+			\begin{algo}
 				\LComment{Parcours avec test d'arrêt - deux boucles et un booléen}
-				\Algo{chercherElément}{\Par{tab}{\Array{n $\times$ m}{T}}, \Par{élt}{T}}{boolean}
-					\Decl {lg, col}{integers}
-					\Decl {trouvé}{boolean}
-					\Let trouvé \Gets faux
-					\Let lg \Gets 0
-					\While{lg $<$ n ET NON trouvé}
-						\Let col \Gets 0
-						\While{col $<$ m ET NON trouvé}
-							\If{\textit{tab[lg, col] = élt}}
-								\Let trouvé \Gets vrai
-							\Else \RComment Ne pas modifier les indices si arrêt demandé
-								\Let col \Gets col + 1
-							\EndIf
-						\EndWhile
-						\If{NON trouvé} \RComment Ne pas modifier les indices si arrêt demandé
-							\Let lg \Gets lg + 1
-						\EndIf
-					\EndWhile
-					\Return trouvé
-				\EndAlgo
-			\end{LDA}
+				\Algo{chercherElément}{\Par{tab}{\Array{n $\times$ m}{T}}, \Par{élt}{T}}{boolean}{
+					\Decl{lg, col}{integers}
+					\Decl{trouvé}{boolean}
+					trouvé \Gets faux\;
+					lg \Gets 0\;
+					\While{lg $<$ n ET NON trouvé}{
+						col \Gets 0\;
+						\While{col $<$ m ET NON trouvé}{
+							\uIf{\textit{tab[lg, col] = élt}}{
+								trouvé \Gets vrai\;
+							}
+							\Else(\IComment{Ne pas modifier les indices si arrêt demandé}){
+								col \Gets col + 1\;
+							}
+						}
+						\If(\IComment{Ne pas modifier les indices si arrêt demandé}){NON trouvé}{
+							lg \Gets lg + 1\;
+						}
+					}
+					\Return{trouvé}
+				}
+			\end{algo}
 			
-			\begin{LDA}
+			\begin{algo}
 				\LComment{Parcours avec test d'arrêt - une boucle et pas de booléen}
-				\Algo{chercherElément}{\Par{tab}{\Array{n $\times$ m}{T}}, \Par{élt}{T}}{}
-					\Decl {lg, col, i}{integers}
-					\Let lg \Gets 0
-					\Let col \Gets 0
-					\Let i \Gets 1
-					\While{i $\le$ n*m ET \textit{tab[lg, col] $\neq$ élt}}  
-						\Let col \Gets col + 1	\RComment Passer à la case suivante
-						\If{col = m} \RComment On déborde sur la droite, passer à la ligne suivante
-							\Let col \Gets 0
-							\Let lg \Gets lg + 1
-						\EndIf
-						\Let i \Gets i + 1		
-					\EndWhile
-					\Return  $i<n*m$
-				\EndAlgo
-			\end{LDA}
+				\Algo{chercherElément}{\Par{tab}{\Array{n $\times$ m}{T}}, \Par{élt}{T}}{}{
+					\Decl{lg, col, i}{integers}
+					lg \Gets 0\;
+					col \Gets 0\;
+					i \Gets 1\;
+					\While{i $\le$ n*m ET \textit{tab[lg, col] $\neq$ élt}}{
+						col \Gets col + 1	\RComment{Passer à la case suivante}
+						\If(\IComment{On déborde sur la droite, passer à la ligne suivante}){col = m}{
+							col \Gets 0\;
+							lg \Gets lg + 1\;
+						}
+						i \Gets i + 1\;
+					}
+					\Return{$i<n*m$}
+				}
+			\end{algo}
 
 		\subsubsection*{Parcours plus compliqué - le serpent}
 		%----------------------------------------------------
@@ -716,24 +705,24 @@
 			en introduisant un sens de déplacement, 
 			ce qui donne l'algorithme :
 			
-			\begin{LDA}
+			\begin{algo}
 				\LComment{Parcours du serpent dans un tableau à deux dimensions}
-				\Algo{affichageElémentsSerpent}{\Par{tab}{\Array{n $\times$ m}{T}}}{}
-					\Decl {lg, col, depl}{integers}
-					\Let lg \Gets 0
-					\Let col \Gets 0
-					\Let depl \Gets 1	\RComment 1 pour avancer, -1 pour reculer
-					\For{i}{1}{n*m}
-						\Write tab[lg, col] \RComment On peut faire autre chose qu'afficher
-						\If{0 $\le$ col + depl ET col + depl $<$ m}
-							\Let col \Gets col + depl \RComment On se déplace dans la ligne
-						\Else
-							\Let lg \Gets lg + 1	\RComment On passe à la ligne suivante
-							\Let depl \Gets -depl	\RComment et on change de sens
-						\EndIf
-					\EndFor
-				\EndAlgo
-			\end{LDA}
+				\Algo{affichageElémentsSerpent}{\Par{tab}{\Array{n $\times$ m}{T}}}{}{
+					\Decl{lg, col, depl}{integers}
+					lg \Gets 0\;
+					col \Gets 0\;
+					depl \Gets 1	\RComment{1 pour avancer, -1 pour reculer}
+					\Fori{i}{1}{n*m}{
+						\Write tab[lg, col] \RComment{On peut faire autre chose qu'afficher}
+						\eIf{0 $\le$ col + depl ET col + depl $<$ m}{
+							col \Gets col + depl \RComment{On se déplace dans la ligne}
+						}{
+							lg \Gets lg + 1	\RComment{On passe à la ligne suivante}
+							depl \Gets -depl	\RComment{et on change de sens}
+						}
+					}
+				}
+			\end{algo}
 
 % ===================
 \section{Exercices}
@@ -830,9 +819,9 @@
 		et qui retourne un booléen indiquant si la ligne donnée du tableau
 		ne contient que des valeurs non nulles.
 		
-		\begin{LDA}
-			\Entete{lignePleine}{\Par{tab}{\Array{n $\times$ m}{integers}}, \Par{lg}{integer}}{boolean}
-		\end{LDA}
+		\begin{algo}
+			\AlgoSign{lignePleine}{\Par{tab}{\Array{n $\times$ m}{integers}}, \Par{lg}{integer}}{boolean}\;
+		\end{algo}
 		
 		Faites de même pour une colonne.
 	\end{Exercice}
@@ -937,4 +926,3 @@
 			exercices du pinceau ?
 		\end{enumerate}
 	\end{Exercice}
-

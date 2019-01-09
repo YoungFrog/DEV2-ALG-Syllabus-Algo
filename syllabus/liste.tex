@@ -69,38 +69,39 @@
 		vous pouvez le remplacer par ce qui vous convient : 
 		entier, chaine, Date\dots
 		
-		\begin{LDA}
-			\Class{List of T}
-				\RComment T est un type quelconque
+		\begin{algo}
+			\LComment{T est un type quelconque}
+			\Class{\List{T}}{	
 %				\Private
 %					\LComment sera complété plus tard	
-				\Public
-					\ConstrSign{List of T}{}			
-						\RComment construit une liste vide
+				\Public{
+					\ConstrSign{\List{T}}{}			
+						\RComment{construit une liste vide}
 					\MethodSign{get}{pos : integer}{T}
-						\RComment donne un élément en position pos
+						\RComment{donne un élément en position pos}
 					\MethodSign{set}{pos : integer, valeur : T}{}
-						\RComment modifie un élément en position pos
+						\RComment{modifie un élément en position pos}
 					\MethodSign{taille}{}{integer}
-						\RComment donne le nombre actuel d’éléments
+						\RComment{donne le nombre actuel d’éléments}
 					\MethodSign{ajouter}{valeur : T}{}
-						\RComment ajoute un élément en fin de liste
+						\RComment{ajoute un élément en fin de liste}
 					\MethodSign{insérer}{pos : integer, valeur : T}{}
-						\RComment insère un élément en position pos
+						\RComment{insère un élément en position pos}
 					\MethodSign{supprimer}{}{}
-						\RComment supprime le dernier élément
+						\RComment{supprime le dernier élément}
 					\MethodSign{supprimerPos}{pos : integer}{}
-						\RComment supprime l'élément en position pos
+						\RComment{supprime l'élément en position pos}
 					\MethodSign{supprimer}{valeur : T}{boolean}
-						\RComment supprime l'élément de valeur donnée
+						\RComment{supprime l'élément de valeur donnée}
 					\MethodSign{vider}{}{}
-						\RComment vide la liste
+						\RComment{vide la liste}
 					\MethodSign{estVide}{}{boolean}
-						\RComment la liste est-elle vide ?
+						\RComment{la liste est-elle vide ?}
 					\MethodSign{existe}{valeur \In : T, pos \Out : entier}{boolean}
-						\RComment recherche un élément
-				\EndClass
-		\end{LDA}
+						\RComment{recherche un élément}
+				}
+			}
+		\end{algo}
 		
 		\bigskip
 		
@@ -163,19 +164,19 @@
 		
 		Soit l'algorithme suivant :
 		
-		\begin{LDA}
-			\Algo{ex1}{}{}
-				\Decl{l}{List of integers}
-				\Let l \Gets \K{new} List of integers()
-				\Stmt l.ajouter(42)
-				\Stmt l.ajouter(54)
-				\Stmt l.set(1,44)
-				\Stmt l.insérer(1,43)
-				\Stmt l.supprimerPos(2)
-				\Stmt l.supprimer(42)
-				\Stmt l.vider
-			\EndAlgo
-		\end{LDA}
+		\begin{algo}
+			\Algo{ex1}{}{}{
+				\Decl{l}{\List{integers}}
+				 l \Gets \New \List{integers}()\;
+				 l.ajouter(42)\;
+				 l.ajouter(54)\;
+				 l.set(1,44)\;
+				 l.insérer(1,43)\;
+				 l.supprimerPos(2)\;
+				 l.supprimer(42)\;
+				 l.vider\;
+			}
+		\end{algo}
 		
 		Après sa création, la liste est vide.
 		Ensuite, elle passe par les états suivants :
@@ -226,13 +227,13 @@
 		Écrivons l'algorithme qui affiche tous les éléments d'une liste,
 		reçue en paramètre.
 
-		\begin{LDA}
-			\Algo{afficher}{\Par{liste}{List of integers}}{}
-			\For{i}{0}{liste.taille()-1}
-				\Write liste.get(i)
-			\EndFor
-			\EndAlgo
-		\end{LDA}
+		\begin{algo}
+			\Algo{afficher}{\Par{liste}{\List{integers}}}{}{
+				\Fori{i}{0}{liste.taille()-1}{
+					\Write liste.get(i)\;
+				}
+			}
+		\end{algo}
 		
 		\bigskip
 		{\sffamily\bfseries\scshape
@@ -245,338 +246,26 @@
 		où se trouvent les différentes occurrences du minimum. On pourrait
 		l’écrire ainsi :
 		
-		\begin{LDA}
-			\Algo{indicesMinimum}{\Par{tab}{\Array{n}{integers}}}{List of integers}
+		\begin{algo}
+			\Algo{indicesMinimum}{\Par{tab}{\Array{n}{integers}}}{\List{integers}}{
 				\Decl{min}{integer}
 				\Decl{indicesMin}{List of integers}
-				\Let min \Gets tab[0]
-				\Let indicesMin \Gets \K{new} List of integers()
-				\Stmt indicesMin.ajouter( 0 )
-				\For{i}{1}{n-1}
-					\If{tab[i] = min}
-						\Stmt indicesMin.ajouter( i )
-					\ElsIf{tab[i] < min}
-						\Stmt indicesMin.vider() 
-						\Stmt indicesMin.ajouter( i )
-						\Let min \Gets tab[i]
-					\EndIf \Comment rien à faire si tab[i] > min
-				\EndFor
-				\Return indicesMin
-			\EndAlgo
-		\end{LDA}
-	
-%	%\clearpage
-%	%===================================
-%	\section{Comment implémenter l’état}
-%	%===================================
-%	
-%		Cette liste est bien utile mais comment la réaliser en pratique ?
-%		Comment représenter une liste variable d’éléments ? Pour
-%		l'instant, la seule structure qui peut accueillir
-%		plusieurs éléments de même type est le tableau. Nous allons donc
-%		prendre comme attribut principal de la liste un tableau que nous
-%		appellerons \lda{éléments}. Comment, dès lors, contourner
-%		le problème de la limitation de la taille de ce tableau ?
-%		
-%		Repartons donc de la notion de tableau et tentons de comprendre sa
-%		limitation. Lors de sa création, un tableau se voit attribuer un espace
-%		bien précis et contigu en mémoire. Il se peut très bien que
-%		l'espace «~juste après~» soit occupé par une autre
-%		variable ce qui l'empêche de grandir. La parade est
-%		claire : si un \ tableau s’avère trop petit lors de son utilisation, il
-%		suffit d’en créer un autre plus grand ailleurs en mémoire et d’y
-%		recopier tous les éléments du premier. Évidemment, cette opération est
-%		couteuse en temps et on cherchera à l’effectuer le moins souvent
-%		possible.
-%		
-%		\textbf{Quelle taille donner au nouveau tableau} ? L’idée qui vient
-%		immédiatement est d’augmenter la taille d’une unité afin d’accueillir
-%		le nouvel élément mais cette approche implique de fréquents
-%		agrandissements. Il est plus efficace d’augmenter la taille
-%		proportionnellement, par exemple en la multipliant par un facteur 2.
-%		
-%		\begin{center}
-%		\begin{tabular}{|m{0.259cm}|m{0.259cm}|m{0.259cm}|m{0.087999985cm}m{0.46000004cm}m{0.087999985cm}|m{0.25300002cm}|m{0.259cm}|m{0.259cm}|m{0.15299998cm}|m{0.15299998cm}|m{0.17cm}|}
-%		\hhline{---~~~------}
-%		 1 &
-%		 5 &
-%		 7 &
-%		~
-%		 &
-%		 ${\Rightarrow}$ &
-%		~
-%		 &
-%		 1 &
-%		 5 &
-%		 7 &
-%		 . &
-%		 . &
-%		 .\\\hhline{---~~~------}
-%		\end{tabular}
-%		\end{center}
-%		
-%		
-%		\textbf{Taille logique et taille physique}. À tout moment, le tableau
-%		aura une et une seule taille même si celle-ci pourra changer au cours
-%		du temps. Puisqu’on multipliera la taille du tableau par 2 pour des
-%		raisons d’efficacité, il y aura toutefois une différence entre la
-%		\textbf{taille physique} d’un tableau et sa \textbf{taille logique}. La
-%		taille physique est le nombre de cases réservées pour le tableau alors
-%		que la taille logique est le nombre de cases effectivement occupées.
-%		Dans ce qui suit, on s'arrangera pour que les cases
-%		occupées soient groupées à gauche du tableau (il n'y a
-%		pas de trou). Pour l’utilisateur, seule la taille logique a un sens (on
-%		lui cache les détails d’implémentation).
-%		
-%		\textbf{Exemple} : pour le tableau suivant, la taille logique est de 6
-%		(c’est cette taille qui a du sens pour l’utilisateur de la liste) et la
-%		taille physique est de 8.
-%		
-%		\begin{center}
-%		\begin{tabular}{|*{8}{>{\centering\arraybackslash}m{0.5cm}|}}
-%		\hline
-%		 2 &
-%		 5 &
-%		 4 &
-%		 8 &
-%		 3 &
-%		 12 &
-%		. &
-%		. \\\hline
-%		\end{tabular}
-%		\end{center}
-%		
-%		Quand il faut insérer un élément (en position valide) ou en ajouter un
-%		en fin de liste, deux cas se présentent :
-%		
-%		\begin{itemize}
-%			\item 
-%				si la taille logique est plus petite que la taille physique, il suffit
-%				d’ajouter l’élément dans le tableau et d’adapter la taille logique.
-%			\item 
-%				si la taille logique est égale à la taille physique, il faut
-%				procéder à un agrandissement du tableau.
-%		\end{itemize}
-%		
-%		\textbf{Les tableaux dynamiques}. 
-%		En \emph{DEV1},
-%		nous n'avons vu que des tableaux
-%		qu'on appellera \emph{statiques},
-%		qui sont créés lors de leur déclaration.
-%		Ici, nous avons besoin de tableaux 
-%		qu'on appellera \emph{dynamiques},
-%		créés dans le code
-%		(comme le sont les tableaux en Java).
-%		
-%		Introduisons une notation.
-%		Un tableau dynamique sera déclaré puis créé ainsi :
-%		
-%			\begin{LDA}
-%				\Decl{tab}{\K{tableau} de chaines}
-%				\Let tab \Gets \K{nouveau} \Array{n}{chaines} \RComment n doit avoir une valeur
-%			\end{LDA}
-%		
-%		\textbf{Implémentation}.
-%		Présentons les attributs nécessaires et l'algorithme
-%		d’agrandissement du tableau.
-%		
-%		\begin{LDA}
-%			\Class{Liste de T}
-%				\Private
-%					\Decl{éléments}{\K{tableau} de T}
-%					\Decl{tailleLogique}{entier}
-%					\Decl{taillePhysique}{entier}
-%				\Private
-%					\Method {agrandir}{}{}
-%						\Decl{nouveauTab}{\K{tableau} de T}
-%						\Let taillePhysique \Gets taillePhysique * 2
-%						\Let nouveauTab \Gets \K{nouveau} \Array{taillePhysique}{T}
-%						\For{i}{0}{tailleLogique-1}
-%							\Let nouveauTab[ i ] \Gets éléments[ i ]
-%						\EndFor
-%						\Let éléments \Gets nouveauTab
-%					\EndMethod
-%				\EndClass
-%			\end{LDA}
-%		
-%		\bigskip
-%		
-%		\textbf{Réduction du tableau}. Tout comme on agrandit le tableau si
-%		nécessaire, on pourrait le réduire lorsque des suppressions d’éléments
-%		le rendent sous-utilisé (par exemple lorsque la taille logique devient
-%		inférieure au tiers de la taille physique). 
-%		Nous n'aborderons pas cette problématique cette année.
-%	
-%	
-%	%=======================================
-%	\section{Implémentation du comportement}
-%	%=======================================
-%	
-%		Nous avons à présent toutes les cartes en main pour écrire les méthodes
-%		publiques de la classe.
-%		
-%		\begin{LDA}
-%			\Constr{Liste de T}{}
-%				\Let tailleLogique \Gets 0
-%				\RComment la liste est vide au départ
-%				\Let taillePhysique \Gets 32
-%				\RComment une bonne valeur pour commencer
-%				\Let éléments \Gets \K{nouveau} \Array{taillePhysique}{T}
-%			\EndConstr
-%		\end{LDA}
-%		
-%		\begin{LDA}
-%			\Method{get}{pos : entier}{T}
-%				\LComment{pos doit être compris entre 0 et tailleLogique-1, inclus}
-%				\Return éléments[ pos ]
-%			\EndMethod
-%		\end{LDA}
-%		
-%		\begin{LDA}
-%			\Method{set}{pos : entier, valeur : T}{}
-%				\LComment{pos doit être compris entre 0 et tailleLogique-1, inclus}
-%				\Let éléments[ pos ] \Gets valeur
-%			\EndMethod
-%		\end{LDA}
-%		
-%		\begin{LDA}
-%			\Method{taille}{}{entier}
-%				\Return tailleLogique
-%				\RComment et pas la taille physique !
-%			\EndMethod
-%		\end{LDA}
-%		
-%		\begin{LDA}
-%			\Method{ajouter}{valeur : T}{}
-%				\If{tailleLogique = taillePhysique}
-%					\Stmt agrandir()
-%					\RComment méthode privée détaillée supra
-%				\EndIf
-%				\Let éléments[ tailleLogique ] \Gets valeur
-%				\Let tailleLogique \Gets tailleLogique + 1
-%			\EndMethod
-%		\end{LDA}
-%		
-%		\begin{LDA}
-%			\Method{insérer}{pos : entier, valeur : T}{}
-%				\LComment{pos doit être compris entre 0 et tailleLogique-1, inclus}
-%				\If{tailleLogique = taillePhysique}
-%					\Stmt agrandir()
-%				\EndIf
-%				\Stmt décalerDroite( pos )
-%				\RComment voir ci-dessous
-%				\Let tailleLogique \Gets tailleLogique + 1
-%				\Let éléments[ pos ] \Gets valeur
-%			\EndMethod
-%		\end{LDA}
-%		
-%		\begin{LDA}
-%			\Method{supprimer}{}{}
-%				\LComment Supprime le dernier élément; la liste ne peut pas être vide
-%				\Let tailleLogique \Gets tailleLogique - 1
-%			\EndMethod
-%		\end{LDA}
-%		
-%		\begin{LDA}
-%			\Method{supprimerPos}{pos : entier}{}
-%				\LComment{pos doit être compris entre 0 et tailleLogique-1, inclus}
-%				\Stmt décalerGauche( pos + 1 )
-%				\RComment voir méthode ci-dessous
-%				\Let tailleLogique\Gets tailleLogique - 1
-%			\EndMethod
-%		\end{LDA}
-%		
-%		\begin{LDA}
-%			\Method{supprimer}{valeur: T}{booléen}
-%				\Decl{estPrésent}{booléen}
-%				\Decl{pos}{entier}
-%				\Let estPrésent \Gets existe(valeur, pos)
-%				\If{estPrésent}
-%					\Stmt supprimerPos( pos )
-%				\EndIf
-%				\Return estPrésent
-%			\EndMethod
-%		\end{LDA}
-%		
-%		\begin{LDA}
-%			\Method{vider}{}{}
-%				\Let tailleLogique \Gets 0 
-%				\RComment Les éléments ne sont pas effacés mais sont ignorés
-%			\EndMethod
-%		\end{LDA}
-%		
-%		\begin{LDA}
-%			\Method{estVide}{}{booléen}
-%				\Return tailleLogique = 0
-%			\EndMethod
-%		\end{LDA}
-%		
-%		\begin{LDA}
-%			\Method{existe}{valeur\In : T, pos\Out : entier}{booléen}
-%				\Let pos \Gets 0
-%				\LComment Rq : le ET ci-dessous est une évaluation 
-%				court-circuitée (cf. le cours d'Algo en DEV1)
-%				\While{ pos {$<$} tailleLogique ET éléments[ pos ] {${\neq}$} valeur}
-%					\Let pos \Gets pos + 1
-%				\EndWhile
-%				\Return pos {$<$} tailleLogique
-%			\EndMethod
-%		\end{LDA}
-%		
-%		\begin{LDA}
-%			\LComment Ces méthodes-ci sont privées
-%			\bigskip
-%		
-%			\Method{décalerDroite}{début : entier}{}
-%				\LComment Décale tous les éléments d'une position vers
-%				la droite à partir de début
-%				\For[-1]{i}{tailleLogique-1}{début}
-%					\Let éléments[ i + 1 ] \Gets éléments[ i ]
-%				\EndFor
-%			\EndMethod
-%		
-%			\bigskip
-%			
-%			\Method {décalerGauche}{début : entier}{}
-%				\LComment Décale toutes les éléments d'une position vers
-%				la gauche à partir de début ; 
-%				\LComment ce paramètre vaut toujours au moins 1.
-%				\For{i}{début}{tailleLogique-1}
-%					\Let éléments[ i - 1 ] \Gets éléments[ i ]
-%				\EndFor
-%			\EndMethod
-%		\end{LDA}
-%		
-%		\bigskip
-%		
-%		\marginicon{attention}
-%		\textbf{La recherche se fait sur un élément complet.}
-%		
-%		Prenons comme exemple une liste de contacts.
-%		Lors d'une recherche, on doit fournir
-%		\textbf{tout} le contact à
-%		rechercher. Il s'agit juste de savoir
-%		s'il est présent et où. Une autre méthode intéressante
-%		serait de retrouver un contact à partir d'une partie
-%		de l'information, par exemple son nom. Cette méthode
-%		est fort proche de notre méthode de recherche mais il serait très
-%		difficile de l'écrire génériquement. On vous demandera
-%		d'écrire explicitement une telle méthode de recherche
-%		en cas de besoin.
-%	
-%	
-%	%====================================
-%	\section{Et sans tableau dynamique ?}
-%	%=====================================
-%	
-%		Certains langages (c’est le cas de Cobol) ne permettent pas de créer
-%		dynamiquement un nouveau tableau. Il vous faudra travailler avec un
-%		tableau classique en le créant suffisamment grand.
-%			
-%		Les algorithmes d’ajout/suppression/recherche vus pour la liste peuvent
-%		être appliqués tels quels à un tableau statique à une modification près
-%		: lors d’un ajout dans un tableau plein, on ne peut pas l’agrandir; il
-%		faut générer une erreur.
+				 min \Gets tab[0]\;
+				 indicesMin \Gets \New \List{integers}()\;
+				 indicesMin.ajouter( 0 )\;
+				\Fori{i}{1}{n-1}{
+					\uIf{tab[i] = min}{
+						 indicesMin.ajouter( i )\;
+					}\ElseIf{tab[i] < min}{
+						 indicesMin.vider() \;
+						 indicesMin.ajouter( i )\;
+						 min \Gets tab[i]\;
+					} 
+					\LComment{rien à faire si tab[i] > min}
+				}
+				\Return indicesMin\;
+			}
+		\end{algo}
 	
 	%==================
 	\section{Exercices}
@@ -670,12 +359,12 @@
 			d’une date (cf. la structure Date du cours de DEV1)
 			et d’un motif de rencontre. 
 			
-			\begin{LDA}
-				\Struct{RendezVous}
-				\Decl{date}{Date}
-				\Decl{motif}{string}
-				\EndStruct
-			\end{LDA}
+			\begin{algo}
+				\Structure{RendezVous}{
+					\Decl{date}{Date}
+					\Decl{motif}{string}
+				}
+			\end{algo}
 
 			Écrire un algorithme qui reçoit une liste de rendez-vous 
 			et la met à jour en supprimant tous ceux qui sont désormais passés. 			
@@ -683,5 +372,3 @@
 			Pour résoudre cet exercice, vous pouvez utiliser sans l'écrire
 			un algorithme \lda{aujourdhui()} qui retourne la date du jour.
 		\end{Exercice}
-		
-	
