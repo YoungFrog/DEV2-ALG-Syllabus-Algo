@@ -10,3 +10,10 @@
 \newcommand{\marginicon}[1]{%
 	\marginnote{\includegraphics[width=16px]{icon/#1}}[0pt]%
 }
+
+\usepackage{environ} % Permet de définir un environnement en 1 partie
+\newif\ifprintsolutions
+\NewEnviron{Solution}{\ifprintsolutions%
+	\textbf{\color{colmain}Solution.}\\
+	\BODY\fi
+}
