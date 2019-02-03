@@ -1,0 +1,53 @@
+%==================================================
+%               DEV2 - Algorithmique
+%                HEB - ESI
+%
+%                 Syllabus
+%--------------------------------------------------
+% À compiler avec pdflatex
+%                                     Marco Codutti
+%==================================================
+
+\documentclass[a4paper,twoside]{style-esi/syllabus}
+
+%=========================
+% Les styles
+%=========================
+\usepackage{style-esi/licence}
+\usepackage{style-esi/links}
+\usepackage{style-esi/images}
+\usepackage{style-esi/exercice}
+\usepackage{style-esi/exemple}
+\usepackage{style-esi/algo}
+
+\input{style/dev2-alg.sty}
+\input{style/flow.sty}
+\input{style/fiche.sty}
+
+%==============================
+% Paramètres du document
+%==============================
+\title{Algorithmique\\Exercices avec solutions}
+\subtitle{Bachelor en Informatique\\DEV2}
+\date{2019}
+\author{%
+	M. Codutti (MCD), H. Delannoy (HDE),\\
+	S. Drobisz (SDR), A. Paquot (APA) \& N. Richard (NRI)
+}
+
+%==============================
+% Document
+%==============================
+
+\begin{document}
+
+	\maketitle
+	\pagedeux	
+	\ccbysa{esi-dev2-list@he2b.be}
+	\setcounter{tocdepth}{1}
+	\tableofcontents
+
+	\printsolutionstrue
+	\include{solutionbook/solutions}
+
+\end{document}

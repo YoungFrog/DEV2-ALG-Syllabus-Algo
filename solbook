@@ -1,0 +1,10 @@
+#!/bin/bash
+
+awk -v hide=1 '
+	/chapter/ {print} 
+	/begin{Exercice}/ {hide=0} 
+	/begin{Solution}/ {hide=0} 
+	/end{Exercice}/ {hide=1;print $0 "\n"} 
+	/end{Solution}/ {hide=1;print $0 "\n"} 
+	hide==0 {print}
+	' syllabus/tableau2D.tex syllabus/oo.tex syllabus/liste.tex syllabus/rupture.tex syllabus/donnee.tex > solutionbook/solutions.tex

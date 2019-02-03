@@ -13,7 +13,4 @@
 
 \usepackage{environ} % Permet de définir un environnement en 1 partie
 \newif\ifprintsolutions
-\NewEnviron{Solution}{\ifprintsolutions%
-	\textbf{\color{colmain}Solution.}\\
-	\BODY\fi
-}
+\NewEnviron{Solution}{\ifprintsolutions\subsubsection*{\color{colmain}Solution.}\BODY\fi}
