@@ -1,0 +1,18 @@
+// tab est un tableau de caractères
+// chaque caractère est soit:
+// - une lettre (la lettre)
+// - un point   (case noircie)
+// - une espace (case libre)
+
+
+algorithme placerLettre(i,j : entiers, lettre : caractère, tab : tableau de m x n caractères)
+	si NON estCaseOccupée() alors
+		tab[i,j] <- lettre
+	sinon
+		erreur "Case déjà occupée"
+	fin si
+fin algorithme
+
+algorithme estCaseOccupée(i,j : entiers, tab : tableau de m x n caractères) -> booléen
+	retourner tab[i,j] != ' '
+fin algorithme

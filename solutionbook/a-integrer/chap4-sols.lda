@@ -1,0 +1,125 @@
+// ex1
+structure Date
+	année, mois, jour : entiers
+fin structure
+structure Job
+	login: chaîne
+	date: Date
+	nombre: entier
+fin structure
+algorithme stopGaspi(jobs : Liste de Job, limitePrn : entier)
+	// jobs est triée en majeur sur le login
+	i : entier
+	cptPrn : entier
+	saveLogin : chaîne
+	tant que i < jobs.taille() faire
+		cptPrn <- 0
+		saveLogin <- jobs.get(i).login
+		tant que i < jobs.taille() ET jobs.get(i).login = saveLogin faire
+			cptPrn <- cptPrn + jobs.get(i).nombre
+			i <- i + 1
+		fin tant que
+		si cptPrn > limitePrn alors
+			afficher "Alerte : " + saveLogin + " " + cptPrn
+		fin si
+	fin tant que
+fin algorithme
+
+// ex2
+
+algorithme RuptureNiveau2(etudiants : liste d’Etudiant)
+	// on suppose les données classées en majeur sur l’option
+	// et en mineur sur la date de naissance (ordre chronologique)
+	etd : Etudiant
+	saveOption : chaine
+	saveAnnéeNaissance : entier
+	cpt,cptOpt : entier  // ICI
+	i : entier
+	i <- 0
+	tant que i < etudiants.taille() faire
+		saveOption <- etd.option
+		cptOpt <- 0 // ICI
+		tant que i < etudiants.taille() ET etudiants.get(i).option = saveOption faire
+			saveAnnéeNaissance <- etudiants.get(i).dateNaissance.année
+			cpt <- 0
+			tant que i < etudiants.taille()
+					 ET etudiants.get(i).option = saveOption
+					 ET etudiants.get(i).dateNaissance.année = saveAnnéeNaissance faire
+				cpt <- cpt + 1
+				cptOpt <- cptOpt + 1 // ICI
+				i <- i + 1
+			fin tant que
+			afficher cpt, " étudiant(s) dans l’option ", saveOption, " est(sont) né(s) en ", saveAnneeNaissance
+		fin tant que
+		afficher cptOpt, " étudiant(s) dans l'option ", saveOption  // ICI
+	fin tant que
+fin algorithme
+
+
+
+// ex3
+algorithme afficherComptageEtudiants(etudiants : liste d'Etudiants)
+	saveOption, saveBloc : chaine
+	cptEtudiantOption, cptEtudiantBloc, i : entier
+	i <- 0
+	tant que i < etudiants.taille() faire
+		saveOption <- etudiants.get(i).option
+		// initialisation pré-rupture 1
+		cptEtudiantOption <- 0
+		afficher saveOption
+		tant que i < etudiants.taille()
+					ET (etudiants.get(i)).option = saveOption faire
+			saveBloc <- etudiants.get(i).bloc
+			// initialisation pré-rupture 2
+			cptEtudiantBloc <- 0
+			tant que i < etudiants.taille()
+					ET etudiants.get(i).option = saveOption
+					ET etudiants.get(i).bloc = saveBloc faire
+				// traitement des éléments de la liste:
+				cptEtudiantBloc++
+				i++
+			fin tant que
+			// traitement post-rupture 2
+			cptEtudiantOption <- cptEtudiantOption + cptEtudiantBloc
+			afficher "    bloc " + saveBloc + " : " + cptEtudiantBloc + " étudiants"
+		fin tant que
+		// traitement post-rupture 1
+		afficher "    TOTAL  : " + saveOption + " étudiants"
+	fin tant que
+fin algorithme
+
+// ex 4
+algorithme club(membres : Liste de Participant) 
+	n : entier
+	mineur : booléen
+	saveNom, saveRef : chaîne
+	accumRésultat, nbResultat : entier
+	nbMineursTotal : entier
+	n <- membres.taille()
+	i <- 0
+	tant que i < n faire
+		saveRef <- membres.get(i).reference
+		nbMineursTotal <- 0
+		afficher "Participations de mineurs du club " + saveRef
+		tant que i < n ET saveRef = membres.get(i).reference faire
+			saveNom <- membres.get(i).nom
+			accumRésultat <- 0
+			nbResultat <- 0
+			mineur <- membres.get(i).age < 18
+			tant que i < n ET saveNom = membres.get(i).nom faire
+				accumRésultat <- accumRésultat + membres.get(i).resultat
+				nbResultat <- nbResultat + 1
+				i <- i + 1
+			fin tant que
+			si mineur faire
+				nbMineursTotal <- nbMineursTotal + 1
+				afficher saveNom + accumRésultat/nbResultat
+			fin si
+		fin tant que
+		si nbMineursTotal > 0 alors
+			afficher "Nombre total de membres mineurs de ce club : " + nbMineursTotal
+		sinon
+			afficher "Pas de participations de mineurs pour ce club"
+		fin si
+	fin tant que
+fin algorithme
