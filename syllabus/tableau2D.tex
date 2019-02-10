@@ -345,25 +345,28 @@
 		\end{Exercice}
 
 		\begin{Solution}
-			% \begin{Console}
-			% 	algorithme estBordBas(tab : tableau de n x m entiers, lg, col : entiers) -> booléen
-			% 		retourner lg = n - 1
-			% 	fin algorithme
-			% 	algorithme estBordGauche(tab : tableau de n x m entiers, lg, col : entiers) -> booléen
-			% 		retourner col = 0
-			% 	fin algorithme
-			% 	algorithme estBordHaut(tab : tableau de n x m entiers, lg, col : entiers) -> booléen
-			% 		retourner lg = 0
-			% 	fin algorithme
-			% 	algorithme estBordDroit(tab : tableau de n x m entiers, lg, col : entiers) -> booléen
-			% 		retourner col = m - 1
-			% 	fin algorithme
-		
-			% 	algorithme estBord(tab : tableau de n x m entiers, lg, col : entiers) -> booléen
-			% 		retourner estBordBas(tab, lg, col) OU estBordGauche(tab, lg, col) OU
-			% 					estBordDroit(tab, lg, col) OU estBordHaut(tab, lg, col)
-			% 	fin algorithme
-			% \end{Console}
+			\begin{algo}
+				\Algo{estBordHaut}{\Par{tab}{\Array{n$\times$m}{entiers}}, \Par{lg, col}{entiers}}{booléen}{
+					\Return lg = 0
+				}
+				\BlankLine
+				\Algo{estBordBas}{\Par{tab}{\Array{n$\times$m}{entiers}}, \Par{lg, col}{entiers}}{booléen}{
+					\Return lg = n - 1
+				}
+				\BlankLine
+				\Algo{estBordGauche}{\Par{tab}{\Array{n$\times$m}{entiers}}, \Par{lg, col}{entiers}}{booléen}{
+					\Return col = 0
+				}
+				\BlankLine
+				\Algo{estBordDroit}{\Par{tab}{\Array{n$\times$m}{entiers}}, \Par{lg, col}{entiers}}{booléen}{
+					\Return col = m - 1
+				}
+				\BlankLine
+				\Algo{estBord}{\Par{tab}{\Array{n$\times$m}{entiers}}, \Par{lg, col}{entiers}}{booléen}{
+					\Return estBordGauche(tab,lg,col) OU estBordDroit(tab,lg,col)\;
+						\Indp OU estBordHaut(tab,lg,col) OU estBordBas(tab,lg,col)\;
+				}
+			\end{algo}
 		\end{Solution}
 
 		\begin{Exercice}{Un coin du tableau}
@@ -379,26 +382,30 @@
 		\end{Exercice}
 
 		\begin{Solution}
-			% \begin{Console}
-			% algorithme estCoinHG(tab : tableau de n x m entiers, lg, col : entiers) -> booléen
-			% 	retourner estBordGauche(tab, lg, col) ET estBordHaut(tab, lg, col)
-			% fin algorithme
-			% algorithme estCoinHD(tab : tableau de n x m entiers, lg, col : entiers) -> booléen
-			% 	retourner estBordDroit(tab, lg, col) ET estBordHaut(tab, lg, col)
-			% fin algorithme
-			% algorithme estCoinBG(tab : tableau de n x m entiers, lg, col : entiers) -> booléen
-			% 	retourner estBordGauche(tab, lg, col) ET estBordBas(tab, lg, col)
-			% fin algorithme
-			% algorithme estCoinBD(tab : tableau de n x m entiers, lg, col : entiers) -> booléen
-			% 	retourner estBordDroit(tab, lg, col) ET estBordBas(tab, lg, col)
-			% fin algorithme
-			
-			% algorithme estCoin(tab : tableau de n x m entiers, lg, col : entiers) -> booléen
-			% 	retourner estCoinHG(tab, lg, col) OU estCoinHD(tab, lg, col) OU
-			% 			  estCoinBD(tab, lg, col) OU estCoinBG(tab, lg, col)
-			% fin algorithme
-			% \end{Console}
+			\begin{algo}
+				\Algo{estCoinHG}{\Par{tab}{\Array{n$\times$m}{entiers}}, \Par{lg, col}{entiers}}{booléen}{
+					\Return estBordGauche(tab, lg, col) ET estBordHaut(tab, lg, col)
+				}
+				\BlankLine
+				\Algo{estCoinHD}{\Par{tab}{\Array{n$\times$m}{entiers}}, \Par{lg, col}{entiers}}{booléen}{
+					\Return estBordDroit(tab, lg, col) ET estBordHaut(tab, lg, col)
+				}
+				\BlankLine
+				\Algo{estCoinBG}{\Par{tab}{\Array{n$\times$m}{entiers}}, \Par{lg, col}{entiers}}{booléen}{
+					\Return estBordGauche(tab, lg, col) ET estBordBas(tab, lg, col)
+				}
+				\BlankLine
+				\Algo{estCoinBD}{\Par{tab}{\Array{n$\times$m}{entiers}}, \Par{lg, col}{entiers}}{booléen}{
+					\Return estBordDroit(tab, lg, col) ET estBordBas(tab, lg, col)
+				}
+				\BlankLine
+				\Algo{estCoin}{\Par{tab}{\Array{n$\times$m}{entiers}}, \Par{lg, col}{entiers}}{booléen}{
+					\Return estCoinHG(tab,lg,col) OU estCoinHD(tab,lg,col)\;
+						\Indp OU estCoinBG(tab,lg,col) OU estCoinBD(tab,lg,col)\;
+				}
+			\end{algo}
 		\end{Solution}
+
 % ============================================
 \section{La troisième dimension (et au-delà)}
 % ============================================
@@ -412,7 +419,6 @@
 	\begin{algo}
 	\Decl{nomTableau}{\Array{tailleDim1 $\times$ \dots{} $\times$ tailleDimK}{TypeElément}}\;
 	\end{algo}
-	
 	
 % ================================================
 \section{Parcours d'un tableau à deux dimensions}
@@ -802,6 +808,26 @@
 		colonne par colonne
 	\end{Exercice}
 	
+	\begin{Solution}
+		\begin{algo}
+			\Algo{afficherLigneParLigne}{\Par{tab}{\Array{n $\times$ m}{T}}}{}{
+				\Fori{i}{0}{n-1}{
+					\Fori{j}{0}{m-1}{
+						\Write tab[i,j]\;
+					}
+				}
+			}
+			\BlankLine
+			\Algo{afficherColonneParColonne}{\Par{tab}{\Array{n $\times$ m}{T}}}{}{
+				\Fori{j}{0}{m-1}{
+					\Fori{i}{0}{n-1}{
+						\Write tab[i,j]\;
+					}
+				}
+			}
+		\end{algo}
+	\end{Solution}
+
 	\begin{Exercice}{Cases adjacentes}
 		Écrire un algorithme qui reçoit un tableau d'entiers
 		(à $n$ lignes et $m$ colonnes)
@@ -811,22 +837,23 @@
 	\end{Exercice}
 
 	\begin{Solution}
-	% 	\begin{Console}
-	% algorithme afficherCasesAdjacentes(tab: tableau de n entiers, lg, col : entiers)
-	% 	si NON estBordGauche(tab, lg, col) alors
-	% 		afficher lg, col-1
-	% 	fin si
-	% 	si NON estBordDroit(tab, lg, col) alors
-	% 		afficher lg, col+1
-	% 	fin si
-	% 	si NON estBordHaut(tab, lg, col) alors	
-	% 		afficher lg - 1, col
-	% 	fin si
-	% 	si NON estBordBas(tab, lg, col) alors
-	% 		afficher lg + 1, col
-	% 	fin si
-	% fin algorithme
-	% 	\end{Console}
+		\begin{algo}
+			\Algo{afficherCasesAdjacentes}
+				{\Par{tab}{\Array{n$\times$m}{entiers}}, \Par{lg, col}{entiers}}{}{
+				\lIf{NON estBordGauche(tab, lg, col)}{
+					\Write lg, col-1
+				}
+				\lIf{NON estBordDroit(tab, lg, col)}{
+					\Write lg, col+1
+				}
+				\lIf{NON estBordHaut(tab, lg, col)}{
+					\Write lg - 1, col
+				}
+				\lIf{NON estBordBas(tab, lg, col)}{
+					\Write lg + 1, col
+				}
+			}
+		\end{algo}
 	\end{Solution}
 
 	\begin{Exercice}{Les nuls}\marginicon{java}%
@@ -834,6 +861,21 @@
 		d'entiers et qui retourne la proportion
 		d'éléments nuls dans ce tableau.
 	\end{Exercice}
+
+	\begin{Solution}
+		\begin{algo}
+			\Algo{proportionNuls}{\Par{tab}{\Array{n $\times$ m}{entiers}}}{réel}{
+				\Decl{nbNuls}{entier}\;
+				nbNuls \Gets 0\;
+				\Fori{i}{0}{n-1}{
+					\Fori{j}{0}{m-1}{
+						\If{tab[i,j]=0}{nbNuls++}
+					}
+				}
+				\Return $\frac{nbNuls}{n\times{}m}$\;
+			}
+		\end{algo}
+	\end{Solution}	
 	
 	\begin{Exercice}{Le tableau de cotes}
 		Soit un tableau à $n$ lignes et $m$ colonnes d'entiers où
@@ -844,7 +886,35 @@
 		pourcentage d'étudiants ayant obtenu une moyenne
 		supérieure à 50\%.
 	\end{Exercice}
-	
+
+	\begin{Solution}
+		\begin{algo}
+			\Algo{sommeLigne}{\Par{tab}{\Array{n $\times$ m}{entiers}},\Par{lg}{entier}}{réel}{
+				\Decl{somme}{entier}\;
+				somme \Gets 0\;
+				\Fori{j}{0}{m-1}{
+					somme \Gets somme + tab[lg,j]
+				}
+				\Return somme;
+			}
+			\BlankLine
+			\Algo{moyenneLigne}{\Par{tab}{\Array{n $\times$ m}{entiers}},\Par{lg}{entier}}{réel}{
+				\Return $\frac{sommeLigne(tab)}{m}$\;
+			}
+			\BlankLine
+			\Algo{pourcentageRéussites}{\Par{notes}{\Array{n $\times$ m}{entiers}}}{réel}{
+				\Decl{nbRéussites}{entier}\;
+				nbRéussites \Gets 0\;
+				\Fori{i}{0}{n-1}{
+					\If{moyenneLigne(notes,i)>=10}{
+						nbRéussites++;
+					}
+				}
+				\Return $\frac{nbRéussites}{n}\times{}100$\;
+			}
+		\end{algo}
+	\end{Solution}	
+
 	\begin{Exercice}{Le triangle de Pascal}
 		\marginicon{java}%
 		Le triangle de Pascal est construit de la façon suivante :
@@ -886,6 +956,22 @@
 		\end{center}
 		\end{minipage}
 	\end{Exercice}
+
+	\begin{Solution}
+		\begin{algo}
+			\Algo{trianglePascal}{\Par{n}{entier}}{\Array{n $\times$ n}{entiers}}{
+				\Decl{pascal}{\Array{n $\times$ n}{entiers}}\;
+				\Fori{i}{0}{n-1}{
+					pascal[i,0] \Gets 1\;
+					pascal[i,i] \Gets 1\;
+					\Fori{j}{1}{i-1}{
+						pascal[i,j] \Gets pascal[i-1,j-1] + pascal[i-1,j]\;
+					}
+				}
+				\Return pascal;
+			}
+		\end{algo}
+	\end{Solution}	
 
 	\begin{Exercice}{Tous positifs}
 		\marginicon{java}%
