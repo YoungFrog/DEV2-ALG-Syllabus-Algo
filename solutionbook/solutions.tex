@@ -483,6 +483,29 @@
 
 \refstepcounter{Exercice}
 
+\begin{Solution}
+  Solution incomplète
+  \begin{algo}
+    \Comment{tab est un tableau de caractères}\;
+    \Comment{chaque caractère est soit:}\;
+    \Comment{- une lettre (la lettre)}\;
+    \Comment{- un point   (case noircie)}\;
+    \Comment{- une espace (case libre)}\;
+
+    \Algo{placerLettre}{\Par{i, j}{entiers}, \Par{lettre}{caractère}, \Par{tab}{tableau de m x n caractères}}{}{
+      \eIf{NON estCaseOccupée() }{
+        \Assign{tab}{lettre}\;
+      }{
+        \Error  "Case déjà occupée"\;
+      }
+    }
+
+    \Algo{estCaseOccupée}{\Par{i, j}{entiers}, \Par{tab}{tableau de m x n caractères}}{booléen}{
+      \Return  tab[i,j] != ' '\;
+    }
+  \end{algo}
+\end{Solution}
+
 \refstepcounter{Exercice}
 
 \refstepcounter{Exercice}
