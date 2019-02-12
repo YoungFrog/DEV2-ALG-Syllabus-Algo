@@ -1080,78 +1080,86 @@
 	\end{Exercice}
 
 	\begin{Solution}
-		% \begin{Console}
-		% 	algorithme pinceauZebre(tab IN OUT : tableau de n x n entiers)
-		% 	colDepart <- 0
-		% 	pour lg de 0 à n-1 faire
-		% 		pour col de colDepart à n-1 par 3 faire
-		% 			tab[lg,col] <- NOIR
-		% 		fin pour
-		% 		si colDepart > 0 alors
-		% 			colDepart <- colDepart - 1
-		% 		sinon
-		% 			colDepart <- 2
-		% 		fin si
-		% 	fin pour
-		% fin algorithme
-		
-		% algorithme pinceauSpirale(tab IN OUT : tableau de n x n entiers)
-		% 	lg <- 0
-		% 	col <- 0
-		% 	dirLg <- 0
-		% 	dirCol <- 1
-		% 	fini <- faux
-		% 	tant que NON fini faire
-		% 		tab[lg,col] <- NOIR
-		% 		si bord(lg,col,dirLg, dirCol) OU
-		% 			noircieDansDeuxCase(tab, lg,col,dirLg,dirCol) alors 
-		% 			tournerADroite(dirLg, dirCol)
-		% 		fin si
-		% 		avancer(lg, col, dirLg, dirCol)
-		% 		si caseNoireADroite(tab,lg,col,dirLg, dirCol) alors
-		% 			fini <- vrai
-		% 		fin si
-		% 	fin tant que
-		% fin algorithme
-		% algorithme bord(lg,col,dirLg, dirCol) -> booléen
-		% 	tmpLg <- lg
-		% 	tmpCol <- col
-		% 	avancer(tmpLg, tmpCol, dirLg, dirCol)
-		% 	retourner 0 <= tmpCol ET tmpCol < n ET 0 <= tmpLg ET tmpLg < n
-		% fin algorithme
-		% algorithme noircieDansDeuxCase(tab, lg,col,dirLg, dirCol) -> booléen
-		% 	tmpLg <- lg
-		% 	tmpCol <- col
-		% 	avancer(tmpLg, tmpCol, dirLg, dirCol)
-		% 	retourner tab[tmpLg, tmpCol] = NOIR
-		% fin algorithme
-		% algorithme tournerADroite(dirLg IN OUT : entier, dirCol IN OUT : entier)
-		% 	dirLg <- dirCol
-		% 	dirCol <- -dirLg
-		% fin algorithme
-		
-		% //Tests: tournerADroite(0, 1) = (1, 0)
-		% //		 tournerADroite(1, 0) = (0, -1)
-		% //		 tournerADroite(0, -1)= (-1, 0)
-		% //		 tournerADroite(-1, 0)= (0, 1)
-		% algorithme avancer(lg IN OUT : entier, col IN OUT : entier, dirLg, dirCol : entiers)
-		% 	lg <- lg + dirLg
-		% 	col <- col + dirCol
-		% fin algorithme
-		% algorithme caseNoireADroite(tab,lg,col, dirLg, dirCol) -> booléen
-		% 	tmpLg <- lg
-		% 	tmpCol <- col
-		% 	tmpDirLg <- dirLg
-		% 	tmpDirCol <- dirCol
-		% 	tournerADroite(tmpDirLg, tmpDirCol)
-		% 	si NON bord(lg,col, tmpDirLg, tmpDirCol) alors
-		% 		avancer(tmpLg, tmpCol, dirLg, dirCol)
-		% 		retourner tab[tmpLg, tmpCol] = NOIR
-		% 	sinon
-		% 		retourner faux
-		% 	fin si
-		% fin algorithme
-		% \end{Console}
+		\begin{algo}
+                  \Algo{pinceauZebre}{\Par{tab\InOut}{tableau de n x n entiers}}{}{
+                    \Assign{colDepart}{0}\;
+                    \Fori[]{lg}{0}{n-1}{
+                      \Fori[3]{col}{colDepart}{n-1}{
+                        \Assign{tab}{NOIR}\;
+
+                      }
+                      \eIf{colDepart > 0 }{
+                        \Assign{colDepart}{colDepart - 1}\;
+
+                      }{
+                        \Assign{colDepart}{2}\;
+                      }
+
+                    }
+                  }
+                  \Algo{pinceauSpirale}{\Par{tab\InOut}{tableau de n x n entiers}}{}{
+                    \Assign{lg}{0}\;
+                    \Assign{col}{0}\;
+                    \Assign{dirLg}{0}\;
+                    \Assign{dirCol}{1}\;
+                    \Assign{fini}{faux}\;
+                    \While{NON fini }{
+                      \Assign{tab}{NOIR}\;
+                      \eIf{bord(lg,col,dirLg, dirCol) OU noircieDansDeuxCase(tab, lg,col,dirLg,dirCol) }{
+                        tournerADroite(dirLg, dirCol)\;
+
+                      }{
+                      }
+                      avancer(lg, col, dirLg, dirCol)\;
+                      \eIf{caseNoireADroite(tab,lg,col,dirLg, dirCol) }{
+                        \Assign{fini}{vrai}\;
+
+                      }{
+                      }
+                    }
+                  }
+                  \Algo{bord}{\Par{lg, col, dirLg, dirCol}{entiers}}{booléen}{
+                    \Assign{tmpLg}{lg}\;
+                    \Assign{tmpCol}{col}\;
+                    avancer(tmpLg, tmpCol, dirLg, dirCol)\;
+                    \Return  0 <= tmpCol ET tmpCol < n ET 0 <= tmpLg ET tmpLg < n
+                    \;
+                  }
+                  \Algo{noircieDansDeuxCase}{\Par{tab, lg, col, dirLg, dirCol}{entiers}}{booléen}{
+                    \Assign{tmpLg}{lg}\;
+                    \Assign{tmpCol}{col}\;
+                    avancer(tmpLg, tmpCol, dirLg, dirCol)\;
+                    \Return  tab[tmpLg, tmpCol] = NOIR
+                    \;
+                  }
+                \end{algo}
+                \begin{algo}
+                  \Algo{tournerADroite}{\Par{dirLg\InOut}{entier}, \Par{dirCol\InOut}{entier}}{}{
+                    \Assign{dirLg}{dirCol}\;
+                    \Assign{dirCol}{-dirLg}\;
+                  }
+                  \Comment{Tests: tournerADroite(0, 1) = (1, 0)}\;
+                  \Comment{tournerADroite(1, 0) = (0, -1)}\;
+                  \Comment{tournerADroite(0, -1)= (-1, 0)}\;
+                  \Comment{tournerADroite(-1, 0)= (0, 1)}\;
+                  \Algo{avancer}{\Par{lg\InOut}{entier}, \Par{col\InOut}{entier}, \Par{dirLg, dirCol}{entiers}}{}{
+                    \Assign{lg}{lg + dirLg}\;
+                    \Assign{col}{col + dirCol}\;
+                  }
+                  \Algo{caseNoireADroite}{\Par{tab, lg, col, dirLg, dirCol}{entiers}}{booléen}{
+                    \Assign{tmpLg}{lg}\;
+                    \Assign{tmpCol}{col}\;
+                    \Assign{tmpDirLg}{dirLg}\;
+                    \Assign{tmpDirCol}{dirCol}\;
+                    tournerADroite(tmpDirLg, tmpDirCol)\;
+                    \eIf{NON bord(lg,col, tmpDirLg, tmpDirCol) }{
+                      avancer(tmpLg, tmpCol, dirLg, dirCol)\;
+                      \Return  tab[tmpLg, tmpCol] = NOIR \;
+                    }{
+                      \Return  faux \;
+                    }
+                  }
+		\end{algo}
 	\end{Solution}
 	
 	\begin{Exercice}{Exercices sur la complexité}	
