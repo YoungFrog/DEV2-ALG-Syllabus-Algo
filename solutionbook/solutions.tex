@@ -373,6 +373,40 @@
 
 \refstepcounter{Exercice}
 
+\begin{Solution}
+  \begin{algo}
+\Algo{afficherComptageEtudiants}{\Par{etudiants}{liste d' Etudiants}}{}{
+  \Decl{saveOption, saveBloc}{chaine}\;
+  \Decl{cptEtudiantOption, cptEtudiantBloc, i}{entier}\;
+  \Assign{i}{0}\;
+  \While{i < etudiants.taille() }{
+    \Assign{saveOption}{etudiants.get(i).option}\;
+    \Comment{initialisation pré-rupture 1}\;
+    \Assign{cptEtudiantOption}{0}\;
+    \Write  saveOption\;
+    \While{i < etudiants.taille() ET (etudiants.get(i)).option = saveOption }{
+      \Assign{saveBloc}{etudiants.get(i).bloc}\;
+      \Comment{initialisation pré-rupture 2}\;
+      \Assign{cptEtudiantBloc}{0}\;
+      \While{i < etudiants.taille() ET etudiants.get(i).option = saveOption ET etudiants.get(i).bloc = saveBloc }{
+        \Comment{traitement des éléments de la liste}\;
+        \Assign{cptEtudiantBloc}{cptEtudiantBloc + 1}\;
+        \Assign{i}{i + 1}\;
+      }
+      \Comment{traitement post-rupture 2}\;
+      \Assign{cptEtudiantOption}{cptEtudiantOption + cptEtudiantBloc}\;
+      \Write  "    bloc " + saveBloc + " : " + cptEtudiantBloc + " étudiants"\;
+    }
+    \Comment{traitement post-rupture 1}\;
+    \Write  "    TOTAL  : " + saveOption + " étudiants"\;
+  }
+}
+
+
+\end{algo}
+
+\end{Solution}
+
 \refstepcounter{Exercice}
 
 \refstepcounter{Exercice}

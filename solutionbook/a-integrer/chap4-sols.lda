@@ -1,34 +1,3 @@
-// ex3
-algorithme afficherComptageEtudiants(etudiants : liste d'Etudiants)
-	saveOption, saveBloc : chaine
-	cptEtudiantOption, cptEtudiantBloc, i : entier
-	i <- 0
-	tant que i < etudiants.taille() faire
-		saveOption <- etudiants.get(i).option
-		// initialisation pré-rupture 1
-		cptEtudiantOption <- 0
-		afficher saveOption
-		tant que i < etudiants.taille()
-					ET (etudiants.get(i)).option = saveOption faire
-			saveBloc <- etudiants.get(i).bloc
-			// initialisation pré-rupture 2
-			cptEtudiantBloc <- 0
-			tant que i < etudiants.taille()
-					ET etudiants.get(i).option = saveOption
-					ET etudiants.get(i).bloc = saveBloc faire
-				// traitement des éléments de la liste:
-				cptEtudiantBloc++
-				i++
-			fin tant que
-			// traitement post-rupture 2
-			cptEtudiantOption <- cptEtudiantOption + cptEtudiantBloc
-			afficher "    bloc " + saveBloc + " : " + cptEtudiantBloc + " étudiants"
-		fin tant que
-		// traitement post-rupture 1
-		afficher "    TOTAL  : " + saveOption + " étudiants"
-	fin tant que
-fin algorithme
-
 // ex 4
 algorithme club(membres : Liste de Participant) 
 	n : entier
