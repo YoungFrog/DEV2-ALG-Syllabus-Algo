@@ -451,6 +451,38 @@
 	le nombre total d'étudiants par option ?
 \end{Exercice}
 
+\begin{Solution}
+  \begin{algo}
+    \Algo{RuptureNiveau2}{\Par{etudiants}{liste d’ Etudiant}}{}{
+      \Comment{on suppose les données classées en majeur sur l’option}\;
+      \Comment{et en mineur sur la date de naissance (ordre chronologique)}\;
+      \Decl{etd}{Etudiant}\;
+      \Decl{saveOption}{chaine}\;
+      \Decl{saveAnnéeNaissance}{entier}\;
+      \Decl{cpt, cptOpt}{entier} \Comment{ICI}\;
+      \Decl{i}{entier}\;
+      \Assign{i}{0}\;
+      \While{i < etudiants.taille() }{
+        \Assign{saveOption}{etd.option}\;
+        \Assign{cptOpt}{0} \Comment{ICI}\;
+        \While{i < etudiants.taille() ET etudiants.get(i).option = saveOption }{
+          \Assign{saveAnnéeNaissance}{etudiants.get(i).dateNaissance.année}\;
+          \Assign{cpt}{0}\;
+          \While{i < etudiants.taille()
+             ET etudiants.get(i).option = saveOption
+             ET etudiants.get(i).dateNaissance.année = saveAnnéeNaissance}{
+            \Assign{cpt}{cpt + 1}\;
+            \Assign{cptOpt}{cptOpt + 1} \Comment{ICI}\;
+            \Assign{i}{i + 1}\;
+          }
+          \Write  cpt, " étudiant(s) dans l’option ", saveOption, " est(sont) né(s) en ", saveAnneeNaissance\;
+        }
+        \Write  cptOpt, " étudiant(s) dans l'option ", saveOption \Comment{ICI}\;
+      }
+    }
+\end{algo}
+\end{Solution}
+
 \begin{Exercice}{Compter les étudiants [rupture de niveau 2]}
 	
 	Supposons que la structure \lda{Etudiant} contienne également
