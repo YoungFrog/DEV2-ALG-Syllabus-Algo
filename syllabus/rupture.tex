@@ -414,6 +414,36 @@
 	valeur limite entrée en paramètre. 
 	Cette ligne contiendra le login et le nombre.
 \end{Exercice}
+\begin{Solution}
+  \begin{algo}
+    \Structure{Date}{
+      \Decl{année, mois, jour}{entiers}\;
+    }
+    \Structure{Job}{
+      \Decl{login}{chaîne}\;
+      \Decl{date}{Date}\;
+      \Decl{nombre}{entier}\;
+    }
+    \Algo{stopGaspi}{\Par{jobs}{Liste de Job}, \Par{limitePrn}{entier}}{}{
+      \Comment{jobs est triée en majeur sur le login}\;
+      \Decl{i}{entier}\;
+      \Decl{cptPrn}{entier}\;
+      \Decl{saveLogin}{chaîne}\;
+      \While{i < jobs.taille() }{
+        \Assign{cptPrn}{0}\;
+        \Assign{saveLogin}{jobs.get(i).login}\;
+        \While{i < jobs.taille() ET jobs.get(i).login = saveLogin }{
+          \Assign{cptPrn}{cptPrn + jobs.get(i).nombre}\;
+          \Assign{i}{i + 1}\;
+        }
+        \If{cptPrn > limitePrn }{
+          \Write  "Alerte : " + saveLogin + " " + cptPrn\;
+        }
+      }
+    }
+  \end{algo}
+\end{Solution}
+
 
 \begin{Exercice}{Compter le nombre d'étudiants par option}
 	Reprenons l'exemple donné pour la rupture de niveau 2 (\lda{RuptureNiveau2}, page \pageref{algo:rupt2}).
