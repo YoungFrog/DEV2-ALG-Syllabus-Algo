@@ -653,6 +653,44 @@
 	(simplifions on ne gérant pas les possibles ex-\ae{}quo).
 
 \end{Exercice}
+\begin{Solution}
+\begin{algo}
+  \Algo{club}{\Par{membres}{Liste de Participant}}{}{
+    \Decl{n}{entier}\;
+    \Decl{mineur}{booléen}\;
+    \Decl{saveNom, saveRef}{chaîne}\;
+    \Decl{accumRésultat, nbResultat}{entier}\;
+    \Decl{nbMineursTotal}{entier}\;
+    \Assign{n}{membres.taille()}\;
+    \Assign{i}{0}\;
+    \While{i < n }{
+      \Assign{saveRef}{membres.get(i).reference}\;
+      \Assign{nbMineursTotal}{0}\;
+      \Write  "Participations de mineurs du club " + saveRef\;
+      \While{i < n ET saveRef = membres.get(i).reference }{
+        \Assign{saveNom}{membres.get(i).nom}\;
+        \Assign{accumRésultat}{0}\;
+        \Assign{nbResultat}{0}\;
+        \Assign{mineur}{membres.get(i).age < 18}\;
+        \While{i < n ET saveNom = membres.get(i).nom }{
+          \Assign{accumRésultat}{accumRésultat + membres.get(i).resultat}\;
+          \Assign{nbResultat}{nbResultat + 1}\;
+          \Assign{i}{i + 1}\;
+        }
+        \If{mineur }{
+          \Assign{nbMineursTotal}{nbMineursTotal + 1}\;
+          \Write  saveNom + accumRésultat/nbResultat\;
+        }
+      }
+      \eIf{nbMineursTotal > 0 }{
+        \Write  "Nombre total de membres mineurs de ce club : " + nbMineursTotal\;
+      }{
+        \Write  "Pas de participations de mineurs pour ce club"\;
+      }
+    }
+  }
+\end{algo}
+\end{Solution}
 
 \begin{Exercice}{Éliminer les doublons d'une liste.}
 	Soit une liste ordonnée d'entiers avec des possibles redondances. 
