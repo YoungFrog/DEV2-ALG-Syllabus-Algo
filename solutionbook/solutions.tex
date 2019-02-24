@@ -187,9 +187,118 @@
 
 \refstepcounter{Exercice}
 
-\refstepcounter{Exercice}
+	\begin{Solution}
+		\begin{algo}
+			\Algo{tousPositifs}{\Par{tab}{\Array{n $\times$ m}{entiers}}}{booléen}{
+				\Decl{tousPositifs}{booléen}\;
+				\Decl{lg,col}{entiers}\;
+				tousPositifs \Gets true\;
+				lg \Gets 0\;
+				\While{lg<n ET tousPositifs}{
+					col \Gets 0\;
+					\While{col<m ET tousPositifs}{
+						tousPositifs \Gets tab[lg,col] > 0\;
+						col++\;
+					}
+					lg++\;
+				}
+				\Return tousPositifs\;
+			}
+		\end{algo}
+	\end{Solution}	
 
 \refstepcounter{Exercice}
+
+	\begin{Solution}
+		\begin{algo}
+			\Algo{lignePleine}{\Par{tab}{\Array{n $\times$ m}{entiers}}, \Par{lg}{integer}}{booléen}{
+				\Decl{lignePleine}{booléen}\;
+				\Decl{col}{entiers}\;
+				lignePleine \Gets true\;
+				col \Gets 0\;
+				\While{col<m ET lignePleine}{
+					lignePleine \Gets tab[lg,col] != 0\;
+					col++\;
+				}
+				\Return lignePleine\;
+			}
+		\end{algo}
+	\end{Solution}	
+
+\refstepcounter{Exercice}
+
+	\begin{Solution}
+		\begin{algo}
+			\Algo{estMagique}{\Par{carré}{\Array{n $\times$ n}{entiers}}}{booléen}{
+				\Decl{sommeDiagonale}{entier}\;
+				sommeDiagonale \Gets sommeDiagonale(carré)\;
+				\Return sommeDiagonaleInverse(carré)=sommeDiagonale\;
+				\Indp ET vérifierLignes(carré,sommeDiagonale) ET vérifierColonnes(carré,sommeDiagonale)
+			}
+			\BlankLine
+			\Algo{sommeDiagonale}{\Par{carré}{\Array{n $\times$ n}{entiers}}}{entier}{
+				\Decl{somme}{entier}\;
+				somme \Gets 0\;
+				\Fori{i}{0}{n-1}{
+					somme \Gets somme + carré[i,i]\;
+				}
+				\Return somme\;
+			}
+			\BlankLine
+			\Algo{sommeDiagonaleInverse}{\Par{carré}{\Array{n $\times$ n}{entiers}}}{entier}{
+				\Decl{somme,col}{entier}\;
+				somme \Gets 0\;
+				col \Gets n-1\;
+				\Fori{lg}{0}{n-1}{
+					somme \Gets somme + carré[lg,col]\;
+					col--;
+				}
+				\Return somme\;
+			}
+			\BlankLine
+			\Algo{sommeLigne}{\Par{carré}{\Array{n $\times$ n}{entiers}},\Par{lg}{entier}}{entier}{
+				\Decl{somme}{entier}\;
+				somme \Gets 0\;
+				\Fori{col}{0}{n-1}{
+					somme \Gets somme + carré[lg,col]\;
+				}
+				\Return somme\;
+			}
+			\BlankLine
+			\Algo{sommeColonne}{\Par{carré}{\Array{n $\times$ n}{entiers}},\Par{col}{entier}}{entier}{
+				\Decl{somme}{entier}\;
+				somme \Gets 0\;
+				\Fori{lg}{0}{n-1}{
+					somme \Gets somme + carré[lg,col]\;
+				}
+				\Return somme\;
+			}
+			\BlankLine
+			\Algo{vérifierLignes}{\Par{carré}{\Array{n $\times$ n}{entiers}},\Par{sommeRéférence}{entier}}{booléen}{
+				\Decl{sommeBonne}{booléen}
+				\Decl{lg}{entier}\;
+				sommeBonne \Gets true\;
+				lg \Gets 0\;
+				\While{lg<n ET sommeBonne}{
+					sommeBonne \Gets (sommeLigne(carré,lg)=sommeRéférence)\;
+					lg++\;
+				}
+				\Return sommeRéférence\;
+			}
+			\BlankLine
+			\Algo{vérifierColonnes}{\Par{carré}{\Array{n $\times$ n}{entiers}},\Par{sommeRéférence}{entier}}{booléen}{
+				\Decl{sommeBonne}{booléen}
+				\Decl{col}{entier}\;
+				sommeBonne \Gets true\;
+				col \Gets 0\;
+				\While{lg<m ET sommeBonne}{
+					sommeBonne \Gets (sommeColonne(carré,col)=sommeRéférence)\;
+					col++\;
+				}
+				\Return sommeRéférence\;
+			}
+		\end{algo}
+	\end{Solution}	
 
 \refstepcounter{Exercice}
 
