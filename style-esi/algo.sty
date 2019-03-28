@@ -31,7 +31,7 @@
 % asssymbol
 \newif\ifassegal\assegaltrue
 \DeclareOption{asssymbol}{\assegalfalse}
-\newcommand{\Gets}{\ifassegal{} = \else \ensuremath{\leftarrow} \fi}
+\newcommand{\Gets}{\ifassegal= \else\ensuremath{\leftarrow} \fi}
 % dev1
 \DeclareOption{dev1}{
   \PassOptionsToPackage{vlined}{algorithm2e}
@@ -126,7 +126,7 @@
 \SetKw{Constant}{constant}
 \newcommand{\Const}[2]{\Constant\ #1 = #2}
 \newcommand{\Decl}[2]{\algodecl{#1}{#2}}
-\newcommand{\Assign}[2]{#1\Gets{}#2}
+\newcommand{\Assign}[2]{#1 \Gets #2}
 \SetKw{Write}{print}
 \SetKw{Read}{read}
 \SetKw{Ask}{ask}
