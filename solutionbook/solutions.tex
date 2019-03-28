@@ -81,18 +81,32 @@
 	\begin{Solution}
 		\begin{algo}
 			\Algo{afficherLigneParLigne}{\Par{tab}{\Array{n $\times$ m}{T}}}{}{
-				\Fori{i}{0}{n-1}{
-					\Fori{j}{0}{m-1}{
-						\Write tab[i,j]\;
+				\Fori{lg}{0}{n-1}{
+					\Fori{col}{0}{m-1}{
+						\Write tab[lg,col]\;
 					}
 				}
 			}
 			\BlankLine
 			\Algo{afficherColonneParColonne}{\Par{tab}{\Array{n $\times$ m}{T}}}{}{
-				\Fori{j}{0}{m-1}{
-					\Fori{i}{0}{n-1}{
-						\Write tab[i,j]\;
+				\Fori{col}{0}{m-1}{
+					\Fori{lg}{0}{n-1}{
+						\Write tab[lg,col]\;
 					}
+				}
+			}
+		\end{algo}
+                Autre version, en ré-utilisant les algo déjà écrits :
+		\begin{algo}
+			\Algo{afficherLigneParLigne-v2}{\Par{tab}{\Array{n $\times$ m}{T}}}{}{
+				\Fori{lg}{0}{n-1}{
+                                  affichageElémentsLigne(tab, lg)\;
+				}
+			}
+			\BlankLine
+			\Algo{afficherColonneParColonne-v2}{\Par{tab}{\Array{n $\times$ m}{T}}}{}{
+				\Fori{col}{0}{m-1}{
+                                  affichageElémentsColonne(tab, col)
 				}
 			}
 		\end{algo}
@@ -101,23 +115,25 @@
 \refstepcounter{Exercice}
 
 	\begin{Solution}
+          Supposons d'abord que "adjacent" implique l'existence d'un bord (par opposition à "coin") en commun avec la case en paramètres. Il y a alors maximum quatre cases adjacentes, et on peut écrire :
 		\begin{algo}
 			\Algo{afficherCasesAdjacentes}
 				{\Par{tab}{\Array{n$\times$m}{entiers}}, \Par{lg, col}{entiers}}{}{
 				\lIf{NON estBordGauche(tab, lg, col)}{
-					\Write lg, col-1
+					\Write lg, col-1\;
 				}
 				\lIf{NON estBordDroit(tab, lg, col)}{
-					\Write lg, col+1
+					\Write lg, col+1\;
 				}
 				\lIf{NON estBordHaut(tab, lg, col)}{
-					\Write lg - 1, col
+					\Write lg - 1, col\;
 				}
 				\lIf{NON estBordBas(tab, lg, col)}{
-					\Write lg + 1, col
+					\Write lg + 1, col\;
 				}
 			}
 		\end{algo}
+                La version où "adjacent" veut dire "un bord ou un coin en commun" peut être écrite de façon similaire.
 	\end{Solution}
 
 \refstepcounter{Exercice}
@@ -199,12 +215,11 @@
 
 	\begin{Solution}
 		\begin{algo}
-                  \Algo{pinceauZebre}{\Par{tab\InOut}{tableau de n x n entiers}}{}{
+                  \Algo{pinceauZebre}{\Par{tab\InOut}{\Array{n $\times$ n}{entiers}}}{}{
                     \Assign{colDepart}{0}\;
                     \Fori[]{lg}{0}{n-1}{
                       \Fori[3]{col}{colDepart}{n-1}{
-                        \Assign{tab}{NOIR}\;
-
+                        \Assign{tab[lg,col]}{NOIR}\;
                       }
                       \eIf{colDepart > 0 }{
                         \Assign{colDepart}{colDepart - 1}\;
@@ -215,24 +230,21 @@
 
                     }
                   }
-                  \Algo{pinceauSpirale}{\Par{tab\InOut}{tableau de n x n entiers}}{}{
+                  \Algo{pinceauSpirale}{\Par{tab\InOut}{\Array{n $\times$ n}{entiers}}}{}{
                     \Assign{lg}{0}\;
                     \Assign{col}{0}\;
                     \Assign{dirLg}{0}\;
                     \Assign{dirCol}{1}\;
                     \Assign{fini}{faux}\;
-                    \While{NON fini }{
-                      \Assign{tab}{NOIR}\;
-                      \eIf{bord(lg,col,dirLg, dirCol) OU noircieDansDeuxCase(tab, lg,col,dirLg,dirCol) }{
+                    \While{NON fini}{
+                      \Assign{tab[lg,col]}{NOIR}\;
+                      \If{bord(lg,col,dirLg, dirCol) OU noircieDansDeuxCase(tab, lg,col,dirLg,dirCol) }{
                         tournerADroite(dirLg, dirCol)\;
-
-                      }{
                       }
                       avancer(lg, col, dirLg, dirCol)\;
-                      \eIf{caseNoireADroite(tab,lg,col,dirLg, dirCol) }{
+                      \If{caseNoireADroite(tab,lg,col,dirLg, dirCol) }{
                         \Assign{fini}{vrai}\;
 
-                      }{
                       }
                     }
                   }
@@ -240,14 +252,13 @@
                     \Assign{tmpLg}{lg}\;
                     \Assign{tmpCol}{col}\;
                     avancer(tmpLg, tmpCol, dirLg, dirCol)\;
-                    \Return  0 <= tmpCol ET tmpCol < n ET 0 <= tmpLg ET tmpLg < n
-                    \;
+                    \Return NON (0 <= tmpCol ET tmpCol < n ET 0 <= tmpLg ET tmpLg < n) \;
                   }
                   \Algo{noircieDansDeuxCase}{\Par{tab, lg, col, dirLg, dirCol}{entiers}}{booléen}{
                     \Assign{tmpLg}{lg}\;
                     \Assign{tmpCol}{col}\;
-                    avancer(tmpLg, tmpCol, dirLg, dirCol)\;
-                    \Return  tab[tmpLg, tmpCol] = NOIR
+                    avancer(tmpLg, tmpCol, 2*dirLg, 2*dirCol)\;
+                    \Return tab[tmpLg, tmpCol] == NOIR
                     \;
                   }
                 \end{algo}
@@ -417,31 +428,31 @@
     \Decl{n}{entier}\;
     \Decl{mineur}{booléen}\;
     \Decl{saveNom, saveRef}{chaîne}\;
-    \Decl{accumRésultat, nbResultat}{entier}\;
-    \Decl{nbMineursTotal}{entier}\;
+    \Decl{accumRésultat, nbResultats}{entier}\;
+    \Decl{nbMineursClub}{entier}\;
     \Assign{n}{membres.taille()}\;
     \Assign{i}{0}\;
     \While{i < n }{
       \Assign{saveRef}{membres.get(i).reference}\;
-      \Assign{nbMineursTotal}{0}\;
+      \Assign{nbMineursClub}{0}\;
       \Write  "Participations de mineurs du club " + saveRef\;
       \While{i < n ET saveRef = membres.get(i).reference }{
         \Assign{saveNom}{membres.get(i).nom}\;
         \Assign{accumRésultat}{0}\;
-        \Assign{nbResultat}{0}\;
+        \Assign{nbResultats}{0}\;
         \Assign{mineur}{membres.get(i).age < 18}\;
-        \While{i < n ET saveNom = membres.get(i).nom }{
+        \While{i < n ET saveRef = membres.get(i).reference ET saveNom = membres.get(i).nom }{
           \Assign{accumRésultat}{accumRésultat + membres.get(i).resultat}\;
-          \Assign{nbResultat}{nbResultat + 1}\;
+          \Assign{nbResultats}{nbResultats + 1}\;
           \Assign{i}{i + 1}\;
         }
         \If{mineur }{
-          \Assign{nbMineursTotal}{nbMineursTotal + 1}\;
-          \Write  saveNom + accumRésultat/nbResultat\;
+          \Assign{nbMineursClub}{nbMineursClub + 1}\;
+          \Write  saveNom + accumRésultat/nbResultats\;
         }
       }
-      \eIf{nbMineursTotal > 0 }{
-        \Write  "Nombre total de membres mineurs de ce club : " + nbMineursTotal\;
+      \eIf{nbMineursClub > 0 }{
+        \Write  "Nombre total de membres mineurs de ce club : " + nbMineursClub\;
       }{
         \Write  "Pas de participations de mineurs pour ce club"\;
       }
