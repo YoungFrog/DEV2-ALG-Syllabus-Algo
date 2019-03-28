@@ -27,11 +27,11 @@
 % typevar
 \newif\ifvartype\vartypetrue
 \DeclareOption{typevar}{\vartypefalse}
-\newcommand{\algodecl}[2]{\ifvartype{#1: #2}\else{#2\ #1}\fi} 
+\newcommand{\algodecl}[2]{\ifvartype{#1~: #2}\else{#2~#1}\fi} 
 % asssymbol
 \newif\ifassegal\assegaltrue
 \DeclareOption{asssymbol}{\assegalfalse}
-\newcommand{\Gets}{\ifassegal = \else \ensuremath{\leftarrow} \fi}
+\newcommand{\Gets}{\ifassegal{} = \else \ensuremath{\leftarrow} \fi}
 % dev1
 \DeclareOption{dev1}{
   \PassOptionsToPackage{vlined}{algorithm2e}
@@ -104,10 +104,10 @@
 \newcommand{\Algo}[4]{\Algorithm{\SignInternal{#1}{#2}{#3}}{#4}}
 
 \newcommand{\Par}[2]{\algodecl{#1}{#2}}
-\newcommand{\In}{\ensuremath{\;\downarrow\;}}
-\newcommand{\Out}{\ensuremath{\;\uparrow\;}}
-\newcommand{\InOut}{\ensuremath{\;\updownarrow\;}}
-\newcommand{\Ret}{\ \ensuremath{\rightarrow}\ }
+\newcommand{\In}{\ensuremath{\;\downarrow}}
+\newcommand{\Out}{\ensuremath{\;\uparrow}}
+\newcommand{\InOut}{\ensuremath{\;\updownarrow}}
+\newcommand{\Ret}{\ \ensuremath{\rightarrow}}
 %\renewcommand{\Return}{\KwSty{return}\ }
 
 \newcommand{\Sign}[4]{\KwSty{#1} \SignInternal{#2}{#3}{#4}}
