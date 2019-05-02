@@ -1,10 +1,11 @@
 ========================================================================
   Slides pour le cours d'Algorithmique (UE DEV2) au bloc 1 à l’ESI 
   (http://www.he2b.be/esi)
-  Contact : mcodutti@heb.be
+  Contact : mcodutti@he2b.be
 ========================================================================
 
-Pour produire le document : pdflatex dev2-alg-syllabus.tex 
+Pour produire le document : pdflatex dev2-alg-syllabus.tex
+(ou utiliser le Makefile)
 
 Pour les détails sur l'écriture de pseudo-code avec laTeX,
 cf. le cours d'Algorithmique en DEV1.
