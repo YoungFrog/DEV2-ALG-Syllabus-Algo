@@ -321,7 +321,7 @@
 				\Return totalSecondes < autreDurée.getTotalSecondes()
 			}
 		\end{algo}
-	
+
 	%=====================================
 	\subsection{Utilisation}
 	%=====================================
@@ -341,6 +341,15 @@
 				\Write durée2.différence(durée1)\;
 			}
 		\end{algo}
+
+	%=====================================
+	\subsection{Version Java}
+	%=====================================
+
+	Voici ce que ça pourrait donner en \bsc{Java} :
+	\listing*[linerange=1-46]{java}{java/src/main/java/dev2/algo/oo/Duree.java}
+	\listing*[linerange=48-119,firstnumber=48]{java}{java/src/main/java/dev2/algo/oo/Duree.java}
+	\listing*[linerange=121-190,firstnumber=121]{java}{java/src/main/java/dev2/algo/oo/Duree.java}
 
 %=====================================
 \section{Quelques éléments de syntaxe}
@@ -587,7 +596,7 @@
 						\eIf{dé = 6}{
 							lièvreArrivé \Gets vrai\;
 						}{
-							avancéeTortue \Gets avancéeTortue + 1\;
+							avancéeTortue++\;
 						}
 						\Write dé, avancéeTortue, lièvreArrivé\;
 					}
@@ -595,10 +604,13 @@
 					\eIf{lièvreArrivé}{
 						\Write "Le lièvre a gagné"\;
 					}{
-						\Write "Le tortue a gagné"\;
+						\Write "La tortue a gagné"\;
 					}
 				}
 			\end{algo}
+
+			En \bsc{Java} :
+			\listing*[basicstyle=\footnotesize\vtt]{java}{java/src/main/java/dev2/algo/oo/lievretortue/VersionNonOO.java}
 
 	\subsection{Solution orientée objet}
 	%=======================================
@@ -625,7 +637,7 @@
 						}
 						\;
 						\Method{avancer}{}{}{
-							avancée \Gets avancée + 1\;
+							avancée++\;
 						}
 						\;
 						\Method{estArrivée}{}{boolean}{
@@ -698,6 +710,7 @@
 
 		\end{description}
 
+		\newpage
 		\subsubsection*{L'algorithme du jeu}
 		%-----------------------------------
 		
@@ -731,7 +744,19 @@
 					}
 				}
 			\end{algo}
-			
+
+			\begin{infobox}
+				Cette solution OO est plus longue en terme de nombre de lignes
+				mais elle est \textbf{plus lisible} car la méthode principale
+				fait intervenir des termes qui sont proches du problème.
+			\end{infobox}
+
+			En \bsc{Java} :
+			\listing*[basicstyle=\footnotesize\vtt]{java}{java/src/main/java/dev2/algo/oo/lievretortue/Tortue.java}
+			\listing*[basicstyle=\footnotesize\vtt]{java}{java/src/main/java/dev2/algo/oo/lievretortue/Lievre.java}
+			\listing*[basicstyle=\footnotesize\vtt]{java}{java/src/main/java/dev2/algo/oo/lievretortue/De.java}
+			\listing*[basicstyle=\footnotesize\vtt]{java}{java/src/main/java/dev2/algo/oo/lievretortue/VersionOO.java}
+
 			Est-ce une bonne idée d'avoir défini ces trois classes ?
 			C'est une question qu'il est légitime de se poser
 			quand les classes sont aussi simples.
@@ -972,6 +997,7 @@
 			}
 		\end{algo}
 		
+		\newpage
 		\paragraph{Le contrôleur.}
 		%-------------------------
 		
@@ -990,4 +1016,14 @@
 			}
 		\end{algo}
 		
-		Remarquez la concision et la lisibilité de ce qu'on vient d'écrire.
+		\begin{infobox}
+		Remarquez la \textbf{concision} et la \textbf{lisibilité}
+		de ce qu'on vient d'écrire.
+		C'est quasiment ce qu'on avait écrit comme premier jet 
+		lorsqu'on a abordé ce problème au tout début.
+		\end{infobox}
+
+		En Java :
+		\listing*[basicstyle=\footnotesize\vtt]{java}{java/src/main/java/dev2/algo/oo/lievretortue/LievreTortue.java}
+		\listing*[basicstyle=\footnotesize\vtt]{java}{java/src/main/java/dev2/algo/oo/lievretortue/Vue.java}
+		\listing*[basicstyle=\footnotesize\vtt]{java}{java/src/main/java/dev2/algo/oo/lievretortue/JeuLievreTortue.java}
