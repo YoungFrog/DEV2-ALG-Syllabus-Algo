@@ -28,3 +28,6 @@
 *.ptc
 *~
 /java/target/
+.classpath
+.project
+.settings/

@@ -2,372 +2,376 @@
 \chapter{La liste}
 %=================
 
-	\marginicon{objectif}	
-	Imaginons que l’on désire manipuler par programme une liste de contacts ou
-	encore une liste de rendez-vous. Cette liste va varier ; sa taille
-	n’est donc pas fixée. Utiliser un tableau à cet effet n’est pas l’idéal. 
-	En effet, la taille d’un tableau ne peut plus changer une fois le tableau créé. 
-	Il faudrait le surdimensionner, ce qui n’est pas économe.
-	
-	Il serait intéressant de disposer d’une structure qui offre toutes les
-	facilités d’un tableau tout en pouvant «~grandir~» si nécessaire.
-	Construisons une telle structure de données et appelons-la «~List~»
-	pour rester en phase avec son appellation commune en Java.
-	
-	Par exemple, considérons une liste de courses.
-	On pourrait la représenter ainsi :
-	\begin{enumerate}
+\marginicon{objectif}
+Imaginons que l’on désire manipuler par programme une liste de contacts ou
+encore une liste de rendez-vous. Cette liste va varier ; sa taille
+n’est donc pas fixée. Utiliser un tableau à cet effet n’est pas l’idéal.
+En effet, la taille d’un tableau ne peut plus changer une fois le tableau créé.
+Il faudrait le surdimensionner, ce qui n’est pas économe.
+
+Il serait intéressant de disposer d’une structure qui offre toutes les
+facilités d’un tableau tout en pouvant «~grandir~» si nécessaire.
+Construisons une telle structure de données et appelons-la «~List~»
+pour rester en phase avec son appellation commune en Java.
+
+Par exemple, considérons une liste de courses.
+On pourrait la représenter ainsi :
+\begin{enumerate}
 	\item "fromage"
 	\item "pain"
 	\item "salami"
-	\end{enumerate}
-	
-	On pourrait ajouter un élément en fin de liste, par exemple de l'eau,
-	pour obtenir la liste :
-	
-	\begin{enumerate}
+\end{enumerate}
+
+On pourrait ajouter un élément en fin de liste, par exemple de l'eau,
+pour obtenir la liste :
+
+\begin{enumerate}
 	\item "fromage"
 	\item "pain"
 	\item "salami"
 	\item "eau"
-	\end{enumerate}
-	
-	On pourrait aussi supprimer un élément de la liste, par exemple le pain,
-	et obtenir :
-	
-	\begin{enumerate}
+\end{enumerate}
+
+On pourrait aussi supprimer un élément de la liste, par exemple le pain,
+et obtenir :
+
+\begin{enumerate}
 	\item "fromage"
 	\item "salami"
 	\item "eau"
-	\end{enumerate}
-	
-	On pourrait aussi insérer un élément dans la liste, 
-	par exemple une baguette, 
-	ce qui décale, de facto, la position des suivants.
-	
-	\begin{enumerate}
+\end{enumerate}
+
+On pourrait aussi insérer un élément dans la liste,
+par exemple une baguette,
+ce qui décale, de facto, la position des suivants.
+
+\begin{enumerate}
 	\item "fromage"
 	\item "salami"
 	\item "baguette"
 	\item "eau"
-	\end{enumerate}
-	
-	Et encore plein de choses que nous allons détailler.
+\end{enumerate}
+
+Et encore plein de choses que nous allons détailler.
 
 \newpage
-	%========================
-	\section{La classe List}
-	%=========================
-	
-		Intéressons-nous au comportement qu’on attend d'une liste,
-		c'est-à-dire les méthodes qu’elle doit fournir.
-		Ce comportement sera identique quel que soit le type des éléments
-		de la liste; une liste de chaines et une liste d'entiers
-		ne se distinguent que par le type de certains paramètres
-		et valeurs de retour.
-		Ici, nous indiquons \lda{T} pour indiquer un type quelconque;
-		vous pouvez le remplacer par ce qui vous convient : 
-		entier, chaine, Date\dots
-		
-		\begin{algo}
-			\Comment{T est un type quelconque}\;
-			\Class{\List{T}}{	
-%				\Private
-%					\Comment sera complété plus tard	\;
-				\Public{
-					\ConstrSign{\List{T}}{}			
-						\RComment{construit une liste vide}
-					\MethodSign{get}{pos : integer}{T}
-						\RComment{donne un élément en position pos}
-					\MethodSign{set}{pos : integer, valeur : T}{}
-						\RComment{modifie un élément en position pos}
-					\MethodSign{taille}{}{integer}
-						\RComment{donne le nombre actuel d’éléments}
-					\MethodSign{ajouter}{valeur : T}{}
-						\RComment{ajoute un élément en fin de liste}
-					\MethodSign{insérer}{pos : integer, valeur : T}{}
-						\RComment{insère un élément en position pos}
-					\MethodSign{supprimer}{}{}
-						\RComment{supprime le dernier élément}
-					\MethodSign{supprimerPos}{pos : integer}{}
-						\RComment{supprime l'élément en position pos}
-					\MethodSign{supprimer}{valeur : T}{boolean}
-						\RComment{supprime l'élément de valeur donnée}
-					\MethodSign{vider}{}{}
-						\RComment{vide la liste}
-					\MethodSign{estVide}{}{boolean}
-						\RComment{la liste est-elle vide ?}
-					\MethodSign{existe}{valeur \In : T, pos \Out : entier}{boolean}
-						\RComment{recherche un élément}
-				}
-			}
-		\end{algo}
-		
-		\bigskip
-		
-		Quelques précisions s’imposent :
-		\begin{itemize}
-			\item 
-				Les méthodes «\lda{~get~}» et «\lda{~set~}»
-				permettent de connaitre ou modifier un élément de la liste. On
-				considère, au cours d'algorithmique, que le premier élément de 
-				la liste est en position 0.
-			\item 
-				«\lda{~ajouter~}» ajoute un élément en fin de liste (elle
-				grandit donc d’une unité)
-			\item 
-				«\lda{~insérer~}» insère un élément à une position donnée
-				(entre 0 et taille-1). L’élément qui s’y trouvait est décalé
-				d'une position ainsi que tous les éléments suivants.
-			\item 
-				La méthode «\lda{~supprimerPos~}»
-				supprime un élément d'une position donnée en
-				décalant les éléments suivants. On pourrait imaginer une technique plus
-				rapide consistant à placer le dernier élément à la place de l’élément
-				supprimé mais ce faisant on changerait l’ordre relatif des éléments ce
-				qui va à l’encontre de l’idée intuitive qu’on se fait d’une liste.
-				Cette amélioration pourrait plutôt s’envisager dans une structure de
-				type \textbf{ensemble} pour lequel il n’y a pas d’ordre relatif entre
-				les éléments.
-			\item 
-				La version de «\lda{~supprimer~}» avec une valeur en
-				paramètre enlève un élément de valeur donnée. Elle retourne un booléen
-				indiquant si la suppression a pu se faire ou pas (ce qui sera le cas si
-				la valeur n’est pas présente dans la liste). Si la valeur existe en
-				plusieurs exemplaires, on prendra la convention arbitraire que
-				la méthode n’en supprime que la première	occurrence.
-			\item 
-				La méthode «\lda{~existe~}» permet de savoir si un élément
-				donné existe dans la liste. 
-				\begin{itemize}
-					\item 
-						si c’est le cas, elle précise aussi sa position dans le paramètre sortant 
-						\lda{pos}
-					\item 
-						si l’élément n’existe pas, ce paramètre est	indéterminé 
-					\item 
-						si l’élément est présent en plusieurs exemplaires, la méthode donne la
-						position de la première occurrence.
-				\end{itemize}
-			\item 
-				En pratique, il serait intéressant de chercher un élément à partir d’une
-				partie de l’information qu’elle contient mais c’est difficile à
-				exprimer de façon générique c'est-à-dire lorsque le
-				type n'est pas connu à priori.
-		\end{itemize}
-		
+%========================
+\section{La classe List}
+%=========================
+
+Intéressons-nous au comportement qu’on attend d'une liste,
+c'est-à-dire les méthodes qu’elle doit fournir.
+Ce comportement sera identique quel que soit le type des éléments
+de la liste; une liste de chaines et une liste d'entiers
+ne se distinguent que par le type de certains paramètres
+et valeurs de retour.
+Ici, nous indiquons \lda{T} pour indiquer un type quelconque;
+vous pouvez le remplacer par ce qui vous convient :
+entier, chaine, Date\dots
+
+Inspirons-nous de ce qui existe en \bsc{Java}.
+
+\begin{algo}
+	\Comment{T est un type quelconque}\;
+	\Class{\List{T}}{
+		\Public{
+			\ConstrSign{\List{T}}{}
+			\RComment{construit une liste vide}
+			\MethodSign{get}{pos : integer}{T}
+			\RComment{donne un élément en position pos}
+			\MethodSign{set}{pos : integer, valeur : T}{}
+			\RComment{modifie un élément en position pos}
+			\MethodSign{size}{}{integer}
+			\RComment{donne le nombre actuel d’éléments}
+			\MethodSign{isEmpty}{}{boolean}
+			\RComment{la liste est-elle vide ?}
+			\MethodSign{add}{value : T}{}
+			\RComment{ajoute un élément en fin de liste}
+			\MethodSign{add}{pos : integer, value : T}{}
+			\RComment{insère un élément en position pos}
+			\MethodSign{removePos}{pos : integer}{}
+			\RComment{supprime l'élément en position pos}
+			\MethodSign{remove}{value : T}{boolean}
+			\RComment{supprime l'élément de valeur donnée}
+			\MethodSign{clear}{}{}
+			\RComment{vide la liste}
+			\MethodSign{contains}{value : T}{boolean}
+			\RComment{indique si un élément est présent}
+			\MethodSign{indexOf}{value : T}{integer}
+			\RComment{donne la position d'un élément}
+		}
+	}
+\end{algo}
+
+Quelques précisions s’imposent :
+\begin{itemize}
+	\item
+	      \lda{get(pos)} et \lda{set(pos,value)}
+	      permettent de connaitre ou modifier un élément de la liste.
+	      Comme pour les tableaux, le premier élément de la liste est en position 0.
+	\item
+	      \lda{add(value)}
+	      ajoute un élément en fin de liste.
+	      Elle grandit donc d’une unité.
+	\item
+	      \lda{add(pos,value)}
+	      insère un élément à une position donnée (entre 0 et taille-1).
+	      L’élément qui s’y trouvait est décalé d'une position
+	      ainsi que tous les éléments suivants.
+	\item
+	      \lda{remove(value)}
+	      enlève un élément de valeur donnée.
+	      Elle retourne un booléen indiquant si la suppression a pu se faire ou pas
+	      (si la valeur était présente ou pas).
+	      Si la valeur existe en plusieurs exemplaires,
+	      la méthode n’en supprime que la première	occurrence.
+	\item
+	      \lda{removePos(pos)}
+	      supprime un élément d'une position donnée en décalant les éléments suivants.
+	      Nous avons changé le nom de la version \bsc{Java} qui l'appelle
+	      \samp{remove} pour ne pas confondre avec la précédente
+	      dans le cas d'une liste d'entiers.
+	\item
+	      \lda{contains(value)}
+	      permet de savoir si un élément donné existe dans la liste.
+	\item
+	      \lda{indexOf(value)}
+	      donne la position d'un élément dans la liste.
+	      \begin{itemize}
+		      \item
+		            si l’élément n’existe pas, elle retourne $-1$.
+		      \item
+		            si l’élément est présent en plusieurs exemplaires,
+		            la méthode donne la position de la première occurrence.
+	      \end{itemize}
+	\item
+	      En pratique, il serait intéressant de chercher un élément à partir d’une
+	      partie de l’information qu’elle contient mais c’est difficile à
+	      exprimer de façon générique c'est-à-dire lorsque le
+		  type n'est pas connu à priori.
+	\item 
+		  Il existe encore plus de méthodes en \bsc{Java}.
+		  Nous vous invitons à consulter la documentation :
+		  \url{https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/util/List.html}
+\end{itemize}
+
 \clearpage
 
-		{\sffamily\bfseries\scshape
-		Exemple : manipulations de base}
-		%-------------------------------
-		
-		Soit l'algorithme suivant :
-		
-		\begin{algo}
-			\Algo{ex1}{}{}{
-				\Decl{liste}{\List{integers}}\;
-				liste \Gets \New \List{integers}()\;
-				liste.ajouter(42)\;
-				liste.ajouter(54)\;
-				liste.set(1,44)\;
-				liste.insérer(1,43)\;
-				liste.supprimerPos(2)\;
-				liste.supprimer(42)\;
-				liste.vider\;
-			}
-		\end{algo}
-		
-		Après sa création, la liste est vide.
-		Ensuite, elle passe par les états suivants :
-		
-		\begin{minipage}[t]{2cm}
-		\begin{enumerate}[start=0]
+{\sffamily\bfseries\scshape
+	Exemple : manipulations de base}
+%-------------------------------
+
+Soit l'algorithme suivant :
+
+\begin{algo}
+	\Algo{ex1}{}{}{
+		\Decl{liste}{\List{integers}}\;
+		liste \Gets \New \List{integers}()\;
+		liste.add(42)\;
+		liste.add(54)\;
+		liste.set(1,44)\;
+		liste.add(1,43)\;
+		liste.removePos(2)\;
+		liste.remove(42)\;
+		liste.clear()\;
+	}
+\end{algo}
+
+Après sa création, la liste est vide.
+Ensuite, elle passe par les états suivants :
+
+\begin{minipage}[t]{2cm}
+	\begin{enumerate}[start=0]
 		\item 42
-		\end{enumerate}
-		\end{minipage}
-		\begin{minipage}[t]{2cm}
-		\begin{enumerate}[start=0]
+	\end{enumerate}
+\end{minipage}
+\begin{minipage}[t]{2cm}
+	\begin{enumerate}[start=0]
 		\item 42
 		\item 54
-		\end{enumerate}
-		\end{minipage}
-		\begin{minipage}[t]{2cm}
-		\begin{enumerate}[start=0]
+	\end{enumerate}
+\end{minipage}
+\begin{minipage}[t]{2cm}
+	\begin{enumerate}[start=0]
 		\item 42
 		\item 44
-		\end{enumerate}
-		\end{minipage}
-		\begin{minipage}[t]{2cm}
-		\begin{enumerate}[start=0]
+	\end{enumerate}
+\end{minipage}
+\begin{minipage}[t]{2cm}
+	\begin{enumerate}[start=0]
 		\item 42
 		\item 43
 		\item 44
-		\end{enumerate}
-		\end{minipage}
-		\begin{minipage}[t]{2cm}
-		\begin{enumerate}[start=0]
+	\end{enumerate}
+\end{minipage}
+\begin{minipage}[t]{2cm}
+	\begin{enumerate}[start=0]
 		\item 42
 		\item 43
-		\end{enumerate}
-		\end{minipage}
-		\begin{minipage}[t]{2cm}
-		\begin{enumerate}[start=0]
+	\end{enumerate}
+\end{minipage}
+\begin{minipage}[t]{2cm}
+	\begin{enumerate}[start=0]
 		\item 43
-		\end{enumerate}
-		\end{minipage}
-		
-		Enfin, le dernier appel la vide complètement
+	\end{enumerate}
+\end{minipage}
 
-		\bigskip
-		{\sffamily\bfseries\scshape
-			Exemple : afficher une liste}
-		%-------------------------------
-		
-		Écrivons l'algorithme qui affiche tous les éléments d'une liste,
-		reçue en paramètre.
+Enfin, le dernier appel la vide complètement
 
-		\begin{algo}
-			\Algo{afficher}{\Par{liste}{\List{integers}}}{}{
-				\Fori{i}{0}{liste.taille()-1}{
-					\Write liste.get(i)\;
-				}
+\bigskip
+{\sffamily\bfseries\scshape
+	Exemple : afficher une liste}
+%-------------------------------
+
+Écrivons l'algorithme qui affiche tous les éléments d'une liste,
+reçue en paramètre.
+
+\begin{algo}
+	\Algo{afficher}{\Par{liste}{\List{integers}}}{}{
+		\Fori{i}{0}{liste.taille()-1}{
+			\Write liste.get(i)\;
+		}
+	}
+\end{algo}
+
+\bigskip
+{\sffamily\bfseries\scshape
+	Exemple : recherche du minimum}
+%-------------------------------
+
+Dans le chapitre sur les tableaux, vous avez fait un exercice consistant
+à afficher tous les indices où se trouve le minimum d’un tableau.
+Reprenons-le et modifions-le afin qu’il retourne la liste des indices
+où se trouvent les différentes occurrences du minimum. On pourrait
+l’écrire ainsi :
+
+\begin{algo}
+	\Algo{indicesMinimum}{\Par{tab}{\Array{n}{integers}}}{\List{integers}}{
+		\Decl{min}{integer}\;
+		\Decl{indicesMin}{List of integers}\;
+		min \Gets tab[0]\;
+		indicesMin \Gets \New \List{integers}()\;
+		indicesMin.ajouter(0)\;
+		\Fori{i}{1}{n-1}{
+			\uIf{tab[i] = min}{
+				indicesMin.ajouter(i)\;
+			}\ElseIf{tab[i] < min}{
+				indicesMin.vider() \;
+				indicesMin.ajouter(i)\;
+				min \Gets tab[i]\;
 			}
-		\end{algo}
-		
-		\bigskip
-		{\sffamily\bfseries\scshape
-		Exemple : recherche du minimum}
-		%-------------------------------
-		
-		Dans le chapitre sur les tableaux, vous avez fait un exercice consistant
-		à afficher tous les indices où se trouve le minimum d’un tableau.
-		Reprenons-le et modifions-le afin qu’il retourne la liste des indices
-		où se trouvent les différentes occurrences du minimum. On pourrait
-		l’écrire ainsi :
-		
-		\begin{algo}
-			\Algo{indicesMinimum}{\Par{tab}{\Array{n}{integers}}}{\List{integers}}{
-				\Decl{min}{integer}\;
-				\Decl{indicesMin}{List of integers}\;
-				 min \Gets tab[0]\;
-				 indicesMin \Gets \New \List{integers}()\;
-				 indicesMin.ajouter( 0 )\;
-				\Fori{i}{1}{n-1}{
-					\uIf{tab[i] = min}{
-						 indicesMin.ajouter( i )\;
-					}\ElseIf{tab[i] < min}{
-						 indicesMin.vider() \;
-						 indicesMin.ajouter( i )\;
-						 min \Gets tab[i]\;
-					} 
-					\Comment{rien à faire si tab[i] > min}\;
-				}
-				\Return indicesMin\;
-			}
-		\end{algo}
-	
-	%==================
-	\section{Exercices}
-	%===================
-	
-		\begin{Exercice}{Manipulation d'une liste}
-			Écrire un algorithme qui crée la liste suivante :
-			\begin{enumerate}[start=0]
-			\item 494
-			\item 209
-			\item 425
-			\end{enumerate}
-			affiche sa taille, demande si la valeur 425 est présente, 
-			supprime la valeur 209 puis insère la valeur 101 en tête de liste.
-		\end{Exercice}
-		
-		\begin{Exercice}{Liste des premiers entiers}
-			Écrire un algorithme qui reçoit un entier $n$ en paramètre et retourne la
-			liste contenant les entiers de 1 à $n$ dans l'ordre
-			décroissant. On peut supposer que $n$ est strictement positif.
-		\end{Exercice}
-			
-		\begin{Exercice}{Somme d'une liste}
-			\marginicon{java}%
-			Écrire un algorithme qui calcule la somme des éléments d’une liste
-			d’entiers.
-		\end{Exercice}
-		
-		\begin{Exercice}{Anniversaires}
-			Écrire un algorithme qui reçoit une liste de structure Personne 
-			(nom + prénom + date de naissance) et retourne la liste
-			de ceux qui sont nés durant un mois passé en paramètre 
-			(donné sous la forme d'un entier entre 1 et 12).
-		\end{Exercice}
-			
-		\begin{Exercice}{Concaténation de deux listes}
-			\marginicon{java}%
-			Écrire un algorithme qui reçoit 2 listes et ajoute
-			à la suite de la première les éléments de la seconde; la seconde liste
-			n'est pas modifiée par cette opération.
-		\end{Exercice}
-		
-		\begin{Exercice}{Le nettoyage}
-			Écrire un algorithme qui reçoit une liste de chaines en paramètre et
-			supprime de cette liste tous les éléments de valeur donnée en
-			paramètre. L'algorithme retournera le nombre de
-			suppressions effectuées.
-		\end{Exercice}
+			\Comment{rien à faire si tab[i] > min}\;
+		}
+		\Return indicesMin\;
+	}
+\end{algo}
 
-		\begin{Exercice}{Les extrêmes}
-			\marginicon{java}
-			Écrire un algorithme qui supprime le minimum et le maximum des éléments
-			d’une liste d’entiers. On peut supposer que le maximum et le minimum
-			sont uniques.
-		\end{Exercice}
-				
-		\begin{Exercice}{Fusion de deux listes}
-			\marginicon{java}%
-			Soit deux listes \textbf{triées}
-			d'entiers (redondances possibles). Écrire un algorithme
-			qui les fusionne. Le résultat est une liste encore triée contenant
-			tous les entiers des deux listes de départ (qu'on
-			laisse inchangées).
-			
-			Exemple : Si les 2 listes sont (1, 3, 7, 7) et (3, 9), 
-			le résultat est (1, 3, 3, 7, 7, 9).
-		\end{Exercice}
-		
-		\begin{Exercice}{Éliminer les doublons d'une liste}
-			\marginicon{java}%
-			Soit une liste \textbf{triée} 
-			d'entiers avec de possibles redondances. Écrire un
-			algorithme qui enlève les redondances de la liste.
-					
-			Exemple : Si la liste est (1, 3, 3, 7, 8, 8, 8),
-			le résultat est (1, 3, 7, 8).
-	
-			\begin{enumerate}[label=\alph*)]
-				\item 
-					Faites l'exercice en créant une \textbf{nouvelle
-					liste} (la liste de départ reste inchangée)
-				\item 
-					Refaites l'exercice en \textbf{modifiant}
-					la liste de départ (pas de nouvelle liste)
-			\end{enumerate}
-		\end{Exercice}
-				
-		\begin{Exercice}{Rendez-vous}
-			Soit la structure \lda{RendezVous} composée 
-			d’une date (cf. la structure Date du cours de DEV1)
-			et d’un motif de rencontre. 
-			
-			\begin{algo}
-				\Structure{RendezVous}{
-					\Decl{date}{Date}\;
-					\Decl{motif}{string}\;
-				}
-			\end{algo}
+\newpage
+En \bsc{Java} ça donne :
+\listing*[linerange=8-24]{java}{java/src/main/java/dev2/algo/liste/IndiceMin.java}
 
-			Écrire un algorithme qui reçoit une liste de rendez-vous 
-			et la met à jour en supprimant tous ceux qui sont désormais passés. 			
-			
-			Pour résoudre cet exercice, vous pouvez utiliser sans l'écrire
-			un algorithme \lda{aujourdhui()} qui retourne la date du jour.
-		\end{Exercice}
+%==================
+\section{Exercices}
+%===================
+
+\begin{Exercice}{Manipulation d'une liste}
+	Écrire un algorithme qui crée la liste suivante :
+	\begin{enumerate}[start=0]
+		\item 494
+		\item 209
+		\item 425
+	\end{enumerate}
+	affiche sa taille, demande si la valeur 425 est présente,
+	supprime la valeur 209 puis insère la valeur 101 en tête de liste.
+\end{Exercice}
+
+\begin{Exercice}{Liste des premiers entiers}
+	Écrire un algorithme qui reçoit un entier $n$ en paramètre et retourne la
+	liste contenant les entiers de 1 à $n$ dans l'ordre
+	décroissant. On peut supposer que $n$ est strictement positif.
+\end{Exercice}
+
+\begin{Exercice}{Somme d'une liste}
+	\marginicon{java}%
+	Écrire un algorithme qui calcule la somme des éléments d’une liste
+	d’entiers.
+\end{Exercice}
+
+\begin{Exercice}{Anniversaires}
+	Écrire un algorithme qui reçoit une liste de structure Personne
+	(nom + prénom + date de naissance) et retourne la liste
+	de ceux qui sont nés durant un mois passé en paramètre
+	(donné sous la forme d'un entier entre 1 et 12).
+\end{Exercice}
+
+\begin{Exercice}{Concaténation de deux listes}
+	\marginicon{java}%
+	Écrire un algorithme qui reçoit 2 listes et ajoute
+	à la suite de la première les éléments de la seconde; la seconde liste
+	n'est pas modifiée par cette opération.
+\end{Exercice}
+
+\begin{Exercice}{Le nettoyage}
+	Écrire un algorithme qui reçoit une liste de chaines en paramètre et
+	supprime de cette liste tous les éléments de valeur donnée en
+	paramètre. L'algorithme retournera le nombre de
+	suppressions effectuées.
+\end{Exercice}
+
+\newpage
+\begin{Exercice}{Les extrêmes}
+	\marginicon{java}%
+	Écrire un algorithme qui supprime le minimum et le maximum des éléments
+	d’une liste d’entiers. On peut supposer que le maximum et le minimum
+	sont uniques.
+\end{Exercice}
+
+\begin{Exercice}{Fusion de deux listes}
+	\marginicon{java}%
+	Soit deux listes \textbf{triées}
+	d'entiers (redondances possibles). Écrire un algorithme
+	qui les fusionne. Le résultat est une liste encore triée contenant
+	tous les entiers des deux listes de départ (qu'on
+	laisse inchangées).
+
+	Exemple : Si les 2 listes sont (1, 3, 7, 7) et (3, 9),
+	le résultat est (1, 3, 3, 7, 7, 9).
+\end{Exercice}
+
+\begin{Exercice}{Éliminer les doublons d'une liste}
+	\marginicon{java}%
+	Soit une liste \textbf{triée}
+	d'entiers avec de possibles redondances. Écrire un
+	algorithme qui enlève les redondances de la liste.
+
+	Exemple : Si la liste est (1, 3, 3, 7, 8, 8, 8),
+	le résultat est (1, 3, 7, 8).
+
+	\begin{enumerate}[label=\alph*)]
+		\item
+		      Faites l'exercice en créant une \textbf{nouvelle
+			      liste} (la liste de départ reste inchangée)
+		\item
+		      Refaites l'exercice en \textbf{modifiant}
+		      la liste de départ (pas de nouvelle liste)
+	\end{enumerate}
+\end{Exercice}
+
+\begin{Exercice}{Rendez-vous}
+	Soit la structure \lda{RendezVous} composée
+	d’une date (cf. la structure Date du cours de DEV1)
+	et d’un motif de rencontre.
+
+	\begin{algo}
+		\Structure{RendezVous}{
+			\Decl{date}{Date}\;
+			\Decl{motif}{string}\;
+		}
+	\end{algo}
+
+	Écrire un algorithme qui reçoit une liste de rendez-vous
+	et la met à jour en supprimant tous ceux qui sont désormais passés.
+
+	Pour résoudre cet exercice, vous pouvez utiliser sans l'écrire
+	un algorithme \lda{aujourdhui()} qui retourne la date du jour.
+\end{Exercice}

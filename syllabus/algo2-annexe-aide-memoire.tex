@@ -101,34 +101,34 @@
 \section*{La liste}
 %===================================================
 	
-	\begin{algo}
-		\Comment{T est un type quelconque}\;
-		\Class{\List{T}}{	
-			\Public{
-				\ConstrSign{\List{T}}{}			
-					\RComment{construit une liste vide}
-				\MethodSign{get}{pos : integer}{T}
-					\RComment{donne un élément en position pos}
-				\MethodSign{set}{pos : integer, valeur : T}{}
-					\RComment{modifie un élément en position pos}
-				\MethodSign{taille}{}{integer}
-					\RComment{donne le nombre actuel d’éléments}
-				\MethodSign{ajouter}{valeur : T}{}
-					\RComment{ajoute un élément en fin de liste}
-				\MethodSign{insérer}{pos : integer, valeur : T}{}
-					\RComment{insère un élément en position pos}
-				\MethodSign{supprimer}{}{}
-					\RComment{supprime le dernier élément}
-				\MethodSign{supprimerPos}{pos : integer}{}
-					\RComment{supprime l'élément en position pos}
-				\MethodSign{supprimer}{valeur : T}{boolean}
-					\RComment{supprime l'élément de valeur donnée}
-				\MethodSign{vider}{}{}
-					\RComment{vide la liste}
-				\MethodSign{estVide}{}{boolean}
-					\RComment{la liste est-elle vide ?}
-				\MethodSign{existe}{valeur \In : T, pos \Out : entier}{boolean}
-					\RComment{recherche un élément}
-			}
+\begin{algo}
+	\Comment{T est un type quelconque}\;
+	\Class{\List{T}}{
+		\Public{
+			\ConstrSign{\List{T}}{}
+			\RComment{construit une liste vide}
+			\MethodSign{get}{pos : integer}{T}
+			\RComment{donne un élément en position pos}
+			\MethodSign{set}{pos : integer, valeur : T}{}
+			\RComment{modifie un élément en position pos}
+			\MethodSign{size}{}{integer}
+			\RComment{donne le nombre actuel d’éléments}
+			\MethodSign{isEmpty}{}{boolean}
+			\RComment{la liste est-elle vide ?}
+			\MethodSign{add}{value : T}{}
+			\RComment{ajoute un élément en fin de liste}
+			\MethodSign{add}{pos : integer, value : T}{}
+			\RComment{insère un élément en position pos}
+			\MethodSign{removePos}{pos : integer}{}
+			\RComment{supprime l'élément en position pos}
+			\MethodSign{remove}{value : T}{boolean}
+			\RComment{supprime l'élément de valeur donnée}
+			\MethodSign{clear}{}{}
+			\RComment{vide la liste}
+			\MethodSign{contains}{value : T}{boolean}
+			\RComment{indique si un élément est présent}
+			\MethodSign{indexOf}{value : T}{integer}
+			\RComment{donne la position d'un élément}
 		}
-	\end{algo}
+	}
+\end{algo}
