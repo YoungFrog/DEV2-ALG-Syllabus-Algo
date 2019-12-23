@@ -220,6 +220,10 @@
 		}
 		\end{algo}
 	
+		\newpage
+		La version \bsc{Java} :
+		\listing*[linerange=11-18]{java}{java/src/main/java/dev2/algo/tab/Exemple1.java}
+		
 		\paragraph{Exemple 2 -- Gestion des stocks.}
 		Reprenons l'exemple du stock de 10 produits
 		qui a servi d'introduction au chapitre sur les tableaux
@@ -252,7 +256,8 @@
 		\Algo{statistiquesVentesSemaine}{}{}{
 			\Decl{cpt}{\Array{7$\times$10}{integers}}\;
 			initialiser(cpt)\;
-			\Fori{jour}{0}{6\hfill\Comment{Pour chaque jour de la semaine}}{ 
+			\Fori{jour}{0}{6\hfill\Comment{Pour chaque jour de la semaine}}{
+				\Write "jour: ", jour
 				traiterStock1Jour(cpt, jour)\;
 				\Fori{produit}{0}{9}{
 					\Write "quantité vendue de produit ", produit, 
@@ -286,6 +291,10 @@
 		}
 		\end{algo}
 	
+		\newpage
+		En \bsc{Java} :
+		\listing*[linerange=11-37]{java}{java/src/main/java/dev2/algo/tab/Exemple2.java}
+
 	\subsection{Exercices}
 			
 		\begin{Exercice}{Case nulle ?}
@@ -429,7 +438,12 @@
 	envisageons le parcours des tableaux à deux dimensions 
 	($n$ lignes et $m$ colonnes).
 	Nos algorithmes sont valables quel que soit le type des éléments.
-	Utilisons \lda{T} pour désigner un type quelconque.
+	Utilisons \lda{T}%
+	\footnote{%
+		Nos versions \bsc{Java} seront écrits avec des tableau d'entiers.
+		Il est possible de les écrire avec un type \emph{générique} \lda{T}
+		mais ça requiert des notions avancées de \bsc{Java}.
+	} pour désigner un type quelconque.
 	
 	\begin{algo}
 		\Decl{tab}{\Array{n $\times$ m}{T}}\;
@@ -442,6 +456,11 @@
 	\subsection{Parcours d'une dimension}
 	%====================================
 	
+		Certains parcours ne visitent qu'une partie du tableau
+		et ne nécessitent qu'une seule boucle.
+		Examinons quelques cas.
+
+		\paragraph{Une ligne.}
 		On peut vouloir ne parcourir qu'une seule ligne du tableau.
 		Si on parcourt la ligne $l$, on visite les cases 
 		$(l,0)$, $(l,1)$, \dots, $(l,m-1)$.
@@ -461,34 +480,65 @@
 		\end{center}
 		
 		Ce qui donne l'algorithme :
-		
+
 		\begin{algo}
-			\Comment{Parcours de la ligne $ligne$ d'un tableau à deux dimensions}\;
-			\Algo{affichageElémentsLigne}{%
-                          \Par{tab}{\Array{n $\times$ m}{T}},%
-                          \Par{ligne}{integer}}{}
+			\Comment{Parcours de la ligne $lg$ d'un tableau à deux dimensions}\;
+			\Algo{afficherLigne}{%
+                          \Par{tab}{\Array{n $\times$ m}{T}},
+                          \Par{lg}{integer}}{}
                         {
-				\Fori{colonne}{0}{m-1}{
-					\Write tab[ligne,colonne] \RComment{On peut faire autre chose qu'afficher}
+				\ForAll{col : numéro de colonne}{
+					\Write tab[ lg, col ] \RComment{On peut faire autre chose qu'afficher}
 				}
 			}
 		\end{algo}
 
-		Retenons~: pour parcourir une ligne, on utilise une boucle sur les colonnes. 
-		
+		% \begin{algo}
+		% 	\Comment{Parcours de la ligne $ligne$ d'un tableau à deux dimensions}\;
+		% 	\Algo{afficherLigne}{%
+        %                   \Par{tab}{\Array{n $\times$ m}{T}},
+        %                   \Par{ligne}{integer}}{}
+        %                 {
+		% 		\Fori{colonne}{0}{m-1}{
+		% 			\Write tab[ligne,colonne] \RComment{On peut faire autre chose qu'afficher}
+		% 		}
+		% 	}
+		% \end{algo}
+
+		\listing*[linerange=9-13]{java}{java/src/main/java/dev2/algo/tab/Parcours1D.java}
+
+		\medskip
+		\begin{infotbox}{Retenons}
+			Pour parcourir une ligne, on utilise une boucle sur les colonnes. 
+		\end{infotbox}
+
+		\paragraph{Une colonne.}
 		Symétriquement, on pourrait considérer le parcours d'une colonne
 		avec l'algorithme suivant.
 		
 		\begin{algo}
-			\Comment{Parcours de la colonne $colonne$ d'un tableau à deux dimensions}\;
-			\Algo{affichageElémentsColonne}{\Par{tab}{\Array{n $\times$ m}{T}}, 
-				\Par{colonne}{integer}}{}{
-				\Fori{ligne}{0}{n-1}{
-					\Write tab[ligne,colonne] \RComment{On peut faire autre chose qu'afficher}
+			\Comment{Parcours de la colonne $col$ d'un tableau à deux dimensions}\;
+			\Algo{afficherColonne}{\Par{tab}{\Array{n $\times$ m}{T}}, 
+				\Par{col}{integer}}{}{
+				\ForAll{lg : numéro de ligne}{
+					\Write tab[ lg, col ] \RComment{On peut faire autre chose qu'afficher}
 				}
 			}
 		\end{algo}
-		
+
+		% \begin{algo}
+		% 	\Comment{Parcours de la colonne $colonne$ d'un tableau à deux dimensions}\;
+		% 	\Algo{afficherColonne}{\Par{tab}{\Array{n $\times$ m}{T}}, 
+		% 		\Par{colonne}{integer}}{}{
+		% 		\Fori{ligne}{0}{n-1}{
+		% 			\Write tab[ligne,colonne] \RComment{On peut faire autre chose qu'afficher}
+		% 		}
+		% 	}
+		% \end{algo}
+
+		\listing*[linerange=15-19]{java}{java/src/main/java/dev2/algo/tab/Parcours1D.java}
+
+		\paragraph{La diagonale descendante.}
 		Si le tableau est carré ($n=m$) on peut aussi envisager le parcours
 		des deux diagonales.
 		
@@ -512,17 +562,21 @@
 		
 		\begin{algo}
 			\Comment{Parcours de la diagonale descendante d'un tableau carré}\;
-			\Algo{affichageElémentsDiagonaleDescendante}{\Par{tab}{\Array{n $\times$ n}{T}}}{}{
+			\Algo{afficherDiagonaleDescendante}{\Par{tab}{\Array{n $\times$ n}{T}}}{}{
 				\Fori{i}{0}{n-1}{
 					\Write tab[i,i] \RComment{On peut faire autre chose qu'afficher}
 				}
 			}
 		\end{algo}
-		
+
+		\listing*[linerange=21-25]{java}{java/src/main/java/dev2/algo/tab/Parcours1D.java}
+
+		\paragraph{La diagonale montante.}
 		Pour la diagonale montante, 
 		on peut envisager deux solutions, 
 		avec deux indices ou un seul
-		en se basant sur le fait que $i+j=n-1 \Rightarrow j=n-1-i$.
+		en se basant sur le fait que 
+		$\mathit{lg}+\mathit{col}=n-1 \Rightarrow \mathit{col}=n-1-\mathit{lg}$.
 		
 		\begin{center}
 		\begin{tabular}{|*{3}{>{\centering\arraybackslash}m{0.3cm}|}}
@@ -538,29 +592,32 @@
 		
 		\begin{algo}
 		\Comment{Parcours de la diagonale montante d'un tableau carré - version 2 indices}\;
-		\Algo{affichageElémentsDiagonaleMontante}{\Par{tab}{\Array{n $\times$ n}{T}}}{}{
-			\Decl{j}{integer}\;
-			j \Gets n-1\;
-			\Fori{i}{0}{n-1}{
-				\Write tab[i,j] \RComment{On peut faire autre chose qu'afficher}
-				j \Gets j - 1\;
+		\Comment{lg part du début et augmente / col part de la fin et diminue}\;
+		\Algo{afficherDiagonaleMontante}{\Par{tab}{\Array{n $\times$ n}{T}}}{}{
+			\Decl{col}{integer}\;
+			col \Gets n-1\;
+			\Fori{lg}{0}{n-1}{
+				\Write tab[ lg, col ] \RComment{On peut faire autre chose qu'afficher}
+				col \Gets col - 1\;
 			}
 		}
 		\end{algo}
 		
 		\begin{algo}
 		\Comment{Parcours de la diagonale montante d'un tableau carré - version 1 indice}\;
-		\Algo{affichageElémentsDiagonaleMontante}{\Par{tab}{\Array{n $\times$ n}{T}}}{}{
-			\Fori{i}{0}{n-1}{
-				\Write tab[i, n - 1 - i]  \RComment{On peut faire autre chose qu'afficher}
+		\Algo{afficherDiagonaleMontante}{\Par{tab}{\Array{n $\times$ n}{T}}}{}{
+			\Fori{lg}{0}{n-1}{
+				\Write tab[ lg, n-1-lg ]  \RComment{On peut faire autre chose qu'afficher}
 			}
 		}
 		\end{algo}
 
+		\listing*[linerange=27-48]{java}{java/src/main/java/dev2/algo/tab/Parcours1D.java}
+
 	\subsection{Parcours des deux dimensions}
 	%========================================
 	
-		\subsubsection*{Parcours par lignes et par colonnes}
+		\paragraph{Parcours par lignes et par colonnes.}
 		%---------------------------------------------------
 			
 			Les deux parcours les plus courants sont les parcours ligne par ligne
@@ -603,7 +660,7 @@
 			
 			\begin{algo}
 			\Comment{Parcours d'un tableau à 2 dimensions, ligne par ligne}\;
-			\Algo{affichageElémentsLigneParLigne}{\Par{tab}{\Array{n $\times$ m}{T}}}{}{
+			\Algo{afficherLigneParLigne}{\Par{tab}{\Array{n $\times$ m}{T}}}{}{
 				\Fori{lg}{0}{n-1}{
 					\Fori{col}{0}{m-1}{
 						\Write tab[lg,col] \RComment{On peut faire autre chose qu'afficher}
@@ -614,7 +671,7 @@
 			
 			\begin{algo}
 				\Comment{Parcours d'un tableau à 2 dimensions, colonne par colonne}\;
-				\Algo{affichageElémentsColonneParColonne}{\Par{tab}{\Array{n $\times$ m}{T}}}{}{
+				\Algo{afficherColonneParColonne}{\Par{tab}{\Array{n $\times$ m}{T}}}{}{
 					\Fori{col}{0}{m-1}{
 						\Fori{lg}{0}{n-1}{
 							\Write tab[lg,col] \RComment{On peut faire autre chose qu'afficher}
@@ -622,7 +679,9 @@
 					}
 				}
 			\end{algo}
-			
+
+			\listing*[linerange=9-23]{java}{java/src/main/java/dev2/algo/tab/Parcours2D.java}
+
 			Mais on peut obtenir le même résultat avec une seule boucle
 			si l'indice sert juste à compter le nombre de passages ($n*m$)
 			et que les indices de lignes et de colonnes sont gérés manuellement.
@@ -634,7 +693,7 @@
 			
 			\begin{algo}
 				\Comment{Parcours d'un tableau à 2 dimensions via une seule boucle}\;
-				\Algo{affichageElémentsLigneParLigne}{\Par{tab}{\Array{n $\times$ m}{T}}}{}{
+				\Algo{afficherLigneParLigne}{\Par{tab}{\Array{n $\times$ m}{T}}}{}{
 					\Decl{lg, col}{integers}\;
 					lg \Gets 0\;
 					col \Gets 0\;
@@ -648,13 +707,13 @@
 					}
 				}
 			\end{algo}
-			
+
+			\listing*[linerange=25-37]{java}{java/src/main/java/dev2/algo/tab/Parcours2D.java}
+
 			L'avantage de cette solution apparaitra 
 			quand on verra des situations plus difficiles.
 
-\newpage
-
-		\subsubsection*{Interrompre le parcours}
+		\paragraph{Interrompre le parcours.}
 		%---------------------------------------
 			
 			Comme avec les tableaux à une dimension, 
@@ -666,35 +725,35 @@
 			
 			\begin{algo}
 				\Comment{Parcours d'un tableau à 2 dimensions, ligne par ligne, via un tant que}\;
-				\Algo{affichageElémentsLigneParLigne}{\Par{tab}{\Array{n $\times$ m}{T}}}{}{
+				\Algo{afficherLigneParLigne}{\Par{tab}{\Array{n $\times$ m}{T}}}{}{
 					\Decl{lg, col}{integers}\;
 					lg \Gets 0\;
 					\While{lg $<$ n}{
 						col \Gets 0\;
 						\While{col $<$ m}{
 							\Write tab[lg, col] \RComment{On peut faire autre chose qu'afficher}
-							col \Gets col + 1\;
+							col++\;
 						}
-						lg \Gets lg + 1\;
+						lg++\;
 					}
 				}
 			\end{algo}
 			
 			\begin{algo}
 				\Comment{Parcours d'un tableau à 2 dimensions via une seule boucle et un tant que}\;
-				\Algo{affichageElémentsLigneParLigne}{\Par{tab}{\Array{n $\times$ m}{T}}}{}{
+				\Algo{afficherColonneParColonne}{\Par{tab}{\Array{n $\times$ m}{T}}}{}{
 					\Decl{lg, col, i}{integers}\;
 					lg \Gets 0\;
 					col \Gets 0\;
 					i \Gets 1\;
 					\While(\IComment{ou "lg $<$ n"}){i $\le$ n*m}{
 						\Write tab[lg,col] \RComment{On peut faire autre chose qu'afficher}
-						col \Gets col + 1	\RComment{Passer à la case suivante}
+						col++	\RComment{Passer à la case suivante}
 						\If(\IComment{On déborde sur la droite, passer à la ligne suivante}){col = m}{
 							col \Gets 0\;
-							lg \Gets lg + 1\;
+							lg++\;
 						}
-						i \Gets i + 1\;
+						i++\;
 					}
 				}
 			\end{algo}
@@ -710,8 +769,6 @@
 			Dans les deux cas, l'algorithme retourne un booléen indiquant si
 			l'élément a été trouvé ou pas.
 			
-\newpage
-
 			\begin{algo}
 				\Comment{Parcours avec test d'arrêt - deux boucles et un booléen}\;
 				\Algo{chercherElément}{\Par{tab}{\Array{n $\times$ m}{T}}, \Par{élt}{T}}{boolean}{
@@ -726,11 +783,11 @@
 								trouvé \Gets vrai\;
 							}
 							\Else(\IComment{Ne pas modifier les indices si arrêt demandé}){
-								col \Gets col + 1\;
+								col++\;
 							}
 						}
 						\If(\IComment{Ne pas modifier les indices si arrêt demandé}){NON trouvé}{
-							lg \Gets lg + 1\;
+							lg++\;
 						}
 					}
 					\Return{trouvé}
@@ -752,11 +809,15 @@
 						}
 						i \Gets i + 1\;
 					}
-					\Return{$i<n*m$}
+					\Return{$i \le n*m$}
 				}
 			\end{algo}
 
-		\subsubsection*{Parcours plus compliqué - le serpent}
+			En \bsc{Java}, ça donne :
+			\listing*[linerange=39-59]{java}{java/src/main/java/dev2/algo/tab/Parcours2D.java}
+			\listing*[linerange=61-75]{java}{java/src/main/java/dev2/algo/tab/Parcours2D.java}
+
+		\paragraph{Parcours plus compliqué - le serpent.}
 		%----------------------------------------------------
 			
 			Envisageons un parcours plus difficile illustré par le tableau suivant.
@@ -778,25 +839,26 @@
 			en introduisant un sens de déplacement, 
 			ce qui donne l'algorithme :
 
-\newpage
 			\begin{algo}
 				\Comment{Parcours du serpent dans un tableau à deux dimensions}\;
 				\Algo{affichageElémentsSerpent}{\Par{tab}{\Array{n $\times$ m}{T}}}{}{
 					\Decl{lg, col, depl}{integers}\;
 					lg \Gets 0\;
 					col \Gets 0\;
-					depl \Gets 1	\RComment{1 pour avancer, -1 pour reculer}
+					sens \Gets 1	\RComment{1 pour avancer, -1 pour reculer}
 					\Fori{i}{1}{n*m}{
 						\Write tab[lg, col] \RComment{On peut faire autre chose qu'afficher}
-						\eIf{0 $\le$ col + depl ET col + depl $<$ m}{
-							col \Gets col + depl \RComment{On se déplace dans la ligne}
+						\eIf{0 $\le$ col + sens ET col + sens $<$ m}{
+							col \Gets col + sens \RComment{On se déplace dans la ligne}
 						}{
 							lg \Gets lg + 1	\RComment{On passe à la ligne suivante}
-							depl \Gets -depl	\RComment{et on change de sens}
+							sens \Gets -sens	\RComment{et on change de sens}
 						}
 					}
 				}
 			\end{algo}
+
+			\listing*[linerange=77-91]{java}{java/src/main/java/dev2/algo/tab/Parcours2D.java}
 
 % ===================
 \section{Exercices}

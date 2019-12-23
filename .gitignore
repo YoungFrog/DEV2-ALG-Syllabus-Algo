@@ -27,3 +27,4 @@
 *.fic
 *.ptc
 *~
+/java/target/
