@@ -27,11 +27,11 @@
 % typevar
 \newif\ifvartype\vartypetrue
 \DeclareOption{typevar}{\vartypefalse}
-\newcommand{\algodecl}[2]{\ifvartype{#1~: #2}\else{#2~#1}\fi} 
+\newcommand{\algodecl}[2]{\ifvartype{#1: #2}\else{#2\ #1}\fi} 
 % asssymbol
 \newif\ifassegal\assegaltrue
 \DeclareOption{asssymbol}{\assegalfalse}
-\newcommand{\Gets}{\ifassegal= \else\ensuremath{\leftarrow} \fi}
+\newcommand{\Gets}{\ifassegal = \else \ensuremath{\leftarrow} \fi}
 % dev1
 \DeclareOption{dev1}{
   \PassOptionsToPackage{vlined}{algorithm2e}
@@ -70,7 +70,7 @@
 
 % ====================================================================
 % Environnement global
-% - algo : un algo dans une boite colorée
+% - algo : un algo dans une boite colorée (pseudocode = synonyme)
 % - algoplain : un algo nu
 % Commande
 % - lda : pour des algos brefs
@@ -82,6 +82,13 @@
     \end{algorithm}
 }
 \NewEnviron{algo}{%
+  \begin{algobox}
+    \begin{algorithm}[H]
+      \BODY
+    \end{algorithm}
+  \end{algobox}
+}
+\NewEnviron{pseudocode}{%
   \begin{algobox}
     \begin{algorithm}[H]
       \BODY
@@ -104,10 +111,10 @@
 \newcommand{\Algo}[4]{\Algorithm{\SignInternal{#1}{#2}{#3}}{#4}}
 
 \newcommand{\Par}[2]{\algodecl{#1}{#2}}
-\newcommand{\In}{\ensuremath{\;\downarrow}}
-\newcommand{\Out}{\ensuremath{\;\uparrow}}
-\newcommand{\InOut}{\ensuremath{\;\updownarrow}}
-\newcommand{\Ret}{\ \ensuremath{\rightarrow}}
+\newcommand{\In}{\ensuremath{\;\downarrow\;}}
+\newcommand{\Out}{\ensuremath{\;\uparrow\;}}
+\newcommand{\InOut}{\ensuremath{\;\updownarrow\;}}
+\newcommand{\Ret}{\ \ensuremath{\rightarrow}\ }
 %\renewcommand{\Return}{\KwSty{return}\ }
 
 \newcommand{\Sign}[4]{\KwSty{#1} \SignInternal{#2}{#3}{#4}}
@@ -126,7 +133,7 @@
 \SetKw{Constant}{constant}
 \newcommand{\Const}[2]{\Constant\ #1 = #2}
 \newcommand{\Decl}[2]{\algodecl{#1}{#2}}
-\newcommand{\Assign}[2]{#1 \Gets #2}
+\newcommand{\Assign}[2]{#1 \Gets{}#2}
 \SetKw{Write}{print}
 \SetKw{Read}{read}
 \SetKw{Ask}{ask}
@@ -168,7 +175,7 @@
 	\algocf@newcmdside{u#3}{3}{\KwSty{#7} \KwSty{#5}\ifArgumentEmpty{##1}\relax{ ##1}\algocf@group{##2}}%
 }%
 % Pour modifier les mots clés liés
-\SetKwSwitch{Switch}{Case}{Other}{switch}{:}{case}{default}{end case}{end switch}
+\SetKwSwitch{Switch}{Case}{Other}{switch}{:}{case}{default}{}{end switch}
 
 % ====================================================================
 % Les structures de contrôle : for/while
