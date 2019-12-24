@@ -40,8 +40,7 @@
 	Tout au long de l’année, 
 	nous avons vu divers modèles et techniques algorithmiques adaptés 
 	à des structures particulières 
-	(les nombres, les chaines, les tableaux, les variables structurées, 
-	les objets, les listes\dots). 
+	(les nombres, les chaines, les tableaux, les objets, les listes\dots). 
 	La plupart des exercices portaient directement sur ces structures 
 	(par ex. calculer la somme des nombres d’un tableau,
 	extraire une sous-liste à partir d’une liste donnée). 
@@ -102,15 +101,14 @@
 
 	Rappelons brièvement les différentes structures étudiées dans ce cours
 	\index{Structures a connaitre@Structures à connaitre} :
-	
 	\begin{itemize}
 		\item 
 			les \textbf{données «~simples~»} 
 			(variables isolées : entiers, réels, chaines, caractères, booléens) ;
-		\item 
-			les \textbf{variables structurées}, 
-			qui regroupent en une seule entité
-			une collection de variables simples ;
+		% \item 
+		% 	les \textbf{variables structurées}, 
+		% 	qui regroupent en une seule entité
+		% 	une collection de variables simples ;
 		\item 
 			le \textbf{tableau}, 
 			qui contient un nombre déterminé de variables de même type, 
@@ -118,21 +116,21 @@
 			ou plusieurs pour les tableaux multidimensionnels ;
 		\item 
 			les \textbf{objets}, 
-			qui combinent en un tout une série d’attributs 
+			combinant une série d’attributs 
 			et des méthodes agissant sur ces attributs ;
 		\item 
 			la \textbf{liste}, 
 			qui peut contenir un nombre indéfini d’éléments de même type.
 	\end{itemize}
-	
-	D’autres structures particulières s’ajouteront 
-	dans le cours d'algorithmique d'ALG3~: 
-	les listes chainées, les piles, les files, les arbres, les associations et les graphes.
-	
+
 	Chacune de ces structures possède ses spécificités propres quant à la
 	façon d’accéder aux valeurs, de les parcourir, de les modifier,
 	d’ajouter ou de supprimer des éléments à la collection. 
 
+	D’autres structures particulières s’ajouteront 
+	dans le cours d'algorithmique d'ALG3~: 
+	les listes chainées, les piles, les files, les arbres, les associations et les graphes.
+	
 %==================
 \section{Exercices}
 %==================
@@ -268,16 +266,19 @@
 			\lda{joueurCourant}~: un entier donnant la position du joueur courant.
 		\end{itemize}
 	\item
-		Cette proposition introduit une structure \lda{Joueur} et le nombre de tours.
+		Cette proposition introduit une classe \lda{Joueur} et le nombre de tours.
 		\begin{itemize}
 		\item
-			\lda{circuit}: un tableau de 1 à 50 éléments \lda{Joueur}, une structure.
+			\lda{circuit}: un tableau de 1 à 50 éléments de \lda{Joueur} :
 			\begin{algo}
-				\Structure{Joueur}{
-					\Decl{nom}{string}
-						\RComment{\scriptsize Le nom du joueur à cette position ("A", "B" ou " " si la case est vide)}
-					\Decl{nbTours}{integer}
-						\RComment{\scriptsize Nb de tours qu'a fait le joueur qui est à cette position (0 si case vide)}
+				\Class{Joueur}{
+					\Private{
+						\Decl{nom}{string}
+							\RComment{\scriptsize Le nom du joueur à cette position ("A", "B" ou " " si la case est vide)}
+						\Decl{nbTours}{integer}
+							\RComment{\scriptsize Nb de tours qu'a fait le joueur qui est à cette position (0 si case vide)}
+					}
+					\Public{\Comment{Constructeurs et accesseurs}}
 				}
 			\end{algo}
 			Un joueur a fait un tour complet quand il est de nouveau sur sa position de départ
@@ -289,13 +290,16 @@
 		Dans cette proposition, le tableau change de signification.
 		\begin{itemize}
 		\item
-			\lda{circuit}: un tableau de 2 éléments \lda{Joueur}, une structure différente.  
+			\lda{circuit}: un tableau de 2 éléments \lda{Joueur}, une classe différente.  
 			\begin{algo}
-				\Structure{Joueur}{
-					\Decl{position}{integer}
+				\Class{Joueur}{
+					\Private{
+						\Decl{position}{integer}
 						\RComment{\footnotesize Donne la position du joueur sur le circuit (entier entre 1 et 50)}
 					\Decl{nbTours}{integer}
 						\RComment{\footnotesize Le nombre de tours qu'a fait ce joueur}
+					}
+					\Public{\Comment{Constructeurs et accesseurs}}
 				}
 			\end{algo}
 		\item
@@ -310,11 +314,14 @@
 			Par exemple, si un joueur a fait exactement deux tours complets,
 			le nombre de cases parcourues sera de 100.
 			\begin{algo}
-				\Structure{Joueur}{
-					\Decl{position}{integer}
+				\Class{Joueur}{
+					\Private{
+						\Decl{position}{integer}
 						\RComment{\footnotesize Donne la position du joueur sur le circuit (entier entre 1 et 50)}
 					\Decl{nbCasesParcourues}{integer}
 						\RComment{\footnotesize Nb de cases parcourues par le joueur depuis le départ}
+					}
+					\Public{\Comment{Constructeurs et accesseurs}}
 				}
 			\end{algo}
 		\end{itemize}
@@ -415,25 +422,21 @@
 	
 	Il y aurait de nombreuses façons de coder ce problème; en voici une :
 
-	{\bfseries La structure Question}
+	{\bfseries La classe Question}
 
 	Une question est composée du libellé de la question, des 4 libellés pour
-	les réponses et d’une indication de la bonne réponse (un entier de 1 à
-	4). Par simplicité on en fait une structure mais on pourrait en faire
-	une classe si on voulait par exemple vérifier que la «~bonne réponse~»
-	possède une valeur correcte.
+	les réponses et d’une indication de la bonne réponse 
+	(un entier de 1 à 4).
 
-	{\bfseries La structure Gain}
+	{\bfseries La classe Gain}
 
-	Représente un niveau de gain. Elle contient les champs :
-	montant (entier) et palier (un booléen à
-	\lda{vrai} si cette somme est
-	assurée, \lda{faux} sinon)
+	Représente un niveau de gain. Elle contient les attributs :
+	montant (entier) et palier 
+	(un booléen à \lda{vrai} si cette somme est assurée, \lda{faux} sinon).
 
 	{\bfseries La classe Millionnaire}
 
-	Cette classe code le moteur du jeu. On y retrouve
-
+	Cette classe code le moteur du jeu. On y retrouve :
 	\begin{itemize}
 		\item 
 			questionnaire : un tableau de Question
@@ -443,8 +446,7 @@
 			autres attributs à déterminer (cf. méthodes)
 	\end{itemize}
 	
-	ainsi que les méthodes pour
-
+	ainsi que les méthodes pour :
 	\begin{itemize}
 		\item 
 			initialiser le jeu à partir d’un questionnaire
@@ -468,7 +470,6 @@
 
 	L'algorithme \lda{jeuMillionaireConsole()} reçoit le
 	questionnaire et les gains et simule le jeu :
-
 	\begin{itemize}
 	\item 
 		Il propose les questions au candidat
@@ -509,7 +510,6 @@
 
 	Nous vous imposons les attributs de la classe,
 	à savoir :
-
 	\begin{itemize}
 		\item 
 			\lda{occupations~}: une Liste de
@@ -523,24 +523,11 @@
 			11/9/2015 et ainsi de suite...
 	\end{itemize}
 	
-	Écrire la méthode suivante
-
+	Écrire la méthode suivante :
 	\begin{algo}
 		\MethodSign{effectuerRéservation}{demande\In : DemandeRéservation,
 		chambre\Out : integer}{boolean}
-	\end{algo}
-	
-	où la structure de demande de réservation est
-	définie ainsi
-	
-	\begin{algo}
-		\Structure{DemandeRéservation}{
-			\Decl{numéroClient}{integer}\;
-			\Decl{débutRéservation}{Date}\;
-			\Decl{nbNuitées}{integer}\;
-		}
-	\end{algo}
-
+	\end{algo}	
 	\begin{itemize}
 		\item 
 			Le booléen retourné indique si la réservation a pu se faire ou pas
@@ -554,6 +541,18 @@
 			La demande de réservation peut couvrir une période qui n’est pas encore
 			reprise dans la liste ; il faudra alors l’agrandir
 	\end{itemize}
+
+	La classe de demande de réservation est définie ainsi :
+	\begin{algo}
+		\Class{DemandeRéservation}{
+			\Private{
+				\Decl{numéroClient}{integer}\;
+				\Decl{débutRéservation}{Date}\;
+				\Decl{nbNuitées}{integer}\;
+				}
+			\Public{\Comment{Constructeurs et accesseurs}}
+		}
+	\end{algo}
 \end{Exercice}
 
 %---------------------------
@@ -565,7 +564,6 @@
 			
 	Étant donnés deux ensembles
 	finis \textbf{S} et \textbf{T} ainsi qu’un élément \textbf{x} :
-
 	\begin{itemize}
 	\item 
 		\textbf{x} {${\in}$} \textbf{S} signifie que l’élément \textbf{x}
@@ -893,12 +891,11 @@
 			partie
 	\end{itemize}
 	
-	N.B. : pour la structure qui contiendra le contenu du tableau de jetons,
-	on adoptera la convention suivante : 0 pour l’absence de jeton, 1
-	représentera un jeton du 1\textsuperscript{er} joueur, et 2 un jeton du
-	2\textsuperscript{e} joueur (on peut donc faire abstraction de la
-	couleur du jeton dans ce problème).
-	
+	N.B. : pour le contenu du tableau de jetons,
+	vous pouvez adopter la convention suivante : 0 pour l’absence de jeton, 
+	1 pour un jeton du 1\ier{} joueur
+	et 2 un jeton du 2\ieme{} joueur 
+	(on peut donc faire abstraction de la couleur du jeton dans ce problème).
 \end{Exercice}
 
 %---------------------------
