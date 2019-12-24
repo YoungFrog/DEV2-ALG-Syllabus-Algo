@@ -487,7 +487,7 @@
                           \Par{tab}{\Array{n $\times$ m}{T}},
                           \Par{lg}{integer}}{}
                         {
-				\ForAll{col : numéro de colonne}{
+				\ForAll{col : numéro de colonne \Comment{Pour tous les numéros de colonne}}{
 					\Write tab[ lg, col ] \RComment{On peut faire autre chose qu'afficher}
 				}
 			}
@@ -520,7 +520,7 @@
 			\Comment{Parcours de la colonne $col$ d'un tableau à deux dimensions}\;
 			\Algo{afficherColonne}{\Par{tab}{\Array{n $\times$ m}{T}}, 
 				\Par{col}{integer}}{}{
-				\ForAll{lg : numéro de ligne}{
+				\ForAll{lg : numéro de ligne \Comment{Pour tous les numéros de ligne}}{
 					\Write tab[ lg, col ] \RComment{On peut faire autre chose qu'afficher}
 				}
 			}

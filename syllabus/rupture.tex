@@ -1,3 +1,12 @@
+\definecolor{colnivo}{RGB}{153, 102, 0}
+\definecolor{colnivi}{RGB}{255, 153, 0}
+\definecolor{colnivii}{RGB}{255, 102, 153}
+\definecolor{colcalc}{RGB}{0, 102, 255}
+\newcommand{\nivo}[1]{ {\color{colnivo}#1} }
+\newcommand{\nivi}[1]{ {\color{colnivi}#1} }
+\newcommand{\nivii}[1]{ {\color{colnivii}#1} }
+\newcommand{\nivc}[1]{ {\color{colcalc}#1} }
+
 %===================================
 \chapter{Les traitements de rupture}
 \label{chap:rupture}
@@ -49,7 +58,7 @@
 	«~\lda{estAntérieure()}~».
 	
 	Mais, plus généralement, les données composées de plusieurs
-	champs (les structures) ou attributs (les objets)
+	éléments -- comme les attributs d'un objet -- 
 	ne possèdent pas de relation d’ordre naturelle. 
 	C'est le cas, par exemple, des points d’un espace à deux ou trois dimensions
 	ou encore des informations figurant sur une carte d’identité. 
@@ -68,8 +77,8 @@
 
 \subsection*{Exemple de classement simple}
 
-	Prenons l’exemple d’une structure \texttt{Etudiant}, 
-	contenant les champs \texttt{matricule}, \texttt{nom}, \texttt{prénom}, 
+	Prenons l’exemple d’un objet \texttt{Etudiant}, 
+	contenant les attributs \texttt{matricule}, \texttt{nom}, \texttt{prénom}, 
 	\texttt{dateNaissance} et \texttt{option} (G, I ou R). 
 	Pour l’exemple, considérons une liste de 6 étudiants :
 	
@@ -139,7 +148,6 @@
 	\end{tabular}
 	\end{center}
 
-
 	Remarque : un classement n’est pas forcément un classement alphabétique.
         Par exemple, dans le cas du classement sur l'option, toute autre
         permutation des lettres G, I, R serait un tri possible.
@@ -148,7 +156,7 @@
 	Les exemples ci-dessus constituent des exemples de \textbf{classements complexes}. 
 	On dira que des données sont classées sur la \textbf{clé composée} 
 	champ $1$ – champ $2$ – \dots{} – champ $i$ – \dots{} – champ $n$ 
-	(où \og{}champ $i$\fg{} est un champ de la structure des données) 
+	(où \og{}champ $i$\fg{} est un attribut des données) 
 	si le classement se fait prioritairement depuis le champ $1$ jusqu’au champ $n$. 
 	Autrement dit, si deux données ont tous leurs champs $1$, $2$,\dots, $i$ égaux ($i<n$), 
 	le classement se fait en départageant sur le champ $i+1$. 
@@ -167,9 +175,8 @@
 		liée au fait qu'on ne connait pas, dans ce cas, 
 		la taille de l'ensemble lorsqu'on commence à le traiter.
 	}. 
-	Les éléments peuvent être de n'importe quel \textbf{type complexe} 
-	(variables structurées, objets\dots).
-	Nos exemples seront souvent pris sur des listes de variables structurées. 
+	Les éléments peuvent être de n'importe quel \textbf{type complexe}.
+	Nos exemples seront souvent pris sur des listes de objets. 
 		
 	Nous parlons de \textbf{rupture} lorsque, dans ce traitement itératif, 
 	on constate que l’information courante que l’on souhaite traiter
@@ -184,13 +191,7 @@
 	rupture sur l’option au niveau de Durant Sam et de Durant Kevin. En
 	effet, ces deux étudiants délimitent les sous-ensembles d’étudiants
 	partageant une même option.
-	
-	% Par contre, cela n’aurait pas de sens de parler de rupture sur l’option
-	% dans le cas des deux classements précédents. 
-	% Ce champ n’appartenant pas à la clé composée pour le classement de ces données, 
-	% la succession des lettres G, I, R doit être considérée comme aléatoire dans ces deux cas
-	% et sans signification pour le traitement itératif.
-	
+		
 	Dans le 2\ieme{} classement, nous pouvons parler de
 	rupture sur les noms : l’étudiant Durant Kevin met fin au sous-ensemble
 	des Dupont, et l’étudiant Guilmant met fin à celui des Durant.
@@ -203,27 +204,6 @@
 	obligatoirement distincts (mais dans ce cas nous n'utilisons pas 
         l'algorithme de rupture : c'est une simple itération sur la liste).
 	
-	% Notez que toute rupture à un niveau $i$ de la clé de classement complexe
-	% entraine une rupture aux niveaux supérieurs à $i$. Ainsi, dans le
-	% classement triple, le passage à Durant Kevin entraine une rupture sur
-	% l’option mais aussi sur le nom. Le fait qu’il y ait dans ce classement
-	% deux Durant qui se succèdent doit être considéré comme une coïncidence.
-	% Bien qu’ayant le même nom, ces deux étudiants appartiennent à deux
-	% sous-ensembles différents lorsqu’on prend l’option en considération.
-	
-%	Notons encore que d’un point de vue théorique, deux éléments ont un rôle
-%	spécial et se singularisent quelque peu des autres : il s’agit du
-%	\textbf{premier} et du \textbf{dernier} élément qui ont pour rôle de
-%	délimiter l’ensemble logique. Le premier est singulier dans la mesure
-%	où il n’est précédé par aucun autre élément, et de plus sa présence
-%	détermine l’existence de l’ensemble (par opposition à un ensemble
-%	vide). Le dernier est particulier parce qu’il termine l’ensemble des
-%	données. Remarquez que \textbf{rien} dans ces deux éléments ne signale ces
-%	particularités! Autrement dit, il n’y a pas, à l’intérieur de ces
-%	éléments une information particulière signifiant \textit{je suis le
-%	premier élément} ou \textit{je suis le dernier}.
-
-
 %===========================================================
 \section{Traitement des ruptures dans une séquence ordonnée}
 %===========================================================
@@ -244,20 +224,28 @@
 	car elle n’est pas liée à un champ des données, 
 	et est naturellement prioritaire sur ces champs). 
 	Pour illustrer cela, reprenons l’exemple de la liste d’étudiants. 
-	Le parcours de base de cet ensemble est le suivant%
-	\footnote{%
-		Vous vous demandez peut-être pourquoi ne pas utiliser le \og{}pour\fg{} ?
-		Ce serait tout-à-fait valable dans ce cas précis mais ça ne pourra pas
-		être généralisé lorsqu'il y a plusieurs niveaux de rupture.
-	} :
+	Le parcours de base de cet ensemble est le suivant :
+
+	\begin{algo}
+		\Algo{RuptureNiveau0}{\Par{etudiants}{\List{Etudiant}}}{}{
+			\ForAll{étudiant : étudiants \Comment{pour tout étudiant de la liste des étudiants}}{
+				\Comment{traitement de l'étudiant}\;
+			}
+		}
+	\end{algo}
+
+	Un tel algorithme se réaliserait naturellement avec un boucle \lda{for}.
+	Nous allons pourtant la réaliser avec un \lda{while} car cela permet
+	de généraliser l'algorithme à des ruptures de plusieurs niveaux.
+	Ce qui donne :
 
 	\begin{algo}
 		\Algo{RuptureNiveau0}{\Par{etudiants}{\List{Etudiant}}}{}{
 			\Decl{i}{integer}\;
 			i \Gets 0\;
-			\While{i < etudiants.taille()}{
+			\While{i < etudiants.size()}{
 				\Comment{traitement de etudiants.get(i)}\;
-				i \Gets i + 1\;
+				i++\;
 			}
 		}
 	\end{algo}
@@ -280,25 +268,58 @@
 	Ceci ne nécessite qu’un seul compteur remis à 0 à chaque fois qu’une nouvelle
 	option est rencontrée, c’est-à-dire à chaque rupture. 
 	De plus l’algorithme fonctionnera quel que soit le nombre d’options. 
-	Voici une telle solution : 
+	
+	En gros, ça donne :
+
+	\begin{algo}
+		\label{algo:rupt1a}
+		\Algo{RuptureNiveau1}{\Par{etudiants}{List of Etudiant}}{}{
+			\Comment{on suppose les données classées en majeur sur l’option}\;
+			\ForAll{étudiant : étudiants}{
+				cptEtudiantsOption \Gets 0\;
+				\ForAll{étudiants de la même option}{
+					cptEtudiantsOption++\;
+				}
+				\Write cptEtudiantsOption et l'option\;
+			}
+		}
+	\end{algo}
+
+	\bigskip
+	\begin{infotbox}{Retenons}
+		Lorsqu'on calcule une variable liée à un niveau de rupture
+		-- dans notre exemple, le nombre d'étudiants par option est lié 
+		à l'option, donc au niveau 1 -- la variable :
+		\begin{itemize}
+			\item est initialisée juste avant d'entrer dans la boucle du niveau;
+			\item est mise à jour dans la boucle;
+			\item a sa valeur finale quand la boucle du niveau est finie.
+		\end{itemize}
+	\end{infotbox}
+
+	\newpage
+	Soyons plus précis dans notre algorithme :
 
 	\begin{algo}
 		\label{algo:rupt1}
 		\Algo{RuptureNiveau1}{\Par{etudiants}{List of Etudiant}}{}{
 			\Comment{on suppose les données classées en majeur sur l’option}\;
 			\Decl{saveOption}{string}\;
-			\Decl{cpt}{integer}\;
+			\Decl{cptEtudiantsOption}{integer}\;
 			\Decl{i}{integer}\;
 			\;
-			i \Gets 0\;
-			\While{i < etudiants.taille()}{
-				saveOption \Gets etudiants.get(i).option\;
-				cpt \Gets 0\;
-				\While{i < etudiants.taille() ET etudiants.get(i).option = saveOption}{
-					cpt \Gets cpt + 1\;
-					i \Gets i + 1\;
+			\nivo{i \Gets 0} \RComment{En \nivo{brun} ce qui est lié au niveau 0}
+			\While{{\color{colnivo}i < etudiants.size()}}{
+				\nivi{saveOption \Gets etudiants.get(i).getOption()}
+				\RComment{En \nivi{orange} ce qui est lié au niveau 1}
+				\nivc{cptEtudiantsOption \Gets 0}
+				\RComment{En \nivc{bleu} ce qui est lié à la question posée}
+				\While{ \nivo{i < etudiants.size()} 
+					ET \nivi{etudiants.get(i).getOption() = saveOption}}{
+					\nivc{cptEtudiantsOption++}\;
+					\nivo{i++}\;
 				}
-				\Write cpt, «~étudiant dans l’option~», saveOption\;
+				\Write \nivc{cptEtudiantsOption, «~étudiant dans l’option~», saveOption}\;
 			}
 		}
 	\end{algo}
@@ -307,7 +328,7 @@
 	Questions de réflexion :
 	\begin{itemize}
 		\item 
-			pourquoi la condition \textsf{i < etudiants.taille()}
+			pourquoi la condition \textsf{i < etudiants.size()}
 			apparait-elle une 2\ieme{} fois dans la boucle intérieure ?
 		\item 
 			pourquoi est-ce que \textsf{i} et \textsf{cpt} 
@@ -324,6 +345,9 @@
 			est-il important ?
 	\end{itemize}
 
+	Voici le même algorithme écrit en \bsc{Java} :
+	\listing*[linerange=13-27]{java}{java/src/main/java/dev2/algo/rupture/ExempleRupture1.java}
+
 \subsection*{Rupture de niveau 2}
 
 	L’algorithme ci-dessus se généralise facilement si on ajoute davantage de niveaux de rupture. 
@@ -331,8 +355,30 @@
 	on veut connaitre pour chaque option le nombre d’étudiants nés dans les différentes années de naissance. 
 	L’algorithme correspondant s’écrit facilement et fonctionne lorsque les données sont, cette fois-ci,
 	classées en majeur sur l'option et en mineur sur la date de naissance
-	(ou encore classement double sur la clé composée option – dateNaissance) :
+	(ou encore classement double sur la clé composée option – dateNaissance).
+
+	En voici une première version, schématique :
+	\begin{algo}
+		\Algo{RuptureNiveau2}{\Par{etudiants}{List of Etudiant}}{}{
+			\Comment{on suppose les données classées en majeur sur l’option}\;
+			\Comment{et en mineur sur la date de naissance (ordre chronologique)}\;
 	
+			\ForAll{étudiant : étudiants}{
+				\ForAll{étudiants de la même option}{
+					cptEtudiantsAnnéeOption \Gets 0\;
+					\ForAll{étudiants de la même année dans l'option}{
+						cptEtudiantsAnnéeOption++\;
+					}
+					\Write cptEtudiantsAnnéeOption, l'année et l'option\;
+				}
+			}
+		}
+	\end{algo}
+	
+	Remarquez bien où la variable \lda{cptEtudiantsAnnéeOption}
+	est : initialisée, mise à jour, affichée.
+	Voici une version plus détaillée :
+
 	\begin{algo}
 		\Algo{RuptureNiveau2}{\Par{etudiants}{List of Etudiant}}{}{
 		\label{algo:rupt2}
@@ -340,23 +386,24 @@
 			\Comment{et en mineur sur la date de naissance (ordre chronologique)}\;
 			\Decl{saveOption}{string}\;
 			\Decl{saveAnnéeNaissance}{integer}\;
-			\Decl{cpt}{integer}\;
+			\Decl{cptEtudiantsAnnéeOption}{integer}\;
 			\Decl{i}{integer}\;
 	
-			i \Gets 0\;
-			\While{i < etudiants.taille()}{
-				saveOption \Gets etudiants.get(i).option\;
-				\While{i < etudiants.taille() ET etudiants.get(i).option = saveOption}{
-					saveAnnéeNaissance \Gets etudiants.get(i).dateNaissance.année\;
-					cpt \Gets 0\;
-					\While{i < etudiants.taille()
-							ET etudiants.get(i).option = saveOption
-							ET etudiants.get(i).dateNaissance.année = saveAnnéeNaissance}{
-						cpt \Gets cpt + 1\;
-						i \Gets i + 1\;
+			\nivo{i \Gets 0}\;
+			\While{\nivo{i < etudiants.size()}}{
+				\nivi{saveOption \Gets etudiants.get(i).getOption()}\;
+				\While{\nivo{i < etudiants.size()} ET \nivi{etudiants.get(i).getOption() = saveOption}}{
+					\nivii{saveAnnéeNaissance \Gets etudiants.get(i).getNaissance().getAnnée()}\;
+					\nivc{cptEtudiantsAnnéeOption \Gets 0}\;
+					\While{ \nivo{i < etudiants.size()}
+							ET \nivi{etudiants.get(i).getOption() = saveOption}
+							ET \nivii{etudiants.get(i).getNaissance().getAnnée() = saveAnnéeNaissance}
+							}{
+						\nivc{cptEtudiantsAnnéeOption++}\;
+						\nivo{i++}\;
 					}
-					\Write cpt, "~étudiant dans l’option~", saveOption, 
-					"~sont nés en~", saveAnneeNaissance\;
+					\Write \nivc{cptEtudiantsAnnéeOption, "~étudiant dans l’option~", saveOption, 
+					"~sont nés en~", saveAnneeNaissance}\;
 				}
 			}
 		}
@@ -367,26 +414,77 @@
 	La structure de l’algorithme épouse le schéma de la clé composée du classement des données,
 	et à un classement déterminé correspondra un algorithme bien précis.
 
-%====================================================
-\section{Traitements de clôture et d’initialisation}
-%====================================================
+	\subsubsection*{Le nombre d'étudiant par option ET par année de l'option.}
+	
+	Comment faire si on veux 
+	\textbf{à la fois}
+	le nombre d'étudiants par option et le nombre d'étudiants par année (de l'option) ?
+	Voici une solution schématique.
+	Remarquez bien à quels endroits se font les initialisations, les mises à jour
+	et les affichages.
 
-	Chaque rupture du traitement itératif des éléments d’un ensemble
-	entraine un \textbf{traitement de clôture} sur cet ensemble. Comme une
-	rupture à un niveau implique des ruptures en cascade sur tous les
-	niveaux d’ordres plus grands, un traitement de clôture d’un ensemble ne
-	pourra se faire que lorsque le dernier sous-ensemble de cet ensemble
-	sera clôturé.
+	\newpage
+	\begin{algo}
+		\Algo{RuptureNiveau2bis}{\Par{etudiants}{List of Etudiant}}{}{
+			\ForAll{étudiant : étudiants}{
+				cptEtudiantsOption \Gets 0\;
+				\ForAll{étudiants de la même option}{
+					cptEtudiantsAnnéeOption \Gets 0\;
+					\ForAll{étudiants de la même année dans l'option}{
+						cptEtudiantsAnnéeOption++\;
+						cptEtudiantsOption++\;
+					}
+					\Write cptEtudiantsAnnéeOption, l'année et l'option\;
+				}
+				\Write cptEtudiantsOption et l'option\;
+			}
+		}
+	\end{algo}
+
+	Vous pouvez remarquer que la mise à jour se fait dans la boucle la plus interne
+	pour les deux variables !
+	Dans cet exemple précis de comptage, on pourrait mettre-à-jour le nombre 
+	d'étudiants par option de façon plus efficace.
+
+	\begin{algo}
+		\Algo{RuptureNiveau2bis}{\Par{etudiants}{List of Etudiant}}{}{
+			\ForAll{étudiant : étudiants}{
+				cptEtudiantsOption \Gets 0\;
+				\ForAll{étudiants de la même option}{
+					cptEtudiantsAnnéeOption \Gets 0\;
+					\ForAll{étudiants de la même année dans l'option}{
+						cptEtudiantsAnnéeOption++
+						\RComment{Plus de mise à jour de cptEtudiantsOption ici !}
+					}
+					\Write cptEtudiantsAnnéeOption, l'année et l'option\;
+					cptEtudiantsOption += cptEtudiantsAnnéeOption
+					\RComment{La mise à jour se fait ici}
+				}
+				\Write cptEtudiantsOption et l'option\;
+			}
+		}
+	\end{algo}
+
+% %====================================================
+% \section{Traitements de clôture et d’initialisation}
+% %====================================================
+
+% 	Chaque rupture du traitement itératif des éléments d’un ensemble
+% 	entraine un \textbf{traitement de clôture} sur cet ensemble. Comme une
+% 	rupture à un niveau implique des ruptures en cascade sur tous les
+% 	niveaux d’ordres plus grands, un traitement de clôture d’un ensemble ne
+% 	pourra se faire que lorsque le dernier sous-ensemble de cet ensemble
+% 	sera clôturé.
 	
-	De la même manière, l’arrivée d’un élément appartenant à un nouvel
-	ensemble nécessite un \textbf{traitement d’initialisation} de ce nouvel
-	ensemble.
+% 	De la même manière, l’arrivée d’un élément appartenant à un nouvel
+% 	ensemble nécessite un \textbf{traitement d’initialisation} de ce nouvel
+% 	ensemble.
 	
-	En fait, il ne s’agit que de généraliser ce qui se fait au niveau 0 
-	(travaux d’initialisation consistant par exemple à mettre des totalisateurs 
-	ou compteurs à zéro et travaux de clôture consistant par exemple 
-	à imprimer des résultats totaux particuliers) 
-	à tous les ensembles et sous-ensembles !
+% 	En fait, il ne s’agit que de généraliser ce qui se fait au niveau 0 
+% 	(travaux d’initialisation consistant par exemple à mettre des totalisateurs 
+% 	ou compteurs à zéro et travaux de clôture consistant par exemple 
+% 	à imprimer des résultats totaux particuliers) 
+% 	à tous les ensembles et sous-ensembles !
 
 %==================
 \section{Exercices}
@@ -398,41 +496,38 @@
 	par les professeurs et les étudiants sont enregistrées à des fins de traitement.
 	Le service technique désirant facturer les «~exagérations~», 
 	vous fournit une liste de toutes les impressions effectuées depuis le début de l'année.
-	Cette liste présente la structure d’enregistrement \lda{Job} suivante 
+	Cette liste est composée d'objets de la classe \lda{Job} suivante 
 	et est ordonnée alphabétiquement \textbf{en majeur} sur le champ \lda{login}  :
 
 	\begin{algo}
-		\Structure{Job}{
-			\Decl{login}{string}\;
-			\Decl{date}{date}\;
-			\Decl{nombre}{integer}\;
+		\Class{Job}{
+			\Private{
+				\Decl{login}{string}\;
+				\Decl{date}{date}\;
+				\Decl{nombre}{integer}\;
+			}
+			\Public{
+				\Comment{Le constructeur et les getteurs}
+			}
 		}
 	\end{algo}
 
-	Écrire un algorithme permettant d'afficher une ligne par
+	Écrire un algorithme permettant d'afficher une ligne 
+	(avec login et nombre) par
 	utilisateur dont le nombre total de feuilles imprimées dépasse une
 	valeur limite entrée en paramètre. 
-	Cette ligne contiendra le login et le nombre.
 \end{Exercice}
 \begin{Solution}
   \begin{algo}
-    \Structure{Date}{
-      \Decl{année, mois, jour}{entiers}\;
-    }
-    \Structure{Job}{
-      \Decl{login}{chaîne}\;
-      \Decl{date}{Date}\;
-      \Decl{nombre}{entier}\;
-    }
     \Algo{stopGaspi}{\Par{jobs}{Liste de Job}, \Par{limitePrn}{entier}}{}{
       \Comment{jobs est triée en majeur sur le login}\;
       \Decl{i}{entier}\;
       \Decl{cptPrn}{entier}\;
       \Decl{saveLogin}{chaîne}\;
-      \While{i < jobs.taille() }{
+      \While{i < jobs.size() }{
         \Assign{cptPrn}{0}\;
         \Assign{saveLogin}{jobs.get(i).login}\;
-        \While{i < jobs.taille() ET jobs.get(i).login = saveLogin }{
+        \While{i < jobs.size() ET jobs.get(i).login = saveLogin }{
           \Assign{cptPrn}{cptPrn + jobs.get(i).nombre}\;
           \Assign{i}{i + 1}\;
         }
@@ -444,54 +539,64 @@
   \end{algo}
 \end{Solution}
 
-
-\begin{Exercice}{Compter le nombre d'étudiants par option}
-	Reprenons l'exemple donné pour la rupture de niveau 2 (\lda{RuptureNiveau2}, page \pageref{algo:rupt2}).
-	Que faut-il ajouter à l'algorithme pour qu'il affiche également 
-	le nombre total d'étudiants par option ?
+\newpage
+\begin{Exercice}{Nombre d'étudiants par année et par option}
+	Reprenons l'exemple donné pour la rupture de niveau 2 (\lda{RuptureNiveau2}, 
+	page \pageref{algo:rupt2}). 
+	Et si, à présent,
+	on veut \textbf{à la fois} le nombre d'étudiant par option 
+	\textbf{et} le nombre d'étudiants par année 
+	(\textbf{toutes les années confondues}) ?
+	Comment faire ?
 \end{Exercice}
 
-\begin{Solution}
-  \begin{algo}
-    \Algo{RuptureNiveau2}{\Par{etudiants}{liste d’ Etudiant}}{}{
-      \Comment{on suppose les données classées en majeur sur l’option}\;
-      \Comment{et en mineur sur la date de naissance (ordre chronologique)}\;
-      \Decl{etd}{Etudiant}\;
-      \Decl{saveOption}{chaine}\;
-      \Decl{saveAnnéeNaissance}{entier}\;
-      \Decl{cpt, cptOpt}{entier} \Comment{ICI}\;
-      \Decl{i}{entier}\;
-      \Assign{i}{0}\;
-      \While{i < etudiants.taille() }{
-        \Assign{saveOption}{etd.option}\;
-        \Assign{cptOpt}{0} \Comment{ICI}\;
-        \While{i < etudiants.taille() ET etudiants.get(i).option = saveOption }{
-          \Assign{saveAnnéeNaissance}{etudiants.get(i).dateNaissance.année}\;
-          \Assign{cpt}{0}\;
-          \While{i < etudiants.taille()
-             ET etudiants.get(i).option = saveOption
-             ET etudiants.get(i).dateNaissance.année = saveAnnéeNaissance}{
-            \Assign{cpt}{cpt + 1}\;
-            \Assign{cptOpt}{cptOpt + 1} \Comment{ICI}\;
-            \Assign{i}{i + 1}\;
-          }
-          \Write  cpt, " étudiant(s) dans l’option ", saveOption, " est(sont) né(s) en ", saveAnneeNaissance\;
-        }
-        \Write  cptOpt, " étudiant(s) dans l'option ", saveOption \Comment{ICI}\;
-      }
-    }
-\end{algo}
-\end{Solution}
+% \begin{Exercice}{Compter le nombre d'étudiants par option}
+% 	Reprenons l'exemple donné pour la rupture de niveau 2 (\lda{RuptureNiveau2}, page \pageref{algo:rupt2}).
+% 	Que faut-il ajouter à l'algorithme pour qu'il affiche également 
+% 	le nombre total d'étudiants par option ?
+% \end{Exercice}
+
+% \begin{Solution}
+%   \begin{algo}
+%     \Algo{RuptureNiveau2}{\Par{etudiants}{liste d’ Etudiant}}{}{
+%       \Comment{on suppose les données classées en majeur sur l’option}\;
+%       \Comment{et en mineur sur la date de naissance (ordre chronologique)}\;
+%       \Decl{etd}{Etudiant}\;
+%       \Decl{saveOption}{chaine}\;
+%       \Decl{saveAnnéeNaissance}{entier}\;
+%       \Decl{cpt, cptOpt}{entier} \Comment{ICI}\;
+%       \Decl{i}{entier}\;
+%       \Assign{i}{0}\;
+%       \While{i < etudiants.size() }{
+%         \Assign{saveOption}{etd.option}\;
+%         \Assign{cptOpt}{0} \Comment{ICI}\;
+%         \While{i < etudiants.size() ET etudiants.get(i).option = saveOption }{
+%           \Assign{saveAnnéeNaissance}{etudiants.get(i).dateNaissance.année}\;
+%           \Assign{cpt}{0}\;
+%           \While{i < etudiants.size()
+%              ET etudiants.get(i).option = saveOption
+%              ET etudiants.get(i).dateNaissance.année = saveAnnéeNaissance}{
+%             \Assign{cpt}{cpt + 1}\;
+%             \Assign{cptOpt}{cptOpt + 1} \Comment{ICI}\;
+%             \Assign{i}{i + 1}\;
+%           }
+%           \Write  cpt, " étudiant(s) dans l’option ", saveOption, " est(sont) né(s) en ", saveAnneeNaissance\;
+%         }
+%         \Write  cptOpt, " étudiant(s) dans l'option ", saveOption \Comment{ICI}\;
+%       }
+%     }
+% \end{algo}
+% \end{Solution}
 
 \begin{Exercice}{Compter les étudiants [rupture de niveau 2]}
 	
-	Supposons que la structure \lda{Etudiant} contienne également
-	un champ indiquant dans quel bloc se trouve l'étudiant (1, 2 ou 3).
+	Supposons que la classe \lda{Etudiant} contienne également
+	un attribut indiquant dans quel bloc se trouve l'étudiant (1, 2 ou 3).
 	On voudrait un algorithme qui reçoit une liste d'étudiants et calcule
 	le nombre d'étudiants dans chaque section et, par section, dans chaque bloc.
 	
 	L'affichage ressemblera à :
-	{\small
+	{\footnotesize
 	\begin{verbatim}
     Gestion
         bloc 1 : 130 étudiants
@@ -512,7 +617,7 @@
 	}
 	\begin{enumerate}[label=\alph*)]
 		\item 
-		Quel doit-être le tri de la liste pour pouvoir résoudre cet exercice
+		Quel doit-être le tri pour pouvoir résoudre cet exercice
 		avec un algorithme de rupture ?
 		\item 
 		Écrire cet algorithme.
@@ -525,16 +630,16 @@
   \Decl{saveOption, saveBloc}{chaine}\;
   \Decl{cptEtudiantOption, cptEtudiantBloc, i}{entier}\;
   \Assign{i}{0}\;
-  \While{i < etudiants.taille() }{
+  \While{i < etudiants.size() }{
     \Assign{saveOption}{etudiants.get(i).option}\;
     \Comment{initialisation pré-rupture 1}\;
     \Assign{cptEtudiantOption}{0}\;
     \Write  saveOption\;
-    \While{i < etudiants.taille() ET (etudiants.get(i)).option = saveOption }{
+    \While{i < etudiants.size() ET (etudiants.get(i)).option = saveOption }{
       \Assign{saveBloc}{etudiants.get(i).bloc}\;
       \Comment{initialisation pré-rupture 2}\;
       \Assign{cptEtudiantBloc}{0}\;
-      \While{i < etudiants.taille() ET etudiants.get(i).option = saveOption ET etudiants.get(i).bloc = saveBloc }{
+      \While{i < etudiants.size() ET etudiants.get(i).option = saveOption ET etudiants.get(i).bloc = saveBloc }{
         \Comment{traitement des éléments de la liste}\;
         \Assign{cptEtudiantBloc}{cptEtudiantBloc + 1}\;
         \Assign{i}{i + 1}\;
@@ -553,56 +658,6 @@
 
 \end{Solution}
 	
-%\begin{Exercice}{Statistiques de ventes de voitures [rupture de niveau 2]}
-%	Un grand quotidien dispose d’une liste 
-%	regroupant les ventes de voitures neuves pendant l’année dernière. 
-%	Les éléments de cette liste sont de type \textsl{Voiture} dont voici la définition :
-%
-%	\begin{algo}
-%	\Structure{Voiture}
-%		\Decl{plaque}{chaine} 	\RComment{numéro d’immatriculation}\;
-%		\Decl{marque}{chaine} 	\RComment{marque de la voiture (par ex. «~Citroën~»)}\;
-%		\Decl{type}{chaine}		\RComment{type de modèle dans la marque (par ex. «~Berlingo~»)}\;
-%		\Decl{nom}{chaine}		\RComment{nom du propriétaire}\;
-%		\Decl{adresse}{chaine}	\RComment{adresse du propriétaire}\;
-%		\Decl{date}{date}		\RComment{date de la demande d’immatriculation}\;
-%	\EndStruct
-%	\end{algo}
-%
-%	La liste est ordonnée croissant \textbf{en majeur sur la marque de
-%	voiture et en mineur sur le type}. 
-%
-%	Afin de préparer le travail des journalistes, 
-%	il a été demandé au service informatique de préparer un affichage 
-%	qui globalise les ventes de voiture par marque 
-%	et pour chaque marque, par type. 
-%	Cet affichage contiendra les renseignements suivants :
-%
-%	\begin{itemize}
-%		\item 
-%			un titre général \og{}Ventes de voitures neuves en 2017\fg{} 
-%		\item 
-%			pour chaque marque :
-%			\begin{itemize}
-%				\item 
-%					le nom de la marque
-%				\item 
-%					pour chaque type de modèle
-%                \begin{itemize} 
-%        			\item 
-%		      			le nom de ce type et le nombre de voitures neuves vendues
-%                \end{itemize}				
-%				\item 
-%					le nombre total de voitures vendues pour cette marque
-%			\end{itemize}
-%		\item 
-%			enfin, le total global du nombre de voitures vendues toutes marques
-%			confondues
-%	\end{itemize}
-%	
-%	Écrivez un algorithme produisant l'affichage décrit.
-%\end{Exercice}
-
 \begin{Exercice}{Les fanas d'info  [rupture de niveau 2]}
 
 	Une grande société d’informatique a organisé durant les douze derniers
@@ -613,12 +668,17 @@
 	dont les éléments sont de type \lda{Participant}.
 
 	\begin{algo}
-	\Structure{Participant}{
-		\Decl{nom}{string} 		\RComment{nom et prénom du participant}
-		\Decl{âge}{integer} 		\RComment{âge du participant au moment du concours}
-		\Decl{référence}{string}\RComment{référence du club auquel appartient ce participant}
-		\Decl{numéro}{integer}	\RComment{numéro du concours auquel il a participé}
-		\Decl{résultat}{integer}	\RComment{résultat obtenu lors de ce concours (sur 100)}
+	\Class{Participant}{
+		\Private{
+			\Decl{nom}{string} 		\RComment{nom et prénom du participant}
+			\Decl{âge}{integer} 		\RComment{âge du participant au moment du concours}
+			\Decl{référence}{string}\RComment{référence du club auquel appartient ce participant}
+			\Decl{numéro}{integer}	\RComment{numéro du concours auquel il a participé}
+			\Decl{résultat}{integer}	\RComment{résultat obtenu lors de ce concours (sur 100)}
+		}
+		\Public{
+			\Comment{Le constructeur et les getteurs}
+		}
 	}
 	\end{algo}
 
@@ -661,7 +721,7 @@
     \Decl{saveNom, saveRef}{chaîne}\;
     \Decl{accumRésultat, nbResultats}{entier}\;
     \Decl{nbMineursClub}{entier}\;
-    \Assign{n}{membres.taille()}\;
+    \Assign{n}{membres.size()}\;
     \Assign{i}{0}\;
     \While{i < n }{
       \Assign{saveRef}{membres.get(i).reference}\;
