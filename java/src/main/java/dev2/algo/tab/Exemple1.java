@@ -14,8 +14,7 @@ public class Exemple1 {
         grille[0][4] = "NE";
         grille[2][0] = "SO";
         grille[2][4] = "SE";        
-//        System.out.println(Arrays.deepToString(grille));
-    }
+    } // Pour afficher : System.out.println(Arrays.deepToString(grille));
     
     public static void main(String[] args) {
         remplirCoins();

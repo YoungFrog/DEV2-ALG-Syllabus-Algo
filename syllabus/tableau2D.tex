@@ -71,13 +71,8 @@
 		Notez que la vue sous forme de tableau avec des lignes
 		et des colonnes est une vision humaine.
 		Il n'y a pas de lignes ni de colonnes en mémoire.
-		Pour être précis,
-		on devrait juste parler de première dimension et
-		de deuxième dimension
-		mais la notion de ligne et de colonne
-		est un abus de langage qui simplifie le discours.
 		
-		On pourrait aussi visualiser un tableau à deux dimensions
+		On pourrait ainsi visualiser un tableau à deux dimensions
 		comme un tableau à une dimension dont chacun des éléments est
 		lui-même un tableau à une dimension.
 	
@@ -90,6 +85,7 @@
 		On peut le visualiser à l’aide d’une grille à 4 lignes et 5 colonnes.
 
 		\begin{center}
+			\small
 		\begin{tabular}{*{6}{>{\centering\arraybackslash}m{5mm}}}
 			{} & 0 & 1 & 2 & 3 & 4 \\
 		\end{tabular}
@@ -179,6 +175,12 @@
 		est décomposé en cinq éléments de deuxième niveau accessibles par le
 		deuxième indice.
 
+		Pour être précis,
+		on devrait juste parler de première dimension et
+		de deuxième dimension
+		mais la notion de ligne et de colonne
+		est un abus de langage qui simplifie le discours.
+
 	\subsection{Exemples}
 	%======================
 	
@@ -220,9 +222,8 @@
 		}
 		\end{algo}
 	
-		\newpage
 		La version \bsc{Java} :
-		\listing*[linerange=11-18]{java}{java/src/main/java/dev2/algo/tab/Exemple1.java}
+		\listing*[linerange=11-18,basicstyle=\footnotesize\vtt]{java}{java/src/main/java/dev2/algo/tab/Exemple1.java}
 		
 		\paragraph{Exemple 2 -- Gestion des stocks.}
 		Reprenons l'exemple du stock de 10 produits
@@ -248,7 +249,7 @@
 		\end{center}
 		\end{small}
 		
-		\bigskip
+		\medskip
 		
 		\begin{algo}
 		\Comment{Calcule et affiche la quantité vendue de 10 produits}\;
@@ -291,9 +292,10 @@
 		}
 		\end{algo}
 	
-		\newpage
 		En \bsc{Java} :
-		\listing*[linerange=11-37]{java}{java/src/main/java/dev2/algo/tab/Exemple2.java}
+		\listing*[linerange=11-22,basicstyle=\footnotesize\vtt]{java}{java/src/main/java/dev2/algo/tab/Exemple2.java}
+		\listing*[linerange=24-26,basicstyle=\footnotesize\vtt]{java}{java/src/main/java/dev2/algo/tab/Exemple2.java}
+		\listing*[linerange=28-37,basicstyle=\footnotesize\vtt]{java}{java/src/main/java/dev2/algo/tab/Exemple2.java}
 
 	\subsection{Exercices}
 			
@@ -313,6 +315,28 @@
 			\begin{algo}
 				\Algo{estNul}{\Par{tab}{\Array{n $\times$ m}{integers}}, \Par{lg, col}{integers}}{boolean}{
 					\Return tab[lg][col]=0\;
+				}
+			\end{algo}
+		\end{Solution}
+
+		\begin{Exercice}{Case existe ?}
+			Écrire un algorithme qui reçoit un tableau d'entiers
+			(à $n$ lignes et $m$ colonnes)
+			ainsi que des coordonnées
+			et qui retourne un booléen indiquant 
+			si ces coordonnées désignent bien une case du tableau,
+			ç-à-d qu'elles sont dans le bon intervalle
+			($0$ à $n-1$ et $0$ à $m-1$).
+			
+			\begin{algo}
+				\AlgoSign{existe}{\Par{tab}{\Array{n $\times$ m}{integers}}, \Par{lg, col}{integers}}{boolean}\;
+			\end{algo}
+		\end{Exercice}
+
+		\begin{Solution}
+			\begin{algo}
+				\Algo{estNul}{\Par{tab}{\Array{n $\times$ m}{integers}}, \Par{lg, col}{integers}}{boolean}{
+					\Return $ 0 \le{} \mathit{lg} < n$ ET $0 \le{} \mathit{col} < m$\;
 				}
 			\end{algo}
 		\end{Solution}
@@ -414,23 +438,9 @@
 				}
 			\end{algo}
 		\end{Solution}
-
-% ============================================
-\section{La troisième dimension (et au-delà)}
-% ============================================
-
-	Certaines situations complexes nécessitent l'usage de
-	tableaux à 3 voire plus de dimensions.
-
-	\marginicon{definition}
-	Pour déclarer un tableau statique à $k$ dimensions, on écrira :
-
-	\begin{algo}
-	\Decl{nomTableau}{\Array{tailleDim1 $\times$ \dots{} $\times$ tailleDimK}{TypeElément}}\;
-	\end{algo}
 	
 % ================================================
-\section{Parcours d'un tableau à deux dimensions}
+\section{Parcours}
 \label{algo:Tab2D}
 % ================================================
 
@@ -487,7 +497,8 @@
                           \Par{tab}{\Array{n $\times$ m}{T}},
                           \Par{lg}{integer}}{}
                         {
-				\ForAll{col : numéro de colonne \Comment{Pour tous les numéros de colonne}}{
+				\ForAll{col : numéro de colonne 
+					\Comment{Pour tous les numéros de colonne ($0$ à $m-1$)}}{
 					\Write tab[ lg, col ] \RComment{On peut faire autre chose qu'afficher}
 				}
 			}
@@ -505,7 +516,7 @@
 		% 	}
 		% \end{algo}
 
-		\listing*[linerange=9-13]{java}{java/src/main/java/dev2/algo/tab/Parcours1D.java}
+		\listing*[linerange=9-13,basicstyle=\footnotesize\vtt]{java}{java/src/main/java/dev2/algo/tab/Parcours1D.java}
 
 		\medskip
 		\begin{infotbox}{Retenons}
@@ -536,7 +547,7 @@
 		% 	}
 		% \end{algo}
 
-		\listing*[linerange=15-19]{java}{java/src/main/java/dev2/algo/tab/Parcours1D.java}
+		\listing*[linerange=15-19,basicstyle=\footnotesize\vtt]{java}{java/src/main/java/dev2/algo/tab/Parcours1D.java}
 
 		\paragraph{La diagonale descendante.}
 		Si le tableau est carré ($n=m$) on peut aussi envisager le parcours
@@ -569,7 +580,7 @@
 			}
 		\end{algo}
 
-		\listing*[linerange=21-25]{java}{java/src/main/java/dev2/algo/tab/Parcours1D.java}
+		\listing*[linerange=21-25,basicstyle=\footnotesize\vtt]{java}{java/src/main/java/dev2/algo/tab/Parcours1D.java}
 
 		\paragraph{La diagonale montante.}
 		Pour la diagonale montante, 
@@ -612,7 +623,9 @@
 		}
 		\end{algo}
 
-		\listing*[linerange=27-48]{java}{java/src/main/java/dev2/algo/tab/Parcours1D.java}
+		\listing*[linerange=27-34,basicstyle=\footnotesize\vtt]{java}{java/src/main/java/dev2/algo/tab/Parcours1D.java}
+		\listing*[linerange=36-41,basicstyle=\footnotesize\vtt]{java}{java/src/main/java/dev2/algo/tab/Parcours1D.java}
+		\listing*[linerange=43-48,basicstyle=\footnotesize\vtt]{java}{java/src/main/java/dev2/algo/tab/Parcours1D.java}
 
 	\subsection{Parcours des deux dimensions}
 	%========================================
@@ -661,26 +674,29 @@
 			\begin{algo}
 			\Comment{Parcours d'un tableau à 2 dimensions, ligne par ligne}\;
 			\Algo{afficherLigneParLigne}{\Par{tab}{\Array{n $\times$ m}{T}}}{}{
-				\Fori{lg}{0}{n-1}{
-					\Fori{col}{0}{m-1}{
+				\ForAll{lg : numéro de ligne}{
+					\ForAll{col : numéro de colonne}{
 						\Write tab[lg,col] \RComment{On peut faire autre chose qu'afficher}
 					}
 				}
 			}
 			\end{algo}
-			
+
+			Il suffit d'inverser les deux boucles pour effectuer un parcours par colonne.
+
 			\begin{algo}
 				\Comment{Parcours d'un tableau à 2 dimensions, colonne par colonne}\;
 				\Algo{afficherColonneParColonne}{\Par{tab}{\Array{n $\times$ m}{T}}}{}{
-					\Fori{col}{0}{m-1}{
-						\Fori{lg}{0}{n-1}{
-							\Write tab[lg,col] \RComment{On peut faire autre chose qu'afficher}
+					\ForAll{col : numéro de colonne}{
+						\ForAll{lg : numéro de ligne}{
+								\Write tab[lg,col] \RComment{On peut faire autre chose qu'afficher}
 						}
 					}
 				}
 			\end{algo}
 
-			\listing*[linerange=9-23]{java}{java/src/main/java/dev2/algo/tab/Parcours2D.java}
+			\listing*[linerange=9-15,basicstyle=\footnotesize\vtt]{java}{java/src/main/java/dev2/algo/tab/Parcours2D.java}
+			\listing*[linerange=17-23,basicstyle=\footnotesize\vtt]{java}{java/src/main/java/dev2/algo/tab/Parcours2D.java}
 
 			Mais on peut obtenir le même résultat avec une seule boucle
 			si l'indice sert juste à compter le nombre de passages ($n*m$)
@@ -690,7 +706,23 @@
 			pour un parcours ligne par ligne.
 			La solution pour un parcours colonne par colonne est similaire
 			et laissée en exercice.
-			
+
+			\begin{algo}
+				\Comment{Parcours d'un tableau à 2 dimensions via une seule boucle}\;
+				\Algo{afficherLigneParLigne}{\Par{tab}{\Array{n $\times$ m}{T}}}{}{
+					On commence à la 1\iere{} case, en haut à gauche.\;
+					\Repeat{$n*m$}{
+						\Write tab[lg,col] \RComment{On peut faire autre chose qu'afficher}
+						\uIf{on n'est pas sur le bord droit} {
+							Passer sur la case de droite\;
+						} \Else {
+							Passer à la case de gauche de la ligne suivante\;
+						}
+					}
+				}
+			\end{algo}
+
+			En plus détaillé :
 			\begin{algo}
 				\Comment{Parcours d'un tableau à 2 dimensions via une seule boucle}\;
 				\Algo{afficherLigneParLigne}{\Par{tab}{\Array{n $\times$ m}{T}}}{}{
@@ -708,21 +740,25 @@
 				}
 			\end{algo}
 
-			\listing*[linerange=25-37]{java}{java/src/main/java/dev2/algo/tab/Parcours2D.java}
+			Et en \bsc{Java} : 
+			\listing*[linerange=25-37,basicstyle=\footnotesize\vtt]{java}{java/src/main/java/dev2/algo/tab/Parcours2D.java}
 
 			L'avantage de cette solution apparaitra 
 			quand on verra des situations plus difficiles.
 
-		\paragraph{Interrompre le parcours.}
+		\subsection{Interrompre le parcours.}
 		%---------------------------------------
 			
 			Comme avec les tableaux à une dimension, 
 			envisageons l'arrêt prématuré lors de la rencontre d'une certaine condition.
-			Et, comme avec les tableaux à une dimension, 
+			Nous allons voir une version adaptée du parcours à deux boucles
+			et une version adaptée du parcours à une boucle.
+			
+			\paragraph*{Version avec 2 boucles.}
+
+			Comme avec les tableaux à une dimension, 
 			transformons d'abord nos \emph{pour} en \emph{tant que}.
-			
-			Par exemple, montrons les deux parcours ligne par ligne, avec une et deux boucle(s).
-			
+
 			\begin{algo}
 				\Comment{Parcours d'un tableau à 2 dimensions, ligne par ligne, via un tant que}\;
 				\Algo{afficherLigneParLigne}{\Par{tab}{\Array{n $\times$ m}{T}}}{}{
@@ -739,36 +775,56 @@
 				}
 			\end{algo}
 			
-			\begin{algo}
-				\Comment{Parcours d'un tableau à 2 dimensions via une seule boucle et un tant que}\;
-				\Algo{afficherColonneParColonne}{\Par{tab}{\Array{n $\times$ m}{T}}}{}{
-					\Decl{lg, col, i}{integers}\;
-					lg \Gets 0\;
-					col \Gets 0\;
-					i \Gets 1\;
-					\While(\IComment{ou "lg $<$ n"}){i $\le$ n*m}{
-						\Write tab[lg,col] \RComment{On peut faire autre chose qu'afficher}
-						col++	\RComment{Passer à la case suivante}
-						\If(\IComment{On déborde sur la droite, passer à la ligne suivante}){col = m}{
-							col \Gets 0\;
-							lg++\;
-						}
-						i++\;
-					}
-				}
-			\end{algo}
-			
 			On peut à présent introduire le test comme on l'a fait 
 			dans les algorithmes de parcours des tableaux à une dimension.
 
-			Illustrons-le au travers de deux exemples
-			où on cherche un élément particulier.
-			Le premier introduit un test en utilisant un booléen
-			alors que le second introduit un test
-			sans utiliser de booléen.
-			Dans les deux cas, l'algorithme retourne un booléen indiquant si
+			\medskip
+			\begin{infotbox}{Rappellons-nous}
+				Nous avons vu deux solutions pour un parcours interrompu.
+				\begin{itemize}
+				\item 
+					Une 1\iere{} version où le \textbf{test} est placé directement 
+					\textbf{dans la condition} de la boucle.
+				\item 
+					Une seconde version utilisant un \textbf{booléen} 
+					indiquant si on continue ou pas. 
+					Ce booléen est \textbf{mis à jour dans la boucle}.
+				\end{itemize}
+			\end{infotbox}
+			\medskip
+
+			Illustrons-le au travers d'un algorithme
+			qui cherche un élément particulier.
+			et retourne un booléen indiquant si
 			l'élément a été trouvé ou pas.
-			
+
+			Avec deux boucles, la solution la \textbf{plus simple}
+			est celle qui introduit un \textbf{booléen}.
+
+			\begin{algo}
+				\Comment{Parcours avec test d'arrêt - deux boucles et un booléen}\;
+				\Algo{chercherElément}{\Par{tab}{\Array{n $\times$ m}{T}}, \Par{élt}{T}}{boolean}{
+					\Decl{lg, col}{integers}\;
+					\Decl{trouvé}{boolean}\;
+					trouvé \Gets faux\;
+					lg \Gets 0\;
+					\While{lg $<$ n ET NON trouvé}{
+						col \Gets 0\;
+						\While{col $<$ m ET NON trouvé}{
+							trouvé \Gets \textit{tab[lg, col] = élt}\;
+							col++\;
+						}
+						lg++\;
+					}
+					\Return{trouvé}
+				}
+			\end{algo}
+
+			S'il est important de connaitre la position de l'élément trouvé,
+			il faut veiller à ne pas incrémenter la ligne et/ou la colonne 
+			lorsque l'élément est trouvé. 
+			Ce qui donne :
+
 			\begin{algo}
 				\Comment{Parcours avec test d'arrêt - deux boucles et un booléen}\;
 				\Algo{chercherElément}{\Par{tab}{\Array{n $\times$ m}{T}}, \Par{élt}{T}}{boolean}{
@@ -793,8 +849,40 @@
 					\Return{trouvé}
 				}
 			\end{algo}
-			
+
+			En \bsc{Java}, ça donne :
+			\listing*[linerange=39-59,basicstyle=\footnotesize\vtt]{java}{java/src/main/java/dev2/algo/tab/Parcours2D.java}
+
+			% \newpage
+			\paragraph*{Version avec 1 boucle.}
+
+			Utilisons la même stratégie pour le parcours avec une seule boucle.
+			Avec une boucle, 
+			on peut facilement utiliser la version avec le \textbf{test dans la condition}.
+
+			% \begin{algo}
+			% 	\Comment{Parcours d'un tableau à 2 dimensions via une seule boucle et un tant que}\;
+			% 	\Algo{afficherColonneParColonne}{\Par{tab}{\Array{n $\times$ m}{T}}}{}{
+			% 		\Decl{lg, col, i}{integers}\;
+			% 		lg \Gets 0\;
+			% 		col \Gets 0\;
+			% 		i \Gets 1\;
+			% 		\While(\IComment{ou "lg $<$ n"}){i $\le$ n*m}{
+			% 			\Write tab[lg,col] \RComment{On peut faire autre chose qu'afficher}
+			% 			col++	\RComment{Passer à la case suivante}
+			% 			\If(\IComment{On déborde sur la droite, passer à la ligne suivante}){col = m}{
+			% 				col \Gets 0\;
+			% 				lg++\;
+			% 			}
+			% 			i++\;
+			% 		}
+			% 	}
+			% \end{algo}
+
+			Voici ce que ça donne pour notre recherche d'un élément :
+
 			\begin{algo}
+				\footnotesize
 				\Comment{Parcours avec test d'arrêt - une boucle et pas de booléen}\;
 				\Algo{chercherElément}{\Par{tab}{\Array{n $\times$ m}{T}}, \Par{élt}{T}}{}{
 					\Decl{lg, col, i}{integers}\;
@@ -813,8 +901,10 @@
 				}
 			\end{algo}
 
+			Remarquez qu'ici, naturellement, la ligne et la colonne s'arrêtent
+			exactement à l'endroit où la valeur est trouvée.
+
 			En \bsc{Java}, ça donne :
-			\listing*[linerange=39-59]{java}{java/src/main/java/dev2/algo/tab/Parcours2D.java}
 			\listing*[linerange=61-75]{java}{java/src/main/java/dev2/algo/tab/Parcours2D.java}
 
 		\paragraph{Parcours plus compliqué - le serpent.}
@@ -840,11 +930,34 @@
 			ce qui donne l'algorithme :
 
 			\begin{algo}
+				\footnotesize
 				\Comment{Parcours du serpent dans un tableau à deux dimensions}\;
-				\Algo{affichageElémentsSerpent}{\Par{tab}{\Array{n $\times$ m}{T}}}{}{
+				\Algo{afficherElémentsSerpent}{\Par{tab}{\Array{n $\times$ m}{T}}}{}{
+					Se placer sur la 1\iere{} case\;
+					Commencer à se déplacer à droite\;
+					\Repeat{$n*m$}{
+						\Write tab[lg, col]\;
+						\eIf{le déplacement dans le sens courant (droite ou gauche) ne sort pas du tableau}{
+							Se déplacer dans le sens courant\;
+						}{
+							Passer à la ligne suivante\;
+							Inverser le sens de déplacement (droite $\Longleftrightarrow$ gauche)\;
+						}
+					}
+				}
+			\end{algo}
+
+			Pour retenir le sens du déplacement, nous allons utiliser
+			un entier ($-1$ pour gauche et $1$ pour droite)
+			ce qui va faciliter le calcul du déplacement.
+
+			\begin{algo}
+				\footnotesize
+				\Comment{Parcours du serpent dans un tableau à deux dimensions}\;
+				\Algo{afficherElémentsSerpent}{\Par{tab}{\Array{n $\times$ m}{T}}}{}{
 					\Decl{lg, col, depl}{integers}\;
-					lg \Gets 0\;
-					col \Gets 0\;
+					lg \Gets 0 ;
+					col \Gets 0 ;
 					sens \Gets 1	\RComment{1 pour avancer, -1 pour reculer}
 					\Fori{i}{1}{n*m}{
 						\Write tab[lg, col] \RComment{On peut faire autre chose qu'afficher}
@@ -858,7 +971,22 @@
 				}
 			\end{algo}
 
+			Voici la version \bsc{Java} :
 			\listing*[linerange=77-91]{java}{java/src/main/java/dev2/algo/tab/Parcours2D.java}
+
+% % ============================================
+% \section{La troisième dimension (et au-delà)}
+% % ============================================
+
+% 	Certaines situations complexes nécessitent l'usage de
+% 	tableaux à 3 voire plus de dimensions.
+
+% 	\marginicon{definition}
+% 	Pour déclarer un tableau statique à $k$ dimensions, on écrira :
+
+% 	\begin{algo}
+% 	\Decl{nomTableau}{\Array{tailleDim1 $\times$ \dots{} $\times$ tailleDimK}{TypeElément}}\;
+% 	\end{algo}
 
 % ===================
 \section{Exercices}
