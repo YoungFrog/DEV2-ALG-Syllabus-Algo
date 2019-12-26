@@ -269,7 +269,7 @@
 	
 		\begin{algo}
 		\Comment{Initialise le tableau d'entiers à 0}\;
-		\Algo{initialiser}{\Par{entiers\InOut}{\Array{7$\times$10}{integers}}}{}{
+		\Algo{initialiser}{\Par{entiers}{\Array{7$\times$10}{integers}}}{}{
 			\Fori{i}{0}{6}{
 				\Fori{j}{0}{9}{
 					entiers[i,j] \Gets 0\;
@@ -280,7 +280,7 @@
 	
 		\begin{algo}
 		\Comment{Effectue le traitement du stock pour une journée.}\;
-		\Algo{traiterStock1Jour}{\Par{cpt\InOut}{\Array{7$\times$10}{integers}}, \Par{jour\In}{integer}}{}{
+		\Algo{traiterStock1Jour}{\Par{cpt}{\Array{7$\times$10}{integers}}, \Par{jour}{integer}}{}{
 			\Decl{numéroProduit, quantité}{integers}\;
 			numéroProduit \Gets \Ask{"Introduisez le numéro du produit~:"}\; 
 			\While{numéroProduit $\geq$ 0 et numéroProduit $<$ 10}{
@@ -327,13 +327,13 @@
 			Dans le cas contraire, l'algorithme ne fait rien.
 			
 			\begin{algo}
-				\AlgoSign{assigner}{\Par{tab\InOut}{\Array{n $\times$ m}{integers}}, \Par{lg\In, col\In, val\In}{integers}}{}\;
+				\AlgoSign{assigner}{\Par{tab}{\Array{n $\times$ m}{integers}}, \Par{lg, col, val}{integers}}{}\;
 			\end{algo}
 		\end{Exercice}
 
 		\begin{Solution}
 			\begin{algo}
-				\Algo{assigner}{\Par{tab\InOut}{\Array{n $\times$ m}{integers}}, \Par{lg\In, col\In, val\In}{integers}}{}{
+				\Algo{assigner}{\Par{tab}{\Array{n $\times$ m}{integers}}, \Par{lg, col, val}{integers}}{}{
 					\If{estNul(tab, lg, col)}{
 						tab[lg,col] \Gets val\;
 					}
@@ -1270,7 +1270,7 @@
 
 	\begin{Solution}
 		\begin{algo}
-                  \Algo{pinceauZebre}{\Par{tab\InOut}{\Array{n $\times$ n}{entiers}}}{}{
+                  \Algo{pinceauZebre}{\Par{tab}{\Array{n $\times$ n}{entiers}}}{}{
                     \Assign{colDepart}{0}\;
                     \Fori[]{lg}{0}{n-1}{
                       \Fori[3]{col}{colDepart}{n-1}{
@@ -1285,7 +1285,7 @@
 
                     }
                   }
-                  \Algo{pinceauSpirale}{\Par{tab\InOut}{\Array{n $\times$ n}{entiers}}}{}{
+                  \Algo{pinceauSpirale}{\Par{tab}{\Array{n $\times$ n}{entiers}}}{}{
                     \Assign{lg}{0}\;
                     \Assign{col}{0}\;
                     \Assign{dirLg}{0}\;
@@ -1319,7 +1319,8 @@
                 \end{algo}
                 \begin{algo}
                   \Algo{tournerADroite}{\Par{dirLg\InOut}{entier}, \Par{dirCol\InOut}{entier}}{}{
-                    \Assign{dirLg}{dirCol}\;
+					\Comment{Pour Java, en faire un objet pour pouvoir le changer dans la méthode}
+				 	\Assign{dirLg}{dirCol}\;
                     \Assign{dirCol}{-dirLg}\;
                   }
                   \Comment{Tests: tournerADroite(0, 1) = (1, 0)}\;

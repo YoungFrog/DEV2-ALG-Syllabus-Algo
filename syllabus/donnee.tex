@@ -525,21 +525,21 @@
 	
 	Écrire la méthode suivante :
 	\begin{algo}
-		\MethodSign{effectuerRéservation}{demande\In : DemandeRéservation,
-		chambre\Out : integer}{boolean}
+		\MethodSign{effectuerRéservation}{demande : DemandeRéservation}{integer}
 	\end{algo}	
 	\begin{itemize}
 		\item 
-			Le booléen retourné indique si la réservation a pu se faire ou pas
-		\item 
-			Si elle a pu se faire, le paramètre de sortie
-			\lda{chambre} indique la chambre qui a été choisie
+			Elle retourne le numéro de la chambre qui a été choisie
+			ou $-1$ si la réservation n'a pas pu se faire.
 		\item 
 			Si plusieurs chambres sont libres, on choisit celle avec le plus petit
-			numéro
+			numéro.
 		\item 
 			La demande de réservation peut couvrir une période qui n’est pas encore
-			reprise dans la liste ; il faudra alors l’agrandir
+			reprise dans la liste ; il faudra alors l’agrandir.
+		\item 
+			Vous pouvez supposer qu'il existe une méthode donnant le nombre de jours
+			séparant deux dates données.
 	\end{itemize}
 
 	La classe de demande de réservation est définie ainsi :
