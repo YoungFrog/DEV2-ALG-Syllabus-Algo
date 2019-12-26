@@ -335,7 +335,7 @@
 
 		\begin{Solution}
 			\begin{algo}
-				\Algo{estNul}{\Par{tab}{\Array{n $\times$ m}{integers}}, \Par{lg, col}{integers}}{boolean}{
+				\Algo{existe}{\Par{tab}{\Array{n $\times$ m}{integers}}, \Par{lg, col}{integers}}{boolean}{
 					\Return $ 0 \le{} \mathit{lg} < n$ ET $0 \le{} \mathit{col} < m$\;
 				}
 			\end{algo}
@@ -1048,16 +1048,16 @@
 			\Algo{afficherCasesAdjacentes}
 				{\Par{tab}{\Array{n$\times$m}{entiers}}, \Par{lg, col}{entiers}}{}{
 				\lIf{NON estBordGauche(tab, lg, col)}{
-					\Write lg, col-1\;
+					\Write lg, col-1
 				}
 				\lIf{NON estBordDroit(tab, lg, col)}{
-					\Write lg, col+1\;
+					\Write lg, col+1
 				}
 				\lIf{NON estBordHaut(tab, lg, col)}{
-					\Write lg - 1, col\;
+					\Write lg - 1, col
 				}
 				\lIf{NON estBordBas(tab, lg, col)}{
-					\Write lg + 1, col\;
+					\Write lg + 1, col
 				}
 			}
 		\end{algo}
@@ -1325,23 +1325,23 @@
 		\end{algo}
 	\end{Solution}	
 
-	\begin{Exercice}{Lignes et colonnes}
-		Écrire un algorithme qui reçoit un tableau d’entiers à 2 dimensions en paramètre 
-		et qui retourne un booléen indiquant si ce tableau 
-		possède 2 lignes ou 2 colonnes identiques.
+	% \begin{Exercice}{Lignes et colonnes}
+	% 	Écrire un algorithme qui reçoit un tableau d’entiers à 2 dimensions en paramètre 
+	% 	et qui retourne un booléen indiquant si ce tableau 
+	% 	possède 2 lignes ou 2 colonnes identiques.
 		
-		Dans l’affirmative, 
-		cet algorithme renverra également en paramètres les informations suivantes :
-		\begin{itemize}
-		\item les indices des lignes ou colonnes identiques
-		\item un caractère valant ‘L’ ou ‘C’ selon qu’il s’agit de lignes ou de
-		colonnes
-		\end{itemize}
+	% 	Dans l’affirmative, 
+	% 	cet algorithme renverra également en paramètres les informations suivantes :
+	% 	\begin{itemize}
+	% 	\item les indices des lignes ou colonnes identiques
+	% 	\item un caractère valant ‘L’ ou ‘C’ selon qu’il s’agit de lignes ou de
+	% 	colonnes
+	% 	\end{itemize}
 		
-		Dans la négative, les valeurs de ces paramètres seront indéterminées ou
-		quelconques, elles ne seront de toute façon pas utilisées par l'algorithme
-		appelant.
-	\end{Exercice}
+	% 	Dans la négative, les valeurs de ces paramètres seront indéterminées ou
+	% 	quelconques, elles ne seront de toute façon pas utilisées par l'algorithme
+	% 	appelant.
+	% \end{Exercice}
 	
 	\begin{Exercice}{Le contour du tableau}
 		On donne un tableau d’entiers \lda{tabEnt} 

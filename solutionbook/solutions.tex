@@ -14,7 +14,17 @@
 
 		\begin{Solution}
 			\begin{algo}
-				\Algo{assigner}{\Par{tab\InOut}{\Array{n $\times$ m}{integers}}, \Par{lg\In, col\In, val\In}{integers}}{}{
+				\Algo{existe}{\Par{tab}{\Array{n $\times$ m}{integers}}, \Par{lg, col}{integers}}{boolean}{
+					\Return $ 0 \le{} \mathit{lg} < n$ ET $0 \le{} \mathit{col} < m$\;
+				}
+			\end{algo}
+		\end{Solution}
+
+\refstepcounter{Exercice}
+
+		\begin{Solution}
+			\begin{algo}
+				\Algo{assigner}{\Par{tab}{\Array{n $\times$ m}{integers}}, \Par{lg, col, val}{integers}}{}{
 					\If{estNul(tab, lg, col)}{
 						tab[lg,col] \Gets val\;
 					}
@@ -120,16 +130,16 @@
 			\Algo{afficherCasesAdjacentes}
 				{\Par{tab}{\Array{n$\times$m}{entiers}}, \Par{lg, col}{entiers}}{}{
 				\lIf{NON estBordGauche(tab, lg, col)}{
-					\Write lg, col-1\;
+					\Write lg, col-1
 				}
 				\lIf{NON estBordDroit(tab, lg, col)}{
-					\Write lg, col+1\;
+					\Write lg, col+1
 				}
 				\lIf{NON estBordHaut(tab, lg, col)}{
-					\Write lg - 1, col\;
+					\Write lg - 1, col
 				}
 				\lIf{NON estBordBas(tab, lg, col)}{
-					\Write lg + 1, col\;
+					\Write lg + 1, col
 				}
 			}
 		\end{algo}
@@ -324,7 +334,7 @@
 
 	\begin{Solution}
 		\begin{algo}
-                  \Algo{pinceauZebre}{\Par{tab\InOut}{\Array{n $\times$ n}{entiers}}}{}{
+                  \Algo{pinceauZebre}{\Par{tab}{\Array{n $\times$ n}{entiers}}}{}{
                     \Assign{colDepart}{0}\;
                     \Fori[]{lg}{0}{n-1}{
                       \Fori[3]{col}{colDepart}{n-1}{
@@ -339,7 +349,7 @@
 
                     }
                   }
-                  \Algo{pinceauSpirale}{\Par{tab\InOut}{\Array{n $\times$ n}{entiers}}}{}{
+                  \Algo{pinceauSpirale}{\Par{tab}{\Array{n $\times$ n}{entiers}}}{}{
                     \Assign{lg}{0}\;
                     \Assign{col}{0}\;
                     \Assign{dirLg}{0}\;
@@ -373,7 +383,8 @@
                 \end{algo}
                 \begin{algo}
                   \Algo{tournerADroite}{\Par{dirLg\InOut}{entier}, \Par{dirCol\InOut}{entier}}{}{
-                    \Assign{dirLg}{dirCol}\;
+					\Comment{Pour Java, en faire un objet pour pouvoir le changer dans la méthode}
+				 	\Assign{dirLg}{dirCol}\;
                     \Assign{dirCol}{-dirLg}\;
                   }
                   \Comment{Tests: tournerADroite(0, 1) = (1, 0)}\;
@@ -429,23 +440,15 @@
 
 \begin{Solution}
   \begin{algo}
-    \Structure{Date}{
-      \Decl{année, mois, jour}{entiers}\;
-    }
-    \Structure{Job}{
-      \Decl{login}{chaîne}\;
-      \Decl{date}{Date}\;
-      \Decl{nombre}{entier}\;
-    }
     \Algo{stopGaspi}{\Par{jobs}{Liste de Job}, \Par{limitePrn}{entier}}{}{
       \Comment{jobs est triée en majeur sur le login}\;
       \Decl{i}{entier}\;
       \Decl{cptPrn}{entier}\;
       \Decl{saveLogin}{chaîne}\;
-      \While{i < jobs.taille() }{
+      \While{i < jobs.size() }{
         \Assign{cptPrn}{0}\;
         \Assign{saveLogin}{jobs.get(i).login}\;
-        \While{i < jobs.taille() ET jobs.get(i).login = saveLogin }{
+        \While{i < jobs.size() ET jobs.get(i).login = saveLogin }{
           \Assign{cptPrn}{cptPrn + jobs.get(i).nombre}\;
           \Assign{i}{i + 1}\;
         }
@@ -459,37 +462,39 @@
 
 \refstepcounter{Exercice}
 
-\begin{Solution}
-  \begin{algo}
-    \Algo{RuptureNiveau2}{\Par{etudiants}{liste d’ Etudiant}}{}{
-      \Comment{on suppose les données classées en majeur sur l’option}\;
-      \Comment{et en mineur sur la date de naissance (ordre chronologique)}\;
-      \Decl{etd}{Etudiant}\;
-      \Decl{saveOption}{chaine}\;
-      \Decl{saveAnnéeNaissance}{entier}\;
-      \Decl{cpt, cptOpt}{entier} \Comment{ICI}\;
-      \Decl{i}{entier}\;
-      \Assign{i}{0}\;
-      \While{i < etudiants.taille() }{
-        \Assign{saveOption}{etd.option}\;
-        \Assign{cptOpt}{0} \Comment{ICI}\;
-        \While{i < etudiants.taille() ET etudiants.get(i).option = saveOption }{
-          \Assign{saveAnnéeNaissance}{etudiants.get(i).dateNaissance.année}\;
-          \Assign{cpt}{0}\;
-          \While{i < etudiants.taille()
-             ET etudiants.get(i).option = saveOption
-             ET etudiants.get(i).dateNaissance.année = saveAnnéeNaissance}{
-            \Assign{cpt}{cpt + 1}\;
-            \Assign{cptOpt}{cptOpt + 1} \Comment{ICI}\;
-            \Assign{i}{i + 1}\;
-          }
-          \Write  cpt, " étudiant(s) dans l’option ", saveOption, " est(sont) né(s) en ", saveAnneeNaissance\;
-        }
-        \Write  cptOpt, " étudiant(s) dans l'option ", saveOption \Comment{ICI}\;
-      }
-    }
-\end{algo}
-\end{Solution}
+\refstepcounter{Exercice}
+
+% \begin{Solution}
+%   \begin{algo}
+%     \Algo{RuptureNiveau2}{\Par{etudiants}{liste d’ Etudiant}}{}{
+%       \Comment{on suppose les données classées en majeur sur l’option}\;
+%       \Comment{et en mineur sur la date de naissance (ordre chronologique)}\;
+%       \Decl{etd}{Etudiant}\;
+%       \Decl{saveOption}{chaine}\;
+%       \Decl{saveAnnéeNaissance}{entier}\;
+%       \Decl{cpt, cptOpt}{entier} \Comment{ICI}\;
+%       \Decl{i}{entier}\;
+%       \Assign{i}{0}\;
+%       \While{i < etudiants.size() }{
+%         \Assign{saveOption}{etd.option}\;
+%         \Assign{cptOpt}{0} \Comment{ICI}\;
+%         \While{i < etudiants.size() ET etudiants.get(i).option = saveOption }{
+%           \Assign{saveAnnéeNaissance}{etudiants.get(i).dateNaissance.année}\;
+%           \Assign{cpt}{0}\;
+%           \While{i < etudiants.size()
+%              ET etudiants.get(i).option = saveOption
+%              ET etudiants.get(i).dateNaissance.année = saveAnnéeNaissance}{
+%             \Assign{cpt}{cpt + 1}\;
+%             \Assign{cptOpt}{cptOpt + 1} \Comment{ICI}\;
+%             \Assign{i}{i + 1}\;
+%           }
+%           \Write  cpt, " étudiant(s) dans l’option ", saveOption, " est(sont) né(s) en ", saveAnneeNaissance\;
+%         }
+%         \Write  cptOpt, " étudiant(s) dans l'option ", saveOption \Comment{ICI}\;
+%       }
+%     }
+% \end{algo}
+% \end{Solution}
 
 \refstepcounter{Exercice}
 
@@ -499,16 +504,16 @@
   \Decl{saveOption, saveBloc}{chaine}\;
   \Decl{cptEtudiantOption, cptEtudiantBloc, i}{entier}\;
   \Assign{i}{0}\;
-  \While{i < etudiants.taille() }{
+  \While{i < etudiants.size() }{
     \Assign{saveOption}{etudiants.get(i).option}\;
     \Comment{initialisation pré-rupture 1}\;
     \Assign{cptEtudiantOption}{0}\;
     \Write  saveOption\;
-    \While{i < etudiants.taille() ET (etudiants.get(i)).option = saveOption }{
+    \While{i < etudiants.size() ET (etudiants.get(i)).option = saveOption }{
       \Assign{saveBloc}{etudiants.get(i).bloc}\;
       \Comment{initialisation pré-rupture 2}\;
       \Assign{cptEtudiantBloc}{0}\;
-      \While{i < etudiants.taille() ET etudiants.get(i).option = saveOption ET etudiants.get(i).bloc = saveBloc }{
+      \While{i < etudiants.size() ET etudiants.get(i).option = saveOption ET etudiants.get(i).bloc = saveBloc }{
         \Comment{traitement des éléments de la liste}\;
         \Assign{cptEtudiantBloc}{cptEtudiantBloc + 1}\;
         \Assign{i}{i + 1}\;
@@ -529,8 +534,6 @@
 
 \refstepcounter{Exercice}
 
-\refstepcounter{Exercice}
-
 \begin{Solution}
 \begin{algo}
   \Algo{club}{\Par{membres}{Liste de Participant}}{}{
@@ -539,7 +542,7 @@
     \Decl{saveNom, saveRef}{chaîne}\;
     \Decl{accumRésultat, nbResultats}{entier}\;
     \Decl{nbMineursClub}{entier}\;
-    \Assign{n}{membres.taille()}\;
+    \Assign{n}{membres.size()}\;
     \Assign{i}{0}\;
     \While{i < n }{
       \Assign{saveRef}{membres.get(i).reference}\;
