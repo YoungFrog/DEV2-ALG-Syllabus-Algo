@@ -1,6 +1,6 @@
 package dev2.algo.oo.lievretortue;
 
-import mcd.util.Hasard;
+import mcd.util.Hasard; // Classe utilitaire pour le hasard
 
 /**
  * Un dé à 6 faces.

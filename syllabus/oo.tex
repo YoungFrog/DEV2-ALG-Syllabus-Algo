@@ -154,6 +154,7 @@
 				des préoccupations de ce cours.
 				On supposera que "\lda{\KwSty{afficher} objet}"
 				affiche correctement les données associées à l'objet.
+				Idem pour la méthode \lda{equals()}.
 		\end{itemize}
 	
 	\subsection{La représentation de l'état (les attributs)}
@@ -163,9 +164,9 @@
 		». Plusieurs possibilités existent. Par exemple~:	
 		\begin{itemize}
 			\item 
-				via le nombre d’heures, de minutes et de secondes
+				via le nombre d’heures, de minutes et de secondes.
 			\item 
-				via le nombre total de secondes
+				via le nombre total de secondes.
 			\item 
 				via une chaine, par exemple au format «~HH~:~MM~:~SS~» où HH pourrait
 				éventuellement excéder 23.
@@ -177,7 +178,7 @@
 		une méthode \lda{getJour()}). 		
 		Quel critère doit vraiment nous permettre de décider ? Il faut une
 		représentation qui soit suffisante (tout est représenté) et qui
-		permette d’écrire des méthodes lisibles et si possible efficaces
+		permette d’écrire des méthodes lisibles et si possible efficientes
 		(c'est-à-dire où le calcul est rapide). Selon ces
 		critères, la deuxième représentation est de loin la meilleure. 
 		
@@ -323,7 +324,7 @@
 
 		Pour utiliser le nouveau type de donnée créé,
 		il faut l'instancier, c'est-à-dire créer un nouvel objet de ce type.
-		Nous allons utiliser le mot clé \lda{\New} pour rester très proche de Java.
+		Nous allons utiliser le mot clé \lda{\New} comme en Java.
 		
 		Illustrons cela au travers d'un petit algorithme
 		qui calcule la différence entre deux durées.
@@ -412,7 +413,7 @@
 		\item
 			Si une classe ne propose pas de constructeur,
 			on peut néanmoins instancier un objet 
-			(via \lda{\New NomClasse()}).
+			via \lda{\New NomClasse()}.
 			On considère dans ce cas que les attributs ne sont pas initialisés.
 	\end{itemize}
 
@@ -587,8 +588,8 @@
 					lièvreArrivé \Gets faux\;
 					\;
 					\While{avancéeTortue < \nbMaxKmTortue{} ET NON lièvreArrivé}{
-						dé \Gets hasard(6)\;
-						\eIf{dé = 6}{
+						dé \Gets hasard(1,6)\;
+						\eIf{dé == 6}{
 							lièvreArrivé \Gets vrai\;
 						}{
 							avancéeTortue++\;
@@ -613,8 +614,9 @@
 		Voyons à présent ce que ça pourrait donner si on introduit
 		de l'orienté objet.
 		Examinons d'abord les objets physiques du jeu.
-		\begin{description}
-		\item[La tortue]
+
+		\textbf{La tortue}
+
 			On peut envisager de définir une classe pour la tortue.
 			Une tortue a une avancée. 
 			Au départ, elle est au kilomètre 0.
@@ -636,7 +638,7 @@
 						}
 						\;
 						\Method{estArrivée}{}{boolean}{
-							\Return avancée = \nbMaxKmTortue{}\;
+							\Return avancée == \nbMaxKmTortue{}\;
 						}
 						\;
 						\Method{getAvancée}{}{integer}{
@@ -650,16 +652,15 @@
 			car on veut que la tortue n'avance qu'en respectant les
 			règles du jeu.
 
-		\item[Le lièvre]
-			On peut appliquer la même démarche pour le lièvre
-			qui aurait un attribut booléen indiquant s'il est arrivé ou pas.
+		\medskip
+			\begin{minipage}[t]{7cm}
+				\textbf{Le lièvre}
 
-		\item[Le dé]		
-			Le dé est également un objet de notre jeu
-			et peut être défini via une classe.
+				On peut appliquer la même démarche pour le lièvre
+				qui aurait un attribut booléen indiquant s'il est arrivé ou pas.
 
-			\begin{minipage}{7cm}
-			\begin{algo}
+				\smallskip
+				\begin{algo}
 				\Class{Lièvre}{
 					\Private{
 						\Decl{arrivé}{boolean}\;
@@ -680,9 +681,15 @@
 				}
 			\end{algo}
 			\end{minipage}
-			~
-			\begin{minipage}{7cm}
-			\begin{algo}
+			\quad
+			\begin{minipage}[t]{7cm}
+				\textbf{Le dé}
+
+				Le dé est également un objet de notre jeu
+				et peut être défini via une classe.
+
+				\smallskip
+				\begin{algo}
 				\Class{Dé}{
 					\Private{
 						\Decl{valeur}{integer}\;
@@ -692,7 +699,7 @@
 						}
 						\;
 						\Method{lancer}{}{}{
-							valeur \Gets hasard(6)\;
+							valeur \Gets hasard(1,6)\;
 						}
 						\;
 						\Method{getValeur}{}{integer}{
@@ -702,8 +709,6 @@
 				}
 			\end{algo}
 			\end{minipage}
-
-		\end{description}
 
 		\newpage
 		\subsubsection*{L'algorithme du jeu}
@@ -724,7 +729,7 @@
 					\;
 					\While{NON tortue.estArrivée() ET NON lièvre.estArrivé()}{
 						dé.lancer()\;
-						\eIf{dé.getValeur()=6}{
+						\eIf{dé.getValeur() == 6}{
 							lièvre.avancer()\;
 						}{
 							tortue.avancer()\;
@@ -751,12 +756,6 @@
 			\listing*[basicstyle=\footnotesize\vtt]{java}{java/src/main/java/dev2/algo/oo/lievretortue/Lievre.java}
 			\listing*[basicstyle=\footnotesize\vtt]{java}{java/src/main/java/dev2/algo/oo/lievretortue/De.java}
 			\listing*[basicstyle=\footnotesize\vtt]{java}{java/src/main/java/dev2/algo/oo/lievretortue/VersionOO.java}
-
-			Est-ce une bonne idée d'avoir défini ces trois classes ?
-			C'est une question qu'il est légitime de se poser
-			quand les classes sont aussi simples.
-			Remarquons toutefois que le code est plus modulaire
-			et que la méthode principale est plus facile à lire.
 			
 			La classe \lda{Dé} se justifie d'autant plus 
 			qu'elle pourra probablement servir à de nombreuses occasions.
@@ -837,7 +836,7 @@
 		que nous allons vous expliquer.
 		
 		Dans l'approche MVC,
-		on découpe le code en différentes parties.
+		on découpe le code en trois parties.
 		La partie \og{}modèle\fg{} regroupe les bouts de code
 		qui font vraiment quelque chose (on parle de \og{}métier\fg{})
 		tandis que la partie \og{}vue\fg{} regroupe les bouts de code
@@ -992,7 +991,7 @@
 			}
 		\end{algo}
 		
-		\newpage
+		% \newpage
 		\paragraph{Le contrôleur.}
 		%-------------------------
 		
