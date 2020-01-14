@@ -8,10 +8,13 @@
 
 	\marginicon{definition}
 	La \textbf{dimension} d’un tableau est le nombre d’indices qu’on utilise
-	pour faire référence à un de ses éléments. Attention de ne pas confondre 
-	avec la	taille !
+	pour faire référence à un de ses éléments. 
 	
-	En \abbr{dev1}, nous avons introduit les tableaux à une dimension.
+	\begin{infotbox}{Attention}
+		Ne pas confondre la dimension avec la taille !
+	\end{infotbox}		
+	
+	En \abbr{dev$_1$}, nous avons introduit les tableaux à une dimension.
 	Un seul indice suffisait à localiser un de ses éléments. 
 	Pour le dire autrement,
 	chaque case possédait \textbf{un} numéro.
@@ -55,7 +58,7 @@
 		\marginicon{definition}
 		Pour \textbf{accéder} à une case du tableau on donnera les deux indices
 		entre crochets.
-		Comme en \abbr{dev1}, on considère que la première ligne 
+		Comme en \abbr{dev$_1$}, on considère que la première ligne 
 		et la première colonne portent le numéro (l'indice) $0$.  
 		
 		\textbf{Exemple} :
@@ -71,11 +74,7 @@
 		Notez que la vue sous forme de tableau avec des lignes
 		et des colonnes est une vision humaine.
 		Il n'y a pas de lignes ni de colonnes en mémoire.
-		
-		On pourrait ainsi visualiser un tableau à deux dimensions
-		comme un tableau à une dimension dont chacun des éléments est
-		lui-même un tableau à une dimension.
-	
+			
 		\textbf{Exemple} : Soit le tableau déclaré ainsi :
 	
 		\begin{algo}
@@ -98,10 +97,35 @@
 			3 & 30 & 31 & 32 & 33 & 34 \\\cline{2-6}
 		\end{tabular}
 		\end{center}
-	
+
 		Ainsi, la valeur de \lda{nombres[2,3]} 
-		est la valeur 23. 
+		est $23$. 
+
+		Mais on pourrait considérer que le 1\ier{} indice désigne la colonne
+		et le second indice la ligne. On le visualiserait alors ainsi :
+
+		\begin{center}
+			\small
+		\begin{tabular}{*{5}{>{\centering\arraybackslash}m{5mm}}}
+			{} & 0 & 1 & 2 & 3  \\
+		\end{tabular}
+		\\
+		\begin{tabular}{>{\centering\arraybackslash}m{3mm}|*{5}{>{\centering\arraybackslash}m{5mm}|}}
+			\cline{2-5}
+			0 &  0 & 10 & 20 & 30 \\\cline{2-5}
+			1 &  1 & 11 & 21 & 31 \\\cline{2-5}
+			2 &  2 & 12 & 22 & 32 \\\cline{2-5}
+			3 &  3 & 13 & 23 & 33 \\\cline{2-5}
+			4 &  4 & 14 & 24 & 34 \\\cline{2-5}
+		\end{tabular}
+		\end{center}
+
+		Cela ne change pas le fait que la valeur de \lda{nombres[2,3]} 
+		est toujours $23$. 
 		
+		On pourrait aussi visualiser un tableau à deux dimensions
+		comme un tableau à une dimension dont chacun des éléments est
+		lui-même un tableau à une dimension.
 		La vision «~tableau de tableaux~» 
 		(ou décomposition en niveaux)
 		donnerait :
@@ -175,11 +199,13 @@
 		est décomposé en cinq éléments de deuxième niveau accessibles par le
 		deuxième indice.
 
-		Pour être précis,
-		on devrait juste parler de première dimension et
-		de deuxième dimension
-		mais la notion de ligne et de colonne
-		est un abus de langage qui simplifie le discours.
+		\begin{infotbox}{Convention}
+			Pour être précis,
+			on devrait juste parler de première dimension et
+			de deuxième dimension
+			mais la notion de ligne et de colonne
+			est un abus de langage qui simplifie le discours.
+		\end{infotbox}
 
 	\subsection{Exemples}
 	%======================
@@ -225,6 +251,20 @@
 		La version \bsc{Java} :
 		\listing*[linerange=11-18,basicstyle=\footnotesize\vtt]{java}{java/src/main/java/dev2/algo/tab/Exemple1.java}
 		
+		% \medskip
+		\begin{infotbox}{Syntaxe Java}
+			On vous renvoie à votre cours de \bsc{Java}
+			pour les précisions sur la syntaxe \bsc{Java}.
+			\\
+			Notez juste ici :
+			\begin{itemize}
+				\item
+					Comment est déclaré/créé le tableau.
+				\item 
+					Le double \samp{[]} pour accéder à un élément.
+			\end{itemize}
+		\end{infotbox}
+
 		\paragraph{Exemple 2 -- Gestion des stocks.}
 		Reprenons l'exemple du stock de 10 produits
 		qui a servi d'introduction au chapitre sur les tableaux
@@ -299,6 +339,10 @@
 
 	\subsection{Exercices}
 			
+		Ces exercices ne nécessitent pas encore de parcours du tableau
+		(pas de boucle). 
+		Nous verrons les algorithmes de parcours juste après.
+
 		\begin{Exercice}{Case nulle ?}
 			Écrire un algorithme qui reçoit un tableau d'entiers
 			(à $n$ lignes et $m$ colonnes)
@@ -341,6 +385,7 @@
 			\end{algo}
 		\end{Solution}
 
+		\newpage
 		\begin{Exercice}{Assigner une case}
 			Écrire un algorithme qui reçoit un tableau d'entiers
 			(à $n$ lignes et $m$ colonnes)
@@ -489,6 +534,7 @@
 		\end{tabular}
 		\end{center}
 		
+		\newpage
 		Ce qui donne l'algorithme :
 
 		\begin{algo}
@@ -582,6 +628,7 @@
 
 		\listing*[linerange=21-25,basicstyle=\footnotesize\vtt]{java}{java/src/main/java/dev2/algo/tab/Parcours1D.java}
 
+		\newpage
 		\paragraph{La diagonale montante.}
 		Pour la diagonale montante, 
 		on peut envisager deux solutions, 
@@ -630,6 +677,9 @@
 	\subsection{Parcours des deux dimensions}
 	%========================================
 	
+		Les parcours précédents ne concernaient qu'une partie du tableau.
+		Voyons à présent comment visiter toutes les cases du tableau.
+
 		\paragraph{Parcours par lignes et par colonnes.}
 		%---------------------------------------------------
 			
@@ -722,6 +772,7 @@
 				}
 			\end{algo}
 
+			\newpage
 			En plus détaillé :
 			\begin{algo}
 				\Comment{Parcours d'un tableau à 2 dimensions via une seule boucle}\;
@@ -732,7 +783,7 @@
 					\Fori{i}{1}{n*m}{
 						\Write tab[lg,col] \RComment{On peut faire autre chose qu'afficher}
 						col \Gets col + 1	\RComment{Passer à la case suivante}
-						\If(\IComment{On déborde sur la droite, passer à la ligne suivante}){col = m}{
+						\If(\IComment{On déborde sur la droite, passer à la ligne suivante}){col == m}{
 							col \Gets 0\;
 							lg \Gets lg + 1\;
 						}
@@ -811,7 +862,7 @@
 					\While{lg $<$ n ET NON trouvé}{
 						col \Gets 0\;
 						\While{col $<$ m ET NON trouvé}{
-							trouvé \Gets \textit{tab[lg, col] = élt}\;
+							trouvé \Gets \textit{tab[lg, col] == élt}\;
 							col++\;
 						}
 						lg++\;
@@ -835,7 +886,7 @@
 					\While{lg $<$ n ET NON trouvé}{
 						col \Gets 0\;
 						\While{col $<$ m ET NON trouvé}{
-							\uIf{\textit{tab[lg, col] = élt}}{
+							\uIf{\textit{tab[lg, col] == élt}}{
 								trouvé \Gets vrai\;
 							}
 							\Else(\IComment{Ne pas modifier les indices si arrêt demandé}){
@@ -850,8 +901,9 @@
 				}
 			\end{algo}
 
+			\newpage
 			En \bsc{Java}, ça donne :
-			\listing*[linerange=39-59,basicstyle=\footnotesize\vtt]{java}{java/src/main/java/dev2/algo/tab/Parcours2D.java}
+			\listing*[linerange=39-59,basicstyle=\small\vtt]{java}{java/src/main/java/dev2/algo/tab/Parcours2D.java}
 
 			% \newpage
 			\paragraph*{Version avec 1 boucle.}
@@ -891,7 +943,7 @@
 					i \Gets 1\;
 					\While{i $\le$ n*m ET \textit{tab[lg, col] $\neq$ élt}}{
 						col \Gets col + 1	\RComment{Passer à la case suivante}
-						\If(\IComment{On déborde sur la droite, passer à la ligne suivante}){col = m}{
+						\If(\IComment{On déborde sur la droite, passer à la ligne suivante}){col == m}{
 							col \Gets 0\;
 							lg \Gets lg + 1\;
 						}
@@ -910,7 +962,9 @@
 		\paragraph{Parcours plus compliqué - le serpent.}
 		%----------------------------------------------------
 			
-			Envisageons un parcours plus difficile illustré par le tableau suivant.
+			Envisageons un parcours plus difficile 
+			où on inverse le sens du parcours d'une ligne à l'autre
+			comme illustré par le tableau suivant.
 			
 			\begin{center}
 			\begin{tabular}{|*{5}{>{\centering\arraybackslash}m{0.35cm}|}}
@@ -988,6 +1042,7 @@
 % 	\Decl{nomTableau}{\Array{tailleDim1 $\times$ \dots{} $\times$ tailleDimK}{TypeElément}}\;
 % 	\end{algo}
 
+\newpage
 % ===================
 \section{Exercices}
 % ===================
@@ -1136,13 +1191,14 @@
 			case à la gauche de la précédente.
 		\end{itemize}
 	
-		Écrire un algorithme qui reçoit en paramètre un entier
-		$n$, et qui renvoie un tableau contenant les
-		$n+1$ premières lignes du triangle de Pascal
-		(indicées de $0$ à $n$).
+		\begin{minipage}[t][][t]{9cm}	
+			Écrire un algorithme qui reçoit en paramètre un entier
+			$n$, et qui renvoie un tableau contenant les
+			$n+1$ premières lignes du triangle de Pascal
+			(indicées de $0$ à $n$).
 
-		\begin{minipage}[t][][t]{6cm}	
-		N.B.: le «~triangle~» sera bien entendu renvoyé dans un tableau carré
+			\medskip
+			N.B.: le «~triangle~» sera bien entendu renvoyé dans un tableau carré
 		(ce qui ne sera forcément le cas en Java).
 		Quid des cases non occupées ?
 		
@@ -1150,7 +1206,7 @@
 		Par exemple, pour $n$ qui vaut 5, on aura le tableau ci-contre.
 		\end{minipage}
 		~
-		\begin{minipage}[t][][b]{8cm}	
+		\begin{minipage}[t][][b]{5cm}	
 		\begin{center}
 		\begin{tabular}{|*{6}{>{\centering\arraybackslash}m{0.35cm}|}}
 		\hline
@@ -1239,6 +1295,7 @@
 		\end{algo}
 	\end{Solution}	
 
+	\newpage
 	\begin{Exercice}{Le carré magique}
 		\marginicon{java}%
 		Un carré magique est un tableau d’entiers carré
