@@ -49,7 +49,7 @@
 
 \subsection*{Introduction}
 
-	Dans le chapitre sur les tris du cours d'algorithmique I (DEV1), 
+	Dans le chapitre sur les tris du cours d'algorithmique I (DEV$_1$), 
 	vous avez abordé naturellement la notion du classement des données. 
 	Néanmoins, les données étaient «~simples~» : 
 	nombres ou chaines, pour lesquelles la relation d’ordre est évidente. 
@@ -258,7 +258,7 @@
 \subsection*{Rupture de niveau 1}
 
 	Passons à présent au «~niveau 1~» ; c’est-à-dire un traitement de
-	rupture correspondant à un classement complexe sur un champ. 
+	rupture correspondant à un classement sur un champ. 
 	Imaginons que nous voulions savoir quel est le nombre d’étudiants dans chaque option. 
 	Une solution, sans algorithme de rupture, consisterait à avoir 3 compteurs, un par option.
 	On peut imaginer une façon plus judicieuse de faire à partir du dernier classement, celui
@@ -331,14 +331,14 @@
 			pourquoi la condition \textsf{i < etudiants.size()}
 			apparait-elle une 2\ieme{} fois dans la boucle intérieure ?
 		\item 
-			pourquoi est-ce que \textsf{i} et \textsf{cpt} 
+			pourquoi est-ce que \textsf{i} et \textsf{cptEtudiantsOption} 
 			ne sont pas initialisés au même endroit ?
 		\item 
 			pourquoi l'incrémentation de \textsf{i} se fait-elle dans la boucle centrale 
 			et pas ailleurs ?
 		\item 
 			pourquoi utilise-t-on 
-			\textsf{saveOption} plutôt que \textsf{etudiants.get(i).option}
+			\textsf{saveOption} plutôt que \textsf{etudiants.get(i).getOption()}
 			dans l’instruction d’affichage ?
 		\item 
 			l’ordre des conditions apparaissant dans le 2\ieme{} \og{}tant que\fg{} 
@@ -540,15 +540,6 @@
 \end{Solution}
 
 \newpage
-\begin{Exercice}{Nombre d'étudiants par année et par option}
-	Reprenons l'exemple donné pour la rupture de niveau 2 (\lda{RuptureNiveau2}, 
-	page \pageref{algo:rupt2}). 
-	Et si, à présent,
-	on veut \textbf{à la fois} le nombre d'étudiant par option 
-	\textbf{et} le nombre d'étudiants par année 
-	(\textbf{toutes les années confondues}) ?
-	Comment faire ?
-\end{Exercice}
 
 % \begin{Exercice}{Compter le nombre d'étudiants par option}
 % 	Reprenons l'exemple donné pour la rupture de niveau 2 (\lda{RuptureNiveau2}, page \pageref{algo:rupt2}).
@@ -589,7 +580,6 @@
 % \end{Solution}
 
 \begin{Exercice}{Compter les étudiants [rupture de niveau 2]}
-	
 	Supposons que la classe \lda{Etudiant} contienne également
 	un attribut indiquant dans quel bloc se trouve l'étudiant (1, 2 ou 3).
 	On voudrait un algorithme qui reçoit une liste d'étudiants et calcule
@@ -652,14 +642,10 @@
     \Write  "    TOTAL  : " + saveOption + " étudiants"\;
   }
 }
-
-
 \end{algo}
-
 \end{Solution}
 	
 \begin{Exercice}{Les fanas d'info  [rupture de niveau 2]}
-
 	Une grande société d’informatique a organisé durant les douze derniers
 	mois une multitude de concours ouverts aux membres de clubs d’informatique. 
 	Elle souhaiterait récompenser le club qui aura été le plus «~méritant~» 
@@ -752,6 +738,7 @@
 \end{algo}
 \end{Solution}
 
+\newpage
 \begin{Exercice}{Éliminer les doublons d'une liste.}
 	Soit une liste ordonnée d'entiers avec des possibles redondances. 
 	Écrire un algorithme qui enlève les redondances de la liste. 
@@ -805,6 +792,12 @@
 	(vous devrez utiliser trois compteurs distincts).
 \end{Exercice}
 
-%%% Local Variables:
-%%% TeX-master: "../dev2-alg-solutionbook"
-%%% End:
+\begin{Exercice}{Nombre d'étudiants par année et par option}
+	Reprenons l'exemple donné pour la rupture de niveau 2 (\lda{RuptureNiveau2}, 
+	page \pageref{algo:rupt2}). 
+	Et si, à présent,
+	on veut \textbf{à la fois} le nombre d'étudiant par option 
+	\textbf{et} le nombre d'étudiants par année 
+	(\textbf{toutes les années confondues}) ?
+	Comment faire ?
+\end{Exercice}
