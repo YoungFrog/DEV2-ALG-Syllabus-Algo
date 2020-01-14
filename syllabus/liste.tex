@@ -11,8 +11,6 @@ Il faudrait le surdimensionner, ce qui n’est pas économe.
 
 Il serait intéressant de disposer d’une structure qui offre toutes les
 facilités d’un tableau tout en pouvant «~grandir~» si nécessaire.
-Construisons une telle structure de données et appelons-la «~List~»
-pour rester en phase avec son appellation commune en Java.
 
 Par exemple, considérons une liste de courses.
 On pourrait la représenter ainsi :
@@ -53,6 +51,9 @@ ce qui décale, de facto, la position des suivants.
 \end{enumerate}
 
 Et encore plein de choses que nous allons détailler.
+
+Construisons une telle structure de données et appelons-la «~List~»
+pour rester en phase avec son appellation commune en Java.
 
 \newpage
 %========================
@@ -253,7 +254,7 @@ l’écrire ainsi :
 		indicesMin \Gets \New \List{integers}()\;
 		indicesMin.ajouter(0)\;
 		\Fori{i}{1}{n-1}{
-			\uIf{tab[i] = min}{
+			\uIf{tab[i] == min}{
 				indicesMin.ajouter(i)\;
 			}\ElseIf{tab[i] < min}{
 				indicesMin.vider() \;
