@@ -187,6 +187,29 @@
 	Pensez à découper votre solution.
 	
 \end{Exercice}
+\begin{Solution}
+  Concernant la première proposition :
+  \begin{itemize}
+  \item (+) cela correspond à notre représentation mentale du plateau de jeu
+  \item (+) impossible de contrevenir à la règle 1 case = 1 joueur, et du coup\dots
+  \item (-) \dots la situation de départ n'est pas représentable (on ne peut pas mettre à la fois 1, 2, 3 et 4 dans une même case d'un tableau d'entiers).
+  \item (-) pour retrouver (et par suite, pour déplacer) le joueur $i$, il faut potentiellement parcourir tout le tableau
+  \item (+) on trouve facilement si une case est déjà occupée
+  \item (-) la plupart des cases restent vide
+  \end{itemize}
+  Concernant la seconde proposition, on pourrait évidemment ré-analyser chaque remarque faite pour la proposition 1, mais gardons principalement en tête :
+  \begin{itemize}
+  \item (+) la situation de départ n'est pas particulière
+  \item (+) seul un tableau de 4 entiers doit être parcouru (pour vérifier si la case de destination est déjà occupée).
+  \end{itemize}
+  Concernant la troisième proposition, qui est de maintenir à jour l'état du jeu dans deux structures complémentaires, on nnotera:
+  \begin{itemize}
+  \item (+) cela permet une certaine efficacité algorithmique puisqu'il n'y a plus aucun parcours de tableau à réaliser
+  \item (-) augmente le besoin en espace (en mémoire)
+  \item (-) requiert plus de code, ce qui peut avoir un effet négatif sur la lisibilité et la "maintenabilité".
+  \end{itemize}
+  Notre choix se porte donc sur la proposition 2.
+\end{Solution}
 
 %---------------------------------------------------
 \begin{Exercice}{La course à la case 64 à n joueurs}
