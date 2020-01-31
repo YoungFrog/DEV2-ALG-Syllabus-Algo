@@ -10,7 +10,7 @@ public class Exemple2 {
 
     public static void statistiquesVentesSemaine() {
         int[][] cpt = new int[7][10];
-        initialiser(cpt);
+        // initialiser(cpt, 0); // rien à faire : en Java, les tableaux d'entiers sont initialisés à 0.
         for (int jour = 0; jour < 7; jour++) {
             System.out.println("Jour : " + jour);
             traiterStock1Jour(cpt, jour);
@@ -19,10 +19,6 @@ public class Exemple2 {
                         + " ce jour " + jour + " : " + cpt[jour][produit]);
             }
         }
-    }
-
-    private static void initialiser(int[][] cpt) {
-        // Rien à faire : En Java, les tableaux d'entiers sont initialisés à 0.
     }
 
     private static void traiterStock1Jour(int[][] cpt, int jour) {

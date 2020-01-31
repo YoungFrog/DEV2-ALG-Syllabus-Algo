@@ -39,6 +39,9 @@
 		\begin{algo}
 			\Decl{nomTableau}{\Array{nbLignes $\times$ nbColonnes}{TypeElément}}\;
 		\end{algo}
+		\begin{Code}{java}
+		  TypeElément[][] nomTableau = new TypeElément[nbLignes][nbColonnes];
+		\end{Code}
 	
 		où \lda{nbLignes} et \lda{nbColonnes} 
 		sont des expressions entières quelconques.
@@ -48,6 +51,9 @@
 		\begin{algo}
 			\Decl{tab}{\Array{5$\times$10}{integers}}\;
 		\end{algo}
+		\begin{Code}{java}
+		  int[][] tab = new int[5][10];
+		\end{Code}
 		
 		déclare un tableau de 5 lignes par 10 colonnes dont chaque case
 		contient un entier.
@@ -67,6 +73,10 @@
 			\Write tab[2,4]
 				\RComment{affiche le 5\ieme{} élément de la 3\ieme{} ligne du tableau nommé \samp{tab}.}
 		\end{algo}
+		\begin{Code}{java}
+		  System.out.println(tab[2][4]);
+		\end{Code}
+
 		
 	\subsection{Visualiser}
 	%======================
@@ -296,7 +306,7 @@
 		\Comment{pour chaque jour de la semaine (de 0~: lundi à 6~: dimanche).}\;
 		\Algo{statistiquesVentesSemaine}{}{}{
 			\Decl{cpt}{\Array{7$\times$10}{integers}}\;
-			initialiser(cpt)\;
+			initialiser(cpt,0)\;
 			\Fori{jour}{0}{6\hfill\Comment{Pour chaque jour de la semaine}}{
 				\Write "jour: ", jour
 				traiterStock1Jour(cpt, jour)\;
@@ -309,11 +319,10 @@
 		\end{algo}
 	
 		\begin{algo}
-		\Comment{Initialise le tableau d'entiers à 0}\;
-		\Algo{initialiser}{\Par{entiers}{\Array{7$\times$10}{integers}}}{}{
-			\Fori{i}{0}{6}{
-				\Fori{j}{0}{9}{
-					entiers[i,j] \Gets 0\;
+		\Algo{initialiser}{\Par{entiers}{\Array{n$\times$m}{integers}}, \Par{valeur}{integer}}{}{
+			\Fori{i}{0}{n-1}{
+				\Fori{j}{0}{m-1}{
+					entiers[i,j] \Gets valeur\;
 				}
 			}
 		}
@@ -334,8 +343,7 @@
 	
 		En \bsc{Java} :
 		\listing*[linerange=11-22,basicstyle=\footnotesize\vtt]{java}{java/src/main/java/dev2/algo/tab/Exemple2.java}
-		\listing*[linerange=24-26,basicstyle=\footnotesize\vtt]{java}{java/src/main/java/dev2/algo/tab/Exemple2.java}
-		\listing*[linerange=28-37,basicstyle=\footnotesize\vtt]{java}{java/src/main/java/dev2/algo/tab/Exemple2.java}
+		\listing*[linerange=24-34,basicstyle=\footnotesize\vtt]{java}{java/src/main/java/dev2/algo/tab/Exemple2.java}
 
 	\subsection{Exercices}
 			
@@ -363,20 +371,20 @@
 			\end{algo}
 		\end{Solution}
 
+		\begin{minipage}{1.0\linewidth}% pour tout garder ensemble
 		\begin{Exercice}{Case existe ?}
 			Écrire un algorithme qui reçoit un tableau d'entiers
 			(à $n$ lignes et $m$ colonnes)
 			ainsi que des coordonnées
 			et qui retourne un booléen indiquant 
 			si ces coordonnées désignent bien une case du tableau,
-			ç-à-d qu'elles sont dans le bon intervalle
+			c'est-à-dire qu'elles sont dans le bon intervalle
 			($0$ à $n-1$ et $0$ à $m-1$).
 			
 			\begin{algo}
 				\AlgoSign{existe}{\Par{tab}{\Array{n $\times$ m}{integers}}, \Par{lg, col}{integers}}{boolean}\;
 			\end{algo}
 		\end{Exercice}
-
 		\begin{Solution}
 			\begin{algo}
 				\Algo{existe}{\Par{tab}{\Array{n $\times$ m}{integers}}, \Par{lg, col}{integers}}{boolean}{
@@ -384,8 +392,8 @@
 				}
 			\end{algo}
 		\end{Solution}
+		\end{minipage}
 
-		\newpage
 		\begin{Exercice}{Assigner une case}
 			Écrire un algorithme qui reçoit un tableau d'entiers
 			(à $n$ lignes et $m$ colonnes)
@@ -534,7 +542,6 @@
 		\end{tabular}
 		\end{center}
 		
-		\newpage
 		Ce qui donne l'algorithme :
 
 		\begin{algo}
@@ -548,7 +555,8 @@
 					\Write tab[ lg, col ] \RComment{On peut faire autre chose qu'afficher}
 				}
 			}
-		\end{algo}
+		      \end{algo}
+		      N.B. : Le symbole $\forall$ se lit \og pour tout\fg{} et a exactement cette signification.
 
 		% \begin{algo}
 		% 	\Comment{Parcours de la ligne $ligne$ d'un tableau à deux dimensions}\;
@@ -628,14 +636,17 @@
 
 		\listing*[linerange=21-25,basicstyle=\footnotesize\vtt]{java}{java/src/main/java/dev2/algo/tab/Parcours1D.java}
 
-		\newpage
 		\paragraph{La diagonale montante.}
 		Pour la diagonale montante, 
-		on peut envisager deux solutions, 
-		avec deux indices ou un seul
-		en se basant sur le fait que 
-		$\mathit{lg}+\mathit{col}=n-1 \Rightarrow \mathit{col}=n-1-\mathit{lg}$.
-		
+		on peut envisager deux solutions :
+		\begin{itemize}
+		\item avec deux indices, ou
+		\item avec un seul indice, en se basant sur le fait que
+		  \begin{displaymath}
+		  \mathit{lg}+\mathit{col}=n-1 \Rightarrow \mathit{col}=n-1-\mathit{lg}.
+		\end{displaymath}
+
+	      \end{itemize}
 		\begin{center}
 		\begin{tabular}{|*{3}{>{\centering\arraybackslash}m{0.3cm}|}}
 		\hline
@@ -683,8 +694,8 @@
 		\paragraph{Parcours par lignes et par colonnes.}
 		%---------------------------------------------------
 			
-			Les deux parcours les plus courants sont les parcours ligne par ligne
-			et colonne par colonne.
+			Les deux parcours les plus courants sont les parcours \og ligne par ligne\fg{}
+			et \og colonne par colonne\fg.
 			Les tableaux suivants montrent dans quel ordre chaque case est visitée dans ces deux parcours.
 			
 			\begin{center}
@@ -772,7 +783,6 @@
 				}
 			\end{algo}
 
-			\newpage
 			En plus détaillé :
 			\begin{algo}
 				\Comment{Parcours d'un tableau à 2 dimensions via une seule boucle}\;
@@ -830,7 +840,7 @@
 			dans les algorithmes de parcours des tableaux à une dimension.
 
 			\medskip
-			\begin{infotbox}{Rappellons-nous}
+			\begin{infotbox}{Rappelons-nous}
 				Nous avons vu deux solutions pour un parcours interrompu.
 				\begin{itemize}
 				\item 
@@ -1546,3 +1556,7 @@
 			exercices du pinceau ?
 		\end{enumerate}
 	\end{Exercice}
+
+%%% Local Variables:
+%%% TeX-master: "../dev2-alg-syllabus"
+%%% End:
